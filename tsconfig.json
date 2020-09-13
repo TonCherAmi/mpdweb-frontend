@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "noEmit": true,
+    "target": "ESNext",
+    "module": "commonjs",
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["app/*"]
+    },
+    "esModuleInterop": true,
+    "experimentalDecorators": true
+  }
+}
