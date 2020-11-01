@@ -3,7 +3,7 @@ import * as Webpack from 'webpack'
 
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-const src: string = Path.resolve(__dirname, 'app')
+const src = Path.resolve(__dirname, 'app')
 
 const config: Webpack.Configuration = {
   context: src,
@@ -34,24 +34,16 @@ const config: Webpack.Configuration = {
         test: /\.s[ac]ss$/,
         use: [
           'style-loader',
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                exportLocalsConvention: 'camelCaseOnly'
+              }
+            }
+          },
           'sass-loader'
         ]
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
-      },
-      {
-        test: /\.woff(2?)$/,
-        loader: 'url-loader'
-      },
-      {
-        test: /\.(ttf|svg|eot)$/,
-        loader: 'file-loader'
       }
     ]
   },

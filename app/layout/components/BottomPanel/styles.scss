@@ -1,0 +1,27 @@
+.panel {
+  display: flex;
+
+  height: 4.5rem;
+
+  padding: 0 1.5rem;
+
+  border-top: 1px solid #333;
+
+  .section {
+    display: flex;
+    flex: 1;
+    align-items: center;
+
+    &.song {
+      justify-content: flex-start;
+    }
+
+    &.controls {
+      justify-content: center;
+    }
+
+    &.progress {
+      justify-content: flex-end;
+    }
+  }
+}

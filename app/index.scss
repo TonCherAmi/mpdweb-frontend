@@ -1,0 +1,18 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  display: flex;
+}
+
+:global(#app) {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  color:#eeeeee;
+  background: #151515;
+}
