@@ -5,6 +5,7 @@ import Handler from '@app/common/handlers/Handler'
 
 import StatusStore from '@app/status/stores/StatusStore'
 import PlaylistStore from '@app/playlist/stores/PlaylistStore'
+import DatabaseStore from '@app/database/stores/DatabaseStore'
 
 const handle = (change: Change) => {
   switch (change) {
@@ -15,6 +16,11 @@ const handle = (change: Change) => {
       break
     case Change.PLAYLIST:
       PlaylistStore.retrieve()
+
+      break
+
+    case Change.DATABASE:
+      DatabaseStore.retrieveMain()
 
       break
   }
