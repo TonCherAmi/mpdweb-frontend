@@ -5,8 +5,8 @@ import { default as DurationDto } from '@app/common/dto/Duration'
 import Duration from '@app/common/components/Duration'
 
 interface DurationPairProps {
-  className?: string,
-  first: DurationDto,
+  className?: string
+  first: DurationDto
   second: DurationDto
 }
 

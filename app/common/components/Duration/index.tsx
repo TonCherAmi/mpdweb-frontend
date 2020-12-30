@@ -46,7 +46,7 @@ const formatDuration = (duration: DurationDto): string => {
 }
 
 interface DurationProps {
-  className?: string,
+  className?: string
   value: DurationDto
 }
 

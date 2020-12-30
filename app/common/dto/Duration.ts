@@ -1,7 +1,7 @@
 interface Duration {
-  hours: number,
-  minutes: number,
-  seconds: number,
+  hours: number
+  minutes: number
+  seconds: number
   secondsTotal: number
 }
 
