@@ -1,0 +1,8 @@
+export { default as SkipBackwardFill } from './SkipBackwardFill'
+export { default as SkipForwardFill } from './SkipForwardFill'
+export { default as PlayFill } from './PlayFill'
+export { default as StopFill } from './StopFill'
+export { default as Pause } from './PauseFill'
+export { default as SyncAlt } from './SyncAlt'
+export { default as PlusSquareFill } from './PlusSquareFill'
+export { default as TimesCircleFill } from './TimesCircleFill'
