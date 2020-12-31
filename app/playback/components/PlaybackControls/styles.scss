@@ -1,11 +1,22 @@
-.button {
+.group {
   display: flex;
   align-items: center;
-  justify-content: center;
+}
 
+.icon {
+  width: 2.5rem;
+  height: 2.5rem;
+
+  &.prev, &.next {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.button {
   margin: 0 0.25rem;
 
-  cursor: pointer;
+  color: #eeeeee;
 
   transition: color .3s ease;
 
@@ -14,12 +25,6 @@
   }
 
   &.toggle {
-    margin-right: -0.4rem;
-
-    // color: #A9B18F;
-  }
-
-  &.stop {
-    // color: #CB807D;
+    margin-right: -0.6rem;
   }
 }
