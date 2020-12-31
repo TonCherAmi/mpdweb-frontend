@@ -77,6 +77,7 @@ export const make = <R, T = null> (
   const result = await fetch(endpoint, {
     body,
     method,
+    headers: new Headers([['Content-Type', 'application/json']])
   })
 
   return result
