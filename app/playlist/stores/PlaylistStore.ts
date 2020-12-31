@@ -9,6 +9,16 @@ class PlaylistStore {
   items: PlaylistItem[] = []
 
   @action
+  async add(uri: string) {
+    await PlaylistApi.add({ uri })
+  }
+
+  @action
+  async clear() {
+    await PlaylistApi.clear()
+  }
+
+  @action
   async retrieve() {
     this.items = await PlaylistApi.get()
   }
