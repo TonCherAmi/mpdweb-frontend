@@ -60,9 +60,10 @@ export const make = <R, T = null> (
   method: HttpMethod = HttpMethod.GET, {
     path: pathKeys = [],
     query: queryKeys = []
-  }: { path?: string[], query?: string[] } = { }
+  }: { path?: string[], query?: string[] } = {}
 ) => async (data: T = null): Promise<R> => {
   const getBody = R.compose(
+    R.unless(R.isNil, JSON.stringify),
     R.when(R.isEmpty, R.always(null)),
     R.ifElse(
       R.isNil,
