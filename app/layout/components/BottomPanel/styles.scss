@@ -1,11 +1,13 @@
 .panel {
   display: flex;
 
-  height: 4.5rem;
+  min-height: 3.75rem;
 
   padding: 0 1.5rem;
 
   border-top: 1px solid #333;
+
+  background: #26408B;
 
   .section {
     display: flex;
@@ -23,5 +25,26 @@
     &.progress {
       justify-content: flex-end;
     }
+  }
+}
+
+.side-icon {
+  width: 1.00rem;
+  height: 1.00rem;
+}
+
+.side-button {
+  margin: 0 .65rem;
+
+  color: white;
+
+  transition: color .3s ease;
+
+  &.clear:hover {
+    color: red;
+  }
+
+  &.update:hover {
+    color: yellow;
   }
 }

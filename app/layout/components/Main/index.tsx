@@ -7,6 +7,7 @@ import statusHandler from '@app/status/handlers/StatusHandler'
 import changesHandler from '@app/changes/handlers/ChangesHandler'
 
 import BottomPanel from '@app/layout/components/BottomPanel'
+import DatabaseView from '@app/database/components/DatabaseView'
 
 import StatusStore from "@app/status/stores/StatusStore"
 import PlaylistStore from '@app/playlist/stores/PlaylistStore'
@@ -32,11 +33,15 @@ class Main extends React.Component<{}> {
   render() {
     return (
       <div className={styles.main}>
-        <div>
-          <span>Header</span>
-        </div>
-        <div style={{flexGrow: 1}}>
-          <span>Main</span>
+        <div className={styles.stack}>
+          <div className={styles.sidebar}>
+            <span>Sidebaar</span>
+          </div>
+          <div className={styles.wrapper}>
+            <div className={styles.content}>
+              <DatabaseView />
+            </div>
+          </div>
         </div>
         <BottomPanel />
       </div>
