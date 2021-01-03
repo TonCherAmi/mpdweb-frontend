@@ -2,28 +2,25 @@ import React from 'react'
 
 import cx from 'classnames'
 
-import { withPropagationStopped } from '@app/common/utils/event'
-
 import styles from './styles.scss'
 
 interface ButtonProps {
-  className?: string,
-  shouldStopPropagation?: boolean,
-  onClick: React.EventHandler<React.MouseEvent>,
-  children: React.ReactChildren
+  className?: string
+  onClick: React.EventHandler<React.MouseEvent>
 }
 
-const Button = ({ className, shouldStopPropagation, onClick, children, ...props }: ButtonProps) => {
-  const handleClick = shouldStopPropagation
-    ? withPropagationStopped(onClick)
-    : onClick
-
+const Button = ({
+  className,
+  children,
+  onClick,
+  ...props
+}: React.PropsWithChildren<ButtonProps>) => {
   return (
     <button
       {...props}
-      type="button"
       className={cx(styles.button, className)}
-      onClick={handleClick}
+      type="button"
+      onClick={onClick}
     >
       {children}
     </button>
