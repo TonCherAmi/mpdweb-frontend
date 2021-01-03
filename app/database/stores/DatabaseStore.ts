@@ -65,6 +65,13 @@ class DatabaseStore {
   }
 
   @action
+  clearPreview() {
+    this.uri.preview = null
+
+    this.previewItems = []
+  }
+
+  @action
   async retrievePreview(uri: string) {
     this.uri.preview = uri
 
