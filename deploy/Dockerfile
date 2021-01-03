@@ -6,7 +6,7 @@ COPY . .
 
 RUN yarn install && yarn run build
 
-FROM nginx:alpine
+FROM nginx:1.19-alpine
 
 COPY deploy/default.conf.template /etc/nginx/templates/
 
