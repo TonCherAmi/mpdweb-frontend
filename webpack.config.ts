@@ -13,12 +13,18 @@ const config: Webpack.Configuration = {
     hot: true,
     host: '0.0.0.0',
     proxy: {
-      '/': {
-        target: 'http://localhost:8123'
+      '/api': {
+        target: 'http://localhost:8123',
+        pathRewrite: {
+          '^/api': ''
+        }
       },
-      '/connect': {
+      '/ws': {
         ws: true,
         target: 'http://localhost:8123',
+        pathRewrite: {
+          '^/ws': ''
+        }
       }
     }
   },

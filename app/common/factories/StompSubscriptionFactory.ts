@@ -2,7 +2,7 @@ import * as Stomp from '@stomp/stompjs'
 
 import Handler from '@app/common/handlers/Handler'
 
-const CONNECT_PATH = '/connect'
+const CONNECT_PATH = '/ws/connect'
 
 class StompSubscriptionFactory {
   private stompClient: Stomp.Client = null
