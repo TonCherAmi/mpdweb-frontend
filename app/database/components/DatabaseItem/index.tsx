@@ -55,14 +55,12 @@ const DatabaseItem = ({
       </span>
       <div className={styles.controls}>
         <Button
-          shouldStopPropagation
           className={styles.button}
           onClick={handleAddClick}
         >
           <Icons.PlusSquareFill className={cx(styles.icon, styles.add)} />
         </Button>
         <Button
-          shouldStopPropagation
           className={styles.button}
           onClick={handleReplaceClick}
         >
