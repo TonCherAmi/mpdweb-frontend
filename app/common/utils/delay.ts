@@ -1,7 +1,7 @@
 export const withCancellableDelay = (
   action: (...data: any[]) => void,
   delay: number
-) => {
+): [(...data: any[]) => void, () => void] => {
   let timeoutId: number
 
   const handleAction = (...data: any[]) => {
