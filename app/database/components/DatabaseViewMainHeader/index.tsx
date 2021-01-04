@@ -28,9 +28,6 @@ const DatabaseViewMainHeader = ({
           <Icons.HomeFill className={styles.icon} />
         </Button>
       </div>
-      {/* <If condition={!DatabaseStore.isMainInRoot}>
-        <span>UP</span>
-      </If> */}
     </div>
   )
 }
