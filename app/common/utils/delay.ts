@@ -6,7 +6,7 @@ export const withCancellableDelay = (
 
   const handleAction = (...data: any[]) => {
     timeoutId = window.setTimeout(() => {
-      action(...data)
+      action?.(...data)
 
       timeoutId = -1
     }, delay)
