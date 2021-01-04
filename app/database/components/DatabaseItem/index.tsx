@@ -23,6 +23,8 @@ interface DatabaseItemProps {
   onMouseOver?: React.EventHandler<React.MouseEvent>
 }
 
+const MOUSE_OVER_DELAY = 250 // ms
+
 const DatabaseItem = ({
   item,
   onClick,
@@ -33,7 +35,7 @@ const DatabaseItem = ({
   const [
     handleMouseOver,
     handleMouseLeave
-  ] = withCancellableDelay(onMouseOver, 250)
+  ] = withCancellableDelay(onMouseOver, MOUSE_OVER_DELAY)
 
   const name = basename(item.uri)
 
