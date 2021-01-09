@@ -9,9 +9,15 @@ const config: Webpack.Configuration = {
   context: src,
   entry: './index.tsx',
   devtool: 'inline-source-map',
+  output: {
+    publicPath: '/'
+  },
   devServer: {
     hot: true,
     host: '0.0.0.0',
+    historyApiFallback: {
+      disableDotRule: true
+    },
     proxy: {
       '/api': {
         target: 'http://localhost:8123',
