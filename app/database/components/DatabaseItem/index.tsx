@@ -17,6 +17,7 @@ import styles from './styles.scss'
 
 interface DatabaseItemProps {
   item: DatabaseItemDto
+  isSelected: boolean
   onClick?: React.EventHandler<React.MouseEvent>
   onAddClick?: React.EventHandler<React.MouseEvent>
   onReplaceClick?: React.EventHandler<React.MouseEvent>
@@ -25,52 +26,74 @@ interface DatabaseItemProps {
 
 const MOUSE_OVER_DELAY = 250 // ms
 
-const DatabaseItem = ({
-  item,
-  onClick,
-  onAddClick,
-  onReplaceClick,
-  onMouseOver
-}: DatabaseItemProps) => {
-  const [
-    handleMouseOver,
-    handleMouseLeave
-  ] = withCancellableDelay(onMouseOver, MOUSE_OVER_DELAY)
+class DatabaseItem extends React.Component<DatabaseItemProps> {
+  private containerRef: React.RefObject<HTMLDivElement>
 
-  const name = basename(item.uri)
+  constructor(props: DatabaseItemProps) {
+    super(props)
 
-  const isDescendable = item.type === DatabaseItemType.DIRECTORY
+    this.containerRef = React.createRef<HTMLDivElement>()
+  }
 
-  const handleClick = isDescendable ? onClick : null
-  const handleAddClick = withPropagationStopped(onAddClick)
-  const handleReplaceClick = withPropagationStopped(onReplaceClick)
+  componentDidMount() {
+    if (this.props.isSelected) {
+      this.containerRef.current?.focus()
+    }
+  }
 
-  return (
-    <div
-      className={cx(styles.container, { [styles.descendable]: isDescendable })}
-      onClick={handleClick}
-      onMouseOver={handleMouseOver}
-      onMouseLeave={handleMouseLeave}
-    >
-      <span className={styles.name}>
-        {name}
-      </span>
-      <div className={styles.controls}>
-        <Button
-          className={styles.button}
-          onClick={handleAddClick}
-        >
-          <Icons.PlusSquareFill className={cx(styles.icon, styles.add)} />
-        </Button>
-        <Button
-          className={styles.button}
-          onClick={handleReplaceClick}
-        >
-          <Icons.PlayFill className={cx(styles.icon, styles.replace)} />
-        </Button>
+  componentDidUpdate(prevProps: DatabaseItemProps) {
+    if (this.props.isSelected && !prevProps.isSelected) {
+      this.containerRef.current?.focus()
+    }
+  }
+
+  render() {
+    const {
+      item,
+      onClick,
+      onAddClick,
+      onReplaceClick,
+      onMouseOver
+    } = this.props
+
+    const [
+      handleMouseOver,
+      handleMouseLeave
+    ] = withCancellableDelay(onMouseOver, MOUSE_OVER_DELAY)
+
+    const name = basename(item.uri)
+
+    const isDescendable = item.type === DatabaseItemType.DIRECTORY
+
+    const handleClick = isDescendable ? onClick : null
+    const handleAddClick = withPropagationStopped(onAddClick)
+    const handleReplaceClick = withPropagationStopped(onReplaceClick)
+
+    return (
+      <div
+        className={cx(styles.container, { [styles.descendable]: isDescendable })}
+        ref={this.containerRef}
+        role="button"
+        tabIndex={-1}
+        onClick={handleClick}
+        onMouseOver={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
+      >
+        <span className={styles.name}>
+          <Icons.FolderFill className={cx(styles.icon, styles.folder)} />
+          {name}
+        </span>
+        <div className={styles.controls}>
+          <Button className={styles.button} onClick={handleAddClick}>
+            <Icons.PlusSquareFill className={cx(styles.icon, styles.add)} />
+          </Button>
+          <Button className={styles.button} onClick={handleReplaceClick}>
+            <Icons.PlayFill className={cx(styles.icon, styles.replace)} />
+          </Button>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default DatabaseItem

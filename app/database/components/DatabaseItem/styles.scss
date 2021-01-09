@@ -4,18 +4,33 @@
 
   justify-content: space-between;
 
-  padding: 0.75rem;
+  padding: 0.65rem;
+  padding-left: 1.25rem;
+
+  border-radius: .5rem 0 0 .5rem;
+
+  &:first-child {
+    border-radius: 0 0 0 .5rem;
+  }
 
   &.descendable {
     cursor: pointer;
+
+  }
+
+  &:focus {
+    background: #191919;
   }
 
   &:hover {
-    color: lightseagreen;
+    background: #202020;
   }
 
   .name {
-    font-size: 1rem;
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
   }
 
   .controls {
@@ -26,11 +41,13 @@
     justify-content: center;
 
     > :not(:last-child) {
-      margin-right: .5rem;
+      margin-right: .25rem;
     }
 
     .button {
       transition: color .2s ease;
+
+      color: #999;
 
       &:hover {
         color: lightsalmon;
@@ -40,13 +57,20 @@
 
   .icon {
     &.add {
-      width: 1.4rem;
-      height: 1.4rem;
+      width: 1.2rem;
+      height: 1.2rem;
     }
 
     &.replace {
-      width: 2.6rem;
-      height: 2.6rem;
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+
+    &.folder {
+      margin-right: .75rem;
+
+      width: 1.2rem;
+      height: 1.2rem;
     }
   }
 }
