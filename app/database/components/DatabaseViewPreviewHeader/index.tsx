@@ -17,7 +17,7 @@ const DatabaseViewPreviewHeader = ({ uri }: DatabaseViewPreviewHeaderProps) => {
 
   return (
     <div>
-      <h2>{name}</h2>
+      <span>{name}</span>
     </div>
   )
 }
