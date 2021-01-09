@@ -1,13 +1,13 @@
 .panel {
   display: flex;
 
-  min-height: 3.75rem;
+  min-height: 4.05rem;
 
   padding: 0 1.5rem;
 
-  border-top: 1px solid #333;
+  background: #181818;
 
-  background: #26408B;
+  border-top: 1px solid rgba(#fff, 0.3);
 
   .section {
     display: flex;
