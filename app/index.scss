@@ -20,4 +20,16 @@ body {
 * {
   scrollbar-color: #212121 #151515;
   scrollbar-width: thin;
+
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #151515;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #212121;
+  }
 }
