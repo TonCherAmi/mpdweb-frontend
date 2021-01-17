@@ -1,0 +1,11 @@
+.crumb {
+  &:not(:last-child)::after {
+    content: '/';
+  }
+
+  .link {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
