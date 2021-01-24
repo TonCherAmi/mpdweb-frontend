@@ -14,10 +14,10 @@ export enum HttpMethod {
 const API_PREFIX = '/api'
 
 const makePath = <T> (data: T, pathKeys: string[]) => (template: string): string => {
-  const prefixed_template = `${API_PREFIX}${template}`
+  const prefixedTemplate = `${API_PREFIX}${template}`
 
   if (R.isEmpty(pathKeys)) {
-    return prefixed_template
+    return prefixedTemplate
   }
 
   const pathData = R.pick(pathKeys, data)
@@ -26,7 +26,7 @@ const makePath = <T> (data: T, pathKeys: string[]) => (template: string): string
     throw Error('api: empty path data')
   }
 
-  return sprintf(prefixed_template, pathData)
+  return sprintf(prefixedTemplate, pathData)
 }
 
 const addQuery = <T> (data: T, queryKeys: string[]) => (path: string): string => {
