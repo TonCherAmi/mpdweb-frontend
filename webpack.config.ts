@@ -50,6 +50,7 @@ const config: Webpack.Configuration = {
             loader: 'css-loader',
             options: {
               modules: {
+                localIdentName: '[local]--[hash:base64:5]',
                 exportLocalsConvention: 'camelCaseOnly'
               }
             }
