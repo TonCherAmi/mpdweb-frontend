@@ -330,8 +330,10 @@ class DatabaseView extends React.Component<RouteComponentProps> {
     this.currentItemNavigationStore?.goToFirstItem()
   }
 
-  private handleMainMouseMove = () => {
-    this.setKeyboardNavigationActive(false)
+  private handleMainMouseMove = (event: React.MouseEvent) => {
+    if (event.movementX !== 0 || event.movementY !== 0) {
+      this.setKeyboardNavigationActive(false)
+    }
   }
 
   render() {
