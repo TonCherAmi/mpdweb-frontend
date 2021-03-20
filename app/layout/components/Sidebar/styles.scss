@@ -1,0 +1,33 @@
+.container {
+  min-width: 21.5rem;
+
+  padding: 3.5rem 2.25rem;
+
+  background: #101010;
+
+  border-right: 1px solid #333;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+
+  padding: .65rem .95rem;
+
+  border-radius: .5rem;
+
+  &:not(:last-child) {
+    margin-bottom: .5rem;
+  }
+
+  &.active {
+    background: #202020;
+  }
+
+  .icon {
+    width: 1.0rem;
+    height: 1.0rem;
+
+    margin-right: .75rem;
+  }
+}
