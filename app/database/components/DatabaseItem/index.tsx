@@ -17,8 +17,9 @@ import { withPropagationStopped } from '@app/common/utils/event'
 import styles from './styles.scss'
 
 interface Props {
-  item: DatabaseItemDto
   isSelected: boolean
+  isMouseDisabled: boolean
+  item: DatabaseItemDto
   onClick: React.EventHandler<React.MouseEvent>
   onAddClick?: React.EventHandler<React.MouseEvent>
   onPlayClick?: React.EventHandler<React.MouseEvent>
@@ -28,6 +29,11 @@ interface Props {
 const MOUSE_OVER_DELAY = 400 // ms
 
 class DatabaseItem extends React.Component<Props> {
+  static defaultProps = {
+    isSelected: false,
+    isMouseDisabled: false
+  }
+
   private containerRef: React.RefObject<HTMLDivElement>
 
   constructor(props: Props) {
@@ -46,10 +52,22 @@ class DatabaseItem extends React.Component<Props> {
     if (this.props.isSelected && !prevProps.isSelected) {
       this.scrollToAndFocus('nearest', 'nearest')
     }
+
+    if (!this.props.isSelected && prevProps.isSelected) {
+      this.blur()
+    }
   }
 
-  private get name() {
+  private get isDescendable(): boolean {
+    return this.props.item.type === DatabaseItemType.DIRECTORY
+  }
+
+  private get name(): string {
     return basename(this.props.item.uri)
+  }
+
+  private blur() {
+    this.containerRef.current?.blur()
   }
 
   private scrollToAndFocus(block: 'nearest' | 'center', inline: 'nearest' | 'center') {
@@ -58,7 +76,7 @@ class DatabaseItem extends React.Component<Props> {
   }
 
   private handleClick = (event: React.MouseEvent) => {
-    if (this.props.item.type !== DatabaseItemType.DIRECTORY) {
+    if (!this.isDescendable) {
       return
     }
 
@@ -70,18 +88,21 @@ class DatabaseItem extends React.Component<Props> {
   private handlePlayClick = withPropagationStopped(this.props.onPlayClick)
 
   render() {
-    const { item, onMouseOver } = this.props
+    const { isMouseDisabled, item, onMouseOver } = this.props
 
     const [
       handleMouseOver,
       handleMouseLeave
-    ] = withCancellableDelay(onMouseOver, MOUSE_OVER_DELAY)
+    ] = isMouseDisabled ? [undefined, undefined] : withCancellableDelay(onMouseOver, MOUSE_OVER_DELAY)
 
-    const isDescendable = item.type === DatabaseItemType.DIRECTORY
+    const containerClassName = cx(styles.container, {
+      [styles.descendable]: this.isDescendable,
+      [styles.hoverable]: !isMouseDisabled
+    })
 
     return (
       <div
-        className={cx(styles.container, { [styles.descendable]: isDescendable })}
+        className={containerClassName}
         ref={this.containerRef}
         role="button"
         tabIndex={-1}

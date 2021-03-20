@@ -78,6 +78,14 @@ class DatabaseView extends React.Component<RouteComponentProps> {
     }
   }
 
+  private get mainMouseMoveHandler(): React.EventHandler<React.MouseEvent> | undefined {
+    if (this.state.isKeyboardNavigationActive) {
+      return this.handleMainMouseMove
+    }
+
+    return undefined
+  }
+
   private get isInRoot(): boolean {
     return R.isNil(this.currentMatchUri)
   }
@@ -186,7 +194,7 @@ class DatabaseView extends React.Component<RouteComponentProps> {
       return
     }
 
-    this.setState({ isKeyboardNavigationActive: R.not })
+    this.setState({ isKeyboardNavigationActive: isActive })
   }
 
   private isItemSelected = (index: Nullable<number>) => {
@@ -322,6 +330,10 @@ class DatabaseView extends React.Component<RouteComponentProps> {
     this.currentItemNavigationStore?.goToFirstItem()
   }
 
+  private handleMainMouseMove = () => {
+    this.setKeyboardNavigationActive(false)
+  }
+
   render() {
     const hasPreview = !R.isNil(DatabaseViewStore.preview.item)
 
@@ -348,12 +360,13 @@ class DatabaseView extends React.Component<RouteComponentProps> {
               onCompletion={this.handleSearchCompletion}
             />
           </If>
-          <div className={styles.scrollable}>
+          <div className={styles.scrollable} onMouseMove={this.mainMouseMoveHandler}>
             <For of={DatabaseViewStore.mainItems} body={(item, index) => (
               <DatabaseItem
                 key={item.uri}
-                item={item}
                 isSelected={this.isItemSelected(index)}
+                isMouseDisabled={this.state.isKeyboardNavigationActive}
+                item={item}
                 onClick={this.handleItemClick(item.uri)}
                 onMouseOver={this.handleItemMouseOver(item)}
                 onAddClick={this.handleAddClick(item.uri)}
@@ -374,7 +387,6 @@ class DatabaseView extends React.Component<RouteComponentProps> {
                   <DatabaseItem
                     key={item.uri}
                     item={item}
-                    isSelected={false}
                     onClick={this.handleItemClick(item.uri)}
                     onAddClick={this.handleAddClick(item.uri)}
                     onPlayClick={this.handlePlayClick(item.uri)}
