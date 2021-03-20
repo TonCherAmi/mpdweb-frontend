@@ -65,7 +65,7 @@ export const make = <R, T = null> (
     path: pathKeys = [],
     query: queryKeys = []
   }: { path?: string[], query?: string[] } = {}
-) => async (data: T = null): Promise<R> => {
+) => async (data: Nullable<T> = null): Promise<R> => {
   const getBody = R.pipe(
     R.ifElse(
       R.isNil,
