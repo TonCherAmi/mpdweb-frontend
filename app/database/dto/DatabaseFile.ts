@@ -1,7 +1,7 @@
 import Duration from '@app/common/dto/Duration'
 import DatabaseItem from '@app/database/dto/DatabaseItem'
 
-interface File extends DatabaseItem {
+interface DatabaseFile extends DatabaseItem {
   id: string | null
   position: number
   title: string | null
@@ -9,4 +9,4 @@ interface File extends DatabaseItem {
   duration: Duration
 }
 
-export default File
+export default DatabaseFile
