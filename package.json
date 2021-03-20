@@ -59,6 +59,7 @@
     "ramda": "^0.27.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hot-keys": "^2.6.2",
     "regenerator-runtime": "^0.13.7",
     "sprintf-js": "^1.1.2"
   }
