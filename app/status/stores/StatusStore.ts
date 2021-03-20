@@ -7,27 +7,27 @@ import StatusApi from '@app/status/api'
 
 class StatusStore {
   @observable
-  value: Status = null
+  status: Nullable<Status> = null
 
-  get isPaused() {
-    return this?.value.state === State.PAUSED
+  get isPaused(): boolean {
+    return this?.status?.state === State.PAUSED
   }
 
-  get isPlaying() {
-    return this?.value.state === State.PLAYING
+  get isPlaying(): boolean {
+    return this?.status?.state === State.PLAYING
   }
 
-  get isStopped() {
-    return this?.value.state === State.STOPPED
+  get isStopped(): boolean {
+    return this?.status?.state === State.STOPPED
   }
 
   async retrieve() {
-    this.value = await StatusApi.get()
+    this.status = await StatusApi.get()
   }
 
   @action
   set(status: Status) {
-    this.value = status
+    this.status = status
   }
 }
 

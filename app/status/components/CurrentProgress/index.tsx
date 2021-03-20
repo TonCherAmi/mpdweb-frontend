@@ -7,8 +7,8 @@ import DurationPair from '@app/common/components/DurationPair'
 
 import StatusStore from "@app/status/stores/StatusStore"
 
-  const status = StatusStore.value
 const CurrentProgress: React.FC = () => {
+  const status = StatusStore.status
 
   if (R.isNil(status)) {
     return null

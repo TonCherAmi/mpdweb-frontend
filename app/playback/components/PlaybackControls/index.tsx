@@ -17,10 +17,8 @@ import StatusStore from '@app/status/stores/StatusStore'
 
 import styles from './styles.scss'
 
-const PlaybackControls = () => {
-  const status = StatusStore.value
-
-  if (R.isNil(status)) {
+const PlaybackControls: React.FC = () => {
+  if (R.isNil(StatusStore.status)) {
     return null
   }
 
