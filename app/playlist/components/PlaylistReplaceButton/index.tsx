@@ -2,17 +2,18 @@ import React from 'react'
 
 import Button from '@app/common/components/Button'
 
-import PlaylistStore from '@app/playlist/stores/PlaylistStore'
-import PlaybackStore from '@app/playback/stores/PlaybackStore'
+import PlaylistService from '@app/playlist/services/PlaylistService'
+import PlaybackService from '@app/playback/services/PlaybackService'
+
 interface Props {
   uri: string
 }
 
 const PlaylistReplaceButton: React.FC<Props> = ({ uri, children, ...props }) => {
   const handleClick = async () => {
-    await PlaylistStore.clear()
-    await PlaylistStore.add(uri)
-    await PlaybackStore.toggle()
+    await PlaylistService.clear()
+    await PlaylistService.add(uri)
+    await PlaybackService.toggle()
   }
 
   return (

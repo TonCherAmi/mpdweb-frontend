@@ -2,10 +2,10 @@ import React from 'react'
 
 import Button from '@app/common/components/Button'
 
-import PlaylistStore from '@app/playlist/stores/PlaylistStore'
+import PlaylistService from '@app/playlist/services/PlaylistService'
 
-  const handleClick = () => PlaylistStore.clear()
 const PlaylistClearButton: React.FC<UnknownRecord> = ({ children, ...props }) => {
+  const handleClick = () => PlaylistService.clear()
 
   return (
     <Button {...props} onClick={handleClick}>
