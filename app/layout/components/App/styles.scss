@@ -28,11 +28,11 @@
   max-height: 100%;
 
   overflow: hidden;
-
-  padding: 3rem;
 }
 
 .content {
+  display: flex;
+
   overflow: hidden;
 
   height: 100%;

@@ -1,15 +1,15 @@
 import * as Stomp from '@stomp/stompjs'
 
-import Handler from '@app/common/handlers/Handler'
+import Handler from '@app/common/types/Handler'
 
 const CONNECT_PATH = '/ws/connect'
 
-class StompSubscriptionFactory {
-  private stompClient: Stomp.Client = null
+class StompSubscriptionManager {
+  private stompClient: Stomp.Client
 
   constructor() {
     this.stompClient = new Stomp.Client({
-      brokerURL: StompSubscriptionFactory.makeBrokerUrl(CONNECT_PATH)
+      brokerURL: StompSubscriptionManager.makeBrokerUrl(CONNECT_PATH)
     })
 
     this.stompClient.activate()
@@ -20,14 +20,16 @@ class StompSubscriptionFactory {
 
     if (this.stompClient.connected) {
       this.stompClient.subscribe(destination, handle)
-    } else {
-      const onConnect = this.stompClient.onConnect
 
-      this.stompClient.onConnect = (receipt: Stomp.Frame) => {
-        onConnect?.(receipt)
+      return
+    }
 
-        this.stompClient.subscribe(destination, handle)
-      }
+    const onConnect = this.stompClient.onConnect
+
+    this.stompClient.onConnect = (receipt: Stomp.Frame) => {
+      onConnect?.(receipt)
+
+      this.stompClient.subscribe(destination, handle)
     }
   }
 
@@ -46,7 +48,6 @@ class StompSubscriptionFactory {
 
     return url.href
   }
-
 }
 
-export default new StompSubscriptionFactory()
+export default new StompSubscriptionManager()

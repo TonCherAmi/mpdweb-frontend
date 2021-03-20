@@ -6,11 +6,11 @@ import 'babel-plugin-jsx-control-statements'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Main from '@app/layout/components/Main'
+import App from '@app/layout/components/App'
 
 import '@app/index.scss'
 
 ReactDOM.render(
-  <Main />,
+  <App />,
   document.getElementById('app')
 )

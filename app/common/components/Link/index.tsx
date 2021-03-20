@@ -6,7 +6,7 @@ import cx from 'classnames'
 
 import styles from './styles.scss'
 
-interface LinkProps {
+interface Props {
   className?: string
   to: string
 }
