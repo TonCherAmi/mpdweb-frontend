@@ -8,6 +8,7 @@ import DatabaseItemType from '@app/database/dto/enums/DatabaseItemType'
 import * as Icons from '@app/common/icons'
 
 import Button from '@app/common/components/Button'
+import DatabaseItemIcon from '@app/database/components/DatabaseItemIcon'
 
 import { basename } from '@app/common/utils/path'
 import { withCancellableDelay } from '@app/common/utils/delay'
@@ -15,21 +16,21 @@ import { withPropagationStopped } from '@app/common/utils/event'
 
 import styles from './styles.scss'
 
-interface DatabaseItemProps {
+interface Props {
   item: DatabaseItemDto
   isSelected: boolean
-  onClick?: React.EventHandler<React.MouseEvent>
+  onClick: React.EventHandler<React.MouseEvent>
   onAddClick?: React.EventHandler<React.MouseEvent>
-  onReplaceClick?: React.EventHandler<React.MouseEvent>
+  onPlayClick?: React.EventHandler<React.MouseEvent>
   onMouseOver?: React.EventHandler<React.MouseEvent>
 }
 
-const MOUSE_OVER_DELAY = 250 // ms
+const MOUSE_OVER_DELAY = 400 // ms
 
-class DatabaseItem extends React.Component<DatabaseItemProps> {
+class DatabaseItem extends React.Component<Props> {
   private containerRef: React.RefObject<HTMLDivElement>
 
-  constructor(props: DatabaseItemProps) {
+  constructor(props: Props) {
     super(props)
 
     this.containerRef = React.createRef<HTMLDivElement>()
@@ -37,37 +38,46 @@ class DatabaseItem extends React.Component<DatabaseItemProps> {
 
   componentDidMount() {
     if (this.props.isSelected) {
-      this.containerRef.current?.focus()
+      this.scrollToAndFocus('center', 'nearest')
     }
   }
 
-  componentDidUpdate(prevProps: DatabaseItemProps) {
+  componentDidUpdate(prevProps: Props) {
     if (this.props.isSelected && !prevProps.isSelected) {
-      this.containerRef.current?.focus()
+      this.scrollToAndFocus('nearest', 'nearest')
     }
   }
+
+  private get name() {
+    return basename(this.props.item.uri)
+  }
+
+  private scrollToAndFocus(block: 'nearest' | 'center', inline: 'nearest' | 'center') {
+    this.containerRef.current?.focus({ preventScroll: true })
+    this.containerRef.current?.scrollIntoView({ block, inline })
+  }
+
+  private handleClick = (event: React.MouseEvent) => {
+    if (this.props.item.type !== DatabaseItemType.DIRECTORY) {
+      return
+    }
+
+    this.props.onClick(event)
+  }
+
+  private handleAddClick = withPropagationStopped(this.props.onAddClick)
+
+  private handlePlayClick = withPropagationStopped(this.props.onPlayClick)
 
   render() {
-    const {
-      item,
-      onClick,
-      onAddClick,
-      onReplaceClick,
-      onMouseOver
-    } = this.props
+    const { item, onMouseOver } = this.props
 
     const [
       handleMouseOver,
       handleMouseLeave
     ] = withCancellableDelay(onMouseOver, MOUSE_OVER_DELAY)
 
-    const name = basename(item.uri)
-
     const isDescendable = item.type === DatabaseItemType.DIRECTORY
-
-    const handleClick = isDescendable ? onClick : null
-    const handleAddClick = withPropagationStopped(onAddClick)
-    const handleReplaceClick = withPropagationStopped(onReplaceClick)
 
     return (
       <div
@@ -75,19 +85,22 @@ class DatabaseItem extends React.Component<DatabaseItemProps> {
         ref={this.containerRef}
         role="button"
         tabIndex={-1}
-        onClick={handleClick}
+        onClick={this.handleClick}
         onMouseOver={handleMouseOver}
         onMouseLeave={handleMouseLeave}
       >
         <span className={styles.name}>
-          <Icons.FolderFill className={cx(styles.icon, styles.folder)} />
-          {name}
+          <DatabaseItemIcon
+            className={cx(styles.icon, styles.type)}
+            type={item.type}
+          />
+          {this.name}
         </span>
         <div className={styles.controls}>
-          <Button className={styles.button} onClick={handleAddClick}>
+          <Button className={styles.button} onClick={this.handleAddClick}>
             <Icons.PlusSquareFill className={cx(styles.icon, styles.add)} />
           </Button>
-          <Button className={styles.button} onClick={handleReplaceClick}>
+          <Button className={styles.button} onClick={this.handlePlayClick}>
             <Icons.PlayFill className={cx(styles.icon, styles.replace)} />
           </Button>
         </div>

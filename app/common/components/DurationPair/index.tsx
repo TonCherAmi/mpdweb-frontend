@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { default as DurationDto } from '@app/common/dto/Duration'
+import DurationDto from '@app/common/dto/Duration'
 
 import Duration from '@app/common/components/Duration'
 

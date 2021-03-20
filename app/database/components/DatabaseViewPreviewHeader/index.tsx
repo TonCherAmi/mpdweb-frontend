@@ -2,22 +2,44 @@ import React from 'react'
 
 import * as R from 'ramda'
 
-import { basename } from '@app/common/utils/path'
+import DatabaseItem from '@app/database/dto/DatabaseItem'
+import DatabaseCount from '@app/database/dto/DatabaseCount'
 
-interface DatabaseViewPreviewHeaderProps {
-  uri: string | null
+import * as Icons from '@app/common/icons'
+
+import Duration from '@app/common/components/Duration'
+
+import { getTitle, getSubtitle } from './utils'
+
+import styles from './styles.scss'
+
+interface Props {
+  item: Nullable<DatabaseItem>
+  count: Nullable<DatabaseCount>
 }
 
-const DatabaseViewPreviewHeader = ({ uri }: DatabaseViewPreviewHeaderProps) => {
-  if (R.isNil(uri)) {
+const DatabaseViewPreviewHeader = ({ item, count }: Props) => {
+  if (R.isNil(item) || R.isNil(count)) {
     return null
   }
 
-  const name = basename(uri)
+  const title = getTitle(item)
+  const subtitle = getSubtitle(item)
 
   return (
-    <div>
-      <span>{name}</span>
+    <div className={styles.container}>
+      <div className={styles.subcontainer}>
+        <span className={styles.title}>
+          {title}
+        </span>
+        <span className={styles.subtitle}>
+          {subtitle}
+        </span>
+      </div>
+      <span className={styles.duration}>
+        <Icons.ClockFill className={styles.icon} />
+        <Duration value={count.playtime}/>
+      </span>
     </div>
   )
 }

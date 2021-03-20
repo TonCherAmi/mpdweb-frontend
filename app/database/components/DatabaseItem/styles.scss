@@ -15,7 +15,6 @@
 
   &.descendable {
     cursor: pointer;
-
   }
 
   &:focus {
@@ -66,7 +65,7 @@
       height: 2.2rem;
     }
 
-    &.folder {
+    &.type {
       margin-right: .75rem;
 
       width: 1.2rem;

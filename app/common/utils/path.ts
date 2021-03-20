@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-const SLASH = '/'
+export const SLASH = '/'
 
 export const dirname: (
   path: string

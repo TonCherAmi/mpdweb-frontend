@@ -1,8 +1,8 @@
+import SimpleDuration from '@app/common/dto/SimpleDuration'
+
 interface Duration {
-  hours: number
-  minutes: number
-  seconds: number
-  secondsTotal: number
+  part: SimpleDuration
+  total: SimpleDuration
 }
 
 export default Duration

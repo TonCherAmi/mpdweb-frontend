@@ -2,10 +2,10 @@ import React from 'react'
 
 import Button from '@app/common/components/Button'
 
-import DatabaseStore from '@app/database/stores/DatabaseStore'
+import DatabaseService from '@app/database/services/DatabaseService'
 
-  const handleClick = () => DatabaseStore.update()
 const DatabaseUpdateButton: React.FC<UnknownRecord> = ({ children, ...props }) => {
+  const handleClick = () => DatabaseService.update()
 
   return (
     <Button {...props} onClick={handleClick}>
