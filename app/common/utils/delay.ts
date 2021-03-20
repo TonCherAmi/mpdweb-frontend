@@ -1,10 +1,10 @@
-export const withCancellableDelay = (
-  action: (...data: any[]) => void,
+export const withCancellableDelay = <T> (
+  action: Nullable<(...data: T[]) => void>,
   delay: number
-): [(...data: any[]) => void, () => void] => {
+): [(...data: T[]) => void, () => void] => {
   let timeoutId: number
 
-  const handleAction = (...data: any[]) => {
+  const handleAction = (...data: T[]) => {
     timeoutId = window.setTimeout(() => {
       action?.(...data)
 
