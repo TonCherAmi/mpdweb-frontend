@@ -4,12 +4,12 @@ import Button from '@app/common/components/Button'
 
 import PlaybackStore from '@app/playback/stores/PlaybackStore'
 
-const PlaybackNextButton = ({ children, ...props }) => {
   const handleClick = () => PlaybackStore.next()
+const PlaybackNextButton: React.FC<UnknownRecord> = ({ children, ...props }) => {
 
   return (
     <Button {...props} onClick={handleClick}>
-      {children}
+      {children as JSX.TChildren[]}
     </Button>
   )
 }

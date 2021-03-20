@@ -4,12 +4,12 @@ import Button from '@app/common/components/Button'
 
 import DatabaseStore from '@app/database/stores/DatabaseStore'
 
-const DatabaseUpdateButton = ({ children, ...props }) => {
   const handleClick = () => DatabaseStore.update()
+const DatabaseUpdateButton: React.FC<UnknownRecord> = ({ children, ...props }) => {
 
   return (
     <Button {...props} onClick={handleClick}>
-      {children}
+      {children as JSX.TChildren[]}
     </Button>
   )
 }

@@ -4,8 +4,11 @@ import Button from '@app/common/components/Button'
 
 import PlaylistStore from '@app/playlist/stores/PlaylistStore'
 import PlaybackStore from '@app/playback/stores/PlaybackStore'
+interface Props {
+  uri: string
+}
 
-const PlaylistReplaceButton = ({ uri, children, ...props }) => {
+const PlaylistReplaceButton: React.FC<Props> = ({ uri, children, ...props }) => {
   const handleClick = async () => {
     await PlaylistStore.clear()
     await PlaylistStore.add(uri)
@@ -14,7 +17,7 @@ const PlaylistReplaceButton = ({ uri, children, ...props }) => {
 
   return (
     <Button {...props} onClick={handleClick}>
-      {children}
+      {children as JSX.TChildren[]}
     </Button>
   )
 }

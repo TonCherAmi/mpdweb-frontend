@@ -4,12 +4,16 @@ import Button from '@app/common/components/Button'
 
 import PlaylistStore from '@app/playlist/stores/PlaylistStore'
 
-const PlaylistAddButton = ({ uri, children, ...props }) => {
   const handleClick = () => PlaylistStore.add(uri)
+interface Props {
+  uri: string
+}
+
+const PlaylistAddButton: React.FC<Props> = ({ uri, children, ...props }) => {
 
   return (
     <Button {...props} onClick={handleClick}>
-      {children}
+      {children as JSX.TChildren[]}
     </Button>
   )
 }

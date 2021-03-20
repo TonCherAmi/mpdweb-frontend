@@ -9,11 +9,11 @@ export interface Crumb {
   label: string
 }
 
-interface CrumbsProps {
+interface Props {
   list: Crumb[]
 }
 
-const Crumbs = ({ list }: CrumbsProps) => {
+const Crumbs: React.FC<Props> = ({ list }) => {
   return (
     <For of={list} body={(item) => (
       <span className={styles.crumb}>

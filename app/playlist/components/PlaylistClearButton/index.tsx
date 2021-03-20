@@ -4,12 +4,12 @@ import Button from '@app/common/components/Button'
 
 import PlaylistStore from '@app/playlist/stores/PlaylistStore'
 
-const PlaylistClearButton = ({ children, ...props }) => {
   const handleClick = () => PlaylistStore.clear()
+const PlaylistClearButton: React.FC<UnknownRecord> = ({ children, ...props }) => {
 
   return (
     <Button {...props} onClick={handleClick}>
-      {children}
+      {children as JSX.TChildren[]}
     </Button>
   )
 }

@@ -12,7 +12,7 @@ import DatabaseUpdateButton from '@app/database/components/DatabaseUpdateButton'
 
 import styles from './styles.scss'
 
-const BottomPanel = () => {
+const BottomPanel: React.FC = () => {
   return (
     <div className={styles.panel}>
       <div className={cx(styles.section, styles.song)}>

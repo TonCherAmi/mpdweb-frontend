@@ -45,13 +45,16 @@ const formatDuration = (duration: DurationDto): string => {
   return format([formatHours, formatMinutes, formatSeconds])
 }
 
-interface DurationProps {
+interface Props {
   className?: string
   value: DurationDto
 }
 
-const Duration = ({ className = styles.durationTest, value }: DurationProps) => {
   const formattedDuration = formatDuration(value)
+const Duration: React.FC<Props> = ({
+  className = styles.durationTest,
+  value
+}) => {
 
   return (
     <span className={className}>
