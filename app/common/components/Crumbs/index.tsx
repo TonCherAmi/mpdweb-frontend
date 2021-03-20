@@ -16,7 +16,7 @@ interface Props {
 const Crumbs: React.FC<Props> = ({ list }) => {
   return (
     <For of={list} body={(item) => (
-      <span className={styles.crumb}>
+      <span key={item.path} className={styles.crumb}>
         <Link className={styles.link} to={item.path}>
           {item.label}
         </Link>
