@@ -23,7 +23,7 @@ interface Props {
 
 @observer
 class Bindings extends React.Component<Props> {
-  get bindings(): ConformedBinding[] {
+  private get bindings(): ConformedBinding[] {
     const conformx = conformBinding(this.props.handlers)
 
     const conformxs: (
