@@ -1,5 +1,7 @@
 import React from 'react'
 
+import * as R from 'ramda'
+
 import Key from '@app/common/dto/enums/Key'
 
 import * as Icons from '@app/common/icons'
@@ -11,6 +13,7 @@ interface Props {
   value: string
   onExit: () => void
   onChange: (value: string) => void
+  onDescent: () => void
   onCompletion: () => void
 }
 
@@ -37,22 +40,24 @@ class DatabaseViewSearch extends React.Component<Props> {
     }
   }
 
-  handleKeyDown = (event: React.KeyboardEvent) => {
-    switch (event.key) {
-      case Key.ESCAPE:
-        event.preventDefault()
-
-        this.props.onExit()
-
-        return
-      case Key.TAB:
-      case Key.ENTER:
-        event.preventDefault()
-
-        this.props.onCompletion()
-
-        return
+  get handlers(): Record<Key, () => void> {
+    return {
+      [Key.ESCAPE]: this.props.onExit,
+      [Key.ENTER]: this.props.onDescent,
+      [Key.TAB]: this.props.onCompletion
     }
+  }
+
+  handleKeyDown = (event: React.KeyboardEvent) => {
+    const handler = this.handlers[event.key]
+
+    if (R.isNil(handler)) {
+      return
+    }
+
+    event.preventDefault()
+
+    handler()
   }
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

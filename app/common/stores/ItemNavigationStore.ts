@@ -24,7 +24,7 @@ class ItemNavigationStore {
   }
 
   @computed
-  private get isEmpty(): boolean {
+  get isEmpty(): boolean {
     return R.equals(this.itemCount, 0)
   }
 
@@ -80,7 +80,10 @@ class ItemNavigationStore {
   @action
   setItems(items: unknown[]) {
     this.setItemCount(items.length)
-    this.setCurrentItemIndex(-1)
+
+    const index = R.isEmpty(items) ? -1 : 0
+
+    this.setCurrentItemIndex(index)
   }
 
   @action

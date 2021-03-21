@@ -35,7 +35,7 @@ class DatabaseViewStore {
 
   @computed
   get mainItems() {
-    if (this.search.state === SearchState.HIDDEN || R.isEmpty(this.search.value)) {
+    if (this.search.state === SearchState.HIDDEN) {
       return this.main.items
     }
 

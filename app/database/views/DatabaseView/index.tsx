@@ -49,7 +49,7 @@ class DatabaseView extends React.Component<RouteComponentProps> {
     itemNavigationStoreMap: Record<string, ItemNavigationStore>
   } = { isKeyboardNavigationActive: false, itemNavigationStoreMap: {} }
 
-  searchItemNavigationStore = new ItemNavigationStore()
+  searchItemNavigationStore: Nullable<ItemNavigationStore> = null
 
   componentDidMount() {
     this.retrieveMain()
@@ -136,6 +136,8 @@ class DatabaseView extends React.Component<RouteComponentProps> {
 
     DatabaseViewStore.resetSearch()
 
+    this.searchItemNavigationStore = null
+
     if (R.isNil(this.currentItemNavigationStore)) {
       this.currentItemNavigationStore = new ItemNavigationStore(DatabaseViewStore.mainItems)
     }
@@ -195,6 +197,12 @@ class DatabaseView extends React.Component<RouteComponentProps> {
     }
 
     this.setState({ isKeyboardNavigationActive: isActive })
+  }
+
+  private isItemFocused = (index: Nullable<number>) => {
+    return this.state.isKeyboardNavigationActive
+      && DatabaseViewStore.search.state !== SearchState.FOCUSED
+      && R.equals(this.currentItemNavigationStore?.currentItemIndex, index)
   }
 
   private isItemSelected = (index: Nullable<number>) => {
@@ -305,7 +313,11 @@ class DatabaseView extends React.Component<RouteComponentProps> {
   private handleSearchFocusKeyPress = (_: string, event: KeyboardEvent) => {
     event.preventDefault()
 
-    this.setKeyboardNavigationActive(false)
+    if (R.isNil(this.searchItemNavigationStore)) {
+      this.searchItemNavigationStore = new ItemNavigationStore(DatabaseViewStore.mainItems)
+    }
+
+    this.setKeyboardNavigationActive(true)
 
     DatabaseViewStore.search.state = SearchState.FOCUSED
   }
@@ -319,15 +331,31 @@ class DatabaseView extends React.Component<RouteComponentProps> {
   private handleSearchChange = (value: string) => {
     DatabaseViewStore.setSearch(value)
 
-    this.searchItemNavigationStore.setItems(DatabaseViewStore.mainItems)
+    this.searchItemNavigationStore?.setItems(DatabaseViewStore.mainItems)
   }
 
-  private handleSearchCompletion = () => {
-    DatabaseViewStore.search.state = SearchState.ACTIVE
+  private handleSearchDescent = () => {
+    if (this.currentItemNavigationStore?.isEmpty) {
+      return
+    }
+
+    if (R.isNil(this.currentItem)) {
+      return
+    }
 
     this.setKeyboardNavigationActive(true)
 
-    this.currentItemNavigationStore?.goToFirstItem()
+    this.goTo(this.currentItem?.uri)
+  }
+
+  private handleSearchCompletion = () => {
+    if (this.currentItemNavigationStore?.isEmpty) {
+      return
+    }
+
+    DatabaseViewStore.search.state = SearchState.ACTIVE
+
+    this.setKeyboardNavigationActive(true)
   }
 
   private handleMainMouseMove = (event: React.MouseEvent) => {
@@ -359,6 +387,7 @@ class DatabaseView extends React.Component<RouteComponentProps> {
               value={DatabaseViewStore.search.value}
               onExit={this.handleSearchCancellation}
               onChange={this.handleSearchChange}
+              onDescent={this.handleSearchDescent}
               onCompletion={this.handleSearchCompletion}
             />
           </If>
@@ -366,6 +395,7 @@ class DatabaseView extends React.Component<RouteComponentProps> {
             <For of={DatabaseViewStore.mainItems} body={(item, index) => (
               <DatabaseItem
                 key={item.uri}
+                isFocused={this.isItemFocused(index)}
                 isSelected={this.isItemSelected(index)}
                 isMouseDisabled={this.state.isKeyboardNavigationActive}
                 item={item}

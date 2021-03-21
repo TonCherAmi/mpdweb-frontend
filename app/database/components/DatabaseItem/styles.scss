@@ -17,7 +17,11 @@
     cursor: pointer;
   }
 
-  &:focus {
+  &.selected {
+    background: #171717;
+  }
+
+  &.selected:focus {
     background: #191919;
   }
 

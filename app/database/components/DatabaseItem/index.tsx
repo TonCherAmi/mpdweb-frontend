@@ -17,6 +17,7 @@ import { withPropagationStopped } from '@app/common/utils/event'
 import styles from './styles.scss'
 
 interface Props {
+  isFocused: boolean
   isSelected: boolean
   isMouseDisabled: boolean
   item: DatabaseItemDto
@@ -30,6 +31,7 @@ const MOUSE_OVER_DELAY = 400 // ms
 
 class DatabaseItem extends React.Component<Props> {
   static defaultProps = {
+    isFocused: false,
     isSelected: false,
     isMouseDisabled: false
   }
@@ -43,17 +45,17 @@ class DatabaseItem extends React.Component<Props> {
   }
 
   componentDidMount() {
-    if (this.props.isSelected) {
+    if (this.props.isFocused) {
       this.scrollToAndFocus('center', 'nearest')
     }
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (this.props.isSelected && !prevProps.isSelected) {
+    if (this.props.isFocused && !prevProps.isFocused) {
       this.scrollToAndFocus('nearest', 'nearest')
     }
 
-    if (!this.props.isSelected && prevProps.isSelected) {
+    if (!this.props.isFocused && prevProps.isFocused) {
       this.blur()
     }
   }
@@ -88,7 +90,12 @@ class DatabaseItem extends React.Component<Props> {
   private handlePlayClick = withPropagationStopped(this.props.onPlayClick)
 
   render() {
-    const { isMouseDisabled, item, onMouseOver } = this.props
+    const {
+      isSelected,
+      isMouseDisabled,
+      item,
+      onMouseOver
+    } = this.props
 
     const [
       handleMouseOver,
@@ -96,8 +103,9 @@ class DatabaseItem extends React.Component<Props> {
     ] = isMouseDisabled ? [undefined, undefined] : withCancellableDelay(onMouseOver, MOUSE_OVER_DELAY)
 
     const containerClassName = cx(styles.container, {
-      [styles.descendable]: this.isDescendable,
-      [styles.hoverable]: !isMouseDisabled
+      [styles.selected]: isSelected,
+      [styles.hoverable]: !isMouseDisabled,
+      [styles.descendable]: this.isDescendable
     })
 
     return (
