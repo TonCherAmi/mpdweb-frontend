@@ -18,7 +18,11 @@ export enum CommonBindingName {
   NEXT_VIEW = 'COMMON_NEXT_VIEW',
   PREV_VIEW = 'COMMON_PREV_VIEW',
   NAVIGATE_LEFT = 'COMMON_NAVIGATE_LEFT',
-  NAVIGATE_RIGHT = 'COMMON_NAVIGATE_RIGHT'
+  NAVIGATE_RIGHT = 'COMMON_NAVIGATE_RIGHT',
+  ADD = 'COMMON_ADD',
+  PLAY = 'COMMON_PLAY',
+  SEARCH_FOCUS = 'COMMON_SEARCH_FOCUS',
+  SEARCH_CANCEL = 'COMMON_SEARCH_CANCEL'
 }
 
 export default {
@@ -30,4 +34,8 @@ export default {
   [CommonBindingName.PREV_VIEW]: make(['K'], { isRepeatable: true }),
   [CommonBindingName.NAVIGATE_LEFT]: make(['h']),
   [CommonBindingName.NAVIGATE_RIGHT]: make(['l', 'Enter']),
+  [CommonBindingName.ADD]: make(['a']),
+  [CommonBindingName.PLAY]: make(['p']),
+  [CommonBindingName.SEARCH_FOCUS]: make(['/']),
+  [CommonBindingName.SEARCH_CANCEL]: make(['Escape'])
 } as Record<CommonBindingName, Binding>

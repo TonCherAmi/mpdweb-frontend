@@ -19,9 +19,10 @@ import styles from './styles.scss'
 interface Props {
   isFocused: boolean
   isSelected: boolean
+  isClickable: boolean
   isMouseDisabled: boolean
   item: DatabaseItemDto
-  onClick: React.EventHandler<React.MouseEvent>
+  onClick?: React.EventHandler<React.MouseEvent>
   onAddClick?: React.EventHandler<React.MouseEvent>
   onPlayClick?: React.EventHandler<React.MouseEvent>
   onMouseOver?: React.EventHandler<React.MouseEvent>
@@ -33,6 +34,7 @@ class DatabaseItem extends React.Component<Props> {
   static defaultProps = {
     isFocused: false,
     isSelected: false,
+    isClickable: true,
     isMouseDisabled: false
   }
 
@@ -60,8 +62,9 @@ class DatabaseItem extends React.Component<Props> {
     }
   }
 
-  private get isDescendable(): boolean {
-    return this.props.item.type === DatabaseItemType.DIRECTORY
+  private get isClickable(): boolean {
+    return this.props.isClickable
+      && this.props.item.type === DatabaseItemType.DIRECTORY
   }
 
   private get name(): string {
@@ -78,11 +81,11 @@ class DatabaseItem extends React.Component<Props> {
   }
 
   private handleClick = (event: React.MouseEvent) => {
-    if (!this.isDescendable) {
+    if (!this.isClickable) {
       return
     }
 
-    this.props.onClick(event)
+    this.props.onClick?.(event)
   }
 
   private handleAddClick = withPropagationStopped(this.props.onAddClick)
@@ -105,7 +108,7 @@ class DatabaseItem extends React.Component<Props> {
     const containerClassName = cx(styles.container, {
       [styles.selected]: isSelected,
       [styles.hoverable]: !isMouseDisabled,
-      [styles.descendable]: this.isDescendable
+      [styles.clickable]: this.isClickable
     })
 
     return (
