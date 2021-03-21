@@ -38,11 +38,6 @@ class ItemNavigationStore {
     return this.item.currentIndex
   }
 
-  @computed
-  get isInInitialPosition(): boolean {
-    return R.equals(this.currentItemIndex, -1)
-  }
-
   @action
   goToNextItem() {
     if (!this.isAtLastItem) {
