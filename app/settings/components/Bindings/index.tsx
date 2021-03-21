@@ -37,7 +37,7 @@ class Bindings extends React.Component<Props> {
     const commonBindings = BindingsStore.common
     const specificBindings = BindingsStore.bindings[this.props.id]
 
-    const bindings = R.merge(commonBindings, specificBindings)
+    const bindings = R.mergeRight(commonBindings, specificBindings)
 
     return conformxs(bindings)
   }
