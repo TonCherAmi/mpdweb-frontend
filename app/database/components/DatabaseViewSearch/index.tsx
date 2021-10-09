@@ -44,7 +44,8 @@ class DatabaseViewSearch extends React.Component<Props> {
     return {
       [Key.ESCAPE]: this.props.onExit,
       [Key.ENTER]: this.props.onDescent,
-      [Key.TAB]: this.props.onCompletion
+      [Key.TAB]: this.props.onCompletion,
+      [Key.ARROW_DOWN]: this.props.onCompletion
     }
   }
 
