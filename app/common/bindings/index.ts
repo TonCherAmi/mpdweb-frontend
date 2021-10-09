@@ -26,14 +26,14 @@ export enum CommonBindingName {
 }
 
 export default {
-  [CommonBindingName.NEXT_ITEM]: make(['j'], { isRepeatable: true }),
-  [CommonBindingName.PREV_ITEM]: make(['k'], { isRepeatable: true }),
-  [CommonBindingName.FIRST_ITEM]: make(['g']),
-  [CommonBindingName.LAST_ITEM]: make(['Shift+g']),
-  [CommonBindingName.NEXT_VIEW]: make(['J'], { isRepeatable: true }),
-  [CommonBindingName.PREV_VIEW]: make(['K'], { isRepeatable: true }),
-  [CommonBindingName.NAVIGATE_LEFT]: make(['h']),
-  [CommonBindingName.NAVIGATE_RIGHT]: make(['l', 'Enter']),
+  [CommonBindingName.NEXT_ITEM]: make(['j', 'Down'], { isRepeatable: true }),
+  [CommonBindingName.PREV_ITEM]: make(['k', 'Up'], { isRepeatable: true }),
+  [CommonBindingName.FIRST_ITEM]: make(['g', 'Home']),
+  [CommonBindingName.LAST_ITEM]: make(['G', 'End']),
+  [CommonBindingName.NEXT_VIEW]: make(['J', 'Shift+Down'], { isRepeatable: true }),
+  [CommonBindingName.PREV_VIEW]: make(['K', 'Shift+Up'], { isRepeatable: true }),
+  [CommonBindingName.NAVIGATE_LEFT]: make(['h', 'Left']),
+  [CommonBindingName.NAVIGATE_RIGHT]: make(['l', 'Right', 'Enter']),
   [CommonBindingName.ADD]: make(['a']),
   [CommonBindingName.PLAY]: make(['p']),
   [CommonBindingName.SEARCH_FOCUS]: make(['/']),
