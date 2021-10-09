@@ -18,7 +18,7 @@ interface Props {
 }
 
 class DatabaseViewSearch extends React.Component<Props> {
-  private inputRef: React.RefObject<HTMLInputElement>
+  private readonly inputRef: React.RefObject<HTMLInputElement>
 
   constructor(props: Props) {
     super(props)
