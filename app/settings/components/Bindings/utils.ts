@@ -16,6 +16,15 @@ export interface ConformedBinding {
 
 const conformKeys = R.join(',')
 
+const conformHandler: (
+  KeyDownHandler
+) => KeyDownHandler = (handler) => (keyName, event) => {
+  event?.preventDefault()
+  event?.stopPropagation()
+
+  return handler(keyName, event)
+}
+
 export const conformBinding: (handlers: BindingHandlers) => (
   [name, binding]: [string, Binding]
 ) => Nullable<ConformedBinding> = (handlers) => ([name, binding]) => {
@@ -28,6 +37,6 @@ export const conformBinding: (handlers: BindingHandlers) => (
   return ({
     keys: conformKeys(binding.keys),
     allowRepeat: binding.isRepeatable,
-    onKeyDown: handler
+    onKeyDown: conformHandler(handler)
   })
 }
