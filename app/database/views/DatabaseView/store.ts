@@ -1,13 +1,9 @@
 import { action, computed, observable } from 'mobx'
 
-import * as R from 'ramda'
-
 import SearchState from '@app/common/dto/enums/SearchState'
 
 import DatabaseItem from '@app/database/dto/DatabaseItem'
 import DatabaseCount from '@app/database/dto/DatabaseCount'
-
-import { basename } from '@app/common/utils/path'
 
 import DatabaseApi from '@app/database/api'
 
@@ -34,53 +30,19 @@ class DatabaseViewStore {
   } = { value: '', state: SearchState.HIDDEN }
 
   @computed
-  get mainItems() {
-    if (this.search.state === SearchState.HIDDEN) {
-      return this.main.items
-    }
-
-    const pred = (item: DatabaseItem): boolean => {
-      const base = basename(item.uri).toLowerCase()
-
-      return base.includes(
-        this.search.value.toLowerCase()
-      )
-    }
-
-    return R.filter(pred, this.main.items)
+  get items() {
+    return this.main.items
   }
 
   @action
-  async retrieveMain(uri: string = this.main.uri) {
+  async retrieve(uri: string = this.main.uri) {
     this.main.uri = uri
     this.main.items = await DatabaseApi.get({ uri })
   }
 
   @action
-  async retrievePreview(item: DatabaseItem) {
-    const { uri } = item
-
-    this.preview.item = item
-    this.preview.items = await DatabaseApi.get({ uri })
-    this.preview.count = await DatabaseApi.count({ uri })
-  }
-
-  @action
   resetSearch() {
-    this.search.value = ''
     this.search.state = SearchState.HIDDEN
-  }
-
-  @action
-  resetPreview() {
-    this.preview.item = null
-    this.preview.items = []
-    this.preview.count = null
-  }
-
-  @action
-  setSearch(value: string) {
-    this.search.value = value
   }
 }
 

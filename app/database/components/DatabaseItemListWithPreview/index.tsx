@@ -1,46 +1,44 @@
-import React from 'react'
-
-import { observer } from 'mobx-react'
-
-import cx from 'classnames'
-
-import * as R from 'ramda'
-
-import throttle from 'lodash.throttle'
-
 import { CommonBindingName } from '@app/common/bindings'
 
-import DatabaseItemDto from '@app/database/dto/DatabaseItem'
-
-import Bindings, { BindingHandlers } from '@app/settings/components/Bindings'
+import ItemNavigationStore from '@app/common/stores/ItemNavigationStore'
 
 import DatabaseItem from '@app/database/components/DatabaseItem'
 import DatabaseViewPreviewHeader from '@app/database/components/DatabaseViewPreviewHeader'
 
+import DatabaseItemDto from '@app/database/dto/DatabaseItem'
+import DatabasePreviewStore from '@app/database/stores/DatabasePreviewStore'
+
 import PlaybackService from '@app/playback/services/PlaybackService'
 import PlaylistService from '@app/playlist/services/PlaylistService'
 
-import ItemNavigationStore from '@app/common/stores/ItemNavigationStore'
-import DatabasePreviewStore from '@app/database/stores/DatabasePreviewStore'
+import Bindings, { BindingHandlers } from '@app/settings/components/Bindings'
+
+import cx from 'classnames'
+
+import throttle from 'lodash.throttle'
+
+import { observer } from 'mobx-react'
+
+import * as R from 'ramda'
+import React from 'react'
 
 import styles from './styles.scss'
 
 interface Props {
   areItemsFocusable: boolean
+  isKeyboardNavigationActive: boolean
   items: DatabaseItemDto[]
   itemNavigationStore: Nullable<ItemNavigationStore>
   onAscent?: () => void
   onDescent: (item: DatabaseItemDto) => void
+  onKeyboardNavigationActivation: () => void
+  onKeyboardNavigationDeactivation: () => void
 }
 
-const DATABSE_ITEM_MOVE_KEYPRESS_REPEAT_THROTTLE_RATE = 25
+const DATABASE_ITEM_MOVE_KEYPRESS_REPEAT_THROTTLE_RATE = 25
 
 @observer
 class DatabaseItemListWithPreview extends React.Component<Props> {
-  state: {
-    isKeyboardNavigationActive: boolean
-  } = { isKeyboardNavigationActive: false }
-
   databasePreviewStore: DatabasePreviewStore = new DatabasePreviewStore()
 
   componentDidUpdate(prevProps: Props) {
@@ -71,27 +69,11 @@ class DatabaseItemListWithPreview extends React.Component<Props> {
   }
 
   private get containerMouseMoveHandler(): undefined | React.EventHandler<React.MouseEvent> {
-    if (this.state.isKeyboardNavigationActive) {
+    if (this.props.isKeyboardNavigationActive) {
       return this.handleContainerMouseMove
     }
 
     return undefined
-  }
-
-  private activateKeyboardNavigation() {
-    if (this.state.isKeyboardNavigationActive) {
-      return
-    }
-
-    this.setState({ isKeyboardNavigationActive: true })
-  }
-
-  private deactivateKeyboardNavigation() {
-    if (!this.state.isKeyboardNavigationActive) {
-      return
-    }
-
-    this.setState({ isKeyboardNavigationActive: false })
   }
 
   private async add(item: DatabaseItemDto) {
@@ -109,12 +91,12 @@ class DatabaseItemListWithPreview extends React.Component<Props> {
   }
 
   private isItemSelected = (index: Nullable<number>) => {
-    return this.state.isKeyboardNavigationActive
+    return this.props.isKeyboardNavigationActive
       && R.equals(this.props.itemNavigationStore?.currentItemIndex, index)
   }
 
   private handleItemClick = (item: DatabaseItemDto) => () => {
-    this.deactivateKeyboardNavigation()
+    this.props.onKeyboardNavigationDeactivation()
 
     this.props.onDescent(item)
   }
@@ -133,44 +115,44 @@ class DatabaseItemListWithPreview extends React.Component<Props> {
 
   private handleContainerMouseMove = (event: React.MouseEvent) => {
     if (event.movementX !== 0 || event.movementY !== 0) {
-      this.deactivateKeyboardNavigation()
+      this.props.onKeyboardNavigationDeactivation()
     }
   }
 
   private handleNextItemKeyPress = throttle(() => {
-    if (!this.state.isKeyboardNavigationActive) {
-      this.activateKeyboardNavigation()
+    if (!this.props.isKeyboardNavigationActive) {
+      this.props.onKeyboardNavigationActivation()
 
       return
     }
 
     this.props.itemNavigationStore?.goToNextItem()
-  }, DATABSE_ITEM_MOVE_KEYPRESS_REPEAT_THROTTLE_RATE)
+  }, DATABASE_ITEM_MOVE_KEYPRESS_REPEAT_THROTTLE_RATE)
 
   private handlePrevItemKeyPress = throttle(() => {
-    if (!this.state.isKeyboardNavigationActive) {
-      this.activateKeyboardNavigation()
+    if (!this.props.isKeyboardNavigationActive) {
+      this.props.onKeyboardNavigationActivation()
 
       return
     }
 
     this.props.itemNavigationStore?.goToPrevItem()
-  }, DATABSE_ITEM_MOVE_KEYPRESS_REPEAT_THROTTLE_RATE)
+  }, DATABASE_ITEM_MOVE_KEYPRESS_REPEAT_THROTTLE_RATE)
 
   private handleFirstItemKeyPress = () => {
-    this.activateKeyboardNavigation()
+    this.props.onKeyboardNavigationActivation()
 
     this.props.itemNavigationStore?.goToFirstItem()
   }
 
   private handleLastItemKeyPress = () => {
-    this.activateKeyboardNavigation()
+    this.props.onKeyboardNavigationActivation()
 
     this.props.itemNavigationStore?.goToLastItem()
   }
 
   private handleDescendKeyPress = () => {
-    if (!this.state.isKeyboardNavigationActive) {
+    if (!this.props.isKeyboardNavigationActive) {
       return
     }
 
@@ -186,7 +168,7 @@ class DatabaseItemListWithPreview extends React.Component<Props> {
       return
     }
 
-    this.activateKeyboardNavigation()
+    this.props.onKeyboardNavigationActivation()
 
     this.props.onAscent()
   }
@@ -211,7 +193,7 @@ class DatabaseItemListWithPreview extends React.Component<Props> {
     return (
       <div className={cx(styles.container, styles.row)}>
         <Bindings
-          id="asdf"
+          id={DatabaseItemListWithPreview.name}
           handlers={this.bindingHandlers}
         />
         <div className={cx(styles.container, styles.column, styles.split)}>
@@ -222,7 +204,7 @@ class DatabaseItemListWithPreview extends React.Component<Props> {
                 key={item.uri}
                 isFocused={this.isItemFocused(index)}
                 isSelected={this.isItemSelected(index)}
-                isMouseDisabled={this.state.isKeyboardNavigationActive}
+                isMouseDisabled={this.props.isKeyboardNavigationActive}
                 item={item}
                 onClick={this.handleItemClick(item)}
                 onMouseOver={this.handleItemMouseOver(item)}
