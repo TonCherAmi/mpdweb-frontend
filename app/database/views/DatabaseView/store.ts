@@ -13,13 +13,6 @@ class DatabaseViewStore {
     items: DatabaseItem[]
   } = { uri: DATABASE_ROOT_URI, items: [] }
 
-  @observable
-  preview: {
-    item: Nullable<DatabaseItem>
-    items: DatabaseItem[]
-    count: Nullable<DatabaseCount>
-  } = { item: null, items: [], count: null }
-
   @computed
   get items() {
     return this.main.items
