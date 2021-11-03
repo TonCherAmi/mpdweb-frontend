@@ -1,5 +1,5 @@
 enum SearchState {
-  HIDDEN = 'HIDDEN',
+  INACTIVE = 'INACTIVE',
   ACTIVE = 'ACTIVE',
   FOCUSED = 'FOCUSED'
 }

@@ -22,6 +22,7 @@ import DatabaseItemListWithPreview from '@app/database/components/DatabaseItemLi
 import Bindings, { BindingHandlers } from '@app/settings/components/Bindings'
 
 import SearchStore from '@app/common/stores/SearchStore'
+import SearchStateStore from '@app/common/stores/SearchStateStore'
 import ItemNavigationStore from '@app/common/stores/ItemNavigationStore'
 
 import { dirname, basename } from '@app/common/utils/path'
@@ -41,6 +42,8 @@ class DatabaseView extends React.Component<RouteComponentProps> {
   } = { isKeyboardNavigationActive: false, itemNavigationStoreMap: {} }
 
   searchStore: SearchStore<DatabaseItemDto> = new SearchStore([], ['uri'], basename)
+
+  searchStateStore: SearchStateStore = new SearchStateStore()
 
   searchItemNavigationStore: Nullable<ItemNavigationStore> = null
 
@@ -68,7 +71,7 @@ class DatabaseView extends React.Component<RouteComponentProps> {
   }
 
   private get items(): DatabaseItemDto[] {
-    if (DatabaseViewStore.search.state !== SearchState.HIDDEN) {
+    if (!this.searchStateStore.isInactive) {
       return this.searchStore.items
     }
 
@@ -84,7 +87,7 @@ class DatabaseView extends React.Component<RouteComponentProps> {
   }
 
   private get currentItemNavigationStore(): Nullable<ItemNavigationStore> {
-    if (DatabaseViewStore.search.state !== SearchState.HIDDEN) {
+    if (!this.searchStateStore.isInactive) {
       return this.searchItemNavigationStore
     }
 
@@ -117,9 +120,9 @@ class DatabaseView extends React.Component<RouteComponentProps> {
 
     await DatabaseViewStore.retrieve(uri)
 
-    DatabaseViewStore.resetSearch()
-
     this.searchStore.reset(DatabaseViewStore.items)
+
+    this.searchStateStore.deactivate()
 
     this.searchItemNavigationStore = null
 
@@ -219,11 +222,11 @@ class DatabaseView extends React.Component<RouteComponentProps> {
 
     this.activateKeyboardNavigation()
 
-    DatabaseViewStore.search.state = SearchState.FOCUSED
+    this.searchStateStore.focus()
   }
 
   private handleSearchCancellation = () => {
-    DatabaseViewStore.search.state = SearchState.HIDDEN
+    this.searchStateStore.deactivate()
 
     this.activateKeyboardNavigation()
   }
@@ -253,7 +256,7 @@ class DatabaseView extends React.Component<RouteComponentProps> {
       return
     }
 
-    DatabaseViewStore.search.state = SearchState.ACTIVE
+    this.searchStateStore.activate()
 
     this.activateKeyboardNavigation()
   }
@@ -261,7 +264,7 @@ class DatabaseView extends React.Component<RouteComponentProps> {
   render() {
     return (
       <DatabaseItemListWithPreview
-        areItemsFocusable={DatabaseViewStore.search.state !== SearchState.FOCUSED}
+        areItemsFocusable={!this.searchStateStore.isFocused}
         isKeyboardNavigationActive={this.state.isKeyboardNavigationActive}
         items={this.items}
         itemNavigationStore={this.currentItemNavigationStore}
@@ -281,9 +284,9 @@ class DatabaseView extends React.Component<RouteComponentProps> {
           onBackClick={this.handleBackClick}
           onForwardClick={this.handleForwardClick}
         />
-        <If condition={DatabaseViewStore.search.state !== SearchState.HIDDEN}>
+        <If condition={!this.searchStateStore.isInactive}>
           <DatabaseViewSearch
-            isFocused={DatabaseViewStore.search.state === SearchState.FOCUSED}
+            isFocused={this.searchStateStore.isFocused}
             value={this.searchStore.input.value}
             onExit={this.handleSearchCancellation}
             onChange={this.handleSearchChange}

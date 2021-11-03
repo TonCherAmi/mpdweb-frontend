@@ -17,7 +17,11 @@ class SearchStore<T> {
   } = { value: '' }
 
   constructor(items: T[], path: string[], transform: (x: string) => string = R.identity) {
-    const getFn = R.pipe(R.path(path), transform, normalize)
+    const getFn = R.pipe(
+      R.path(path),
+      transform,
+      normalize
+    )
 
     this.allItems = items
 
@@ -29,11 +33,11 @@ class SearchStore<T> {
 
   @computed
   get items(): T[] {
-    if (R.isEmpty(this.input.value)) {
-      return this.allItems
+    if (!R.isEmpty(this.input.value)) {
+      return this.filter()
     }
 
-    return this.filter()
+    return this.allItems
   }
 
   @action
@@ -51,7 +55,10 @@ class SearchStore<T> {
   }
 
   private filter(): T[] {
-    return this.fuse.search(this.input.value).map(R.prop('item'))
+    return this.fuse.search(this.input.value)
+      .map(
+        R.prop('item')
+      )
   }
 }
 
