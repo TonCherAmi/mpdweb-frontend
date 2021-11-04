@@ -83,7 +83,7 @@ class DatabaseView extends React.Component<RouteComponentProps> {
       return null
     }
 
-    return DatabaseViewStore.items[this.currentItemNavigationStore.currentItemIndex]
+    return this.items[this.currentItemNavigationStore.currentItemIndex]
   }
 
   private get currentItemNavigationStore(): Nullable<ItemNavigationStore> {
