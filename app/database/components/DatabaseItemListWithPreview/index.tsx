@@ -25,7 +25,7 @@ import React from 'react'
 import styles from './styles.scss'
 
 interface Props {
-  areItemsFocusable: boolean
+  isFocusable: boolean
   isKeyboardNavigationActive: boolean
   items: DatabaseItemDto[]
   itemNavigationStore: Nullable<ItemNavigationStore>
@@ -35,7 +35,7 @@ interface Props {
   onKeyboardNavigationDeactivation: () => void
 }
 
-const DATABASE_ITEM_MOVE_KEYPRESS_REPEAT_THROTTLE_RATE = 25
+const DATABASE_ITEM_NAVIGATION_KEYPRESS_REPEAT_WAIT_MS = 25
 
 @observer
 class DatabaseItemListWithPreview extends React.Component<Props> {
@@ -87,7 +87,7 @@ class DatabaseItemListWithPreview extends React.Component<Props> {
   }
 
   private isItemFocused = (index: Nullable<number>) => {
-    return this.props.areItemsFocusable && this.isItemSelected(index)
+    return this.props.isFocusable && this.isItemSelected(index)
   }
 
   private isItemSelected = (index: Nullable<number>) => {
@@ -127,7 +127,7 @@ class DatabaseItemListWithPreview extends React.Component<Props> {
     }
 
     this.props.itemNavigationStore?.goToNextItem()
-  }, DATABASE_ITEM_MOVE_KEYPRESS_REPEAT_THROTTLE_RATE)
+  }, DATABASE_ITEM_NAVIGATION_KEYPRESS_REPEAT_WAIT_MS)
 
   private handlePrevItemKeyPress = throttle(() => {
     if (!this.props.isKeyboardNavigationActive) {
@@ -137,7 +137,7 @@ class DatabaseItemListWithPreview extends React.Component<Props> {
     }
 
     this.props.itemNavigationStore?.goToPrevItem()
-  }, DATABASE_ITEM_MOVE_KEYPRESS_REPEAT_THROTTLE_RATE)
+  }, DATABASE_ITEM_NAVIGATION_KEYPRESS_REPEAT_WAIT_MS)
 
   private handleFirstItemKeyPress = () => {
     this.props.onKeyboardNavigationActivation()

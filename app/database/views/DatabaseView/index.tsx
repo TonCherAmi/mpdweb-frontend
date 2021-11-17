@@ -12,10 +12,9 @@ import * as R from 'ramda'
 
 import { CommonBindingName } from '@app/common/bindings'
 
-import SearchState from '@app/common/dto/enums/SearchState'
 import DatabaseItemDto from '@app/database/dto/DatabaseItem'
 
-import DatabaseViewSearch from '@app/database/components/DatabaseViewSearch'
+import DatabaseSearch from '@app/database/components/DatabaseSearch'
 import DatabaseViewMainHeader from '@app/database/components/DatabaseViewMainHeader'
 import DatabaseItemListWithPreview from '@app/database/components/DatabaseItemListWithPreview'
 
@@ -30,8 +29,6 @@ import { getFullMatchParamFromProps } from '@app/common/utils/router'
 
 import DatabaseViewStore, { DATABASE_ROOT_URI } from './store'
 
-import { ID as BINDINGS_ID } from './bindings'
-
 import Route from './route'
 
 @observer
@@ -41,11 +38,11 @@ class DatabaseView extends React.Component<RouteComponentProps> {
     itemNavigationStoreMap: Record<string, ItemNavigationStore>
   } = { isKeyboardNavigationActive: false, itemNavigationStoreMap: {} }
 
-  searchStore: SearchStore<DatabaseItemDto> = new SearchStore([], ['uri'], basename)
+  private searchStore: SearchStore<DatabaseItemDto> = new SearchStore([], ['uri'], basename)
 
-  searchStateStore: SearchStateStore = new SearchStateStore()
+  private searchStateStore: SearchStateStore = new SearchStateStore()
 
-  searchItemNavigationStore: Nullable<ItemNavigationStore> = null
+  private searchItemNavigationStore: Nullable<ItemNavigationStore> = null
 
   componentDidMount() {
     this.retrieve()
@@ -62,7 +59,7 @@ class DatabaseView extends React.Component<RouteComponentProps> {
   private get bindingHandlers(): BindingHandlers {
     return {
       [CommonBindingName.SEARCH_FOCUS]: this.handleSearchFocusKeyPress,
-      [CommonBindingName.SEARCH_CANCEL]: this.handleSearchCancellation
+      [CommonBindingName.SEARCH_EXIT]: this.handleSearchExit
     }
   }
 
@@ -170,10 +167,6 @@ class DatabaseView extends React.Component<RouteComponentProps> {
   }
 
   private setKeyboardNavigationActive(isActive: boolean) {
-    if (this.state.isKeyboardNavigationActive === isActive) {
-      return
-    }
-
     this.setState({ isKeyboardNavigationActive: isActive })
   }
 
@@ -225,7 +218,7 @@ class DatabaseView extends React.Component<RouteComponentProps> {
     this.searchStateStore.focus()
   }
 
-  private handleSearchCancellation = () => {
+  private handleSearchExit = () => {
     this.searchStateStore.deactivate()
 
     this.activateKeyboardNavigation()
@@ -248,7 +241,7 @@ class DatabaseView extends React.Component<RouteComponentProps> {
 
     this.activateKeyboardNavigation()
 
-    this.goTo(this.currentItem?.uri)
+    this.handleDescent(this.currentItem)
   }
 
   private handleSearchCompletion = () => {
@@ -264,7 +257,7 @@ class DatabaseView extends React.Component<RouteComponentProps> {
   render() {
     return (
       <DatabaseItemListWithPreview
-        areItemsFocusable={!this.searchStateStore.isFocused}
+        isFocusable={!this.searchStateStore.isFocused}
         isKeyboardNavigationActive={this.state.isKeyboardNavigationActive}
         items={this.items}
         itemNavigationStore={this.currentItemNavigationStore}
@@ -274,7 +267,7 @@ class DatabaseView extends React.Component<RouteComponentProps> {
         onKeyboardNavigationDeactivation={this.handleKeyboardNavigationDeactivation}
       >
         <Bindings
-          id={BINDINGS_ID}
+          id={DatabaseView.name}
           handlers={this.bindingHandlers}
         />
         <DatabaseViewMainHeader
@@ -285,10 +278,10 @@ class DatabaseView extends React.Component<RouteComponentProps> {
           onForwardClick={this.handleForwardClick}
         />
         <If condition={!this.searchStateStore.isInactive}>
-          <DatabaseViewSearch
+          <DatabaseSearch
             isFocused={this.searchStateStore.isFocused}
             value={this.searchStore.input.value}
-            onExit={this.handleSearchCancellation}
+            onExit={this.handleSearchExit}
             onChange={this.handleSearchChange}
             onDescent={this.handleSearchDescent}
             onCompletion={this.handleSearchCompletion}

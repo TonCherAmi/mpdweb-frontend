@@ -4,12 +4,9 @@ import * as R from 'ramda'
 
 import Key from '@app/common/dto/enums/Key'
 
-import * as Icons from '@app/common/icons'
-
-import styles from './styles.scss'
-
-interface Props {
+export interface Props {
   isFocused: boolean
+  className?: string
   value: string
   onExit: () => void
   onChange: (value: string) => void
@@ -17,7 +14,7 @@ interface Props {
   onCompletion: () => void
 }
 
-class DatabaseViewSearch extends React.Component<Props> {
+class SearchInput extends React.Component<Props> {
   private readonly inputRef: React.RefObject<HTMLInputElement>
 
   constructor(props: Props) {
@@ -27,15 +24,21 @@ class DatabaseViewSearch extends React.Component<Props> {
   }
 
   componentDidMount() {
-    this.inputRef.current?.focus()
+    if (this.props.isFocused) {
+      this.inputRef.current?.focus()
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (prevProps.isFocused) {
+    if (prevProps.isFocused === this.props.isFocused) {
       return
     }
 
-    if (this.props.isFocused) {
+    if (prevProps.isFocused && !this.props.isFocused) {
+      this.inputRef.current?.blur()
+    }
+
+    if (!prevProps.isFocused && this.props.isFocused) {
       this.inputRef.current?.focus()
     }
   }
@@ -67,18 +70,15 @@ class DatabaseViewSearch extends React.Component<Props> {
 
   render() {
     return (
-      <div className={styles.container}>
-        <Icons.Search className={styles.icon} />
-        <input
-          ref={this.inputRef}
-          className={styles.input}
-          value={this.props.value}
-          onKeyDown={this.handleKeyDown}
-          onChange={this.handleChange}
-        />
-      </div>
+      <input
+        ref={this.inputRef}
+        className={this.props.className}
+        value={this.props.value}
+        onKeyDown={this.handleKeyDown}
+        onChange={this.handleChange}
+      />
     )
   }
 }
 
-export default DatabaseViewSearch
+export default SearchInput
