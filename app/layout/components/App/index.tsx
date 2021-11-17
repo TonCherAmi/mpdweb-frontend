@@ -19,6 +19,7 @@ import Sidebar from '@app/layout/components/Sidebar'
 import BottomPanel from '@app/layout/components/BottomPanel'
 
 import DatabaseView, { Route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
+import DatabaseSearchView, { Route as DatabaseSearchViewRoute } from '@app/database/views/DatabaseSearchView'
 
 import StatusStore from '@app/status/stores/StatusStore'
 
@@ -69,6 +70,9 @@ class App extends React.Component {
                   </Route>
                   <Route path={DatabaseViewRoute.match.pattern}>
                     <DatabaseView />
+                  </Route>
+                  <Route path={DatabaseSearchViewRoute.match.pattern}>
+                    <DatabaseSearchView />
                   </Route>
                 </Switch>
               </div>

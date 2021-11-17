@@ -4,7 +4,11 @@ import SearchState from '@app/common/dto/enums/SearchState'
 
 class SearchStateStore {
   @observable
-  private state = SearchState.INACTIVE
+  private state: SearchState
+
+  constructor(state: SearchState = SearchState.INACTIVE) {
+    this.state = state
+  }
 
   @computed
   get isFocused(): boolean {
