@@ -1,6 +1,7 @@
 export { default as Heart } from './Heart'
 export { default as Pause } from './PauseFill'
 export { default as Search } from './Search'
+export { default as Spinner } from './Spinner'
 export { default as SyncAlt } from './SyncAlt'
 export { default as PlayFill } from './PlayFill'
 export { default as StopFill } from './StopFill'
