@@ -1,26 +1,26 @@
+import React from 'react'
+
+import { observer } from 'mobx-react'
+
+import cx from 'classnames'
+
+import * as R from 'ramda'
+
+import throttle from 'lodash.throttle'
+
 import { CommonBindingName } from '@app/common/bindings'
 
-import ItemNavigationStore from '@app/common/stores/ItemNavigationStore'
+import DatabaseItemDto from '@app/database/dto/DatabaseItem'
 
 import DatabaseItem from '@app/database/components/DatabaseItem'
 import DatabaseViewPreviewHeader from '@app/database/components/DatabaseViewPreviewHeader'
+import Bindings, { BindingHandlers } from '@app/settings/components/Bindings'
 
-import DatabaseItemDto from '@app/database/dto/DatabaseItem'
+import ItemNavigationStore from '@app/common/stores/ItemNavigationStore'
 import DatabasePreviewStore from '@app/database/stores/DatabasePreviewStore'
 
 import PlaybackService from '@app/playback/services/PlaybackService'
 import PlaylistService from '@app/playlist/services/PlaylistService'
-
-import Bindings, { BindingHandlers } from '@app/settings/components/Bindings'
-
-import cx from 'classnames'
-
-import throttle from 'lodash.throttle'
-
-import { observer } from 'mobx-react'
-
-import * as R from 'ramda'
-import React from 'react'
 
 import styles from './styles.scss'
 
@@ -29,6 +29,7 @@ interface Props {
   isKeyboardNavigationActive: boolean
   items: DatabaseItemDto[]
   itemNavigationStore: Nullable<ItemNavigationStore>
+  renderPlaceholder?: () => JSX.Element
   onAscent?: () => void
   onDescent: (item: DatabaseItemDto) => void
   onKeyboardNavigationActivation: () => void
@@ -198,20 +199,31 @@ class DatabaseItemListWithPreview extends React.Component<Props> {
         />
         <div className={cx(styles.container, styles.column, styles.split)}>
           {this.props.children}
-          <div className={styles.scrollable} onMouseMove={this.containerMouseMoveHandler}>
-            <For of={this.props.items} body={(item, index) => (
-              <DatabaseItem
-                key={item.uri}
-                isFocused={this.isItemFocused(index)}
-                isSelected={this.isItemSelected(index)}
-                isMouseDisabled={this.props.isKeyboardNavigationActive}
-                item={item}
-                onClick={this.handleItemClick(item)}
-                onMouseOver={this.handleItemMouseOver(item)}
-                onAddClick={this.handleItemAddClick(item)}
-                onPlayClick={this.handleItemPlayClick(item)}
-              />
-            )} />
+          <div
+            className={styles.scrollable}
+            onMouseMove={this.containerMouseMoveHandler}
+          >
+            <Choose>
+              <When condition={R.isEmpty(this.props.items)}>
+                {this.props.renderPlaceholder?.()}
+              </When>
+              <Otherwise>
+                <For of={this.props.items} body={(item, index) => (
+                    <DatabaseItem
+                      key={item.uri}
+                      isFocused={this.isItemFocused(index)}
+                      isSelected={this.isItemSelected(index)}
+                      isMouseDisabled={this.props.isKeyboardNavigationActive}
+                      item={item}
+                      onClick={this.handleItemClick(item)}
+                      onMouseOver={this.handleItemMouseOver(item)}
+                      onAddClick={this.handleItemAddClick(item)}
+                      onPlayClick={this.handleItemPlayClick(item)}
+                    />
+                  )}
+                />
+              </Otherwise>
+            </Choose>
           </div>
         </div>
         <div className={cx(styles.container, styles.column, styles.split)}>
@@ -223,14 +235,15 @@ class DatabaseItemListWithPreview extends React.Component<Props> {
               />
               <div className={styles.scrollable}>
                 <For of={this.databasePreviewStore.children} body={(item) => (
-                  <DatabaseItem
-                    key={item.uri}
-                    isClickable={false}
-                    item={item}
-                    onAddClick={this.handleItemAddClick(item)}
-                    onPlayClick={this.handleItemPlayClick(item)}
-                  />
-                )} />
+                    <DatabaseItem
+                      key={item.uri}
+                      isClickable={false}
+                      item={item}
+                      onAddClick={this.handleItemAddClick(item)}
+                      onPlayClick={this.handleItemPlayClick(item)}
+                    />
+                  )}
+                />
               </div>
             </When>
             <Otherwise>
