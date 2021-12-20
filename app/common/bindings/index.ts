@@ -27,7 +27,7 @@ export default {
   [CommonBindingName.NEXT_ITEM]: make(['j', 'Down'], { isRepeatable: true }),
   [CommonBindingName.PREV_ITEM]: make(['k', 'Up'], { isRepeatable: true }),
   [CommonBindingName.FIRST_ITEM]: make(['g', 'Home']),
-  [CommonBindingName.LAST_ITEM]: make(['G', 'End']),
+  [CommonBindingName.LAST_ITEM]: make(['Shift+G', 'End']),
   [CommonBindingName.NAVIGATE_LEFT]: make(['h', 'Left']),
   [CommonBindingName.NAVIGATE_RIGHT]: make(['l', 'Right', 'Enter']),
   [CommonBindingName.ADD]: make(['a']),
