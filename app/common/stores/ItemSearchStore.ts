@@ -6,7 +6,7 @@ import * as R from 'ramda'
 
 import { normalize } from '@app/common/utils/string'
 
-class SearchStore<T> {
+class ItemSearchStore<T> {
   private fuse: Fuse<T>
 
   private allItems: T[]
@@ -62,4 +62,4 @@ class SearchStore<T> {
   }
 }
 
-export default SearchStore
+export default ItemSearchStore
