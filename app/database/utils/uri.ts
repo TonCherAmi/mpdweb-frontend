@@ -2,11 +2,11 @@ import * as R from 'ramda'
 
 import { Crumb } from '@app/common/components/Crumbs'
 
-import { SLASH } from '@app/common/utils/path'
+import { PATH_SEPARATOR } from '@app/common/utils/path'
 
 export const uriToCrumbs = (uri: string, pathPrefix: string): Crumb[] => {
   const toCrumbs: (uri: string) => Crumb[] = R.pipe(
-    R.split(SLASH),
+    R.split(PATH_SEPARATOR),
     R.reject(R.isEmpty),
     R.ifElse(
       R.isEmpty,
@@ -16,7 +16,7 @@ export const uriToCrumbs = (uri: string, pathPrefix: string): Crumb[] => {
           R.append({
             path: R.concat(
               R.last(acc)?.path ?? '',
-              `${SLASH}${item}`
+              `${PATH_SEPARATOR}${item}`
             ),
             label: item
           }, acc)
