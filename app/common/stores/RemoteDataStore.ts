@@ -28,6 +28,11 @@ class RemoteDataStore<R, T> {
     return R.equals(this.state, RemoteDataState.LOADING)
   }
 
+  @computed
+  get isInitial() {
+    return R.equals(this.state, RemoteDataState.INITIAL)
+  }
+
   cancel: Nullable<() => void> = null
 
   async load(args: Nullable<T>) {

@@ -73,7 +73,7 @@ class ItemNavigationStore {
   }
 
   @action
-  setItems(items: unknown[]) {
+  reset(items: unknown[]) {
     this.setItemCount(items.length)
 
     const index = R.isEmpty(items) ? -1 : 0
@@ -82,13 +82,13 @@ class ItemNavigationStore {
   }
 
   @action
-  private setItemCount(count: number) {
-    this.item.count = count
+  setCurrentItemIndex(currentItemIndex: number) {
+    this.item.currentIndex = currentItemIndex
   }
 
   @action
-  private setCurrentItemIndex(currentItemIndex: number) {
-    this.item.currentIndex = currentItemIndex
+  private setItemCount(count: number) {
+    this.item.count = count
   }
 }
 

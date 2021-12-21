@@ -2,6 +2,8 @@ import React from 'react'
 
 import cx from 'classnames'
 
+import * as R from 'ramda'
+
 import DatabaseItemDto from '@app/database/dto/DatabaseItem'
 import DatabaseItemType from '@app/database/dto/enums/DatabaseItemType'
 
@@ -11,55 +13,43 @@ import Button from '@app/common/components/Button'
 import DatabaseItemIcon from '@app/database/components/DatabaseItemIcon'
 
 import { basename } from '@app/common/utils/path'
-import { withCancellableDelay } from '@app/common/utils/delay'
 import { withPropagationStopped } from '@app/common/utils/event'
 
 import styles from './styles.scss'
 
+export enum DatabaseItemHighlightStyle {
+  MUTED = 'MUTED',
+  PRIMARY = 'PRIMARY',
+  SECONDARY = 'SECONDARY'
+}
+
+export enum DatabaseItemRoundedCornersPosition {
+  LEFT = 'LEFT',
+  RIGHT = 'RIGHT'
+}
+
 interface Props {
-  isFocused: boolean
-  isSelected: boolean
   isClickable: boolean
   isMouseDisabled: boolean
   item: DatabaseItemDto
+  highlightStyle: Nullable<DatabaseItemHighlightStyle>
+  roundedCornersPositions: DatabaseItemRoundedCornersPosition[]
   onClick?: React.EventHandler<React.MouseEvent>
   onAddClick?: React.EventHandler<React.MouseEvent>
   onPlayClick?: React.EventHandler<React.MouseEvent>
-  onMouseOver?: React.EventHandler<React.MouseEvent>
 }
-
-const MOUSE_OVER_DELAY = 400 // ms
 
 class DatabaseItem extends React.Component<Props> {
   static defaultProps = {
-    isFocused: false,
-    isSelected: false,
     isClickable: true,
-    isMouseDisabled: false
+    isMouseDisabled: false,
+    roundedCornersPositions: [DatabaseItemRoundedCornersPosition.LEFT]
   }
 
-  private containerRef: React.RefObject<HTMLDivElement>
+  private readonly containerRef = React.createRef<HTMLDivElement>()
 
-  constructor(props: Props) {
-    super(props)
-
-    this.containerRef = React.createRef<HTMLDivElement>()
-  }
-
-  componentDidMount() {
-    if (this.props.isFocused) {
-      this.scrollToAndFocus('center', 'nearest')
-    }
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (this.props.isFocused && !prevProps.isFocused) {
-      this.scrollToAndFocus('nearest', 'nearest')
-    }
-
-    if (!this.props.isFocused && prevProps.isFocused) {
-      this.blur()
-    }
+  scrollIntoView(scrollIntoViewOptions: ScrollIntoViewOptions) {
+    this.containerRef.current?.scrollIntoView(scrollIntoViewOptions)
   }
 
   private get isClickable(): boolean {
@@ -71,16 +61,7 @@ class DatabaseItem extends React.Component<Props> {
     return basename(this.props.item.uri)
   }
 
-  private blur() {
-    this.containerRef.current?.blur()
-  }
-
-  private scrollToAndFocus(block: 'nearest' | 'center', inline: 'nearest' | 'center') {
-    this.containerRef.current?.focus({ preventScroll: true })
-    this.containerRef.current?.scrollIntoView({ block, inline })
-  }
-
-  private handleClick = (event: React.MouseEvent) => {
+  private readonly handleClick = (event: React.MouseEvent) => {
     if (!this.isClickable) {
       return
     }
@@ -88,38 +69,41 @@ class DatabaseItem extends React.Component<Props> {
     this.props.onClick?.(event)
   }
 
-  private handleAddClick = withPropagationStopped(this.props.onAddClick)
+  private readonly handleAddClick = withPropagationStopped(this.props.onAddClick)
 
-  private handlePlayClick = withPropagationStopped(this.props.onPlayClick)
+  private readonly handlePlayClick = withPropagationStopped(this.props.onPlayClick)
 
   render() {
     const {
-      isSelected,
       isMouseDisabled,
-      item,
-      onMouseOver
+      highlightStyle,
+      item
     } = this.props
 
-    const [
-      handleMouseOver,
-      handleMouseLeave
-    ] = isMouseDisabled ? [undefined, undefined] : withCancellableDelay(onMouseOver, MOUSE_OVER_DELAY)
-
     const containerClassName = cx(styles.container, {
-      [styles.selected]: isSelected,
       [styles.hoverable]: !isMouseDisabled,
       [styles.clickable]: this.isClickable
     })
 
+    const highlightStyleClassName = cx({
+      [styles.highlighted]: !R.isNil(highlightStyle),
+      [styles.muted]: highlightStyle === DatabaseItemHighlightStyle.MUTED,
+      [styles.primary]: highlightStyle === DatabaseItemHighlightStyle.PRIMARY,
+      [styles.secondary]: highlightStyle === DatabaseItemHighlightStyle.SECONDARY
+    })
+
+    const roundedCornersClassName = cx(styles.rounded, {
+      [styles.left]: this.props.roundedCornersPositions.includes(DatabaseItemRoundedCornersPosition.LEFT),
+      [styles.right]: this.props.roundedCornersPositions.includes(DatabaseItemRoundedCornersPosition.RIGHT)
+    })
+
     return (
       <div
-        className={containerClassName}
         ref={this.containerRef}
+        className={cx(containerClassName, highlightStyleClassName, roundedCornersClassName)}
         role="button"
         tabIndex={-1}
         onClick={this.handleClick}
-        onMouseOver={handleMouseOver}
-        onMouseLeave={handleMouseLeave}
       >
         <span className={styles.name}>
           <DatabaseItemIcon

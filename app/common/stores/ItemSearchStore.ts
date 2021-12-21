@@ -12,18 +12,20 @@ class ItemSearchStore<T> {
   private allItems: T[]
 
   @observable
-  input: {
-    value: string
-  } = { value: '' }
+  input = ''
 
-  constructor(items: T[], path: string[], transform: (x: string) => string = R.identity) {
+  constructor({
+    items,
+    path,
+    transform = R.identity
+  }: { items: T[], path: string[], transform: (x: string) => string }) {
+    this.allItems = items
+
     const getFn = R.pipe(
-      R.path(path),
+      R.path(path) as (item: T) => string,
       transform,
       normalize
     )
-
-    this.allItems = items
 
     this.fuse = new Fuse(items, {
       getFn,
@@ -33,7 +35,7 @@ class ItemSearchStore<T> {
 
   @computed
   get items(): T[] {
-    if (!R.isEmpty(this.input.value)) {
+    if (!R.isEmpty(this.input)) {
       return this.filter()
     }
 
@@ -42,20 +44,20 @@ class ItemSearchStore<T> {
 
   @action
   search(value: string) {
-    this.input.value = value
+    this.input = value
   }
 
   @action
   reset(items: T[]) {
     this.allItems = items
 
-    this.input.value = ''
+    this.input = ''
 
     this.fuse.setCollection(items)
   }
 
   private filter(): T[] {
-    return this.fuse.search(this.input.value)
+    return this.fuse.search(this.input)
       .map(
         R.prop('item')
       )

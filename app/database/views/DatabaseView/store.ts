@@ -1,27 +1,47 @@
-import { action, computed, observable } from 'mobx'
+import { action, autorun, observable } from 'mobx'
 
-import DatabaseItem from '@app/database/dto/DatabaseItem'
+import * as R from 'ramda'
 
-import DatabaseApi from '@app/database/api'
+import DatabaseDirectoryStore from '@app/database/stores/DatabaseDirectoryStore'
 
-export const DATABASE_ROOT_URI = '/'
+import { subpaths, DATABASE_ROOT_URI } from './utils'
 
 class DatabaseViewStore {
-  @observable
-  main: {
-    uri: string,
-    items: DatabaseItem[]
-  } = { uri: DATABASE_ROOT_URI, items: [] }
+  private cache: Map<string, DatabaseDirectoryStore> = new Map()
 
-  @computed
-  get items() {
-    return this.main.items
-  }
+  @observable
+  paths: string[] = []
+
+  @observable.shallow
+  directoryStores: DatabaseDirectoryStore[] = []
+
+  disposer = autorun(
+    async () => {
+      this.directoryStores = await Promise.all(
+        this.paths.map(this.getPreloadedDirectoryStore)
+      )
+    }
+  )
 
   @action
-  async retrieve(uri: string = this.main.uri) {
-    this.main.uri = uri
-    this.main.items = await DatabaseApi.get({ uri })
+  reset(path: string) {
+    this.paths = [DATABASE_ROOT_URI, ...subpaths(path)]
+  }
+
+  private getPreloadedDirectoryStore = async (path: string): Promise<DatabaseDirectoryStore> => {
+    let store = this.cache.get(path)
+
+    if (!R.isNil(store)) {
+      return store
+    }
+
+    store = new DatabaseDirectoryStore(path)
+
+    this.cache.set(path, store)
+
+    await store.load()
+
+    return store
   }
 }
 

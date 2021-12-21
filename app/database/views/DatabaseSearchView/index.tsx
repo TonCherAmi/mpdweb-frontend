@@ -25,6 +25,8 @@ import DatabaseSearchViewStore from './store'
 
 import Route from './route'
 
+import styles from './styles.scss'
+
 const MIN_SEARCH_TERM_LENGTH = 3
 
 const SEARCH_DEBOUNCE_WAIT_MS = 350
@@ -78,7 +80,7 @@ class DatabaseSearchView extends React.Component<RouteComponentProps> {
 
     await DatabaseSearchViewStore.search(term)
 
-    this.itemNavigationStore.setItems(DatabaseSearchViewStore.items)
+    this.itemNavigationStore.reset(DatabaseSearchViewStore.items)
   }, SEARCH_DEBOUNCE_WAIT_MS)
 
   private setSearchInput(value: string) {
@@ -124,7 +126,7 @@ class DatabaseSearchView extends React.Component<RouteComponentProps> {
       return
     }
 
-    this.searchStateStore.activate()
+    this.searchStateStore.unfocus()
 
     this.activateKeyboardNavigation()
   }
@@ -148,29 +150,31 @@ class DatabaseSearchView extends React.Component<RouteComponentProps> {
 
   render() {
     return (
-      <DatabaseItemListWithPreview
-        isFocusable={!this.searchStateStore.isFocused}
-        isKeyboardNavigationActive={this.state.isKeyboardNavigationActive}
-        items={DatabaseSearchViewStore.items}
-        itemNavigationStore={this.itemNavigationStore}
-        renderPlaceholder={this.renderPlaceholder}
-        onDescent={this.handleDescent}
-        onKeyboardNavigationActivation={this.handleKeyboardNavigationActivation}
-        onKeyboardNavigationDeactivation={this.handleKeyboardNavigationDeactivation}
-      >
-        <Bindings
-          id={DatabaseSearchView.name}
-          handlers={this.bindingHandlers}
-        />
-        <DatabaseSearch
-          isFocused={this.searchStateStore.isFocused}
-          value={DatabaseSearchViewStore.input}
-          onExit={this.handleSearchExit}
-          onChange={this.handleSearchChange}
-          onDescent={this.handleSearchDescent}
-          onCompletion={this.handleSearchCompletion}
-        />
-      </DatabaseItemListWithPreview>
+      <div className={styles.container}>
+        <DatabaseItemListWithPreview
+          isFocusable={!this.searchStateStore.isFocused}
+          isKeyboardNavigationActive={this.state.isKeyboardNavigationActive}
+          items={DatabaseSearchViewStore.items}
+          itemNavigationStore={this.itemNavigationStore}
+          renderPlaceholder={this.renderPlaceholder}
+          onDescent={this.handleDescent}
+          onKeyboardNavigationActivation={this.handleKeyboardNavigationActivation}
+          onKeyboardNavigationDeactivation={this.handleKeyboardNavigationDeactivation}
+        >
+          <Bindings
+            id={DatabaseSearchView.name}
+            handlers={this.bindingHandlers}
+          />
+          <DatabaseSearch
+            isFocused={this.searchStateStore.isFocused}
+            value={DatabaseSearchViewStore.input}
+            onExit={this.handleSearchExit}
+            onChange={this.handleSearchChange}
+            onDescent={this.handleSearchDescent}
+            onCompletion={this.handleSearchCompletion}
+          />
+        </DatabaseItemListWithPreview>
+      </div>
     )
   }
 }

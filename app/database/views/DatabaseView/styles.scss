@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+
+  overflow: hidden;
+  overflow-x: auto;
+  scrollbar-width: auto;
+
+  height: 100%;
+}

@@ -1,9 +1,8 @@
 import React from 'react'
 
-import { Route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
-
 import * as Icons from '@app/common/icons'
 
+import { Route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
 import { Route as DatabaseSearchViewRoute } from '@app/database/views/DatabaseSearchView'
 
 export interface SidebarItem {

@@ -31,7 +31,7 @@ class SearchStateStore {
   }
 
   @action
-  activate() {
+  unfocus() {
     this.state = SearchState.ACTIVE
   }
 

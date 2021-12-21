@@ -2,7 +2,7 @@ import * as R from 'ramda'
 
 import { Binding } from '@app/common/bindings'
 
-type KeyDownHandler = (keyName: string, event?: KeyboardEvent) => void
+type KeyDownHandler = (keyName: string, event: KeyboardEvent) => unknown
 
 export interface BindingHandlers {
   [name: string]: KeyDownHandler
@@ -19,8 +19,8 @@ const conformKeys = R.join(',')
 const conformHandler: (
   KeyDownHandler
 ) => KeyDownHandler = (handler) => (keyName, event) => {
-  event?.preventDefault()
-  event?.stopPropagation()
+  event.preventDefault()
+  event.stopPropagation()
 
   return handler(keyName, event)
 }

@@ -2,18 +2,18 @@ import * as R from 'ramda'
 
 export const PATH_SEPARATOR = '/'
 
-export const dirname: (
-  path: string
-) => string = R.pipe(
-  R.split(PATH_SEPARATOR),
-  R.dropLast(1),
-  R.join(PATH_SEPARATOR),
-  R.when(R.isEmpty, R.always(PATH_SEPARATOR))
-)
+export const joinPath = R.join(PATH_SEPARATOR)
 
-export const basename: (
-  path: string
-) => string = R.pipe<string, string[], string>(
-  R.split(PATH_SEPARATOR),
+export const splitPath = R.split(PATH_SEPARATOR)
+
+export const dirname = R.pipe(
+  splitPath,
+  R.dropLast(1) as (xs: string[]) => string[],
+  joinPath,
+  R.when(R.isEmpty, R.always(PATH_SEPARATOR))
+) as (path: string) => string
+
+export const basename = R.pipe(
+  splitPath,
   R.last
-)
+) as (path: string) => string

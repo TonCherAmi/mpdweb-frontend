@@ -3,7 +3,6 @@ import React from 'react'
 import {
   Route,
   Switch,
-  Redirect,
   BrowserRouter as Router
 } from 'react-router-dom'
 
@@ -47,11 +46,11 @@ class App extends React.Component {
   }
 
   handleChangesNotify = (changes: Change[]) => {
-    const isStatusUpdateNeeded = !R.isEmpty(
+    const shouldUpdateStatus = !R.isEmpty(
       R.intersection(changes, [Change.MIXER, Change.PLAYER])
     )
 
-    if (isStatusUpdateNeeded) {
+    if (shouldUpdateStatus) {
       StatusStore.retrieve()
     }
   }
@@ -63,19 +62,17 @@ class App extends React.Component {
           <div className={styles.stack}>
             <Sidebar />
             <div className={styles.wrapper}>
-              <div className={styles.content}>
-                <Switch>
-                  <Route exact path="/">
-                    <Redirect to={DatabaseViewRoute.path} />
-                  </Route>
-                  <Route path={DatabaseViewRoute.match.pattern}>
-                    <DatabaseView />
-                  </Route>
-                  <Route path={DatabaseSearchViewRoute.match.pattern}>
-                    <DatabaseSearchView />
-                  </Route>
-                </Switch>
-              </div>
+              <Switch>
+                <Route path={DatabaseViewRoute.match.pattern}>
+                  <DatabaseView />
+                </Route>
+                <Route path={DatabaseViewRoute.match.pattern}>
+                  <DatabaseView />
+                </Route>
+                <Route path={DatabaseSearchViewRoute.match.pattern}>
+                  <DatabaseSearchView />
+                </Route>
+              </Switch>
             </div>
           </div>
           <BottomPanel />
