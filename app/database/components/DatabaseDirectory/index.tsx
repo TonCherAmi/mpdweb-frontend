@@ -54,17 +54,9 @@ class DatabaseDirectory extends React.Component<Props> {
 
   private currentItemRef: Nullable<DatabaseItem>
 
-  private onHighlightedItemUriUpdate: Nullable<() => unknown>
-
   componentDidMount() {
     if (!this.props.isActive) {
       this.currentItemRef?.scrollIntoView({ block: 'center' })
-    }
-  }
-
-  componentDidUpdate(prevProps: Readonly<Props>) {
-    if (prevProps.highlightedItemUri !== this.props.highlightedItemUri) {
-      this.onHighlightedItemUriUpdate?.()
     }
   }
 
