@@ -23,11 +23,8 @@ interface Props {
 
 const Modal = ({ className, isOpen, onClose, children }: Props) => {
   useKeybindings({
-    disable: !isOpen,
-    handlers: {
-      MODAL_CLOSE: onClose
-    }
-  })
+    MODAL_CLOSE: onClose
+  }, { disable: !isOpen })
 
   return (
     <React.Fragment>

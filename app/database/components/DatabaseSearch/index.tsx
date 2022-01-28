@@ -188,31 +188,31 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
   const { add, play } = useDatabaseItemActions()
 
   useKeybindings({
-    handlers: {
-      ADD: () => {
-        if (R.isNil(itemNavigation.currentItem)) {
-          return
-        }
+    ADD: () => {
+      if (R.isNil(itemNavigation.currentItem)) {
+        return
+      }
 
-        add(itemNavigation.currentItem)
-      },
-      PLAY: () => {
-        if (R.isNil(itemNavigation.currentItem)) {
-          return
-        }
+      add(itemNavigation.currentItem)
+    },
+    PLAY: () => {
+      if (R.isNil(itemNavigation.currentItem)) {
+        return
+      }
 
-        play(itemNavigation.currentItem)
-      },
-      SEARCH_FOCUS: handleSearchFocusKeyPress
+      play(itemNavigation.currentItem)
+    },
+    SEARCH_FOCUS: handleSearchFocusKeyPress,
+    NAVIGATE_RIGHT: () => {
+      if (R.isNil(itemNavigation.currentItem)) {
+        return
+      }
+
+      handleDescent(itemNavigation.currentItem)
     }
   })
 
-  useItemListKeybindings({
-    itemNavigation,
-    handlers: {
-      onNavigateRight: handleDescent
-    }
-  })
+  useItemListKeybindings(itemNavigation)
 
   const containerWheelHandler = useUiInteractionModeAwareWheelEventHandler()
   const containerMouseMoveHandler = useUiInteractionModeAwareMouseEventHandler()

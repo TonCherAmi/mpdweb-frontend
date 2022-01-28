@@ -12,7 +12,7 @@ const useModalKeybindings = () => {
     DATABASE_SEARCH_MODAL: () => setActiveModalId(DATABASE_SEARCH_MODAL_ID)
   }), [setActiveModalId])
 
-  useKeybindings({ handlers })
+  useKeybindings(handlers)
 }
 
 export default useModalKeybindings

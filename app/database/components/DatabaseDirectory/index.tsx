@@ -150,25 +150,29 @@ const DatabaseDirectory = memo(({
 
   const { add, play } = useDatabaseItemActions()
 
-  const keybindingHandlers: KeybindingHandlers = {
+  useKeybindings({
     ADD: () => add(currentItem),
     PLAY: () => play(currentItem),
     SEARCH_FOCUS: handleSearchFocusKeyPress,
-    SEARCH_CANCEL: handleSearchCancel
-  }
+    SEARCH_CANCEL: handleSearchCancel,
+    NAVIGATE_LEFT: () => {
+      if (R.isNil(itemNavigation.currentItem)) {
+        return
+      }
 
-  useKeybindings({
-    disable: !isActive,
-    handlers: keybindingHandlers
-  })
+      onAscent(itemNavigation.currentItem)
+    },
+    NAVIGATE_RIGHT: () => {
+      if (R.isNil(itemNavigation.currentItem)) {
+        return
+      }
 
-  useItemListKeybindings({
-    disable: !isActive,
-    itemNavigation: currentItemNavigation,
-    handlers: {
-      onNavigateLeft: onAscent,
-      onNavigateRight: onDescent
+      onDescent(itemNavigation.currentItem)
     }
+  }, { disable: !isActive })
+
+  useItemListKeybindings(itemNavigation, {
+    disable: !isActive
   })
 
   const currentItems = isSearchHidden ? items : itemSearch.results

@@ -24,14 +24,12 @@ export const conformHandler = (handler: KeybindingHandler): Handler<KeyboardEven
 }
 
 interface Options {
-  disable?: boolean,
-  handlers: KeybindingHandlers
+  disable?: boolean
 }
 
-const useKeybindings = ({
-  disable = false,
-  handlers = {}
-}: Options) => {
+const useKeybindings = (handlers: KeybindingHandlers, {
+  disable = false
+}: Options = {}) => {
   const scope = useKeybindingScopeContext()
 
   useEffect(() => {
