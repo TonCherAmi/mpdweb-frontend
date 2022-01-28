@@ -1,4 +1,4 @@
-import { useState, useCallback, useLayoutEffect, useEffect } from 'react'
+import { useState, useCallback, useLayoutEffect } from 'react'
 
 import Thunk from '@app/common/types/Thunk'
 
