@@ -144,7 +144,7 @@ class KeybindingsManager {
           shift: keyboardEvent.shiftKey,
           ctrl: keyboardEvent.ctrlKey,
           meta: keyboardEvent.metaKey,
-          alt: keyboardEvent.altKey,
+          alt: keyboardEvent.altKey
         })
       ),
       mods

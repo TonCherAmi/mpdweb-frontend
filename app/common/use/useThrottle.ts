@@ -1,6 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react'
-
-import * as R from 'ramda'
+import { useRef, useEffect } from 'react'
 
 type TimeoutId = ReturnType<typeof setTimeout>
 
