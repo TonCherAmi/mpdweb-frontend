@@ -1,168 +1,60 @@
-import React from 'react'
-
-import { withRouter, RouteComponentProps } from 'react-router'
-
-import { reaction } from 'mobx'
-import { observer } from 'mobx-react'
+import React, { useCallback, useLayoutEffect, memo } from 'react'
 
 import * as R from 'ramda'
 
 import DatabaseItem from '@app/database/dto/DatabaseItem'
 
 import DatabaseDirectory from '@app/database/components/DatabaseDirectory'
-import ScrollableContainer from '@app/common/components/ScrollableContainer'
-import { DatabaseItemRoundedCornersPosition } from '@app/database/components/DatabaseItem'
 
-import PlaylistService from '@app/playlist/services/PlaylistService'
-import PlaybackService from '@app/playback/services/PlaybackService'
+import useScrollable from '@app/common/use/useScrollable'
+import useDatabaseViewContext from '@app/database/views/DatabaseView/use/useDatabaseViewContext'
+import useDatabaseViewNavigation from '@app/database/views/DatabaseView/use/useDatabaseViewNavigation'
 
-import { dirname, joinPath } from '@app/common/utils/path'
-import { getFullMatchParamFromProps } from '@app/common/utils/router'
-
-import DatabaseViewStore from './store'
-
-import Route from './route'
-
-import { DATABASE_ROOT_URI } from './utils'
+import route from './route'
 
 import styles from './styles.scss'
 
-@observer
-class DatabaseView extends React.Component<RouteComponentProps> {
-  private readonly store = DatabaseViewStore
+const DatabaseView = memo(() => {
+  const [containerRef, containerScrollable] = useScrollable<HTMLDivElement>()
 
-  private readonly scrollableContainerRef = React.createRef<ScrollableContainer>()
+  const { directories, onSelectedItemChange } = useDatabaseViewContext()
 
-  private readonly onComponentDidUpdate: (() => unknown)[] = []
+  useLayoutEffect(() => {
+    containerScrollable.scrollRight('auto')
+  }, [directories, containerScrollable])
 
-  componentDidMount() {
-    this.setCurrentDirectory(this.currentMatchUri)
-  }
+  const { goTo, goBack } = useDatabaseViewNavigation()
 
-  componentDidUpdate(prevProps: RouteComponentProps) {
-    const prevMatchUri = getFullMatchParamFromProps(Route.match.param, prevProps)
+  const handleAscent = useCallback((databaseItem: DatabaseItem) => {
+    onSelectedItemChange(databaseItem)
 
-    if (prevMatchUri !== this.currentMatchUri) {
-      this.setCurrentDirectory(this.currentMatchUri)
-    }
+    goBack()
+  }, [goBack, onSelectedItemChange])
 
-    while (this.onComponentDidUpdate.length > 0) {
-      const fn = this.onComponentDidUpdate.pop()
+  const handleDescent = useCallback((databaseItem: DatabaseItem) => {
+    onSelectedItemChange(databaseItem)
 
-      fn?.()
-    }
-  }
+    goTo(databaseItem.uri)
+  }, [goTo, onSelectedItemChange])
 
-  componentWillUnmount() {
-    this.itemsReactionDisposer()
-  }
+  const getIsActive = R.equals<Nullable<number>>(directories.length - 1)
 
-  private readonly itemsReactionDisposer = reaction(() => this.store.directoryStores, () => {
-    this.scrollableContainerRef.current?.scrollRight()
-  }, { scheduler: fn => this.onComponentDidUpdate.push(fn) })
+  return (
+    <div ref={containerRef} className={styles.container}>
+      <For of={directories} body={(directory, index) => (
+        <DatabaseDirectory
+          key={directory.uri}
+          isActive={getIsActive(index)}
+          items={directory.items}
+          selectedItem={directory.selectedItem}
+          onAscent={handleAscent}
+          onDescent={handleDescent}
+        />
+      )} />
+    </div>
+  )
+})
 
-  private get currentMatchUri(): Nullable<string> {
-    return getFullMatchParamFromProps(Route.match.param, this.props)
-  }
+export { route }
 
-  private get isInRoot(): boolean {
-    return R.isNil(this.currentMatchUri)
-  }
-
-  private setCurrentDirectory(uri: Nullable<string>) {
-    this.store.reset(
-      uri
-      ?? DATABASE_ROOT_URI
-    )
-  }
-
-  private goToRoot() {
-    if (this.isInRoot) {
-      return
-    }
-
-    this.props.history.push(Route.path)
-  }
-
-  private goTo(uri: string) {
-    if (R.equals(uri, DATABASE_ROOT_URI)) {
-      this.goToRoot()
-
-      return
-    }
-
-    const path = joinPath([Route.path, uri])
-
-    this.props.history.push(path)
-  }
-
-  private goBack() {
-    if (R.isNil(this.currentMatchUri)) {
-      return
-    }
-
-    const uri = dirname(this.currentMatchUri)
-
-    this.goTo(uri)
-  }
-
-  private readonly handleAdd = async (item: DatabaseItem) => {
-    await PlaylistService.add(item.uri)
-  }
-
-  private readonly handlePlay = async (item: DatabaseItem) => {
-    await PlaylistService.clear()
-    await PlaylistService.add(item.uri)
-    await PlaybackService.toggle()
-  }
-
-  private handleAscent = () => {
-    this.goBack()
-  }
-
-  private handleDescent = (item: DatabaseItem) => {
-    this.goTo(item.uri)
-  }
-
-  private renderDirectory = (path: string, index: number | undefined): Nullable<JSX.Element> => {
-    if (R.isNil(index) || index >= this.store.directoryStores.length) {
-      return null
-    }
-
-    const directoryStore = this.store.directoryStores[index]
-
-    const nextDirectory = index + 1 === this.store.paths.length
-      ? null
-      : this.store.paths[index + 1]
-
-    const roundedCornerPositions = index !== 0 ? [] : [DatabaseItemRoundedCornersPosition.LEFT]
-
-    const isActive = R.isNil(nextDirectory)
-
-    return (
-      <DatabaseDirectory
-        key={path}
-        isActive={isActive}
-        store={directoryStore}
-        highlightedItemUri={nextDirectory}
-        roundedCornersPositions={roundedCornerPositions}
-        onAdd={this.handleAdd}
-        onPlay={this.handlePlay}
-        onAscent={this.handleAscent}
-        onDescent={this.handleDescent}
-      />
-    )
-  }
-
-  render() {
-    return (
-      <ScrollableContainer ref={this.scrollableContainerRef} className={styles.container}>
-        <For of={this.store.paths} body={this.renderDirectory} />
-      </ScrollableContainer>
-    )
-  }
-}
-
-export { Route }
-
-export default withRouter(DatabaseView)
+export default DatabaseView

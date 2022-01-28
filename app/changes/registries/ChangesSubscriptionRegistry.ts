@@ -10,4 +10,4 @@ class ChangesSubscriptionRegistry extends AbstractStompSubscriptionRegistry<Chan
   }
 }
 
-export default new ChangesSubscriptionRegistry()
+export default ChangesSubscriptionRegistry

@@ -1,84 +1,73 @@
-import React from 'react'
+import React, { ChangeEventHandler } from 'react'
 
 import * as R from 'ramda'
 
-import Key from '@app/common/dto/enums/Key'
+import Thunk from '@app/common/types/Thunk'
 
-export interface Props {
-  isFocused: boolean
-  className?: string
+import * as Icons from '@app/common/icons'
+
+import styles from './styles.scss'
+
+interface Props {
+  autofocus: boolean
   value: string
-  onExit: () => void
-  onChange: (value: string) => void
-  onDescent: () => void
-  onCompletion: () => void
+  onExit: Thunk
+  onCancel: Thunk
+  onAccept: Thunk
+  onBlur: Thunk
+  onFocus: Thunk
+  onChange: ChangeEventHandler<HTMLInputElement>
 }
 
-class SearchInput extends React.Component<Props> {
-  private readonly inputRef: React.RefObject<HTMLInputElement>
+const SearchInput = React.forwardRef<HTMLInputElement, Props>(({
+  autofocus,
+  value,
+  onExit,
+  onCancel,
+  onAccept,
+  onBlur,
+  onFocus,
+  onChange
+}: Props, ref) => {
+  const handleFocus: React.FocusEventHandler<HTMLInputElement> = (event) => {
+    event.target.select()
 
-  constructor(props: Props) {
-    super(props)
-
-    this.inputRef = React.createRef<HTMLInputElement>()
+    onFocus()
   }
 
-  componentDidMount() {
-    if (this.props.isFocused) {
-      this.inputRef.current?.focus()
-    }
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (prevProps.isFocused === this.props.isFocused) {
-      return
-    }
-
-    if (prevProps.isFocused && !this.props.isFocused) {
-      this.inputRef.current?.blur()
-    }
-
-    if (!prevProps.isFocused && this.props.isFocused) {
-      this.inputRef.current?.focus()
-    }
-  }
-
-  get handlers(): Record<Key, () => void> {
-    return {
-      [Key.ESCAPE]: this.props.onExit,
-      [Key.ENTER]: this.props.onDescent,
-      [Key.TAB]: this.props.onCompletion,
-      [Key.ARROW_DOWN]: this.props.onCompletion
-    }
-  }
-
-  handleKeyDown = (event: React.KeyboardEvent) => {
-    const handler = this.handlers[event.key]
+  const handleKeyDown: React.KeyboardEventHandler = (event) => {
+    const handler = {
+      'Tab': onExit,
+      'ArrowDown': onExit,
+      'Enter': onAccept,
+      'Escape': onCancel
+    }[event.key]
 
     if (R.isNil(handler)) {
       return
     }
 
     event.preventDefault()
+    event.stopPropagation()
 
     handler()
   }
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.props.onChange(event.target.value)
-  }
-
-  render() {
-    return (
+  return (
+    <div className={styles.container}>
+      <Icons.Search className={styles.icon} />
       <input
-        ref={this.inputRef}
-        className={this.props.className}
-        value={this.props.value}
-        onKeyDown={this.handleKeyDown}
-        onChange={this.handleChange}
+        ref={ref}
+        className={styles.input}
+        autoFocus={autofocus}
+        value={value}
+        onBlur={onBlur}
+        onFocus={handleFocus}
+        onChange={onChange}
+        onKeyDown={handleKeyDown}
       />
-    )
-  }
-}
+    </div>
+  )
+})
 
 export default SearchInput

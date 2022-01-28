@@ -1,85 +1,57 @@
 import React from 'react'
 
-import {
-  Route,
-  Switch,
-  BrowserRouter as Router
-} from 'react-router-dom'
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 
-import * as R from 'ramda'
+import DatabaseView, { route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
 
-import Status from '@app/status/dto/Status'
-import Change from '@app/changes/dto/enums/Change'
+import useHoverable from '@app/ui/use/useHoverable'
 
-import StatusSubscriptionRegistry from '@app/status/registries/StatusSubscriptionRegistry'
-import ChangesSubscriptionRegistry from '@app/changes/registries/ChangesSubscriptionRegistry'
-
+import Modals from '@app/layout/components/Modals'
 import Sidebar from '@app/layout/components/Sidebar'
 import BottomPanel from '@app/layout/components/BottomPanel'
+import KeybindingScope from '@app/keybindings/components/KeybindingScope'
 
-import DatabaseView, { Route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
-import DatabaseSearchView, { Route as DatabaseSearchViewRoute } from '@app/database/views/DatabaseSearchView'
-
-import StatusStore from '@app/status/stores/StatusStore'
+import Providers from '@app/layout/components/Providers'
+import DatabaseViewProvider from '@app/database/views/DatabaseView/providers/DatabaseViewProvider'
 
 import styles from './styles.scss'
 
-class App extends React.Component {
-  constructor(props: Record<string, never>) {
-    super(props)
+const Wrapper = ({ children }: { children: React.ReactNode }) => (
+  <Router>
+    <Providers>
+      {children}
+    </Providers>
+  </Router>
+)
 
-    StatusSubscriptionRegistry.subscribe(this.handleStatusNotify)
-    ChangesSubscriptionRegistry.subscribe(this.handleChangesNotify)
-  }
+const Wrapped = () => {
+  useHoverable()
 
-  componentDidMount() {
-    StatusStore.retrieve()
-  }
-
-  componentWillUnmount() {
-    StatusSubscriptionRegistry.unsubscribe(this.handleStatusNotify)
-    ChangesSubscriptionRegistry.unsubscribe(this.handleChangesNotify)
-  }
-
-  handleStatusNotify = (status: Status) => {
-    StatusStore.set(status)
-  }
-
-  handleChangesNotify = (changes: Change[]) => {
-    const shouldUpdateStatus = !R.isEmpty(
-      R.intersection(changes, [Change.MIXER, Change.PLAYER])
-    )
-
-    if (shouldUpdateStatus) {
-      StatusStore.retrieve()
-    }
-  }
-
-  render() {
-    return (
-      <Router>
-        <div className={styles.main}>
-          <div className={styles.stack}>
-            <Sidebar />
-            <div className={styles.wrapper}>
-              <Switch>
-                <Route path={DatabaseViewRoute.match.pattern}>
-                  <DatabaseView />
-                </Route>
-                <Route path={DatabaseViewRoute.match.pattern}>
-                  <DatabaseView />
-                </Route>
-                <Route path={DatabaseSearchViewRoute.match.pattern}>
-                  <DatabaseSearchView />
-                </Route>
-              </Switch>
-            </div>
-          </div>
-          <BottomPanel />
+  return (
+    <div className={styles.main}>
+      <Modals />
+      <KeybindingScope scope="view" />
+      <div className={styles.stack}>
+        <Sidebar />
+        <div className={styles.wrapper}>
+          <Switch>
+            <DatabaseViewProvider>
+              <Route path={DatabaseViewRoute.match.pattern}>
+                <DatabaseView />
+              </Route>
+            </DatabaseViewProvider>
+          </Switch>
         </div>
-      </Router>
-    )
-  }
+      </div>
+      <BottomPanel />
+    </div>
+  )
 }
+
+const App = () => (
+  <Wrapper>
+    <Wrapped />
+  </Wrapper>
+)
 
 export default App

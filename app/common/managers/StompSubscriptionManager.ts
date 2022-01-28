@@ -50,4 +50,4 @@ class StompSubscriptionManager {
   }
 }
 
-export default new StompSubscriptionManager()
+export default StompSubscriptionManager

@@ -1,10 +1,10 @@
-import React from 'react'
-
-import { observer } from 'mobx-react'
+import React, { memo } from 'react'
 
 import cx from 'classnames'
 
 import * as R from 'ramda'
+
+import useStatusContext from '@app/status/use/useStatusContext'
 
 import * as Icons from '@app/common/icons'
 
@@ -13,12 +13,12 @@ import PlaybackNextButton from '@app/playback/components/PlaybackNextButton'
 import PlaybackStopButton from '@app/playback/components/PlaybackStopButton'
 import PlaybackToggleButton from '@app/playback/components/PlaybackToggleButton'
 
-import StatusStore from '@app/status/stores/StatusStore'
-
 import styles from './styles.scss'
 
-const PlaybackControls: React.FC = () => {
-  if (R.isNil(StatusStore.status)) {
+const PlaybackControls = memo(() => {
+  const status = useStatusContext()
+
+  if (R.isNil(status)) {
     return null
   }
 
@@ -29,7 +29,7 @@ const PlaybackControls: React.FC = () => {
       </PlaybackPrevButton>
       <PlaybackToggleButton className={cx(styles.button, styles.toggle)}>
         <Choose>
-          <When condition={StatusStore.isPlaying}>
+          <When condition={status.state === 'PLAYING'}>
             <Icons.Pause className={styles.icon} />
           </When>
           <Otherwise>
@@ -45,6 +45,6 @@ const PlaybackControls: React.FC = () => {
       </PlaybackNextButton>
     </div>
   )
-}
+})
 
-export default observer(PlaybackControls)
+export default PlaybackControls

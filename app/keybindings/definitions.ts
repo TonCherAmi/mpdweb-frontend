@@ -20,7 +20,8 @@ export default {
   ADD: make(['a']),
   PLAY: make(['p']),
   SEARCH_FOCUS: make(['/']),
-  SEARCH_EXIT: make(['Escape']),
+  SEARCH_CANCEL: make(['Escape']),
+  MODAL_CLOSE: make(['Escape']),
   NEXT_VIEW: make(
     [
       { key: 'j', mods: ['shift'] },

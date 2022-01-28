@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+
+  align-items: center;
+
+  position: relative;
+
+  padding: .75rem .25rem;
+
+  border-bottom: 1px solid #252525;
+
+  .icon {
+    position: absolute;
+
+    left: 1rem;
+
+    width: 1rem;
+    height: 1rem;
+
+    color: #555;
+  }
+
+  .input {
+    flex-grow: 1;
+
+    height: 1.25rem;
+
+    padding: .5rem;
+    padding-left: 2.35rem;
+
+    font-family: 'Roboto Condensed';
+    line-height: 1.25rem;
+
+    color: #aaa;
+    background: #222;
+
+    border: none;
+    border-radius: 5px;
+
+    appearance: none;
+
+    transition: .2s border-color;
+
+    &:focus {
+      color: #eee;
+    }
+  }
+}

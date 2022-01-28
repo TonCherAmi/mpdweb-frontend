@@ -1,0 +1,37 @@
+.container {
+  position: absolute;
+
+  display: flex;
+  flex: 1;
+
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+
+  width: 30vw;
+  max-width: 30vw;
+
+  height: 75vh;
+  max-height: 75vh;
+
+  margin-right: -50%;
+
+  overflow: hidden;
+
+  color: white;
+  background: #151515;
+
+  border: 1px solid #333;
+  border-radius: .75rem;
+
+  transform: translate(-50%, -50%);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  backdrop-filter: blur(0.5rem);
+  background-color: rgba(#121212, 0.8);
+}

@@ -10,4 +10,4 @@ class StatusSubscriptionRegistry extends AbstractStompSubscriptionRegistry<Statu
   }
 }
 
-export default new StatusSubscriptionRegistry()
+export default StatusSubscriptionRegistry

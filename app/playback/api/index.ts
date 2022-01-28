@@ -1,4 +1,4 @@
-import { make, HttpMethod, } from '@app/common/api'
+import { make, HttpMethod } from '@app/common/api'
 
 const Api = {
   stop: make<void>('/playback/stop', HttpMethod.POST),

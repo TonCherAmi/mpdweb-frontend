@@ -1,3 +1,3 @@
-type Handler<T> = (x: T) => unknown
+type Handler<T, R = unknown> = (x: T) => R
 
 export default Handler

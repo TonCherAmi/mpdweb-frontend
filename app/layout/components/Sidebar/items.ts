@@ -2,8 +2,7 @@ import React from 'react'
 
 import * as Icons from '@app/common/icons'
 
-import { Route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
-import { Route as DatabaseSearchViewRoute } from '@app/database/views/DatabaseSearchView'
+import { route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
 
 export interface SidebarItem {
   text: string
@@ -16,11 +15,6 @@ export const items: SidebarItem[] = [
     text: 'Files',
     path: DatabaseViewRoute.path,
     icon: Icons.FolderFill
-  },
-  {
-    text: 'Search',
-    path: DatabaseSearchViewRoute.path,
-    icon: Icons.Search
   },
   {
     text: 'Playlists',

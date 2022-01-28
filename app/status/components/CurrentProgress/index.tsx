@@ -1,14 +1,13 @@
-import React from 'react'
-import { observer } from 'mobx-react'
+import React, { memo } from 'react'
 
 import * as R from "ramda"
 
 import DurationPair from '@app/common/components/DurationPair'
 
-import StatusStore from "@app/status/stores/StatusStore"
+import useStatusContext from '@app/status/use/useStatusContext'
 
-const CurrentProgress: React.FC = () => {
-  const status = StatusStore.status
+const CurrentProgress = memo(() => {
+  const status = useStatusContext()
 
   if (R.isNil(status)) {
     return null
@@ -20,6 +19,6 @@ const CurrentProgress: React.FC = () => {
       second={status.duration}
     />
   )
-}
+})
 
-export default observer(CurrentProgress)
+export default CurrentProgress

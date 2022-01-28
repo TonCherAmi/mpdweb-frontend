@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { observer } from 'mobx-react'
-
 import styles from './styles.scss'
 
 const CurrentSong: React.FC = () => {
@@ -17,4 +15,4 @@ const CurrentSong: React.FC = () => {
   )
 }
 
-export default observer(CurrentSong)
+export default CurrentSong

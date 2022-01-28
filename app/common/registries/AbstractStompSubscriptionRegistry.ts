@@ -5,10 +5,14 @@ import Handler from '@app/common/types/Handler'
 import StompSubscriptionManager from '@app/common/managers/StompSubscriptionManager'
 
 class AbstractStompSubscriptionRegistry<T> {
-  private handlers: Set<Handler<T>> = new Set()
+  private readonly handlers: Set<Handler<T>> = new Set()
+
+  private readonly stompSubscriptionManager: StompSubscriptionManager
 
   constructor(path: string) {
-    StompSubscriptionManager.subscribe(path, this.entrypoint)
+    this.stompSubscriptionManager = new StompSubscriptionManager()
+
+    this.stompSubscriptionManager.subscribe(path, this.entrypoint)
   }
 
   subscribe(handler: Handler<T>) {

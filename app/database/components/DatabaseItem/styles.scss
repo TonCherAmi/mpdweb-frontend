@@ -7,7 +7,7 @@
   padding: 0.65rem;
   padding-left: 1.25rem;
 
-  &.clickable.hoverable {
+  :global(.hoverable) &.clickable {
     cursor: pointer;
   }
 
@@ -23,11 +23,11 @@
     background: #1C2636;
   }
 
-  &.highlighted.secondary.hoverable:hover {
+  :global(.hoverable) &.highlighted.secondary:hover {
     background: #232F43;
   }
 
-  &.hoverable:hover {
+  :global(.hoverable) &:hover {
     background: #202020;
   }
 
