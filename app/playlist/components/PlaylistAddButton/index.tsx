@@ -13,7 +13,7 @@ const PlaylistAddButton: React.FC<Props> = ({ uri, children, ...props }) => {
 
   return (
     <Button {...props} onClick={handleClick}>
-      {children as JSX.TChildren[]}
+      {children}
     </Button>
   )
 }

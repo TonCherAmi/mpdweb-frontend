@@ -18,7 +18,7 @@ const Link: React.FC<Props> = ({ className, to, children, ...props }) => {
       className={cx(className, styles.link)}
       to={to}
     >
-      {children as JSX.TChildren[]}
+      {children}
     </ReactRouterLink>
   )
 }

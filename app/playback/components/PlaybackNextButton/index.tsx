@@ -9,7 +9,7 @@ const PlaybackNextButton: React.FC<UnknownRecord> = ({ children, ...props }) => 
 
   return (
     <Button {...props} onClick={handleClick}>
-      {children as JSX.TChildren[]}
+      {children}
     </Button>
   )
 }
