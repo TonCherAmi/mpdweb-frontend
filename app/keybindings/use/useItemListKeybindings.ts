@@ -1,5 +1,3 @@
-import { useMemo } from 'react'
-
 import { ItemNavigation } from '@app/common/use/useItemNavigation'
 
 import useKeybindings from '@app/keybindings/use/useKeybindings'
@@ -53,12 +51,12 @@ const useItemListKeybindings = <T> (itemNavigation: ItemNavigation<T>, {
     itemNavigation.goToLastItem()
   }
 
-  const handlers = useMemo(() => ({
+  const handlers = {
     NEXT_ITEM: handleNextItemKeyPress,
     PREV_ITEM: handlePrevItemKeyPress,
     FIRST_ITEM: handleFirstItemKeyPress,
-    LAST_ITEM: handleLastItemKeyPress,
-  }), [handleNextItemKeyPress, handlePrevItemKeyPress, handleFirstItemKeyPress, handleLastItemKeyPress])
+    LAST_ITEM: handleLastItemKeyPress
+  }
 
   useKeybindings(handlers, { disable })
 }
