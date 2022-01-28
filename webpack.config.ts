@@ -8,7 +8,7 @@ const src = Path.resolve(__dirname, 'app')
 const config: Webpack.Configuration = {
   context: src,
   entry: './index.tsx',
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   output: {
     publicPath: '/'
   },
