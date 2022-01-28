@@ -8,11 +8,11 @@ export interface ItemNavigation<T> {
   isEmpty: boolean
   isInitial: boolean
   currentItem: Nullable<T>
-  setCurrentItem: (item: T) => void
   goToNextItem: Thunk
   goToPrevItem: Thunk
   goToFirstItem: Thunk
   goToLastItem: Thunk
+  setCurrentItem: (item: T) => void
 }
 
 const INITIAL_INDEX = -1
@@ -26,17 +26,6 @@ const useItemNavigation = <T> (
 
   useLayoutEffect(() => {
     setCurrentItemIndex(INITIAL_INDEX)
-  }, [items])
-
-  const setCurrentItem = useCallback((item: T) => {
-    const itemIndex = R.findIndex(
-      R.equals(item),
-      items
-    )
-
-    if (itemIndex !== -1) {
-      setCurrentItemIndex(itemIndex)
-    }
   }, [items])
 
   const isEmpty = R.isEmpty(items)
@@ -89,15 +78,26 @@ const useItemNavigation = <T> (
     setCurrentItemIndex(items.length - 1)
   }, [isEmpty, items.length])
 
+  const setCurrentItem = useCallback((item: T) => {
+    const itemIndex = R.findIndex(
+      R.equals(item),
+      items
+    )
+
+    if (itemIndex !== -1) {
+      setCurrentItemIndex(itemIndex)
+    }
+  }, [items])
+
   return {
     isEmpty,
     isInitial: isInitial(currentItemIndex),
     currentItem,
-    setCurrentItem,
     goToNextItem,
     goToPrevItem,
     goToFirstItem,
-    goToLastItem
+    goToLastItem,
+    setCurrentItem
   }
 }
 
