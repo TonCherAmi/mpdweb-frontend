@@ -4,7 +4,9 @@ import Button from '@app/common/components/Button'
 
 import PlaybackService from '@app/playback/services/PlaybackService'
 
-const PlaybackPrevButton: React.FC<UnknownRecord> = ({ children, ...props }) => {
+type Props = React.ComponentProps<typeof Button>
+
+const PlaybackPrevButton = ({ children, ...props }: Props) => {
   const handleClick = () => PlaybackService.next()
 
   return (

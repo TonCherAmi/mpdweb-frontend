@@ -13,7 +13,7 @@ interface Props {
   list: Crumb[]
 }
 
-const Crumbs: React.FC<Props> = ({ list }) => {
+const Crumbs = ({ list }: Props) => {
   return (
     <For of={list} body={(item) => (
       <span key={item.path} className={styles.crumb}>

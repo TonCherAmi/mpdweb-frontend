@@ -4,7 +4,9 @@ import Button from '@app/common/components/Button'
 
 import PlaylistService from '@app/playlist/services/PlaylistService'
 
-const PlaylistClearButton: React.FC<UnknownRecord> = ({ children, ...props }) => {
+type Props = React.ComponentProps<typeof Button>
+
+const PlaylistClearButton = ({ children, ...props }: Props) => {
   const handleClick = () => PlaylistService.clear()
 
   return (

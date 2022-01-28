@@ -4,12 +4,13 @@ import cx from 'classnames'
 
 import styles from './styles.scss'
 
-interface Props {
+interface Props extends React.ComponentProps<'button'> {
   className?: string
   onClick: React.EventHandler<React.MouseEvent>
+  children: React.ReactNode
 }
 
-const Button: React.FC<Props> = ({ className, children, onClick, ...props }) => {
+const Button  = ({ className, children, onClick, ...props }: Props) => {
   return (
     <button
       {...props}

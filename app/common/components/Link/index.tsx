@@ -9,9 +9,10 @@ import styles from './styles.scss'
 interface Props {
   className?: string
   to: string
+  children: React.ReactNode
 }
 
-const Link: React.FC<Props> = ({ className, to, children, ...props }) => {
+const Link = ({ className, to, children, ...props }: Props) => {
   return (
     <ReactRouterLink
       {...props}

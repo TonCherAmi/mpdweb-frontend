@@ -14,7 +14,7 @@ interface Props {
   type: DatabaseItemType
 }
 
-const DatabaseItemIcon: React.FC<Props> = ({ className, type }) => {
+const DatabaseItemIcon = ({ className, type }: Props) => {
   const Icon = DatabaseItemTypeToIcon[type]
 
   return (

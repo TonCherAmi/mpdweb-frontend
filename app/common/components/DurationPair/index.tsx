@@ -10,7 +10,7 @@ interface Props {
   second: DurationDto
 }
 
-const DurationPair: React.FC<Props> = ({ className, first, second }) => (
+const DurationPair = ({ className, first, second }: Props) => (
   <span className={className}>
     <Duration value={first} /> / <Duration value={second} />
   </span>

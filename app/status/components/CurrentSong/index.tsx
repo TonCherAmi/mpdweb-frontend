@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from './styles.scss'
 
-const CurrentSong: React.FC = () => {
+const CurrentSong = () => {
   return (
     <div className={styles.container}>
       <span className={styles.title}>

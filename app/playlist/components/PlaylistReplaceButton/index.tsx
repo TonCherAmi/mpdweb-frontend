@@ -5,11 +5,11 @@ import Button from '@app/common/components/Button'
 import PlaylistService from '@app/playlist/services/PlaylistService'
 import PlaybackService from '@app/playback/services/PlaybackService'
 
-interface Props {
+interface Props extends React.ComponentProps<typeof Button> {
   uri: string
 }
 
-const PlaylistReplaceButton: React.FC<Props> = ({ uri, children, ...props }) => {
+const PlaylistReplaceButton = ({ uri, children, ...props }: Props) => {
   const handleClick = async () => {
     await PlaylistService.clear()
     await PlaylistService.add(uri)

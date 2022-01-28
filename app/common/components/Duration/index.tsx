@@ -11,10 +11,7 @@ interface Props {
   value: DurationDto
 }
 
-const Duration: React.FC<Props> = ({
-  className = styles.durationTest,
-  value
-}) => {
+const Duration = ({ className = styles.durationTest, value }: Props) => {
   const formattedDuration = formatDuration(value.part)
 
   return (

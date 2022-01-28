@@ -4,7 +4,9 @@ import Button from '@app/common/components/Button'
 
 import DatabaseService from '@app/database/services/DatabaseService'
 
-const DatabaseUpdateButton: React.FC<UnknownRecord> = ({ children, ...props }) => {
+type Props = React.ComponentProps<typeof Button>
+
+const DatabaseUpdateButton = ({ children, ...props }: Props) => {
   const handleClick = () => DatabaseService.update()
 
   return (

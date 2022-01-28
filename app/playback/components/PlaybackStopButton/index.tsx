@@ -4,7 +4,9 @@ import Button from '@app/common/components/Button'
 
 import PlaybackService from '@app/playback/services/PlaybackService'
 
-const PlaybackStopButton: React.FC<UnknownRecord> = ({ children, ...props }) => {
+type Props = React.ComponentProps<typeof Button>
+
+const PlaybackStopButton = ({ children, ...props }: Props) => {
   const handleClick = () => PlaybackService.stop()
 
   return (

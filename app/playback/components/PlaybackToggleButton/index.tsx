@@ -4,7 +4,9 @@ import Button from '@app/common/components/Button'
 
 import PlaybackService from '@app/playback/services/PlaybackService'
 
-const PlaybackToggleButton: React.FC<UnknownRecord> = ({ children, ...props }) => {
+type Props = React.ComponentProps<typeof Button>
+
+const PlaybackToggleButton = ({ children, ...props }: Props) => {
   const handleClick = () => PlaybackService.toggle()
 
   return (
