@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import * as R from 'ramda'
 
 import Status from '@app/status/dto/Status'
-import Change from '@app/changes/dto/enums/Change'
+import Change from '@app/changes/types/Change'
 import Handler from '@app/common/types/Handler'
 
 import StatusContext from '@app/status/contexts/StatusContext'
@@ -46,7 +46,7 @@ const StatusProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const handler: Handler<ReadonlyArray<Change>> = (changes) => {
       const shouldUpdateStatus = !R.isEmpty(
-        R.intersection(changes, [Change.MIXER, Change.PLAYER])
+        R.intersection(changes, ['mixer', 'player'])
       )
 
       if (!shouldUpdateStatus) {

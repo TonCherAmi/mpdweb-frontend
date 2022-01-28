@@ -1,4 +1,4 @@
-import Change from '@app/changes/dto/enums/Change'
+import Change from '@app/changes/types/Change'
 
 import AbstractStompSubscriptionRegistry from '@app/common/registries/AbstractStompSubscriptionRegistry'
 

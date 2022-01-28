@@ -8,7 +8,7 @@ import Thunk from '@app/common/types/Thunk'
 import Handler from '@app/common/types/Handler'
 
 import DatabaseItemDto from '@app/database/dto/DatabaseItem'
-import DatabaseItemType from '@app/database/dto/enums/DatabaseItemType'
+import DatabaseItemType from '@app/database/types/DatabaseItemType'
 
 import * as Icons from '@app/common/icons'
 
@@ -49,7 +49,7 @@ const DatabaseItem = memo(
       }
     }
 
-    const isClickable = item.type === DatabaseItemType.DIRECTORY
+    const isClickable = item.type === 'DIRECTORY'
 
     const handleClick = withItem(
       !isClickable ? null : onClick

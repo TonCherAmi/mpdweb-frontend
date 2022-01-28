@@ -1,4 +1,4 @@
-import DatabaseItemType from '@app/database/dto/enums/DatabaseItemType'
+import DatabaseItemType from '@app/database/types/DatabaseItemType'
 
 interface DatabaseItem {
   uri: string

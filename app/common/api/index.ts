@@ -3,13 +3,7 @@ import * as R from 'ramda'
 import Query from 'qs'
 import { sprintf } from 'sprintf-js'
 
-export enum HttpMethod {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  PATCH = 'PATCH',
-  DELETE = 'DELETE'
-}
+type HttpMethod = 'get' | 'post'
 
 const API_PREFIX = '/api'
 
@@ -61,7 +55,7 @@ const makeEndpoint = <T> (
 
 export const make = <R, T = null> (
   template: string,
-  method: HttpMethod = HttpMethod.GET, {
+  method: HttpMethod = 'get', {
     path: pathKeys = [],
     query: queryKeys = []
   }: { path?: string[], query?: string[] } = {}

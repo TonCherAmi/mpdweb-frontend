@@ -1,13 +1,13 @@
 import React from 'react'
 
-import DatabaseItemType from '@app/database/dto/enums/DatabaseItemType'
+import DatabaseItemType from '@app/database/types/DatabaseItemType'
 
 import * as Icons from '@app/common/icons'
 
 const DatabaseItemTypeToIcon = {
-  [DatabaseItemType.FILE]: Icons.FileFill,
-  [DatabaseItemType.DIRECTORY]: Icons.FolderFill
-}
+  FILE: Icons.FileFill,
+  DIRECTORY: Icons.FolderFill
+} as const
 
 interface Props {
   className: string

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import * as R from 'ramda'
 
 import Handler from '@app/common/types/Handler'
-import Change from '@app/changes/dto/enums/Change'
+import Change from '@app/changes/types/Change'
 import DatabaseItem from '@app/database/dto/DatabaseItem'
 import DatabaseDirectory from '@app/database/views/DatabaseView/types/DatabaseDirectory'
 
@@ -79,7 +79,7 @@ const DatabaseViewProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const handler: Handler<ReadonlyArray<Change>> = (changes) => {
-      if (changes.includes(Change.DATABASE)) {
+      if (changes.includes('database')) {
         cache.clear()
 
         load(uris)

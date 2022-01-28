@@ -1,4 +1,4 @@
-import State from '@app/status/dto/enums/State'
+import State from '@app/status/types/State'
 import Duration from '@app/common/dto/Duration'
 
 interface Status {
