@@ -8,7 +8,6 @@ import Thunk from '@app/common/types/Thunk'
 import Handler from '@app/common/types/Handler'
 
 import DatabaseItemDto from '@app/database/dto/DatabaseItem'
-import DatabaseItemType from '@app/database/types/DatabaseItemType'
 
 import * as Icons from '@app/common/icons'
 
