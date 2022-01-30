@@ -7,7 +7,7 @@ import PlaybackService from '@app/playback/services/PlaybackService'
 type Props = Omit<React.ComponentProps<typeof Button>, 'onClick'>
 
 const PlaybackPrevButton = ({ children, ...props }: Props) => {
-  const handleClick = () => PlaybackService.next()
+  const handleClick = () => PlaybackService.prev()
 
   return (
     <Button {...props} onClick={handleClick}>
