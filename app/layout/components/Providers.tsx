@@ -1,11 +1,13 @@
 import React from 'react'
 
 import StatusProvider from '@app/status/components/StatusProvider'
+import PlaylistProvider from '@app/playlist/providers/PlaylistProvider'
 import ModalStateProvider from '@app/ui/providers/ModalStateProvider'
 import UiInteractionModeProvider from '@app/ui/providers/UiInteractionModeProvider'
 
 const providers = [
   StatusProvider,
+  PlaylistProvider,
   ModalStateProvider,
   UiInteractionModeProvider
 ] as const
