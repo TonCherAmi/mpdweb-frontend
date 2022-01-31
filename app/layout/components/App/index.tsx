@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
+import { Route, Switch, BrowserRouter as Router, Redirect } from 'react-router-dom'
 
 import DatabaseView, { route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
 
@@ -35,6 +35,9 @@ const Wrapped = () => {
         <Sidebar />
         <div className={styles.wrapper}>
           <Switch>
+            <Route exact path="/">
+              <Redirect to={DatabaseViewRoute.path} />
+            </Route>
             <DatabaseViewProvider>
               <Route path={DatabaseViewRoute.match.pattern}>
                 <DatabaseView />
