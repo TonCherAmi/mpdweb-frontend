@@ -4,10 +4,10 @@ import Thunk from '@app/common/types/Thunk'
 
 export type State = 'initial' | 'fetching' | 'success' | 'error'
 
-export type Load <T> = (data: T) => void
-export type Retrieve<T, R> = (data: T) => Promise<R>
+export type Load<T extends ReadonlyArray<unknown>> = (...data: T) => void
+export type Retrieve<R, T extends ReadonlyArray<unknown>> = (...data: T) => Promise<R>
 
-export interface RemoteData<T, R> {
+export interface RemoteData<R, T extends ReadonlyArray<unknown>> {
   data: Nullable<R>
   state: State
   load: Load<T>
@@ -15,14 +15,14 @@ export interface RemoteData<T, R> {
   cancel: Thunk
 }
 
-const useRemoteData = <T, R> (retrieve: Retrieve<T, R>): RemoteData<T, R> => {
+const useRemoteData = <R, T extends ReadonlyArray<unknown>> (retrieve: Retrieve<R, T>): RemoteData<R, T> => {
   const isCanceledRef = useRef(false)
 
   const [data, setData] = useState<Nullable<R>>(null)
   const [state, setState] = useState<State>('initial')
 
-  const load = useCallback((data: T) => {
-    retrieve(data)
+  const load: Load<T> = useCallback((...data) => {
+    retrieve(...data)
       .then((result) => {
         if (isCanceledRef.current) {
           isCanceledRef.current = false
