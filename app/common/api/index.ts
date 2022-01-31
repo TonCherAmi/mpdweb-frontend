@@ -59,7 +59,7 @@ export const make = <R, T = null> (
     path: pathKeys = [],
     query: queryKeys = []
   }: { path?: string[], query?: string[] } = {}
-) => async (data: Nullable<T> = null): Promise<R> => {
+) => async (...data: [T] extends [null] ? [] : [T]): Promise<R> => {
   const getBody = R.pipe(
     R.ifElse(
       R.isNil,
@@ -70,8 +70,8 @@ export const make = <R, T = null> (
     R.unless(R.isNil, JSON.stringify),
   )
 
-  const body = getBody(data)
-  const endpoint = makeEndpoint(template, data, pathKeys, queryKeys)
+  const body = getBody(data[0])
+  const endpoint = makeEndpoint(template, data[0], pathKeys, queryKeys)
 
   const result = await fetch(endpoint, {
     body,
