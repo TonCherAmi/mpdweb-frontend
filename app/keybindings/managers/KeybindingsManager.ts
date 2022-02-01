@@ -118,11 +118,13 @@ class KeybindingsManager {
       return false
     }
 
-    if (R.is(String, matchingTrigger) || R.isEmpty(matchingTrigger.mods)) {
-      return true
+    const eventMods = this.getMods(keyboardEvent)
+
+    if (R.is(String, matchingTrigger)) {
+      return R.isEmpty(eventMods)
     }
 
-    return this.doModsMatch(keyboardEvent, matchingTrigger.mods)
+    return this.doModsMatch(eventMods, matchingTrigger.mods)
   }
 
   private readonly doesTriggerMatch = (keyboardEvent: KeyboardEvent) => (trigger: KeybindingTrigger): boolean => {
@@ -137,18 +139,23 @@ class KeybindingsManager {
     return key.toLowerCase() === keyboardEvent.key.toLowerCase()
   }
 
-  private readonly doModsMatch = (keyboardEvent: KeyboardEvent, mods: Mod[]): boolean => {
-    return R.any(
-      (mod) => (
-        R.prop(mod, {
-          shift: keyboardEvent.shiftKey,
-          ctrl: keyboardEvent.ctrlKey,
-          meta: keyboardEvent.metaKey,
-          alt: keyboardEvent.altKey
-        })
-      ),
-      mods
+  private readonly doModsMatch = (eventMods: ReadonlyArray<Mod>, triggerMods: ReadonlyArray<Mod>): boolean => {
+    return R.isEmpty(
+      R.difference(eventMods, triggerMods)
     )
+  }
+
+  private readonly getMods = (keyboardEvent: KeyboardEvent): ReadonlyArray<Mod> => {
+    const pairs = [
+      ['shift', keyboardEvent.shiftKey],
+      ['ctrl', keyboardEvent.ctrlKey],
+      ['meta', keyboardEvent.metaKey],
+      ['alt', keyboardEvent.altKey]
+    ] as const
+
+    return pairs
+      .filter(R.nth(1))
+      .flatMap(([mod]) => mod)
   }
 }
 
