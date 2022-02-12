@@ -1,26 +1,16 @@
 import React from 'react'
 
-import * as R from 'ramda'
-
-import useStatusContext from '@app/status/use/useStatusContext'
-import usePlaylistContext from '@app/playlist/use/usePlaylistContext'
+import useCurrentSong from '@app/status/use/useCurrentSong'
 
 import styles from './styles.scss'
 
 const CurrentSong = () => {
-  const status = useStatusContext()
-  const playlist = usePlaylistContext()
+  const currentSong = useCurrentSong()
 
-  if (R.isNil(status) || R.isNil(status.currentSong)) {
-    return null
-  }
-
-  const title = playlist[status.currentSong]
-    ?.title
+  const title = currentSong?.title
     ?? '-------'
 
-  const artist = playlist[status.currentSong]
-    ?.artist
+  const artist = currentSong?.artist
     ?? '---'
 
   return (
