@@ -2,14 +2,16 @@
   display: flex;
   flex-direction: column;
 
-  .title {
-    font-size: 1.05rem;
-    line-height: 1.05rem;
+  .artist {
+    font-size: 1.1rem;
+
+    color: #ffeeee;
   }
 
-  .artist {
-    font-size: 0.8rem;
+  .title {
+    font-size: 1.4rem;
+    font-weight: 600;
 
-    color: #A6CFD5;
+    color: #A27E8E;
   }
 }
