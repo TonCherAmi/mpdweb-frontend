@@ -141,7 +141,7 @@ class KeybindingsManager {
 
   private readonly doModsMatch = (eventMods: ReadonlyArray<Mod>, triggerMods: ReadonlyArray<Mod>): boolean => {
     return R.isEmpty(
-      R.difference(eventMods, triggerMods)
+      R.symmetricDifference(eventMods, triggerMods)
     )
   }
 
