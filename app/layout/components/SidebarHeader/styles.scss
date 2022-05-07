@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: .7rem;
+
+  padding-right: .75rem;
+}
+
+.heading {
+  margin: 0;
+
+  font-weight: 700;
+
+  font-family: "Open Sans", sans-serif;
+  font-size: 22pt;
+  line-height: 24pt;
+}
+
+.icon {
+  width: 1.35rem;
+  height: 1.35rem;
+
+  color: #777;
+
+  cursor: pointer;
+
+  transition: .2s color;
+
+  &:hover {
+    color: #ddd;
+  }
+}
