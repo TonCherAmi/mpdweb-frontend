@@ -1,0 +1,82 @@
+.container {
+  display: flex;
+
+  align-items: center;
+
+  padding-right: .75rem;
+
+  border-radius: .75rem;
+
+  transition: .3s box-shadow, .3s background-color;
+
+  cursor: pointer;
+
+  &:not(:last-child) {
+    margin-bottom: .75rem;
+  }
+
+  &:hover {
+    background: #222222;
+
+    box-shadow: .25rem .1rem .5rem .65rem rgba(0, 0, 0, 0.07);
+  }
+
+  &:active {
+    background: #242424;
+
+    box-shadow: none;
+  }
+}
+
+.name {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 70%;
+
+  .title, .artist {
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+  }
+
+  .title {
+    font-size: 12pt;
+
+    margin-bottom: .25rem;
+
+    color: #dedede;
+  }
+
+  .artist {
+    font-size: 10pt;
+
+    color: #bbb;
+  }
+}
+
+.cover {
+  width: 4rem;
+  height: 4rem;
+
+  margin-right: 1rem;
+
+  background: #161616;
+
+  .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+.duration {
+  margin-left: auto;
+
+  font-size: 10pt;
+  font-family: "Roboto", sans-serif;
+
+  color: #999;
+}

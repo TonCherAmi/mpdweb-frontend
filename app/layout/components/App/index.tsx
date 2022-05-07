@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Route, Switch, BrowserRouter as Router, Redirect } from 'react-router-dom'
 
@@ -15,6 +15,7 @@ import Providers from '@app/layout/components/Providers'
 import DatabaseViewProvider from '@app/database/views/DatabaseView/providers/DatabaseViewProvider'
 
 import styles from './styles.scss'
+import CurrentPlaylist from '@app/playlist/components/CurrentPlaylist'
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => (
   <Router>
@@ -45,6 +46,7 @@ const Wrapped = () => {
             </DatabaseViewProvider>
           </Switch>
         </div>
+        <CurrentPlaylist />
       </div>
       <BottomPanel />
     </div>

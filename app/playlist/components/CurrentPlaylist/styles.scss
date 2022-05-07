@@ -1,0 +1,110 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  width: 30rem;
+
+  padding: 0.5rem 2.25rem;
+  padding-bottom: 0;
+
+  background: #1b1b1b;
+
+  border-bottom: 1px solid #000;
+
+  max-height: 100%;
+}
+
+.scrollable {
+  flex-grow: 1;
+
+  // shadow cutoff fix
+  margin: 0 -2rem;
+  padding: 0 2rem;
+
+  overflow-y: scroll;
+
+  scroll-snap-type: y proximity;
+  scroll-snap-stop: always;
+
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.prev {
+  /**
+   * without this the lowermost history item ends up being
+   * slightly visible (very jarring with bright album art)
+   * even when the history section is fully scrolled out of view
+   * (this only happens in Chrome)
+   */
+  margin-top: -1px;
+}
+
+.prev, .next {
+  scroll-snap-align: start;
+}
+
+.next {
+  min-height: 100%;
+}
+
+.end {
+  scroll-snap-align: end;
+}
+
+.header {
+  display: flex;
+
+  align-items: center;
+
+  position: sticky;
+
+  top: -1px;
+
+  padding-top: 2rem;
+  padding-right: .5rem;
+  padding-bottom: .75rem;
+
+  background: #1b1b1b;
+
+  .heading {
+    margin: 0;
+
+    font-size: 24pt;
+    font-weight: 700;
+
+    font-family: "Open Sans", sans-serif;
+  }
+
+  .button {
+    margin-left: auto;
+
+    padding: .1rem .5rem;
+
+    border-radius: .25rem;
+
+    font-size: 10pt;
+
+    color: #ccc;
+    background: #303030;
+
+    transition: .2s background-color, .2s color;
+
+    &:hover {
+      color: #eee;
+      background: #383838;
+    }
+  }
+}
+
+.info {
+  padding: 1.5rem 0;
+
+  color: #999;
+
+  font-weight: 600;
+  font-variant: small-caps;
+}
