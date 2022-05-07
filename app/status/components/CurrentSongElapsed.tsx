@@ -14,7 +14,7 @@ const CurrentSongElapsed = ({ className }: { className?: string }) => {
   }
 
   return (
-    <Duration value={status.elapsed} />
+    <Duration className={className} value={status.song?.elapsed} />
   )
 }
 

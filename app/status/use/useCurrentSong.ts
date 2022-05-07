@@ -9,11 +9,11 @@ const useCurrentSong = (): Nullable<DatabaseFile> => {
   const status = useStatusContext()
   const playlist = usePlaylistContext()
 
-  if (R.isNil(status) || R.isNil(status.currentSong)) {
+  if (R.isNil(status) || R.isNil(status.song)) {
     return null
   }
 
-  return playlist[status.currentSong]
+  return playlist[status.song?.position]
 }
 
 export default useCurrentSong
