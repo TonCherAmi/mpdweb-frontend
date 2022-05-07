@@ -6,7 +6,7 @@ import Duration from '@app/common/components/Duration'
 
 import useStatusContext from '@app/status/use/useStatusContext'
 
-const CurrentSongElapsed = () => {
+const CurrentSongElapsed = ({ className }: { className?: string }) => {
   const status = useStatusContext()
 
   if (R.isNil(status)) {

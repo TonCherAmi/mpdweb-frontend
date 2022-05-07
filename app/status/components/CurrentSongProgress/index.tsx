@@ -9,9 +9,9 @@ import styles from './styles.scss'
 const CurrentSongProgress = () => {
   return (
     <div className={styles.container}>
-      <CurrentSongElapsed />
+      <CurrentSongElapsed className={styles.duration} />
       <CurrentSongProgressRange />
-      <CurrentSongDuration />
+      <CurrentSongDuration className={styles.duration} />
     </div>
   )
 }
