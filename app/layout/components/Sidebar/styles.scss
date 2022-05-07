@@ -18,6 +18,10 @@ $container-width: 21.5rem;
 
   width: $container-width;
   height: $container-width;
+
+  border-radius: .5rem;
+
+  box-shadow: rgba(black, 0.1) 0.25rem -0.25rem 1rem 1rem;
 }
 
 .item {
