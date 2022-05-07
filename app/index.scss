@@ -28,8 +28,8 @@ body {
   scrollbar-width: thin;
 
   ::-webkit-scrollbar {
-    height: 7px;
-    width: 7px;
+    height: 3px;
+    width: 3px;
   }
 
   ::-webkit-scrollbar-track {
@@ -37,7 +37,7 @@ body {
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #292929;
+    background: #232323;
   }
 
   outline: none;
