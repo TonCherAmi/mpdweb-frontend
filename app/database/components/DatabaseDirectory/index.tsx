@@ -6,6 +6,9 @@ import Handler from '@app/common/types/Handler'
 
 import DatabaseItemDto from '@app/database/dto/DatabaseItem'
 
+import DatabaseItem, { HighlightStyle } from '@app/database/components/DatabaseItem'
+import DatabaseDirectorySearchInput from '@app/database/components/DatabaseDirectorySearchInput'
+
 import useItemSearch from '@app/common/use/useItemSearch'
 import useItemNavigation from '@app/common/use/useItemNavigation'
 import useModalStateContext from '@app/ui/use/useModalStateContext'
@@ -14,9 +17,6 @@ import useKeybindings from '@app/keybindings/use/useKeybindings'
 import useItemListKeybindings from '@app/keybindings/use/useItemListKeybindings'
 import useDatabaseItemActions from '@app/database/components/use/useDatabaseItemActions'
 import useDatabaseItemHighlightStyle from '@app/database/components/use/useDatabaseItemHighlightStyle'
-
-import SearchInput from '@app/common/components/SearchInput'
-import DatabaseItem, { HighlightStyle } from '@app/database/components/DatabaseItem'
 
 import usePositionedDatabaseItemRef from './use/usePositionedDatabaseItemRef'
 
@@ -180,7 +180,7 @@ const DatabaseDirectory = memo(({
   return (
     <div className={styles.container}>
       <If condition={!isSearchHidden}>
-        <SearchInput
+        <DatabaseDirectorySearchInput
           autofocus
           ref={searchInputRef}
           value={itemSearch.input.value}

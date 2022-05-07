@@ -4,11 +4,8 @@ import * as R from 'ramda'
 
 import Thunk from '@app/common/types/Thunk'
 
-import * as Icons from '@app/common/icons'
-
-import styles from './styles.scss'
-
 interface Props {
+  className?: string
   autofocus: boolean
   value: string
   onExit: Thunk
@@ -20,6 +17,7 @@ interface Props {
 }
 
 const SearchInput = React.forwardRef<HTMLInputElement, Props>(({
+  className,
   autofocus,
   value,
   onExit,
@@ -28,7 +26,7 @@ const SearchInput = React.forwardRef<HTMLInputElement, Props>(({
   onBlur,
   onFocus,
   onChange
-}: Props, ref) => {
+}, ref) => {
   const handleFocus: React.FocusEventHandler<HTMLInputElement> = (event) => {
     event.target.select()
 
@@ -54,19 +52,17 @@ const SearchInput = React.forwardRef<HTMLInputElement, Props>(({
   }
 
   return (
-    <div className={styles.container}>
-      <Icons.Search className={styles.icon} />
-      <input
-        ref={ref}
-        className={styles.input}
-        autoFocus={autofocus}
-        value={value}
-        onBlur={onBlur}
-        onFocus={handleFocus}
-        onChange={onChange}
-        onKeyDown={handleKeyDown}
-      />
-    </div>
+    <input
+      ref={ref}
+      className={className}
+      autoFocus={autofocus}
+      spellCheck={false}
+      value={value}
+      onBlur={onBlur}
+      onFocus={handleFocus}
+      onChange={onChange}
+      onKeyDown={handleKeyDown}
+    />
   )
 })
 

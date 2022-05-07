@@ -4,6 +4,9 @@ import * as R from 'ramda'
 
 import Thunk from '@app/common/types/Thunk'
 
+import DatabaseSearchInput from '@app/database/components/DatabaseSearchInput'
+import DatabaseItem, { HighlightStyle } from '@app/database/components/DatabaseItem'
+
 import useInput from '@app/common/use/useInput'
 import useDebounce from '@app/common/use/useDebounce'
 import useRemoteList from '@app/common/use/useRemoteList'
@@ -16,9 +19,6 @@ import useRouteNavigation from '@app/common/use/useRouteNavigation'
 import useDatabaseItemHighlightStyle from '@app/database/components/use/useDatabaseItemHighlightStyle'
 import useUiInteractionModeAwareWheelEventHandler from '@app/ui/use/useUiInteractionModeAwareWheelEventHandler'
 import useUiInteractionModeAwareMouseEventHandler from '@app/ui/use/useUiInteractionModeAwareMouseEventHandler'
-
-import SearchInput from '@app/common/components/SearchInput'
-import DatabaseItem, { HighlightStyle } from '@app/database/components/DatabaseItem'
 
 import DatabaseItemDto from '@app/database/dto/DatabaseItem'
 
@@ -219,7 +219,7 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
 
   return (
     <div className={styles.container}>
-      <SearchInput
+      <DatabaseSearchInput
         autofocus
         ref={searchInputRef}
         value={input.value}
@@ -230,23 +230,25 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
         onFocus={handleSearchFocus}
         onChange={input.handleChange}
       />
-      <div
-        className={styles.items}
-        onWheel={containerWheelHandler}
-        onMouseMove={containerMouseMoveHandler}
-      >
-        <For of={items} body={(item) => (
-          <DatabaseItem
-            key={item.uri}
-            ref={getDatabaseItemRef(item)}
-            item={item}
-            highlightStyle={getDatabaseItemHighlightStyle(item)}
-            onClick={handleDescent}
-            onAddClick={add}
-            onPlayClick={replace}
-          />
-        )} />
-      </div>
+      <If condition={!R.isEmpty(items)}>
+        <div
+          className={styles.items}
+          onWheel={containerWheelHandler}
+          onMouseMove={containerMouseMoveHandler}
+        >
+          <For of={items} body={(item) => (
+            <DatabaseItem
+              key={item.uri}
+              ref={getDatabaseItemRef(item)}
+              item={item}
+              highlightStyle={getDatabaseItemHighlightStyle(item)}
+              onClick={handleDescent}
+              onAddClick={add}
+              onPlayClick={replace}
+            />
+          )} />
+        </div>
+      </If>
     </div>
   )
 })

@@ -24,7 +24,7 @@
   }
 
   &.highlighted.muted {
-    background: #191919;
+    background: #1d1d1d;
   }
 
   &.highlighted.primary {
@@ -40,7 +40,7 @@
   }
 
   :global(.hoverable) &:hover {
-    background: #202020;
+    background: #212121;
   }
 
   $border-radius: .5rem;

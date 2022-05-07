@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+
+  align-items: center;
+
+  position: relative;
+
+  .icon {
+    position: absolute;
+
+    left: .75rem;
+
+    width: 1.5rem;
+    height: 1.5rem;
+
+    color: #555;
+  }
+
+  .input {
+    flex-grow: 1;
+
+    height: 1.25rem;
+
+    padding: 1rem;
+    padding-left: 3.25rem;
+
+    font-size: 20pt;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.25rem;
+
+    color: #999;
+    background: transparent;
+
+    border: none;
+    border-radius: .5rem;
+
+    appearance: none;
+
+    transition: .2s border-color;
+
+    &:focus {
+      color: #aaa;
+    }
+
+    &::selection {
+      color: #bbb;
+      background: #282828;
+    }
+  }
+}
