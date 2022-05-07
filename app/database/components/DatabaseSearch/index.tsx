@@ -86,7 +86,7 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
 
   const [isItemListFocusable, setIsItemListFocusable] = useState(false)
 
-  const items = remote.state === 'initial'
+  const items = remote.state === 'initial' && input.value === preservedStateRef.current.term
     ? preservedStateRef.current.results
     : remote.items
 
