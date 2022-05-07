@@ -1,6 +1,10 @@
 import PlaybackApi from '@app/playback/api'
 
 class PlaybackService {
+  async play(id: Nullable<number> = null) {
+    await PlaybackApi.play({ id })
+  }
+
   async toggle() {
     await PlaybackApi.toggle()
   }
