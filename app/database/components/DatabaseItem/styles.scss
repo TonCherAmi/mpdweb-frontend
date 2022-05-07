@@ -2,13 +2,25 @@
   display: flex;
   align-items: center;
 
-  justify-content: space-between;
-
   padding: 0.65rem;
   padding-left: 1.25rem;
 
+  border-radius: .5rem;
+
+  &:not(:last-child) {
+    margin-bottom: .15rem;
+  }
+
   :global(.hoverable) &.clickable {
     cursor: pointer;
+  }
+
+  &.highlighted {
+    .controls {
+      .button {
+        color: #999;
+      }
+    }
   }
 
   &.highlighted.muted {
@@ -44,13 +56,20 @@
   }
 
   .name {
-    display: flex;
-    flex-direction: row;
+    display: inline-block;
 
-    align-items: center;
+    max-width: 82.5%;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
   }
 
   .controls {
+    margin-left: auto;
+
     display: flex;
     flex-direction: row;
 
@@ -64,7 +83,7 @@
     .button {
       transition: color .2s ease;
 
-      color: #999;
+      color: #555;
 
       &:hover {
         color: lightsalmon;
