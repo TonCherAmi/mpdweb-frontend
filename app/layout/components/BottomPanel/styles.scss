@@ -1,7 +1,7 @@
 .panel {
   display: flex;
 
-  min-height: 4.65rem;
+  min-height: 5.5rem;
 
   padding: 0 1.5rem;
 
@@ -19,7 +19,13 @@
     }
 
     &.controls {
+      flex-direction: column;
+
       justify-content: center;
+
+      .buttons {
+        display: flex;
+      }
     }
 
     &.progress {

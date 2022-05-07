@@ -4,9 +4,10 @@ import cx from 'classnames'
 
 import * as Icons from '@app/common/icons'
 
+import Volume from '@app/volume/components/Volume'
 import CurrentSong from '@app/status/components/CurrentSong'
-import CurrentProgress from '@app/status/components/CurrentProgress'
 import PlaybackControls from '@app/playback/components/PlaybackControls'
+import CurrentSongProgress from '@app/status/components/CurrentSongProgress'
 import PlaylistClearButton from '@app/playlist/components/PlaylistClearButton'
 import DatabaseUpdateButton from '@app/database/components/DatabaseUpdateButton'
 
@@ -19,16 +20,19 @@ const BottomPanel = () => {
         <CurrentSong />
       </div>
       <div className={cx(styles.section, styles.controls)}>
-        <PlaylistClearButton className={cx(styles.sideButton, styles.clear)}>
-          <Icons.TimesCircleFill className={styles.sideIcon} />
-        </PlaylistClearButton>
-        <PlaybackControls />
-        <DatabaseUpdateButton className={cx(styles.sideButton, styles.update)}>
-          <Icons.SyncAlt className={styles.sideIcon} />
-        </DatabaseUpdateButton>
+        <div className={styles.buttons}>
+          <PlaylistClearButton className={cx(styles.sideButton, styles.clear)}>
+            <Icons.TimesCircleFill className={styles.sideIcon} />
+          </PlaylistClearButton>
+          <PlaybackControls />
+          <DatabaseUpdateButton className={cx(styles.sideButton, styles.update)}>
+            <Icons.SyncAlt className={styles.sideIcon} />
+          </DatabaseUpdateButton>
+        </div>
+        <CurrentSongProgress />
       </div>
       <div className={cx(styles.section, styles.progress)}>
-        <CurrentProgress />
+        <Volume />
       </div>
     </div>
   )
