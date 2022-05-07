@@ -29,11 +29,6 @@ interface Props {
   onPlayClick?: Handler<DatabaseItemDto>
 }
 
-const getDisplayString: (item: DatabaseItemDto) => string = R.pipe(
-  R.prop('uri'),
-  basename
-)
-
 const DatabaseItem = memo(
   forwardRef<HTMLDivElement, Props>(({
     item,
@@ -73,6 +68,8 @@ const DatabaseItem = memo(
       [styles.secondary]: highlightStyle === 'secondary'
     })
 
+    const name = basename(item.uri)
+
     return (
       <div
         ref={ref}
@@ -81,13 +78,13 @@ const DatabaseItem = memo(
         tabIndex={-1}
         onClick={handleClick}
       >
-      <span className={styles.name}>
         <DatabaseItemIcon
           className={cx(styles.icon, styles.type)}
           type={item.type}
         />
-        {getDisplayString(item)}
-      </span>
+        <span className={styles.name} title={name}>
+          {name}
+        </span>
         <div className={styles.controls}>
           <Button className={styles.button} onClick={handleAddClick}>
             <Icons.PlusSquareFill className={cx(styles.icon, styles.add)} />
