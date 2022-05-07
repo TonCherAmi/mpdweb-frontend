@@ -16,6 +16,10 @@ class PlaybackService {
   async next() {
     await PlaybackApi.next()
   }
+
+  async seek(time: number) {
+    await PlaybackApi.seek({ time, mode: 'ABSOLUTE' })
+  }
 }
 
 export default new PlaybackService()
