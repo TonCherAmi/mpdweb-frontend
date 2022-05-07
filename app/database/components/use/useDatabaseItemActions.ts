@@ -7,7 +7,7 @@ import playbackService from '@app/playback/services/PlaybackService'
 
 interface Actions {
   add: (item: DatabaseItem) => void
-  play: (item: DatabaseItem) => void
+  replace: (item: DatabaseItem) => void
 }
 
 const useDatabaseItemActions = (): Actions => {
@@ -16,13 +16,11 @@ const useDatabaseItemActions = (): Actions => {
       await playlistService.add(databaseItem.uri)
     }
 
-    const play = async (databaseItem: DatabaseItem) => {
-      await playlistService.clear()
-      await playlistService.add(databaseItem.uri)
-      await playbackService.toggle()
+    const replace = async (databaseItem: DatabaseItem) => {
+      await playlistService.replace(databaseItem.uri)
     }
 
-    return { add, play }
+    return { add, replace }
   }, [])
 }
 

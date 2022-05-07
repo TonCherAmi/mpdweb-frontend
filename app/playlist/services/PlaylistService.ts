@@ -8,6 +8,10 @@ class PlaylistService {
   async clear() {
     await PlaylistApi.clear()
   }
+
+  async replace(uri: string) {
+    await PlaylistApi.replace({ uri })
+  }
 }
 
 export default new PlaylistService()

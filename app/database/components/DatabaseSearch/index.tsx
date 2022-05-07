@@ -185,7 +185,7 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
     }
   }
 
-  const { add, play } = useDatabaseItemActions()
+  const { add, replace } = useDatabaseItemActions()
 
   useKeybindings({
     ADD: () => {
@@ -200,7 +200,7 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
         return
       }
 
-      play(itemNavigation.currentItem)
+      replace(itemNavigation.currentItem)
     },
     SEARCH_FOCUS: handleSearchFocusKeyPress,
     NAVIGATE_RIGHT: () => {
@@ -243,7 +243,7 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
             highlightStyle={getDatabaseItemHighlightStyle(item)}
             onClick={handleDescent}
             onAddClick={add}
-            onPlayClick={play}
+            onPlayClick={replace}
           />
         )} />
       </div>

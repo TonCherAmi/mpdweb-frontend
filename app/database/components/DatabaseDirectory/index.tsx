@@ -148,11 +148,11 @@ const DatabaseDirectory = memo(({
 
   const handleSearchFocus = useCallback(() => setIsItemListFocusable(false), [])
 
-  const { add, play } = useDatabaseItemActions()
+  const { add, replace } = useDatabaseItemActions()
 
   useKeybindings({
     ADD: () => add(currentItem),
-    PLAY: () => play(currentItem),
+    PLAY: () => replace(currentItem),
     SEARCH_FOCUS: handleSearchFocusKeyPress,
     SEARCH_CANCEL: handleSearchCancel,
     NAVIGATE_LEFT: () => {
@@ -201,7 +201,7 @@ const DatabaseDirectory = memo(({
             highlightStyle={getDatabaseItemHighlightStyle(item)}
             onClick={onDescent}
             onAddClick={add}
-            onPlayClick={play}
+            onPlayClick={replace}
           />
         )} />
       </div>
