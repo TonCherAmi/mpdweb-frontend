@@ -1,0 +1,31 @@
+.cover, .fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #242424;
+  background: #181818;
+
+  border-radius: .5rem;
+
+  box-shadow: rgba(black, 0.1) 0.25rem -0.25rem 1rem 1rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.fallback {
+  background: #171717;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .icon {
+    width: 4rem;
+    height: 4rem;
+
+    color: #A27E8E;
+  }
+}

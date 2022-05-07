@@ -1,11 +1,23 @@
+$container-width: 21.5rem;
+
 .container {
-  min-width: 21.5rem;
+  display: flex;
+  flex-direction: column;
+
+  min-width: $container-width;
 
   padding: 2rem 2.25rem;
 
   background: #101010;
 
   border-right: 1px solid #333;
+}
+
+.cover {
+  margin-top: auto;
+
+  width: $container-width;
+  height: $container-width;
 }
 
 .item {

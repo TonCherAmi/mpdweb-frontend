@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom'
 import cx from 'classnames'
 
 import Link from '@app/common/components/Link'
+import CurrentCoverArt from '@app/status/components/CurrentCoverArt'
 
 import { items, SidebarItem } from './items'
 
@@ -32,6 +33,7 @@ const Sidebar = memo((props: Props) => {
           <Icon className={styles.icon} /> {item.text}
         </Link>
       )} />
+      <CurrentCoverArt className={styles.cover} />
     </div>
   )
 })
