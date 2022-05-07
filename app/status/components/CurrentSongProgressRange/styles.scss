@@ -1,0 +1,35 @@
+@use '~@app/common/components/Range/styles' as range;
+
+.container {
+  width: 32.5rem;
+
+  margin: 0 .75rem;
+
+  $border-radius: .15rem;
+
+  .background {
+    &.left {
+      background: linear-gradient(to right, #7FC8F8, #F7B2AD);
+
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+    }
+
+    &.right {
+      background: #303030;
+
+      border-top-right-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+
+      &.disabled {
+        border-radius: $border-radius;
+      }
+    }
+  }
+}
+
+.input {
+  @include range.thumb {
+    visibility: hidden;
+  }
+}
