@@ -5,7 +5,7 @@ html, body {
 
   font-size: 14px;
 
-  font-family: 'Roboto Condensed';
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 body {
@@ -18,11 +18,11 @@ body {
   flex-direction: column;
 
   color:#eeeeee;
-  background: #151515;
+  background: #161616;
 }
 
 * {
-  scrollbar-color: #212121 #151515;
+  scrollbar-color: #292929 #161616;
   scrollbar-width: thin;
 
   ::-webkit-scrollbar {
@@ -31,11 +31,11 @@ body {
   }
 
   ::-webkit-scrollbar-track {
-    background: #151515;
+    background: #161616;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #212121;
+    background: #292929;
   }
 
   outline: none;
