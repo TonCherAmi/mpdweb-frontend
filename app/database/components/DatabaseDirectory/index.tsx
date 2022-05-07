@@ -156,22 +156,22 @@ const DatabaseDirectory = memo(({
     SEARCH_FOCUS: handleSearchFocusKeyPress,
     SEARCH_CANCEL: handleSearchCancel,
     NAVIGATE_LEFT: () => {
-      if (R.isNil(itemNavigation.currentItem)) {
+      if (R.isNil(currentItemNavigation.currentItem)) {
         return
       }
 
-      onAscent(itemNavigation.currentItem)
+      onAscent(currentItemNavigation.currentItem)
     },
     NAVIGATE_RIGHT: () => {
-      if (R.isNil(itemNavigation.currentItem)) {
+      if (R.isNil(currentItemNavigation.currentItem)) {
         return
       }
 
-      onDescent(itemNavigation.currentItem)
+      onDescent(currentItemNavigation.currentItem)
     }
   }, { disable: !isActive })
 
-  useItemListKeybindings(itemNavigation, {
+  useItemListKeybindings(currentItemNavigation, {
     disable: !isActive
   })
 
