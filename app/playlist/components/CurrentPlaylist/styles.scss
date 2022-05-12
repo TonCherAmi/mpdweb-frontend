@@ -9,7 +9,7 @@
 
   background: #1b1b1b;
 
-  border-bottom: 1px solid #000;
+  border-bottom: 2px solid #141414;
 
   max-height: 100%;
 }
@@ -80,6 +80,7 @@
   }
 
   .button {
+    margin-top: .15rem;
     margin-left: auto;
 
     padding: .1rem .5rem;
