@@ -23,10 +23,6 @@ const getIcon = (volume: number): React.ElementType => {
 const VolumeIcon = () => {
   const status = useStatusContext()
 
-  if (R.isNil(status)) {
-    return null
-  }
-
   const Icon = getIcon(status.volume)
 
   return (

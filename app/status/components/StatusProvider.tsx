@@ -13,8 +13,10 @@ import useChangesSubscriptionRegistryContext from '@app/changes/use/useChangesSu
 
 import StatusApi from '@app/status/api'
 
+import { INITIAL_STATUS } from '@app/status/utils/initial'
+
 const StatusProvider = ({ children }: { children: React.ReactNode }) => {
-  const [status, setStatus] = useState<Nullable<Status>>(null)
+  const [status, setStatus] = useState<Status>(INITIAL_STATUS)
 
   const statusSubscriptionRegistry = useStatusSubscriptionRegistryContext()
   const changesSubscriptionRegistry = useChangesSubscriptionRegistryContext()
@@ -23,7 +25,7 @@ const StatusProvider = ({ children }: { children: React.ReactNode }) => {
     StatusApi.get()
       .then(setStatus)
       .catch(() => {
-        setStatus(null)
+        setStatus(INITIAL_STATUS)
       })
   }, [])
 

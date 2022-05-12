@@ -23,7 +23,7 @@ const CurrentSongProgressRange = memo(() => {
 
   const shouldIgnoreStatusUpdatesRef = useRef(false)
 
-  const totalElapsedSeconds = status?.song?.elapsed?.total?.seconds ?? 0
+  const totalElapsedSeconds = status.song?.elapsed?.total?.seconds ?? 0
 
   const [value, setValue] = useState(totalElapsedSeconds)
 
@@ -61,10 +61,6 @@ const CurrentSongProgressRange = memo(() => {
     seek(value)
   }
 
-  if (R.isNil(status)) {
-    return null
-  }
-
   const isDisabled = status.state === 'STOPPED'
 
   return (
@@ -75,7 +71,7 @@ const CurrentSongProgressRange = memo(() => {
       rightBackgroundClassName={cx(styles.background, styles.right, { [styles.disabled]: isDisabled })}
       disabled={isDisabled}
       min={0}
-      max={status?.song?.duration?.total?.seconds ?? 0}
+      max={status.song?.duration?.total?.seconds ?? 0}
       step={1}
       value={value}
       onChange={handleChange}

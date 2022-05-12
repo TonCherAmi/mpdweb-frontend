@@ -18,10 +18,6 @@ interface Props {
 const PlaylistInfo = ({ className }: Props) => {
   const status = useStatusContext()
 
-  if (R.isNil(status)) {
-    return null
-  }
-
   const currentPosition = R.isNil(status.song) ? 0 : status.song.position + 1
 
   return (

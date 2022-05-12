@@ -14,10 +14,6 @@ const usePartitionedPlaylist = (): PartitionedPlaylist => {
   const status = useStatusContext()
   const playlist = usePlaylistContext()
 
-  if (R.isNil(status)) {
-    return { prev: [], next: [] }
-  }
-
   const playlistWithoutCurrentSong = R.reject(
     R.propEq('position', status.song?.position),
     playlist

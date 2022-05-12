@@ -2,8 +2,6 @@ import React, { memo } from 'react'
 
 import cx from 'classnames'
 
-import * as R from 'ramda'
-
 import useStatusContext from '@app/status/use/useStatusContext'
 
 import * as Icons from '@app/common/icons'
@@ -17,10 +15,6 @@ import styles from './styles.scss'
 
 const PlaybackControls = memo(() => {
   const status = useStatusContext()
-
-  if (R.isNil(status)) {
-    return null
-  }
 
   return (
     <div className={styles.group}>

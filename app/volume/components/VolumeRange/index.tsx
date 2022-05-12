@@ -19,13 +19,11 @@ const VOLUME_SET_DEBOUNCE_WAIT_MS = 25
 const VolumeRange = memo(() => {
   const status = useStatusContext()
 
-  const volume = status?.volume ?? 0
-
-  const [value, setValue] = useState(volume)
+  const [value, setValue] = useState(status.volume)
 
   useEffect(() => {
-    setValue(volume)
-  }, [volume])
+    setValue(status.volume)
+  }, [status.volume])
 
   const [set] = useDebounce((value: number) => {
     VolumeService.set(value)
@@ -35,10 +33,6 @@ const VolumeRange = memo(() => {
     setValue(value)
 
     set(value)
-  }
-
-  if (R.isNil(status)) {
-    return null
   }
 
   return (

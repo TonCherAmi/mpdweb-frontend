@@ -1,19 +1,19 @@
 import * as R from 'ramda'
 
-import DatabaseFile from '@app/database/dto/DatabaseFile'
+import PlaylistItem from '@app/playlist/dto/PlaylistItem'
 
 import useStatusContext from '@app/status/use/useStatusContext'
 import usePlaylistContext from '@app/playlist/use/usePlaylistContext'
 
-const useCurrentSong = (): Nullable<DatabaseFile> => {
+const useCurrentSong = (): Nullable<PlaylistItem> => {
   const status = useStatusContext()
   const playlist = usePlaylistContext()
 
-  if (R.isNil(status) || R.isNil(status.song)) {
+  if (R.isNil(status.song)) {
     return null
   }
 
-  return playlist[status.song?.position]
+  return playlist[status.song.position]
 }
 
 export default useCurrentSong

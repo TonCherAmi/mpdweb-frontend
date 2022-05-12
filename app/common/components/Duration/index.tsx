@@ -1,19 +1,14 @@
 import React from 'react'
 
 import DurationDto from '@app/common/dto/Duration'
-import SimpleDuration from '@app/common/dto/SimpleDuration'
+
+import { SIMPLE_DURATION_ZERO } from '@app/common/utils/duration'
 
 import { formatDuration } from './utils'
 
 interface Props {
   className?: string
   value: Nullable<DurationDto>
-}
-
-const SIMPLE_DURATION_ZERO: SimpleDuration = {
-  hours: 0,
-  minutes: 0,
-  seconds: 0
 }
 
 const Duration = ({ className, value }: Props) => {
