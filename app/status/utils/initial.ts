@@ -11,4 +11,8 @@ export const INITIAL_STATUS: Status = {
     elapsed: DURATION_ZERO,
     duration: DURATION_ZERO
   },
+  single: 'OFF',
+  random: false,
+  repeat: false,
+  consume: false
 }

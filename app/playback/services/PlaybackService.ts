@@ -1,28 +1,44 @@
 import PlaybackApi from '@app/playback/api'
 
 class PlaybackService {
-  async play(id: Nullable<number> = null) {
-    await PlaybackApi.play({ id })
+  play(id: Nullable<number> = null) {
+    PlaybackApi.play({ id })
   }
 
-  async toggle() {
-    await PlaybackApi.toggle()
+  toggle() {
+    PlaybackApi.toggle()
   }
 
-  async stop() {
-    await PlaybackApi.stop()
+  stop() {
+    PlaybackApi.stop()
   }
 
-  async prev() {
-    await PlaybackApi.prev()
+  prev() {
+    PlaybackApi.prev()
   }
 
-  async next() {
-    await PlaybackApi.next()
+  next() {
+    PlaybackApi.next()
   }
 
-  async seek(time: number) {
-    await PlaybackApi.seek({ time, mode: 'ABSOLUTE' })
+  seek(time: number) {
+    PlaybackApi.seek({ time, mode: 'ABSOLUTE' })
+  }
+
+  single() {
+    PlaybackApi.single.cycle()
+  }
+
+  random() {
+    PlaybackApi.random.toggle()
+  }
+
+  repeat() {
+    PlaybackApi.repeat.toggle()
+  }
+
+  consume() {
+    PlaybackApi.consume.toggle()
   }
 }
 

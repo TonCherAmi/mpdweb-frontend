@@ -28,6 +28,8 @@
 
     &.progress {
       justify-content: flex-end;
+
+      column-gap: 1.25rem;
     }
   }
 }
@@ -40,15 +42,21 @@
 .side-button {
   margin: 0 .65rem;
 
-  color: white;
+  color: #dedede;
 
   transition: color .3s ease;
 
   &.clear:hover {
-    color: red;
+    color: #FF8D85;
   }
 
   &.update:hover {
-    color: yellow;
+    color: #91A550;
   }
+}
+
+.options {
+  display: flex;
+
+  column-gap: .35rem;
 }

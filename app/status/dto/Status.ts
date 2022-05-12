@@ -19,6 +19,10 @@ interface Status {
   volume: number
   song: Nullable<CurrentSong>
   playlist: CurrentPlaylist
+  single: 'ON' | 'OFF' | 'ONESHOT'
+  random: boolean
+  repeat: boolean
+  consume: boolean
 }
 
 export default Status

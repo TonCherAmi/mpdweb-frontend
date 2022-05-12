@@ -48,7 +48,7 @@ const StatusProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const handler: Handler<ReadonlyArray<Change>> = (changes) => {
       const shouldUpdateStatus = !R.isEmpty(
-        R.intersection(changes, ['mixer', 'player', 'playlist'])
+        R.intersection(changes, ['mixer', 'player', 'playlist', 'options'])
       )
 
       if (!shouldUpdateStatus) {

@@ -10,6 +10,10 @@ import PlaybackControls from '@app/playback/components/PlaybackControls'
 import CurrentSongProgress from '@app/status/components/CurrentSongProgress'
 import PlaylistClearButton from '@app/playlist/components/PlaylistClearButton'
 import DatabaseUpdateButton from '@app/database/components/DatabaseUpdateButton'
+import PlaybackSingleButton from '@app/playback/components/PlaybackSingleButton'
+import PlaybackRandomButton from '@app/playback/components/PlaybackRandomButton'
+import PlaybackRepeatButton from '@app/playback/components/PlaybackRepeatButton'
+import PlaybackConsumeButton from '@app/playback/components/PlaybackConsumeButton'
 
 import styles from './styles.scss'
 
@@ -33,6 +37,12 @@ const BottomPanel = () => {
       </div>
       <div className={cx(styles.section, styles.progress)}>
         <Volume />
+        <div className={styles.options}>
+          <PlaybackRepeatButton />
+          <PlaybackRandomButton />
+          <PlaybackSingleButton />
+          <PlaybackConsumeButton />
+        </div>
       </div>
     </div>
   )
