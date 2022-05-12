@@ -1,0 +1,25 @@
+<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <clipPath id="rounded">
+            <rect x="0" y="0" width="60" height="60" rx="10" ry="10"/>
+        </clipPath>
+    </defs>
+    <style>
+        #bg {
+            fill: #68667A;
+        }
+
+        @media(prefers-color-scheme: dark) {
+            #bg {
+                fill: #716F85;
+            }
+        }
+    </style>
+    <rect width="60" height="60" fill="transparent"/>
+    <rect id="bg" width="60" height="60" fill="#E84855" clip-path="url(#rounded)"/>
+    <circle cx="30" cy="30" r="25.9091" fill="black" fill-opacity="0.175"/>
+    <circle cx="30" cy="30" r="25.6591" stroke="#2869BF" stroke-opacity="0.04" stroke-width="0.5"/>
+    <circle cx="30" cy="30" r="16.3636" fill="black" fill-opacity="0.25"/>
+    <circle cx="30" cy="30" r="16.1136" stroke="#2869BF" stroke-opacity="0.04" stroke-width="0.5"/>
+    <path d="M41.7422 27.5977C42.5242 28.1133 43 29.0215 43 30C43 30.9785 42.5242 31.8867 41.7422 32.3496L25.9938 42.6621C25.1834 43.2422 24.1689 43.2656 23.3409 42.7676C22.5128 42.2695 22 41.332 22 40.3125V19.6875C22 18.6703 22.5128 17.7322 23.3409 17.2342C24.1689 16.7367 25.1834 16.7572 25.9938 17.2875L41.7422 27.5977Z" fill="#FEFEFE"/>
+</svg>

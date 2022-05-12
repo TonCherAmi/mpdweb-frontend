@@ -65,7 +65,10 @@ const config: Webpack.Configuration = {
     extensions: ['.js', '.ts', '.tsx']
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: 'index.html' })
+    new HtmlWebpackPlugin({
+      template: 'index.html' ,
+      favicon: 'assets/images/favicon.svg'
+    })
   ]
 }
 
