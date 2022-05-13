@@ -1,6 +1,14 @@
-.icon {
+.button {
   color: #eee;
 
+  transition: .25s color;
+
+  &:hover {
+    color: #aaa;
+  }
+}
+
+.icon {
   width: 1.5rem;
   height: 1.5rem;
 
