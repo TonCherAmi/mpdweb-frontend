@@ -6,7 +6,7 @@ import styles from './styles.scss'
 
 interface Props extends React.ComponentProps<'button'> {
   className?: string
-  onClick: React.EventHandler<React.MouseEvent>
+  onClick: React.MouseEventHandler
   children: React.ReactNode
 }
 
