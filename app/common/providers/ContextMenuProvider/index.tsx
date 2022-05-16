@@ -1,15 +1,14 @@
 import ReactDOM from 'react-dom'
-import React, { useRef, useState, useMemo, useReducer, useEffect } from 'react'
+import React, { useState, useReducer, useEffect, useCallback } from 'react'
 
 import * as R from 'ramda'
 
 import ContextMenuContext, { ContextMenu } from '@app/common/contexts/ContextMenuContext'
 
-import useOnOutsideEvent from '@app/common/use/useOnOutsideEvent'
+import KeybindingScope from '@app/keybindings/components/KeybindingScope'
+import KeybindingScopeContext from '@app/keybindings/contexts/KeybindingScopeContext'
 
-import useContextMenuContainerStyle from './use/useContextMenuContainerStyle'
-
-import styles from './styles.scss'
+import ContextMenuContainer from './components/ContextMenuContainer'
 
 const contextMenuContainerElement = document.getElementById('contextmenu')
 
@@ -22,29 +21,7 @@ interface Props {
 }
 
 const ContextMenuProvider = ({ children }: Props) => {
-  const containerRef = useRef<HTMLDivElement>(null)
-
   const [contextMenu, setContextMenu] = useState<Nullable<ContextMenu>>(null)
-
-  const mappings = useMemo(() => {
-    const handleOutsideClick = (event: Event) => {
-      event.preventDefault()
-      event.stopPropagation()
-
-      setContextMenu(null)
-    }
-
-    const handleOutsideScroll = () => {
-      setContextMenu(null)
-    }
-
-    return {
-      click: handleOutsideClick,
-      scroll: handleOutsideScroll
-    }
-  }, [])
-
-  useOnOutsideEvent(containerRef, mappings)
 
   const [key, incrementKey] = useReducer(R.inc, 0)
 
@@ -53,7 +30,9 @@ const ContextMenuProvider = ({ children }: Props) => {
     incrementKey()
   }, [contextMenu])
 
-  const containerStyle = useContextMenuContainerStyle({ containerRef, contextMenu })
+  const handleClose = useCallback(() => {
+    setContextMenu(null)
+  }, [])
 
   const renderContextMenu = () => {
     if (R.isNil(contextMenu)) {
@@ -61,14 +40,14 @@ const ContextMenuProvider = ({ children }: Props) => {
     }
 
     return ReactDOM.createPortal((
-      <div
-        ref={containerRef}
-        key={key}
-        style={containerStyle}
-        className={styles.container}
-      >
-        {contextMenu?.component}
-      </div>
+      <KeybindingScopeContext.Provider value="contextmenu">
+        <KeybindingScope scope="contextmenu" />
+        <ContextMenuContainer
+          key={key}
+          contextMenu={contextMenu}
+          onClose={handleClose}
+        />
+      </KeybindingScopeContext.Provider>
     ), contextMenuContainerElement)
   }
 

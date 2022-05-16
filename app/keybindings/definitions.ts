@@ -22,6 +22,7 @@ export default {
   SEARCH_FOCUS: make(['/']),
   SEARCH_CANCEL: make(['Escape']),
   MODAL_CLOSE: make(['Escape']),
+  CONTEXT_MENU_CLOSE: make(['Escape']),
   NEXT_VIEW: make(
     [
       { key: 'j', mods: ['shift'] },
