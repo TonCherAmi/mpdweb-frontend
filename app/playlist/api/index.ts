@@ -7,7 +7,7 @@ import PlaylistReplaceBody from '@app/playlist/dto/api/request/PlaylistReplaceBo
 
 const Api = {
   get: make<PlaylistItem[]>('/playlist'),
-  add: make<null, PlaylistAddBody>('/playlist', 'patch'),
+  add: make<null, PlaylistAddBody>('/playlist', 'post'),
   delete: make<null, PlaylistDeleteBody>('/playlist', 'delete'),
   replace: make<null, PlaylistReplaceBody>('/playlist', 'put')
 }
