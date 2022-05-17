@@ -23,17 +23,21 @@ const PlaylistItem = memo(({ item, onClick }: Props) => {
   const { handleContextMenu } = usePlaylistItemContextMenu(item)
 
   return (
-    <div className={styles.container} onClick={handleClick} onContextMenu={handleContextMenu}>
+    <div
+      className={styles.container}
+      onClick={handleClick}
+      onContextMenu={handleContextMenu}
+    >
       <DatabaseCoverArt
         className={styles.cover}
         fallbackIconClassName={styles.icon}
         file={item}
       />
       <div className={styles.name}>
-        <span className={styles.title}>
+        <span className={styles.title} title={item.title ?? ''}>
           {item.title}
         </span>
-        <span className={styles.artist}>
+        <span className={styles.artist} title={item.artist ?? ''}>
           {item.artist}
         </span>
       </div>
