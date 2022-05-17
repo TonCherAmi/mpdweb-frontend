@@ -30,4 +30,8 @@
   max-height: 100%;
 
   padding: 0 .5rem;
+
+  &::-webkit-scrollbar-thumb {
+    background: #1b1b1b;
+  }
 }
