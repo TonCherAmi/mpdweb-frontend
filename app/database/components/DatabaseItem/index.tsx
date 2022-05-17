@@ -1,4 +1,4 @@
-import React, { memo, forwardRef } from 'react'
+import React, { memo, forwardRef, useState } from 'react'
 
 import cx from 'classnames'
 
@@ -16,6 +16,8 @@ import DatabaseItemIcon from '@app/database/components/DatabaseItemIcon'
 
 import { basename } from '@app/common/utils/path'
 import { withPropagationStopped } from '@app/common/utils/event'
+
+import useDatabaseItemContextMenu from './use/useDatabaseItemContextMenu'
 
 import styles from './styles.scss'
 
@@ -70,6 +72,8 @@ const DatabaseItem = memo(
 
     const name = basename(item.uri)
 
+    const { handleContextMenu } = useDatabaseItemContextMenu(item)
+
     return (
       <div
         ref={ref}
@@ -77,6 +81,7 @@ const DatabaseItem = memo(
         role="button"
         tabIndex={-1}
         onClick={handleClick}
+        onContextMenu={handleContextMenu}
       >
         <DatabaseItemIcon
           className={cx(styles.icon, styles.type)}
