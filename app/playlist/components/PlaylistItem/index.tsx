@@ -6,6 +6,8 @@ import PlaylistItemDto from '@app/playlist/dto/PlaylistItem'
 import Duration from '@app/common/components/Duration'
 import DatabaseCoverArt from '@app/database/components/DatabaseCoverArt'
 
+import usePlaylistItemContextMenu from './use/usePlaylistItemContextMenu'
+
 import styles from './styles.scss'
 
 interface Props {
@@ -18,8 +20,10 @@ const PlaylistItem = memo(({ item, onClick }: Props) => {
     onClick?.(item)
   }
 
+  const { handleContextMenu } = usePlaylistItemContextMenu(item)
+
   return (
-    <div className={styles.container} onClick={handleClick}>
+    <div className={styles.container} onClick={handleClick} onContextMenu={handleContextMenu}>
       <DatabaseCoverArt
         className={styles.cover}
         fallbackIconClassName={styles.icon}
