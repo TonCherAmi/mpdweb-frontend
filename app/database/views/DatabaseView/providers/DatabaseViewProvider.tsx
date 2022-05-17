@@ -54,7 +54,7 @@ const DatabaseViewProvider = ({ children }: { children: React.ReactNode }) => {
             return { ...cached, uri }
           }
 
-          const items = await DatabaseApi.get({ uri: uri })
+          const items = await DatabaseApi.get({ uri })
 
           const selectedItem = getSelectedItem(items)
             ?? R.head(items)
