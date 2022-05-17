@@ -38,6 +38,10 @@ body {
 
   ::-webkit-scrollbar-thumb {
     background: #232323;
+
+    &:hover {
+      background: #252525;
+    }
   }
 
   outline: none;
