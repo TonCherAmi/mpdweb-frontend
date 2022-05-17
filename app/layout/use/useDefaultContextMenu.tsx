@@ -6,11 +6,11 @@ import ContextMenu from '@app/common/components/ContextMenu'
 
 import useContextMenu from '@app/common/use/useContextMenu'
 
-import { wrapWithGlobalItems } from '@app/common/utils/contextmenu'
+import { wrapWithGlobalContextMenuItems } from '@app/common/utils/contextmenu'
 
 const useDefaultContextMenu = () => {
   const render = useCallback((onClose: Thunk) => {
-    const items = wrapWithGlobalItems([])
+    const items = wrapWithGlobalContextMenuItems([])
 
     return (
       <ContextMenu

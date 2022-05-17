@@ -12,7 +12,7 @@ const getCopySelectionItem = (selection: string) => ({
   }
 })
 
-export const wrapWithGlobalItems = (
+export const wrapWithGlobalContextMenuItems = (
   items: ReadonlyArray<ContextMenuItem>
 ): ReadonlyArray<ContextMenuItem> => {
   const selection = getSelection()

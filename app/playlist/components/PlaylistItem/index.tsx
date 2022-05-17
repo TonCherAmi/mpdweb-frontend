@@ -6,7 +6,7 @@ import PlaylistItemDto from '@app/playlist/dto/PlaylistItem'
 import Duration from '@app/common/components/Duration'
 import DatabaseCoverArt from '@app/database/components/DatabaseCoverArt'
 
-import usePlaylistItemContextMenu from './use/usePlaylistItemContextMenu'
+import usePlaylistItemContextMenu from '@app/playlist/use/usePlaylistItemContextMenu'
 
 import styles from './styles.scss'
 

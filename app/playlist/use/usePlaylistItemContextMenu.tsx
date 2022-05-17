@@ -8,36 +8,17 @@ import ContextMenu from '@app/common/components/ContextMenu'
 import useContextMenu from '@app/common/use/useContextMenu'
 import useDatabaseViewNavigation from '@app/database/views/DatabaseView/use/useDatabaseViewNavigation'
 
-import { copy } from '@app/navigator/utils/clipboard'
-import { basename } from '@app/common/utils/path'
-import { wrapWithGlobalItems } from '@app/common/utils/contextmenu'
 import PlaylistService from '@app/playlist/services/PlaylistService'
+
+import { wrapWithGlobalContextMenuItems } from '@app/common/utils/contextmenu'
+import { getDatabaseItemContextMenuItems } from '@app/database/utils/contextmenu'
 
 const usePlaylistItemContextMenu = (playlistItem: PlaylistItem) => {
   const { goTo } = useDatabaseViewNavigation()
 
   const render = useCallback((onClose: Thunk) => {
-    const items = wrapWithGlobalItems([
-      {
-        id: 'copy',
-        text: 'Copy',
-        items: [
-          {
-            id: 'copy-basename',
-            text: 'Copy Name',
-            handler: () => {
-              copy(
-                basename(playlistItem.uri)
-              )
-            }
-          },
-          {
-            id: 'copy-path',
-            text: 'Copy Path',
-            handler: () => copy(playlistItem.uri)
-          }
-        ]
-      },
+    const items = wrapWithGlobalContextMenuItems([
+      ...getDatabaseItemContextMenuItems(playlistItem),
       {
         id: 'remove',
         text: 'Remove',
