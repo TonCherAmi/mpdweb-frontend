@@ -4,9 +4,6 @@ import { Route, Switch, BrowserRouter as Router, Redirect } from 'react-router-d
 
 import DatabaseView, { route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
 
-import useHoverable from '@app/ui/use/useHoverable'
-import useManualScrollRestoration from '@app/navigator/use/useManualScrollRestoration'
-
 import Modals from '@app/layout/components/Modals'
 import Sidebar from '@app/layout/components/Sidebar'
 import BottomPanel from '@app/layout/components/BottomPanel'
@@ -15,6 +12,10 @@ import KeybindingScope from '@app/keybindings/components/KeybindingScope'
 
 import Providers from '@app/layout/components/Providers'
 import DatabaseViewProvider from '@app/database/views/DatabaseView/providers/DatabaseViewProvider'
+
+import useHoverable from '@app/ui/use/useHoverable'
+import useDefaultContextMenu from '@app/layout/use/useDefaultContextMenu'
+import useManualScrollRestoration from '@app/navigator/use/useManualScrollRestoration'
 
 import styles from './styles.scss'
 
@@ -31,8 +32,10 @@ const Wrapped = () => {
 
   useManualScrollRestoration()
 
+  const { handleContextMenu } = useDefaultContextMenu()
+
   return (
-    <div className={styles.main}>
+    <div className={styles.main} onContextMenu={handleContextMenu}>
       <Modals />
       <KeybindingScope scope="view" />
       <div className={styles.stack}>

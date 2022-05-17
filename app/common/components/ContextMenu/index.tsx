@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useLayoutEffect } from 'react'
 
 import * as R from 'ramda'
 
@@ -55,6 +55,12 @@ const ContextMenu = ({ items, parentRect, sourceItemRect, onClose }: Props) => {
     parentRect,
     sourceItemRect
   })
+
+  useLayoutEffect(() => {
+    if (R.isEmpty(items)) {
+      onClose()
+    }
+  }, [items, onClose])
 
   const renderSubmenu = () => {
     if (R.isNil(submenuSource)) {
