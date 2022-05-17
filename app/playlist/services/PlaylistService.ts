@@ -1,16 +1,20 @@
 import PlaylistApi from '@app/playlist/api'
 
 class PlaylistService {
-  async add(uri: string) {
-    await PlaylistApi.add({ uri })
+  add(uri: string) {
+    PlaylistApi.add({ uri })
   }
 
-  async clear() {
-    await PlaylistApi.clear()
+  clear() {
+    PlaylistApi.delete({ id: null })
   }
 
-  async replace(uri: string) {
-    await PlaylistApi.replace({ uri })
+  delete(id: number) {
+    PlaylistApi.delete({ id })
+  }
+
+  replace(uri: string) {
+    PlaylistApi.replace({ uri })
   }
 }
 

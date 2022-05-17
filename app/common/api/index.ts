@@ -3,7 +3,7 @@ import * as R from 'ramda'
 import Query from 'qs'
 import { sprintf } from 'sprintf-js'
 
-type HttpMethod = 'get' | 'post'
+type HttpMethod = 'get' | 'post' | 'patch' | 'put' | 'delete'
 
 const API_PREFIX = '/api'
 

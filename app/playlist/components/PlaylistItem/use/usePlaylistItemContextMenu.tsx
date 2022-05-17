@@ -11,6 +11,7 @@ import useDatabaseViewNavigation from '@app/database/views/DatabaseView/use/useD
 import { copy } from '@app/navigator/utils/clipboard'
 import { basename } from '@app/common/utils/path'
 import { wrapWithGlobalItems } from '@app/common/utils/contextmenu'
+import PlaylistService from '@app/playlist/services/PlaylistService'
 
 const usePlaylistItemContextMenu = (playlistItem: PlaylistItem) => {
   const { goTo } = useDatabaseViewNavigation()
@@ -36,6 +37,11 @@ const usePlaylistItemContextMenu = (playlistItem: PlaylistItem) => {
             handler: () => copy(playlistItem.uri)
           }
         ]
+      },
+      {
+        id: 'remove',
+        text: 'Remove',
+        handler: () => PlaylistService.delete(playlistItem.id)
       },
       {
         id: 'open-in-files',
