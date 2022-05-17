@@ -167,6 +167,10 @@ const DatabaseDirectory = memo(({
         return
       }
 
+      if (currentItemNavigation.currentItem.type !== 'DIRECTORY') {
+        return
+      }
+
       onDescent(currentItemNavigation.currentItem)
     }
   }, { disable: !isActive })

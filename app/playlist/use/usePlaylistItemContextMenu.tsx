@@ -10,6 +10,7 @@ import useDatabaseViewNavigation from '@app/database/views/DatabaseView/use/useD
 
 import PlaylistService from '@app/playlist/services/PlaylistService'
 
+import { dirname } from '@app/common/utils/path'
 import { wrapWithGlobalContextMenuItems } from '@app/common/utils/contextmenu'
 import { getDatabaseItemContextMenuItems } from '@app/database/utils/contextmenu'
 
@@ -27,7 +28,11 @@ const usePlaylistItemContextMenu = (playlistItem: PlaylistItem) => {
       {
         id: 'open-in-files',
         text: 'Open in Files',
-        handler: () => goTo(playlistItem.uri)
+        handler: () => {
+          goTo(
+            dirname(playlistItem.uri)
+          )
+        }
       }
     ])
 
