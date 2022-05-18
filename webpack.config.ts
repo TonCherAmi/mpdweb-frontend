@@ -19,11 +19,11 @@ const devServer: WebpackDevServer.Configuration = {
         '^/api': ''
       }
     },
-    '/ws': {
+    '/api/ws': {
       ws: true,
       target: 'http://localhost:8123',
       pathRewrite: {
-        '^/ws': ''
+        '^/api/ws': ''
       }
     }
   }
