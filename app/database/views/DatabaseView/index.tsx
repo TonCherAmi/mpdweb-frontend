@@ -2,7 +2,7 @@ import React, { useCallback, useLayoutEffect, memo } from 'react'
 
 import * as R from 'ramda'
 
-import DatabaseItem from '@app/database/dto/DatabaseItem'
+import DatabaseItem from '@app/database/data/DatabaseItem'
 
 import DatabaseDirectory from '@app/database/components/DatabaseDirectory'
 

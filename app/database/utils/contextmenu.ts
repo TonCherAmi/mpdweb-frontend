@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
-import DatabaseItem from '@app/database/dto/DatabaseItem'
-import DatabaseFile from '@app/database/dto/DatabaseFile'
+import DatabaseItem from '@app/database/data/DatabaseItem'
+import DatabaseFile from '@app/database/data/DatabaseFile'
 import ContextMenuItem from '@app/common/components/ContextMenu/types/ContextMenuItem'
 
 import { copy } from '@app/navigator/utils/clipboard'

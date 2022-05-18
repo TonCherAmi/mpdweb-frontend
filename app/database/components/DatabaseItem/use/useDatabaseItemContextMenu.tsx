@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 
 import Thunk from '@app/common/types/Thunk'
-import DatabaseItem from '@app/database/dto/DatabaseItem'
+import DatabaseItem from '@app/database/data/DatabaseItem'
 
 import ContextMenu from '@app/common/components/ContextMenu'
 

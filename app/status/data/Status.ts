@@ -1,5 +1,5 @@
 import State from '@app/status/types/State'
-import Duration from '@app/common/dto/Duration'
+import Duration from '@app/common/data/Duration'
 
 interface CurrentSong {
   id: number

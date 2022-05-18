@@ -2,7 +2,7 @@ import React from 'react'
 
 import * as R from 'ramda'
 
-import PlaylistItem from '@app/playlist/dto/PlaylistItem'
+import PlaylistItem from '@app/playlist/data/PlaylistItem'
 
 import useCurrentSong from '@app/status/use/useCurrentSong'
 import usePlaylistItemContextMenu from '@app/playlist/use/usePlaylistItemContextMenu'

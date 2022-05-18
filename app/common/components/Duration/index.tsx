@@ -1,6 +1,6 @@
 import React from 'react'
 
-import DurationDto from '@app/common/dto/Duration'
+import DurationData from '@app/common/data/Duration'
 
 import { SIMPLE_DURATION_ZERO } from '@app/common/utils/duration'
 
@@ -8,7 +8,7 @@ import { formatDuration } from './utils'
 
 interface Props {
   className?: string
-  value: Nullable<DurationDto>
+  value: Nullable<DurationData>
 }
 
 const Duration = ({ className, value }: Props) => {

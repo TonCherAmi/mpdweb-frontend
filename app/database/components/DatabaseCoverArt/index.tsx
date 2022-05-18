@@ -4,7 +4,7 @@ import cx from 'classnames'
 
 import * as R from 'ramda'
 
-import DatabaseFile from '@app/database/dto/DatabaseFile'
+import DatabaseFile from '@app/database/data/DatabaseFile'
 
 import * as  Icons from '@app/common/icons'
 

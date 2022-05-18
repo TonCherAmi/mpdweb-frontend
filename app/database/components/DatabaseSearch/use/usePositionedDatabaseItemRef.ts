@@ -2,7 +2,7 @@ import { useRef, useEffect, RefObject, useLayoutEffect } from 'react'
 
 import * as R from 'ramda'
 
-import DatabaseItem from '@app/database/dto/DatabaseItem'
+import DatabaseItem from '@app/database/data/DatabaseItem'
 
 import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
 

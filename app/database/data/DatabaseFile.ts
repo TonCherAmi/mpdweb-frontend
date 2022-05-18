@@ -1,5 +1,5 @@
-import Duration from '@app/common/dto/Duration'
-import DatabaseItem from '@app/database/dto/DatabaseItem'
+import Duration from '@app/common/data/Duration'
+import DatabaseItem from '@app/database/data/DatabaseItem'
 
 interface DatabaseFile extends DatabaseItem {
   title: string | null

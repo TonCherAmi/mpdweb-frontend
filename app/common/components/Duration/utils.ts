@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import SimpleDuration from '@app/common/dto/SimpleDuration'
+import SimpleDuration from '@app/common/data/SimpleDuration'
 
 const propToString = (name: string) => R.pipe(
   R.prop(name),

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 
 import * as R from 'ramda'
 
-import Status from '@app/status/dto/Status'
+import Status from '@app/status/data/Status'
 import Change from '@app/changes/types/Change'
 import Handler from '@app/common/types/Handler'
 

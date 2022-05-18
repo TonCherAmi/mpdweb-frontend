@@ -3,6 +3,7 @@ import React, { useRef, useCallback, useState, useEffect, MutableRefObject, memo
 import * as R from 'ramda'
 
 import Thunk from '@app/common/types/Thunk'
+import DatabaseItemData from '@app/database/data/DatabaseItem'
 
 import DatabaseSearchInput from '@app/database/components/DatabaseSearchInput'
 import DatabaseItem, { HighlightStyle } from '@app/database/components/DatabaseItem'
@@ -20,8 +21,6 @@ import useDatabaseItemHighlightStyle from '@app/database/components/use/useDatab
 import useUiInteractionModeAwareWheelEventHandler from '@app/ui/use/useUiInteractionModeAwareWheelEventHandler'
 import useUiInteractionModeAwareMouseEventHandler from '@app/ui/use/useUiInteractionModeAwareMouseEventHandler'
 
-import DatabaseItemDto from '@app/database/dto/DatabaseItem'
-
 import { route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
 
 import DatabaseApi from '@app/database/api'
@@ -36,8 +35,8 @@ const SEARCH_DEBOUNCE_WAIT_MS = 350
 
 interface PreservedState {
   term: string
-  results: ReadonlyArray<DatabaseItemDto>
-  currentItem: Nullable<DatabaseItemDto>
+  results: ReadonlyArray<DatabaseItemData>
+  currentItem: Nullable<DatabaseItemData>
 }
 
 interface Props {
@@ -108,7 +107,7 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
 
   const databaseItemRef = usePositionedDatabaseItemRef(itemNavigation.currentItem)
 
-  const getDatabaseItemRef = (item: DatabaseItemDto): Nullable<typeof databaseItemRef> => {
+  const getDatabaseItemRef = (item: DatabaseItemData): Nullable<typeof databaseItemRef> => {
     if (item !== itemNavigation.currentItem) {
       return null
     }
@@ -121,7 +120,7 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
     isFocusable: isItemListFocusable
   })
 
-  const getDatabaseItemHighlightStyle = (item: DatabaseItemDto): Nullable<HighlightStyle> => {
+  const getDatabaseItemHighlightStyle = (item: DatabaseItemData): Nullable<HighlightStyle> => {
     if (item !== itemNavigation.currentItem) {
       return null
     }
@@ -131,7 +130,7 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
 
   const navigateToDatabaseView = useRouteNavigation(DatabaseViewRoute)
 
-  const handleDescent = useCallback((databaseItem: DatabaseItemDto) => {
+  const handleDescent = useCallback((databaseItem: DatabaseItemData) => {
     onSuccess()
 
     navigateToDatabaseView(databaseItem.uri)

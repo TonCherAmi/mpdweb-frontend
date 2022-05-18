@@ -1,7 +1,7 @@
 import { createContext } from 'react'
 
 import Handler from '@app/common/types/Handler'
-import DatabaseItem from '@app/database/dto/DatabaseItem'
+import DatabaseItem from '@app/database/data/DatabaseItem'
 import DatabaseDirectory from '@app/database/views/DatabaseView/types/DatabaseDirectory'
 
 const noop = () => {

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 
 import Thunk from '@app/common/types/Thunk'
-import PlaylistItem from '@app/playlist/dto/PlaylistItem'
+import PlaylistItem from '@app/playlist/data/PlaylistItem'
 
 import ContextMenu from '@app/common/components/ContextMenu'
 

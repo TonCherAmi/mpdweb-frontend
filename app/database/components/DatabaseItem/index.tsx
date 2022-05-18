@@ -7,7 +7,7 @@ import * as R from 'ramda'
 import Thunk from '@app/common/types/Thunk'
 import Handler from '@app/common/types/Handler'
 
-import DatabaseItemDto from '@app/database/dto/DatabaseItem'
+import DatabaseItemData from '@app/database/data/DatabaseItem'
 
 import * as Icons from '@app/common/icons'
 
@@ -24,11 +24,11 @@ import styles from './styles.scss'
 export type HighlightStyle = 'muted' | 'primary' | 'secondary'
 
 interface Props {
-  item: DatabaseItemDto
+  item: DatabaseItemData
   highlightStyle: Nullable<HighlightStyle>
-  onClick?: Handler<DatabaseItemDto>
-  onAddClick?: Handler<DatabaseItemDto>
-  onPlayClick?: Handler<DatabaseItemDto>
+  onClick?: Handler<DatabaseItemData>
+  onAddClick?: Handler<DatabaseItemData>
+  onPlayClick?: Handler<DatabaseItemData>
 }
 
 const DatabaseItem = memo(
@@ -39,7 +39,7 @@ const DatabaseItem = memo(
     onAddClick,
     onPlayClick
   }, ref) => {
-    const withItem = (fn: Nullable<Handler<DatabaseItemDto>>): Thunk => {
+    const withItem = (fn: Nullable<Handler<DatabaseItemData>>): Thunk => {
       return () => {
         fn?.(item)
       }

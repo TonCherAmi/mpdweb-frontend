@@ -1,7 +1,7 @@
 import { make } from '@app/common/api'
 
-import PlaybackPlayBody from '@app/playback/dto/api/request/PlaybackPlayBody'
-import PlaybackSeekBody from '@app/playback/dto/api/request/PlaybackSeekBody'
+import PlaybackPlayBody from '@app/playback/data/api/request/PlaybackPlayBody'
+import PlaybackSeekBody from '@app/playback/data/api/request/PlaybackSeekBody'
 
 const Api = {
   stop: make<void>('/playback/stop', 'post'),

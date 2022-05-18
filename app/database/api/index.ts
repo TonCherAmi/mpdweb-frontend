@@ -1,11 +1,11 @@
 import { make } from '@app/common/api'
 
-import DatabaseItem from '@app/database/dto/DatabaseItem'
-import DatabaseCount from '@app/database/dto/DatabaseCount'
+import DatabaseItem from '@app/database/data/DatabaseItem'
+import DatabaseCount from '@app/database/data/DatabaseCount'
 
-import DatabaseGetBody from '@app/database/dto/api/request/DatabaseGetBody'
-import DatabaseCountBody from '@app/database/dto/api/request/DatabaseCountBody'
-import DatabaseSearchBody from '@app/database/dto/api/request/DatabaseSearchBody'
+import DatabaseGetBody from '@app/database/data/api/request/DatabaseGetBody'
+import DatabaseCountBody from '@app/database/data/api/request/DatabaseCountBody'
+import DatabaseSearchBody from '@app/database/data/api/request/DatabaseSearchBody'
 
 const Api = {
   get: make<DatabaseItem[], DatabaseGetBody>('/database', 'get', {

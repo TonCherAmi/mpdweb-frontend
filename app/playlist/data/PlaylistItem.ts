@@ -1,4 +1,4 @@
-import DatabaseFile from '@app/database/dto/DatabaseFile'
+import DatabaseFile from '@app/database/data/DatabaseFile'
 
 interface PlaylistItem extends DatabaseFile {
   id: number

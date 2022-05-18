@@ -4,7 +4,7 @@ import * as R from 'ramda'
 
 import Handler from '@app/common/types/Handler'
 import Change from '@app/changes/types/Change'
-import DatabaseItem from '@app/database/dto/DatabaseItem'
+import DatabaseItem from '@app/database/data/DatabaseItem'
 import DatabaseDirectory from '@app/database/views/DatabaseView/types/DatabaseDirectory'
 
 import useStatic from '@app/common/use/useStatic'

@@ -1,6 +1,5 @@
-import Duration from '@app/common/dto/Duration'
-import SimpleDuration from '@app/common/dto/SimpleDuration'
-import DurationDto from '@app/common/dto/Duration'
+import Duration from '@app/common/data/Duration'
+import SimpleDuration from '@app/common/data/SimpleDuration'
 
 export const SIMPLE_DURATION_ZERO: SimpleDuration = {
   hours: 0,
@@ -17,7 +16,7 @@ const SECONDS_PER_MINUTE = 60
 const MINUTES_PER_HOUR = 60
 const SECONDS_PER_HOUR = SECONDS_PER_MINUTE * MINUTES_PER_HOUR
 
-export const totalSecondsToDuration = (totalSeconds: number): DurationDto => {
+export const totalSecondsToDuration = (totalSeconds: number): Duration => {
   return {
     total: {
       hours: Math.floor(totalSeconds / SECONDS_PER_HOUR),

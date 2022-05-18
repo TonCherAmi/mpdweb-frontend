@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import PlaylistItem from '@app/playlist/dto/PlaylistItem'
+import PlaylistItem from '@app/playlist/data/PlaylistItem'
 
 import useStatusContext from '@app/status/use/useStatusContext'
 import usePlaylistContext from '@app/playlist/use/usePlaylistContext'

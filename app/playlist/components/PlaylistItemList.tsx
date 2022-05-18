@@ -1,17 +1,17 @@
 import React, { useCallback, memo } from 'react'
 
-import PlaylistItemDto from '@app/playlist/dto/PlaylistItem'
+import PlaylistItemData from '@app/playlist/data/PlaylistItem'
 
 import PlaylistItem from '@app/playlist/components/PlaylistItem'
 
 import PlaybackService from '@app/playback/services/PlaybackService'
 
 interface Props {
-  items: ReadonlyArray<PlaylistItemDto>
+  items: ReadonlyArray<PlaylistItemData>
 }
 
 const PlaylistItemList = memo(({ items }: Props) => {
-  const handleItemClick = useCallback((item: PlaylistItemDto) => {
+  const handleItemClick = useCallback((item: PlaylistItemData) => {
     PlaybackService.play(item.id)
   }, [])
 

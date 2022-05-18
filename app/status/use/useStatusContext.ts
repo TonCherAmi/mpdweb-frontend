@@ -2,7 +2,7 @@ import { useContext } from 'react'
 
 import * as R from 'ramda'
 
-import Status from '@app/status/dto/Status'
+import Status from '@app/status/data/Status'
 
 import StatusContext from '@app/status/contexts/StatusContext'
 

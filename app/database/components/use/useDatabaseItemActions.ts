@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import DatabaseItem from '@app/database/dto/DatabaseItem'
+import DatabaseItem from '@app/database/data/DatabaseItem'
 
 import playlistService from '@app/playlist/services/PlaylistService'
 import playbackService from '@app/playback/services/PlaybackService'

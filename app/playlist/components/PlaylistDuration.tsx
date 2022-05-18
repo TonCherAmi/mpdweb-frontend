@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Status from '@app/status/dto/Status'
+import Status from '@app/status/data/Status'
 
 import Duration from '@app/common/components/Duration'
 

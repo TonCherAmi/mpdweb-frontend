@@ -4,7 +4,7 @@ import * as R from 'ramda'
 
 import Handler from '@app/common/types/Handler'
 
-import DatabaseItemDto from '@app/database/dto/DatabaseItem'
+import DatabaseItemData from '@app/database/data/DatabaseItem'
 
 import DatabaseItem, { HighlightStyle } from '@app/database/components/DatabaseItem'
 import DatabaseDirectorySearchInput from '@app/database/components/DatabaseDirectorySearchInput'
@@ -24,10 +24,10 @@ import styles from './styles.scss'
 
 interface Props {
   isActive: boolean
-  items: ReadonlyArray<DatabaseItemDto>
-  selectedItem: DatabaseItemDto
-  onAscent: Handler<DatabaseItemDto>
-  onDescent: Handler<DatabaseItemDto>
+  items: ReadonlyArray<DatabaseItemData>
+  selectedItem: DatabaseItemData
+  onAscent: Handler<DatabaseItemData>
+  onDescent: Handler<DatabaseItemData>
 }
 
 const databaseItemUriAccessor = R.prop('uri')
@@ -81,7 +81,7 @@ const DatabaseDirectory = memo(({
     isSearchHidden
   })
 
-  const getDatabaseItemRef = (item: DatabaseItemDto): Nullable<typeof databaseItemRef> => {
+  const getDatabaseItemRef = (item: DatabaseItemData): Nullable<typeof databaseItemRef> => {
     if (item !== currentItem) {
       return null
     }
@@ -96,7 +96,7 @@ const DatabaseDirectory = memo(({
 
   const [modalState] = useModalStateContext()
 
-  const getDatabaseItemHighlightStyle = (item: DatabaseItemDto): Nullable<HighlightStyle> => {
+  const getDatabaseItemHighlightStyle = (item: DatabaseItemData): Nullable<HighlightStyle> => {
     if (!R.isNil(modalState) || item !== currentItemNavigation.currentItem) {
       return null
     }

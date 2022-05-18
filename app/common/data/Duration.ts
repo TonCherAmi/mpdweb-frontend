@@ -1,4 +1,4 @@
-import SimpleDuration from '@app/common/dto/SimpleDuration'
+import SimpleDuration from '@app/common/data/SimpleDuration'
 
 interface Duration {
   part: SimpleDuration

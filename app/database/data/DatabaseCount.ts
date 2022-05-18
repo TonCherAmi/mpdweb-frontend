@@ -1,4 +1,4 @@
-import Duration from '@app/common/dto/Duration'
+import Duration from '@app/common/data/Duration'
 
 interface DatabaseCount {
   playtime: Duration

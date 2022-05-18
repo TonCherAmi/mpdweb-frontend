@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 
 import Handler from '@app/common/types/Handler'
-import PlaylistItemDto from '@app/playlist/dto/PlaylistItem'
+import PlaylistItemData from '@app/playlist/data/PlaylistItem'
 
 import Duration from '@app/common/components/Duration'
 import DatabaseCoverArt from '@app/database/components/DatabaseCoverArt'
@@ -11,8 +11,8 @@ import usePlaylistItemContextMenu from '@app/playlist/use/usePlaylistItemContext
 import styles from './styles.scss'
 
 interface Props {
-  item: PlaylistItemDto
-  onClick?: Handler<PlaylistItemDto>
+  item: PlaylistItemData
+  onClick?: Handler<PlaylistItemData>
 }
 
 const PlaylistItem = memo(({ item, onClick }: Props) => {

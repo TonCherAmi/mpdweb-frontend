@@ -1,4 +1,4 @@
-import DatabaseItem from '@app/database/dto/DatabaseItem'
+import DatabaseItem from '@app/database/data/DatabaseItem'
 
 interface DatabaseDirectory {
   uri: string
