@@ -1,38 +1,42 @@
 import * as Path from 'path'
 import * as Webpack from 'webpack'
+import * as WebpackDevServer from 'webpack-dev-server'
 
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 const src = Path.resolve(__dirname, 'app')
 
+const devServer: WebpackDevServer.Configuration = {
+  hot: true,
+  host: '0.0.0.0',
+  historyApiFallback: {
+    disableDotRule: true
+  },
+  proxy: {
+    '/api': {
+      target: 'http://localhost:8123',
+      pathRewrite: {
+        '^/api': ''
+      }
+    },
+    '/ws': {
+      ws: true,
+      target: 'http://localhost:8123',
+      pathRewrite: {
+        '^/ws': ''
+      }
+    }
+  }
+}
+
 const config: Webpack.Configuration = {
+  devServer,
   context: src,
+  mode: 'development',
   entry: './index.tsx',
   devtool: 'source-map',
   output: {
     publicPath: '/'
-  },
-  devServer: {
-    hot: true,
-    host: '0.0.0.0',
-    historyApiFallback: {
-      disableDotRule: true
-    },
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8123',
-        pathRewrite: {
-          '^/api': ''
-        }
-      },
-      '/ws': {
-        ws: true,
-        target: 'http://localhost:8123',
-        pathRewrite: {
-          '^/ws': ''
-        }
-      }
-    }
   },
   module: {
     rules: [
@@ -50,7 +54,7 @@ const config: Webpack.Configuration = {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: '[local]--[hash:base64:5]',
+                localIdentName: '[local]--[contenthash:base64:5]',
                 exportLocalsConvention: 'camelCaseOnly'
               }
             }
