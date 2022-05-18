@@ -8,7 +8,7 @@ import Volume from '@app/volume/components/Volume'
 import CurrentSong from '@app/status/components/CurrentSong'
 import PlaybackControls from '@app/playback/components/PlaybackControls'
 import CurrentSongProgress from '@app/status/components/CurrentSongProgress'
-import PlaylistClearButton from '@app/playlist/components/PlaylistClearButton'
+import QueueClearButton from '@app/queue/components/QueueClearButton'
 import DatabaseUpdateButton from '@app/database/components/DatabaseUpdateButton'
 import PlaybackSingleButton from '@app/playback/components/PlaybackSingleButton'
 import PlaybackRandomButton from '@app/playback/components/PlaybackRandomButton'
@@ -25,9 +25,9 @@ const BottomPanel = () => {
       </div>
       <div className={cx(styles.section, styles.controls)}>
         <div className={styles.buttons}>
-          <PlaylistClearButton className={cx(styles.sideButton, styles.clear)}>
+          <QueueClearButton className={cx(styles.sideButton, styles.clear)}>
             <Icons.TimesCircleFill className={styles.sideIcon} />
-          </PlaylistClearButton>
+          </QueueClearButton>
           <PlaybackControls />
           <DatabaseUpdateButton className={cx(styles.sideButton, styles.update)}>
             <Icons.SyncAlt className={styles.sideIcon} />

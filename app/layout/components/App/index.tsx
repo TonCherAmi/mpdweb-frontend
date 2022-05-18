@@ -7,7 +7,7 @@ import DatabaseView, { route as DatabaseViewRoute } from '@app/database/views/Da
 import Modals from '@app/layout/components/Modals'
 import Sidebar from '@app/layout/components/Sidebar'
 import BottomPanel from '@app/layout/components/BottomPanel'
-import CurrentPlaylist from '@app/playlist/components/CurrentPlaylist'
+import Queue from '@app/queue/components/Queue'
 import KeybindingScope from '@app/keybindings/components/KeybindingScope'
 
 import Providers from '@app/layout/components/Providers'
@@ -52,7 +52,7 @@ const Wrapped = () => {
             </DatabaseViewProvider>
           </Switch>
         </div>
-        <CurrentPlaylist />
+        <Queue />
       </div>
       <BottomPanel />
     </div>

@@ -1,19 +1,19 @@
 import * as R from 'ramda'
 
-import PlaylistItem from '@app/playlist/data/PlaylistItem'
+import QueueItem from '@app/queue/data/QueueItem'
 
+import useQueueContext from '@app/queue/use/useQueueContext'
 import useStatusContext from '@app/status/use/useStatusContext'
-import usePlaylistContext from '@app/playlist/use/usePlaylistContext'
 
-const useCurrentSong = (): Nullable<PlaylistItem> => {
+const useCurrentSong = (): Nullable<QueueItem> => {
+  const queue = useQueueContext()
   const status = useStatusContext()
-  const playlist = usePlaylistContext()
 
   if (R.isNil(status.song)) {
     return null
   }
 
-  return playlist[status.song.position]
+  return queue[status.song.position]
 }
 
 export default useCurrentSong

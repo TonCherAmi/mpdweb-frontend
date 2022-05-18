@@ -2,10 +2,10 @@ import React from 'react'
 
 import * as R from 'ramda'
 
-import PlaylistItem from '@app/playlist/data/PlaylistItem'
+import QueueItem from '@app/queue/data/QueueItem'
 
 import useCurrentSong from '@app/status/use/useCurrentSong'
-import usePlaylistItemContextMenu from '@app/playlist/use/usePlaylistItemContextMenu'
+import useQueueItemContextMenu from '@app/queue/use/useQueueItemContextMenu'
 
 import styles from './styles.scss'
 
@@ -20,8 +20,8 @@ const CurrentSongPlaceholder = () => (
   </div>
 )
 
-const CurrentSong = ({ currentSong }: { currentSong: PlaylistItem }) => {
-  const { handleContextMenu } = usePlaylistItemContextMenu(currentSong)
+const CurrentSong = ({ currentSong }: { currentSong: QueueItem }) => {
+  const { handleContextMenu } = useQueueItemContextMenu(currentSong)
 
   const title = currentSong.title
   const artist = currentSong.artist

@@ -8,7 +8,7 @@ interface CurrentSong {
   duration: Duration
 }
 
-interface CurrentPlaylist {
+interface Queue {
   length: number
   elapsed: Duration
   duration: Duration
@@ -18,7 +18,7 @@ interface Status {
   state: State
   volume: number
   song: Nullable<CurrentSong>
-  playlist: CurrentPlaylist
+  queue: Queue
   single: 'ON' | 'OFF' | 'ONESHOT'
   random: boolean
   repeat: boolean
