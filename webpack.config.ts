@@ -7,7 +7,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 const src = Path.resolve(__dirname, 'app')
 
 const devServer: WebpackDevServer.Configuration = {
-  hot: true,
+  hot: 'only',
   host: '0.0.0.0',
   historyApiFallback: {
     disableDotRule: true
