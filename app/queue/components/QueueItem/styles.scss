@@ -11,10 +11,6 @@
 
   cursor: pointer;
 
-  &:not(:last-child) {
-    margin-bottom: .75rem;
-  }
-
   &:hover {
     background: #222222;
 
