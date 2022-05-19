@@ -19,7 +19,7 @@ interface Props {
 const Sidebar = memo((props: Props) => {
   const location = useLocation()
 
-  const getIsActive = (path: string) => {
+  const isActive = (path: string) => {
     return location.pathname.startsWith(path)
   }
 
@@ -29,7 +29,7 @@ const Sidebar = memo((props: Props) => {
       <For of={props.items} body={({ icon: Icon, ...item }) => (
         <Link
           key={item.path}
-          className={cx(styles.item, { [styles.active]: getIsActive(item.path) })}
+          className={cx(styles.item, { [styles.active]: isActive(item.path) })}
           to={item.path}
         >
           <Icon className={styles.icon} /> {item.text}
