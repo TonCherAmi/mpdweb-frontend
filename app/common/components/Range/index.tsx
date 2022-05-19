@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from 'react'
+import React, { ChangeEventHandler, MouseEventHandler } from 'react'
 
 import cx from 'classnames'
 
@@ -47,6 +47,10 @@ const Range = ({
     onChange(event.target.valueAsNumber)
   }
 
+  const handleMouseUp: MouseEventHandler<HTMLInputElement> = (event) => {
+    event.currentTarget.blur()
+  }
+
   return (
     <div className={cx(styles.container, containerClassName)}>
       <div
@@ -65,6 +69,7 @@ const Range = ({
         max={max}
         value={value}
         onChange={handleChange}
+        onMouseUp={handleMouseUp}
         {...props}
       />
     </div>
