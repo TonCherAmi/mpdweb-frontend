@@ -3,8 +3,21 @@ import * as Webpack from 'webpack'
 import * as WebpackDevServer from 'webpack-dev-server'
 
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 
 const src = Path.resolve(__dirname, 'app')
+
+const isDevelopment = process.env.NODE_ENV !== 'production'
+
+const htmlWebpackPlugin = new HtmlWebpackPlugin({
+  template: 'index.html',
+  favicon: 'assets/images/favicon.svg'
+})
+
+const plugins = !isDevelopment ? [htmlWebpackPlugin] : [
+  htmlWebpackPlugin,
+  new  ReactRefreshWebpackPlugin()
+]
 
 const devServer: WebpackDevServer.Configuration = {
   hot: 'only',
@@ -30,6 +43,7 @@ const devServer: WebpackDevServer.Configuration = {
 }
 
 const config: Webpack.Configuration = {
+  plugins,
   devServer,
   context: src,
   mode: 'development',
@@ -44,7 +58,10 @@ const config: Webpack.Configuration = {
         test: /\.ts(x?)$/,
         loader: 'babel-loader',
         include: [src],
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        options: {
+          plugins: !isDevelopment ? [] : ['react-refresh/babel']
+        }
       },
       {
         test: /\.s[ac]ss$/,
@@ -68,12 +85,6 @@ const config: Webpack.Configuration = {
     alias: { '@app': src },
     extensions: ['.js', '.ts', '.tsx']
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: 'index.html' ,
-      favicon: 'assets/images/favicon.svg'
-    })
-  ]
 }
 
 export default config
