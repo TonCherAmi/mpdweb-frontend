@@ -32,7 +32,7 @@
   display: flex;
   flex-direction: column;
 
-  max-width: 70%;
+  max-width: 65%;
 
   .title, .artist {
 
@@ -72,11 +72,22 @@
   }
 }
 
-.duration {
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: space-around;
+
+  align-self: stretch;
+
   margin-left: auto;
 
   font-size: 9pt;
-  font-family: "Roboto", sans-serif;
 
   color: #999;
+}
+
+.duration {
+  font-weight: 500;
+  font-family: "Roboto", sans-serif;
 }
