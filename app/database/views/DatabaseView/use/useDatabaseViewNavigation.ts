@@ -4,13 +4,14 @@ import { useHistory } from 'react-router-dom'
 
 import * as R from 'ramda'
 
+import Thunk from '@app/common/types/Thunk'
+
 import useFullMatchParam from '@app/common/use/useFullMatchParam'
 
 import { joinPath, dirname } from '@app/common/utils/path'
 import { DATABASE_ROOT_URI } from '@app/database/views/DatabaseView/utils'
 
 import route from '@app/database/views/DatabaseView/route'
-import Thunk from '@app/common/types/Thunk'
 
 interface DatabaseViewNavigation {
   goTo: (uri: string) => void
