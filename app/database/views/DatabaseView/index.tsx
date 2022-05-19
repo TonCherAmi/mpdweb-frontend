@@ -37,14 +37,14 @@ const DatabaseView = memo(() => {
     goTo(databaseItem.uri)
   }, [goTo, onSelectedItemChange])
 
-  const getIsActive = R.equals<Nullable<number>>(directories.length - 1)
+  const isActive = R.equals<Nullable<number>>(directories.length - 1)
 
   return (
     <div ref={containerRef} className={styles.container}>
       <For of={directories} body={(directory, index) => (
         <DatabaseDirectory
           key={directory.uri}
-          isActive={getIsActive(index)}
+          isActive={isActive(index)}
           items={directory.items}
           selectedItem={directory.selectedItem}
           onAscent={handleAscent}
