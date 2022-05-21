@@ -12,7 +12,7 @@ import useChangesSubscriptionRegistryContext from '@app/changes/use/useChangesSu
 
 import PlaybackService from '@app/playback/services/PlaybackService'
 
-import { totalSecondsToDuration } from '@app/common/utils/duration'
+import { totalSecondsToDuration, DURATION_ZERO } from '@app/common/utils/duration'
 
 import styles from './styles.scss'
 
@@ -72,7 +72,10 @@ const CurrentSongProgress = memo(() => {
         value={value}
         onChange={handleChange}
       />
-      <Duration className={styles.duration} value={status.song?.duration} />
+      <Duration
+        className={styles.duration}
+        value={status.song?.duration ?? DURATION_ZERO}
+      />
     </div>
   )
 })

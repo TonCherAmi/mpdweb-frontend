@@ -8,7 +8,7 @@ import { formatDuration } from './utils'
 
 interface Props {
   className?: string
-  value: Nullable<DurationData>
+  value: DurationData
 }
 
 const Duration = ({ className, value }: Props) => {

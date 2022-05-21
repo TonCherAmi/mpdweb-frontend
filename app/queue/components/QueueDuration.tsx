@@ -4,6 +4,8 @@ import Status from '@app/status/data/Status'
 
 import Duration from '@app/common/components/Duration'
 
+import { DURATION_ZERO } from '@app/common/utils/duration'
+
 interface Props {
   className?: string
   queue: Status['queue']
@@ -12,11 +14,11 @@ interface Props {
 const QueueDuration = ({ className, queue }: Props) => {
   return (
     <span className={className}>
-      <Duration value={queue?.elapsed} />
+      <Duration value={queue?.elapsed ?? DURATION_ZERO} />
       {' '}
       /
       {' '}
-      <Duration value={queue?.duration} />
+      <Duration value={queue?.duration ?? DURATION_ZERO} />
     </span>
   )
 }
