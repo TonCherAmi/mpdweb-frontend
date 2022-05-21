@@ -6,13 +6,13 @@ import Thunk from '@app/common/types/Thunk'
 
 interface Props {
   className?: string
-  autofocus: boolean
+  autofocus?: boolean
   value: string
-  onExit: Thunk
-  onCancel: Thunk
-  onAccept: Thunk
-  onBlur: Thunk
-  onFocus: Thunk
+  onExit?: Thunk
+  onCancel?: Thunk
+  onAccept?: Thunk
+  onBlur?: Thunk
+  onFocus?: Thunk
   onChange: ChangeEventHandler<HTMLInputElement>
 }
 
@@ -28,6 +28,10 @@ const SearchInput = React.forwardRef<HTMLInputElement, Props>(({
   onChange
 }, ref) => {
   const handleFocus: React.FocusEventHandler<HTMLInputElement> = (event) => {
+    if (R.isNil(onFocus)) {
+      return
+    }
+
     event.target.select()
 
     onFocus()
