@@ -7,13 +7,13 @@ export interface Input {
   handleChange: React.ChangeEventHandler<HTMLInputElement>
 }
 
-const useInput = (initialValue: string, onChange: Handler<string>): Input => {
+const useInput = (initialValue: string, onChange?: Handler<string>): Input => {
   const [value, setValue] = useState(initialValue)
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     setValue(event.target.value)
 
-    onChange(event.target.value)
+    onChange?.(event.target.value)
   }
 
   return { value, handleChange }
