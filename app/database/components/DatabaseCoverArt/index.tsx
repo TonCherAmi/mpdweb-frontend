@@ -62,7 +62,7 @@ const DatabaseCoverArt = ({ className, fallbackIconClassName, file }: Props) => 
       </If>
       <If condition={state === 'error'}>
         <div className={cx(styles.fallback, className)}>
-          <Icons.MusicNoteList className={cx(styles.icon, fallbackIconClassName)} />
+          <Icons.CompactDisc className={cx(styles.icon, fallbackIconClassName)} />
         </div>
       </If>
       <img
