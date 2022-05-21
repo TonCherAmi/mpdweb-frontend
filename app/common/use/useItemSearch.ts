@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect, useCallback } from 'react'
 
 import * as R from 'ramda'
 
@@ -25,19 +25,25 @@ const useItemSearch = <T,>(
 
   const [results, setResults] = useState(items)
 
-  const input = useInput('', (value) => {
-    if (R.isEmpty(value)) {
+  const input = useInput('')
+
+  const search = useCallback(() => {
+    if (R.isEmpty(input.value)) {
       setResults(items)
 
       return
     }
 
     setResults(
-      fuse.search(value).map(
+      fuse.search(input.value).map(
         R.prop('item')
       )
     )
-  })
+  }, [items, fuse, input.value])
+
+  useEffect(() => {
+    search()
+  }, [items, search])
 
   return { input, results }
 }
