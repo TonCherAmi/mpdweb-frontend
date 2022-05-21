@@ -3,9 +3,6 @@
   align-items: center;
   justify-content: center;
 
-  color: #242424;
-  background: #181818;
-
   border-radius: .25rem;
 }
 
@@ -14,16 +11,11 @@
 }
 
 .fallback {
-  background: #171717;
-
   display: flex;
   align-items: center;
   justify-content: center;
 
   .icon {
-    width: 4rem;
-    height: 4rem;
-
     color: #A27E8E;
   }
 }

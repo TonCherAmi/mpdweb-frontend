@@ -6,7 +6,10 @@ import DatabaseCoverArt from '@app/database/components/DatabaseCoverArt'
 
 import useCurrentSong from '@app/status/use/useCurrentSong'
 
-const CurrentCoverArt = ({ className }: { className?: string }) => {
+const CurrentCoverArt = ({
+  className,
+  fallbackIconClassName
+}: { className?: string, fallbackIconClassName?: string }) => {
   const currentSong = useCurrentSong()
 
   if (R.isNil(currentSong)) {
@@ -14,7 +17,11 @@ const CurrentCoverArt = ({ className }: { className?: string }) => {
   }
 
   return (
-    <DatabaseCoverArt className={className} file={currentSong} />
+    <DatabaseCoverArt
+      className={className}
+      fallbackIconClassName={fallbackIconClassName}
+      file={currentSong}
+    />
   )
 }
 

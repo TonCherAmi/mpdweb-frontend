@@ -35,7 +35,7 @@ const Sidebar = memo((props: Props) => {
           <Icon className={styles.icon} /> {item.text}
         </Link>
       )} />
-      <CurrentCoverArt className={styles.cover} />
+      <CurrentCoverArt className={styles.cover} fallbackIconClassName={styles.icon} />
     </div>
   )
 })
