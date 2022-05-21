@@ -1,3 +1,4 @@
+export { default as Plus } from './Plus'
 export { default as Heart } from './Heart'
 export { default as Pause } from './PauseFill'
 export { default as Repeat } from './Repeat'
