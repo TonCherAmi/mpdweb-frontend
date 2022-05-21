@@ -16,6 +16,12 @@ const SECONDS_PER_MINUTE = 60
 const MINUTES_PER_HOUR = 60
 const SECONDS_PER_HOUR = SECONDS_PER_MINUTE * MINUTES_PER_HOUR
 
+export const addDuration = (durationA: Duration, durationB: Duration): Duration => {
+  return totalSecondsToDuration(
+    durationA.total.seconds + durationB.total.seconds
+  )
+}
+
 export const totalSecondsToDuration = (totalSeconds: number): Duration => {
   return {
     total: {
