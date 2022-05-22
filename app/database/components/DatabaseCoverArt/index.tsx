@@ -8,8 +8,6 @@ import DatabaseFile from '@app/database/data/DatabaseFile'
 
 import * as  Icons from '@app/common/icons'
 
-import Spinner from '@app/common/components/Spinner'
-
 import { dirname } from '@app/common/utils/path'
 
 import styles from './styles.scss'
@@ -50,16 +48,11 @@ const DatabaseCoverArt = ({ className, fallbackIconClassName, file }: Props) => 
   }
 
   const imgClassName = cx(styles.cover, className, {
-    [styles.hidden]: state !== 'done'
+    [styles.hidden]: state === 'error'
   })
 
   return (
     <React.Fragment>
-      <If condition={state === 'initial'}>
-        <div className={cx(styles.fallback, className)}>
-          <Spinner />
-        </div>
-      </If>
       <If condition={state === 'error'}>
         <div className={cx(styles.fallback, className)}>
           <Icons.CompactDisc className={cx(styles.icon, fallbackIconClassName)} />
