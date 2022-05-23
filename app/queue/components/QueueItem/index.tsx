@@ -8,7 +8,7 @@ import DatabaseCoverArt from '@app/database/components/DatabaseCoverArt'
 
 import useQueueItemContextMenu from '@app/queue/use/useQueueItemContextMenu'
 
-import { formatAudioFormat, formatAudioFormatTitle } from './utils'
+import { formatDatabaseAudioFormat, formatDatabaseAudioFormatMultiline } from '@app/database/utils/format'
 
 import styles from './styles.scss'
 
@@ -45,8 +45,8 @@ const QueueItem = memo(({ item, onClick }: Props) => {
       </div>
       <div className={styles.info}>
         <Duration className={styles.duration} value={item.duration} />
-        <span title={formatAudioFormatTitle(item.format)}>
-          {formatAudioFormat(item.format)}
+        <span title={formatDatabaseAudioFormatMultiline(item.format)}>
+          {formatDatabaseAudioFormat(item.format)}
         </span>
       </div>
     </div>
