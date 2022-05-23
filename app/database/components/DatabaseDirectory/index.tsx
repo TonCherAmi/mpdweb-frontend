@@ -16,7 +16,7 @@ import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext
 import useKeybindings from '@app/keybindings/use/useKeybindings'
 import useItemListKeybindings from '@app/keybindings/use/useItemListKeybindings'
 import useDatabaseItemActions from '@app/database/components/use/useDatabaseItemActions'
-import useDatabaseItemHighlightStyle from '@app/database/components/use/useDatabaseItemHighlightStyle'
+import useDatabaseItemHighlightStyle from '@app/database/use/useDatabaseItemHighlightStyle'
 
 import usePositionedDatabaseItemRef from './use/usePositionedDatabaseItemRef'
 

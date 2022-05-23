@@ -17,7 +17,7 @@ import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext
 import useItemListKeybindings from '@app/keybindings/use/useItemListKeybindings'
 import useDatabaseItemActions from '@app/database/components/use/useDatabaseItemActions'
 import useRouteNavigation from '@app/common/use/useRouteNavigation'
-import useDatabaseItemHighlightStyle from '@app/database/components/use/useDatabaseItemHighlightStyle'
+import useDatabaseItemHighlightStyle from '@app/database/use/useDatabaseItemHighlightStyle'
 import useUiInteractionModeAwareWheelEventHandler from '@app/ui/use/useUiInteractionModeAwareWheelEventHandler'
 import useUiInteractionModeAwareMouseEventHandler from '@app/ui/use/useUiInteractionModeAwareMouseEventHandler'
 
