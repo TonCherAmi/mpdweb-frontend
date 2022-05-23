@@ -4,7 +4,9 @@ export interface RemoteList <E, T extends ReadonlyArray<unknown>> extends Omit<R
   items: ReadonlyArray<E>
 }
 
-const useRemoteList = <E, T extends ReadonlyArray<unknown>> (retrieve: Retrieve<ReadonlyArray<E>, T>): RemoteList<E, T> => {
+const useRemoteList = <E, T extends ReadonlyArray<unknown>> (
+  retrieve: Retrieve<ReadonlyArray<E>, T>
+): RemoteList<E, T> => {
   const { data, ...remote } = useRemoteData(retrieve)
 
   return {
