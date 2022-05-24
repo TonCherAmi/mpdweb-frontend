@@ -1,4 +1,5 @@
 import { useRef, useState, useCallback } from 'react'
+import { flushSync } from 'react-dom'
 
 import Thunk from '@app/common/types/Thunk'
 
@@ -30,9 +31,11 @@ const useRemoteData = <R, T extends ReadonlyArray<unknown>> (retrieve: Retrieve<
           return
         }
 
-        setState('success')
-
-        setData(result)
+        // TODO: remove after upgrading to React 18
+        flushSync(() => {
+          setData(result)
+          setState('success')
+        })
       })
       .catch(() => {
         setState('error')
