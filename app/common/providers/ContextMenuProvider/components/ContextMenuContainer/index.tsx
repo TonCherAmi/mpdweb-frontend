@@ -47,15 +47,13 @@ const ContextMenuContainer = ({ contextMenu, onClose }: Props) => {
   })
 
   return (
-    <React.Fragment>
-      <div
-        ref={containerRef}
-        style={containerStyle}
-        className={styles.container}
-      >
-        {contextMenu?.component}
-      </div>
-    </React.Fragment>
+    <div
+      ref={containerRef}
+      style={containerStyle}
+      className={styles.container}
+    >
+      {contextMenu?.component}
+    </div>
   )
 }
 
