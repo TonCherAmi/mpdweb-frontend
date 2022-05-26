@@ -7,18 +7,6 @@ import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 
 const src = Path.resolve(__dirname, 'app')
 
-const isDevelopment = process.env.NODE_ENV !== 'production'
-
-const htmlWebpackPlugin = new HtmlWebpackPlugin({
-  template: 'index.html',
-  favicon: 'assets/images/favicon.svg'
-})
-
-const plugins = !isDevelopment ? [htmlWebpackPlugin] : [
-  htmlWebpackPlugin,
-  new  ReactRefreshWebpackPlugin()
-]
-
 const devServer: WebpackDevServer.Configuration = {
   hot: 'only',
   host: '0.0.0.0',
@@ -42,49 +30,61 @@ const devServer: WebpackDevServer.Configuration = {
   }
 }
 
-const config: Webpack.Configuration = {
-  plugins,
-  devServer,
-  context: src,
-  mode: 'development',
-  entry: './index.tsx',
-  devtool: 'source-map',
-  output: {
-    publicPath: '/'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.ts(x?)$/,
-        loader: 'babel-loader',
-        include: [src],
-        exclude: /node_modules/,
-        options: {
-          plugins: !isDevelopment ? [] : ['react-refresh/babel']
-        }
-      },
-      {
-        test: /\.s[ac]ss$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                localIdentName: '[local]--[contenthash:base64:5]',
-                exportLocalsConvention: 'camelCaseOnly'
-              }
-            }
-          },
-          'sass-loader'
-        ]
-      }
-    ]
-  },
-  resolve: {
-    alias: { '@app': src },
-    extensions: ['.js', '.ts', '.tsx']
-  },
-}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default (env: unknown, argv: { mode: string | undefined }): Webpack.Configuration  => {
+  const isDevelopment = argv.mode === 'development'
 
-export default config
+  const htmlWebpackPlugin = new HtmlWebpackPlugin({
+    template: 'index.html',
+    favicon: 'assets/images/favicon.svg'
+  })
+
+  const plugins = !isDevelopment ? [htmlWebpackPlugin] : [
+    htmlWebpackPlugin,
+    new  ReactRefreshWebpackPlugin()
+  ]
+
+  return {
+    plugins,
+    devServer,
+    context: src,
+    entry: './index.tsx',
+    devtool: 'source-map',
+    output: {
+      publicPath: '/'
+    },
+    module: {
+      rules: [
+        {
+          test: /\.ts(x?)$/,
+          loader: 'babel-loader',
+          include: [src],
+          exclude: /node_modules/,
+          options: {
+            plugins: !isDevelopment ? [] : ['react-refresh/babel']
+          }
+        },
+        {
+          test: /\.s[ac]ss$/,
+          use: [
+            'style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  localIdentName: '[local]--[contenthash:base64:5]',
+                  exportLocalsConvention: 'camelCaseOnly'
+                }
+              }
+            },
+            'sass-loader'
+          ]
+        }
+      ]
+    },
+    resolve: {
+      alias: { '@app': src },
+      extensions: ['.js', '.ts', '.tsx']
+    }
+  }
+}
