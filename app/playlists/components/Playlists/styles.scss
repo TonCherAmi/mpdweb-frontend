@@ -1,0 +1,63 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  row-gap: .75rem;
+}
+
+.scrollable {
+  overflow-y: scroll;
+
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.header {
+  display: flex;
+
+  justify-content: space-between;
+
+  column-gap: .5rem;
+}
+
+.button {
+  // TODO: add ability to create new playlist
+  display: none;
+
+  margin-top: .15rem;
+  margin-left: auto;
+
+  padding: .45rem .45rem;
+
+  border-radius: 50%;
+
+  align-self: center;
+
+  font-size: 9pt;
+
+  color: #666;
+  background: #282828;
+
+  transition: .2s background-color, .2s color;
+
+  &:hover {
+    color: #888;
+
+    background: #333;
+  }
+}
+
+.icon {
+  width: .9rem;
+  height: .9rem;
+}
+
+.title {
+  margin: 0;
+
+  font-size: 24pt;
+  font-family: 'Open Sans', sans-serif;
+}

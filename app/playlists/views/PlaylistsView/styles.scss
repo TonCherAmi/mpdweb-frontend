@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+
+  box-sizing: border-box;
+
+  max-height: 100%;
+
+  padding: 2.5rem 2rem;
+  padding-bottom: 2rem;
+
+  column-gap: 2.5rem;
+
+  > :first-child {
+    width: 30rem;
+  }
+
+  > :nth-child(2) {
+    flex-grow: 1;
+  }
+}

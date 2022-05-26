@@ -1,0 +1,92 @@
+.container {
+  display: flex;
+}
+
+.name {
+  margin: 0;
+  margin-bottom: .25rem;
+
+  font-size: 38pt;
+  font-family: 'Open Sans', 'sans-serif';
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+  color: #dedede;
+}
+
+.text {
+  margin-right: auto;
+
+  max-width: 80%;
+}
+
+.duration::after {
+  content: "•";
+
+  display: inline-block;
+
+  position: relative;
+
+  top: .075rem;
+
+  margin: 0 .25rem;
+}
+
+.count, .duration, .updated {
+  color: #888;
+}
+
+.buttons {
+  display: flex;
+  margin-top: .75rem;
+
+  column-gap: .35rem;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 6.5rem;
+  height: 2.25rem;
+
+  margin-top: auto;
+  justify-self: end;
+
+  font-size: 10pt;
+  font-family: 'Roboto', sans-serif;
+
+  color: #999;
+  background: #232323;
+
+  border-radius: .5rem;
+
+  transition: .2s color, .2s background-color;
+
+  &:hover {
+    color: #aaa;
+    background: #292929;
+  }
+
+  &:active {
+    color: #999;
+    background: #212121;
+  }
+}
+
+.icon {
+  &.plus {
+    width: 1.1rem;
+    height: 1.1rem;
+
+    margin-right: .25rem;
+  }
+
+  &.play {
+    width: 1.65rem;
+    height: 1.65rem;
+  }
+}

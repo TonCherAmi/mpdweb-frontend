@@ -1,5 +1,7 @@
+import QueueSource from '@app/queue/data/QueueSource'
+
 interface QueueReplaceBody {
-  uri: string
+  source: QueueSource
 }
 
 export default QueueReplaceBody

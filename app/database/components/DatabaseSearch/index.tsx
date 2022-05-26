@@ -15,7 +15,7 @@ import useKeybindings from '@app/keybindings/use/useKeybindings'
 import useItemNavigation from '@app/common/use/useItemNavigation'
 import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
 import useItemListKeybindings from '@app/keybindings/use/useItemListKeybindings'
-import useDatabaseItemActions from '@app/database/components/use/useDatabaseItemActions'
+import useQueueActions from '@app/queue/use/useQueueActions'
 import useRouteNavigation from '@app/common/use/useRouteNavigation'
 import useDatabaseItemHighlightStyle from '@app/database/use/useDatabaseItemHighlightStyle'
 import useUiInteractionModeAwareWheelEventHandler from '@app/ui/use/useUiInteractionModeAwareWheelEventHandler'
@@ -184,7 +184,7 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
     }
   }
 
-  const { add, replace } = useDatabaseItemActions()
+  const { add, replace } = useQueueActions()
 
   useKeybindings({
     ADD: () => {

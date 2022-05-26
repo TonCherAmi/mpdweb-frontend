@@ -10,12 +10,12 @@ import DatabaseItem, { HighlightStyle } from '@app/database/components/DatabaseI
 import DatabaseDirectorySearchInput from '@app/database/components/DatabaseDirectorySearchInput'
 
 import useItemSearch from '@app/common/use/useItemSearch'
+import useKeybindings from '@app/keybindings/use/useKeybindings'
+import useQueueActions from '@app/queue/use/useQueueActions'
 import useItemNavigation from '@app/common/use/useItemNavigation'
 import useModalStateContext from '@app/ui/use/useModalStateContext'
-import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
-import useKeybindings from '@app/keybindings/use/useKeybindings'
 import useItemListKeybindings from '@app/keybindings/use/useItemListKeybindings'
-import useDatabaseItemActions from '@app/database/components/use/useDatabaseItemActions'
+import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
 import useDatabaseItemHighlightStyle from '@app/database/use/useDatabaseItemHighlightStyle'
 
 import usePositionedDatabaseItemRef from './use/usePositionedDatabaseItemRef'
@@ -148,7 +148,7 @@ const DatabaseDirectory = memo(({
 
   const handleSearchFocus = useCallback(() => setIsItemListFocusable(false), [])
 
-  const { add, replace } = useDatabaseItemActions()
+  const { add, replace } = useQueueActions()
 
   useKeybindings({
     ADD: () => add(currentItem),

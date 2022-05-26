@@ -2,6 +2,8 @@ import * as R from 'ramda'
 
 import SimpleDuration from '@app/common/data/SimpleDuration'
 
+import { getPluralSuffix } from '@app/common/utils/format'
+
 const propToString = (name: string) => R.pipe(
   R.prop(name),
   R.toString
@@ -40,8 +42,6 @@ export const formatDurationColon = (duration: SimpleDuration): string => {
 
   return format([formatHours, formatMinutes, formatSeconds])
 }
-
-const getPluralSuffix = (number: number) => number === 1 ? '' : 's'
 
 export const formatDurationDescriptive = (duration: SimpleDuration): Nullable<string> => {
   if (duration.hours === 0 && duration.minutes === 0) {

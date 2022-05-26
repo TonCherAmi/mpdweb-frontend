@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  row-gap: .2rem;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+
+  padding: .75rem 1rem;
+
+  border-radius: .5rem;
+
+  font-size: 14pt;
+
+  transition: .2s background-color;
+
+  &, &:visited, &:hover {
+    color: #ccc;
+  }
+
+  &:hover {
+    background: #191919;
+  }
+
+  &.active {
+    background: #202020;
+  }
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+
+  color: #666;
+
+  margin-right: 1rem;
+}

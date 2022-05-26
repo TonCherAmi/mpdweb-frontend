@@ -1,0 +1,104 @@
+.container {
+  display: flex;
+  align-items: center;
+
+  padding: .65rem;
+  padding-left: 1.25rem;
+
+  border-radius: .5rem;
+
+  transition: .2s background-color;
+
+  column-gap: .75rem;
+
+  :global(.hoverable) & {
+    cursor: pointer;
+
+    &:hover {
+      background: #1c1c1c;
+
+      &.active {
+        background: #232F43;
+      }
+    }
+  }
+
+  &.active {
+    background: #1C2636;
+
+    .icon {
+      &.add, &.play {
+        color: #999;
+
+        &:hover {
+          color: #ccc;
+        }
+
+        &:active {
+          color: #888;
+        }
+      }
+    }
+  }
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+
+  transition: .2s color;
+
+  &:hover {
+    &.add, &.play {
+      color: #ababab;
+    }
+  }
+
+  &:active {
+    &.add, &.play {
+      color: #777;
+    }
+  }
+
+  &.playlist {
+    color: #cecece;
+  }
+
+  &.add, &.play {
+    color: #555;
+  }
+
+  &.add {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  &.play {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+}
+
+.name {
+  display: inline-block;
+
+  max-width: 75%;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  color: #cecece;
+}
+
+.controls {
+  margin-left: auto;
+
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: center;
+
+  column-gap: .25rem;
+}
