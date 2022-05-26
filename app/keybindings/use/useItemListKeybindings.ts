@@ -1,7 +1,7 @@
 import { ItemNavigation } from '@app/common/use/useItemNavigation'
 
-import useKeybindings from '@app/keybindings/use/useKeybindings'
 import useThrottle from '@app/common/use/useThrottle'
+import useKeybindings from '@app/keybindings/use/useKeybindings'
 import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
 
 const ITEM_NAVIGATION_KEYPRESS_REPEAT_WAIT_MS = 25

@@ -2,19 +2,17 @@ import React, { memo, useState, useEffect } from 'react'
 
 import cx from 'classnames'
 
-import * as R from 'ramda'
-
 import Range from '@app/common/components/Range'
 
 import useStatusContext from '@app/status/use/useStatusContext'
 
 import VolumeService from '@app/volume/services/VolumeService'
 
-import useDebounce from '@app/common/use/useDebounce'
+import useThrottle from '@app/common/use/useThrottle'
 
 import styles from './styles.scss'
 
-const VOLUME_SET_DEBOUNCE_WAIT_MS = 25
+const VOLUME_SET_THROTTLE_WAIT_MS = 25
 
 const VolumeRange = memo(() => {
   const status = useStatusContext()
@@ -25,9 +23,9 @@ const VolumeRange = memo(() => {
     setValue(status.volume)
   }, [status.volume])
 
-  const [set] = useDebounce((value: number) => {
+  const set = useThrottle((value: number) => {
     VolumeService.set(value)
-  }, VOLUME_SET_DEBOUNCE_WAIT_MS)
+  }, VOLUME_SET_THROTTLE_WAIT_MS)
 
   const handleChange = (value: number) => {
     setValue(value)
