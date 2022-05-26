@@ -1,14 +1,13 @@
-import React, { memo, useRef, useState, useEffect } from 'react'
+import React, { memo, useRef, useState, useEffect, useCallback } from 'react'
 
 import Change from '@app/changes/types/Change'
-import Handler from '@app/common/types/Handler'
 
 import Duration from '@app/common/components/Duration'
 import SongProgressRange from '@app/status/components/CurrentSongProgressRange'
 
+import useChanges from '@app/changes/use/useChanges'
 import useDebounce from '@app/common/use/useDebounce'
 import useStatusContext from '@app/status/use/useStatusContext'
-import useChangesSubscriptionRegistryContext from '@app/changes/use/useChangesSubscriptionRegistryContext'
 
 import PlaybackService from '@app/playback/services/PlaybackService'
 
@@ -37,21 +36,13 @@ const CurrentSongProgress = memo(() => {
     PlaybackService.seek(time)
   }, SEEK_DEBOUNCE_WAIT_MS)
 
-  const changesSubscriptionRegistry = useChangesSubscriptionRegistryContext()
-
-  useEffect(() => {
-    const handler: Handler<ReadonlyArray<Change>> = (changes) => {
-      if (changes.includes('player')) {
-        shouldIgnoreStatusUpdatesRef.current = false
-      }
+  const handleChanges = useCallback((changes: ReadonlyArray<Change>) => {
+    if (changes.includes('player')) {
+      shouldIgnoreStatusUpdatesRef.current = false
     }
+  }, [])
 
-    changesSubscriptionRegistry.subscribe(handler)
-
-    return () => {
-      changesSubscriptionRegistry.unsubscribe(handler)
-    }
-  }, [changesSubscriptionRegistry])
+  useChanges(handleChanges)
 
   const handleChange = (value: number) => {
     shouldIgnoreStatusUpdatesRef.current = true

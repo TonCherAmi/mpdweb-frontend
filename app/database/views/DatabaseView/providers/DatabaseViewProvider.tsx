@@ -2,15 +2,14 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react'
 
 import * as R from 'ramda'
 
-import Handler from '@app/common/types/Handler'
 import Change from '@app/changes/types/Change'
 import DatabaseItem from '@app/database/data/DatabaseItem'
 import DatabaseDirectory from '@app/database/views/DatabaseView/types/DatabaseDirectory'
 
 import useStatic from '@app/common/use/useStatic'
+import useChanges from '@app/changes/use/useChanges'
 import useRemoteList from '@app/common/use/useRemoteList'
 import useFullMatchParam from '@app/common/use/useFullMatchParam'
-import useChangesSubscriptionRegistryContext from '@app/changes/use/useChangesSubscriptionRegistryContext'
 
 import DatabaseViewContext from '@app/database/views/DatabaseView/contexts/DatabaseViewContext'
 
@@ -75,23 +74,15 @@ const DatabaseViewProvider = ({ children }: { children: React.ReactNode }) => {
 
   const { load, items } = useRemoteList(retrieve)
 
-  const changesSubscriptionRegistry = useChangesSubscriptionRegistryContext()
+  const handleChanges = useCallback((changes: ReadonlyArray<Change>) => {
+    if (changes.includes('database')) {
+      cache.clear()
 
-  useEffect(() => {
-    const handler: Handler<ReadonlyArray<Change>> = (changes) => {
-      if (changes.includes('database')) {
-        cache.clear()
-
-        load(uris)
-      }
+      load(uris)
     }
+  },[uris, cache, load])
 
-    changesSubscriptionRegistry.subscribe(handler)
-
-    return () => {
-      changesSubscriptionRegistry.unsubscribe(handler)
-    }
-  }, [changesSubscriptionRegistry, cache, load, uris])
+  useChanges(handleChanges)
 
   useEffect(() => {
     load(uris)

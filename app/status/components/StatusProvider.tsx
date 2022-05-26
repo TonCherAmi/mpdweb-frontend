@@ -8,8 +8,8 @@ import Handler from '@app/common/types/Handler'
 
 import StatusContext from '@app/status/contexts/StatusContext'
 
+import useChanges from '@app/changes/use/useChanges'
 import useStatusSubscriptionRegistryContext from '@app/status/use/useStatusSubscriptionRegistryContext'
-import useChangesSubscriptionRegistryContext from '@app/changes/use/useChangesSubscriptionRegistryContext'
 
 import StatusApi from '@app/status/api'
 
@@ -17,7 +17,6 @@ const StatusProvider = ({ children }: { children: React.ReactNode }) => {
   const [status, setStatus] = useState<Nullable<Status>>(null)
 
   const statusSubscriptionRegistry = useStatusSubscriptionRegistryContext()
-  const changesSubscriptionRegistry = useChangesSubscriptionRegistryContext()
 
   const load = useCallback(() => {
     StatusApi.get()
@@ -43,25 +42,17 @@ const StatusProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [statusSubscriptionRegistry])
 
-  useEffect(() => {
-    const handler: Handler<ReadonlyArray<Change>> = (changes) => {
-      const shouldUpdateStatus = !R.isEmpty(
-        R.intersection(changes, ['mixer', 'player', 'playlist', 'options'])
-      )
+  const handleChanges = useCallback((changes: ReadonlyArray<Change>) => {
+    const shouldUpdateStatus = !R.isEmpty(
+      R.intersection(changes, ['mixer', 'player', 'playlist', 'options'])
+    )
 
-      if (!shouldUpdateStatus) {
-        return
-      }
-
+    if (shouldUpdateStatus) {
       load()
     }
+  }, [load])
 
-    changesSubscriptionRegistry.subscribe(handler)
-
-    return () => {
-      changesSubscriptionRegistry.unsubscribe(handler)
-    }
-  }, [changesSubscriptionRegistry, load])
+  useChanges(handleChanges)
 
   if (R.isNil(status)) {
     return null
