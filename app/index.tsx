@@ -2,7 +2,7 @@ import 'core-js'
 import 'regenerator-runtime'
 
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 
 import ReactModal from 'react-modal'
 
@@ -22,4 +22,6 @@ if (R.isNil(appElement)) {
 
 ReactModal.setAppElement(appElement)
 
-ReactDOM.render(<App />, appElement)
+const root = createRoot(appElement)
+
+root.render(<App />)
