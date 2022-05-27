@@ -23,7 +23,7 @@ const PlaylistList = ({ playlists, selectedPlaylist }: Props) => {
 
   const { goTo } = usePlaylistsViewNavigation()
 
-  const handleItemClick = useCallback((playlist) => {
+  const handleItemClick = useCallback((playlist: Playlist) => {
     goTo(playlist.name)
   }, [goTo])
 
