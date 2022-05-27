@@ -3,6 +3,7 @@ import React from 'react'
 import * as Icons from '@app/common/icons'
 
 import { route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
+import { route as PlaylistsViewRoute } from '@app/playlists/views/PlaylistsView'
 
 export interface SidebarItem {
   text: string
@@ -18,7 +19,7 @@ export const items: ReadonlyArray<SidebarItem> = [
   },
   {
     text: 'Playlists',
-    path: '/playlists',
+    path: PlaylistsViewRoute.path,
     icon: Icons.MusicNoteList
   },
   {
