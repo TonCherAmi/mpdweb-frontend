@@ -4,13 +4,13 @@ import Handler from '@app/common/types/Handler'
 
 type Mod = 'ctrl' | 'shift' | 'alt' | 'meta'
 
-export type KeybindingTrigger = string | { key: string, mods: Mod[] }
+export type KeybindingTrigger = string | { key: string, mods: ReadonlyArray<Mod> }
 
 export type KeybindingHandler = Handler<KeyboardEvent>
 
 export interface Keybinding {
   isRepeatable: boolean
-  triggers: KeybindingTrigger[]
+  triggers: ReadonlyArray<KeybindingTrigger>
 }
 
 export interface ScopedKeybinding extends Keybinding {
@@ -24,7 +24,7 @@ class KeybindingsManager {
 
   private keybindingToHandler = new Map<ScopedKeybinding, KeybindingHandler>()
 
-  private previousScopes: string[] = []
+  private previousScopes: Array<string> = []
 
   private currentScope: Nullable<string>
 

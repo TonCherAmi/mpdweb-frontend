@@ -7,7 +7,7 @@ type HttpMethod = 'get' | 'post' | 'patch' | 'put' | 'delete'
 
 const API_PREFIX = '/api'
 
-const makePath = <T> (data: T, pathKeys: string[]) => (template: string): string => {
+const makePath = <T> (data: T, pathKeys: ReadonlyArray<string>) => (template: string): string => {
   const prefixedTemplate = `${API_PREFIX}${template}`
 
   if (R.isEmpty(pathKeys)) {
@@ -23,7 +23,7 @@ const makePath = <T> (data: T, pathKeys: string[]) => (template: string): string
   return sprintf(prefixedTemplate, pathData)
 }
 
-const addQuery = <T> (data: T, queryKeys: string[]) => (path: string): string => {
+const addQuery = <T> (data: T, queryKeys: ReadonlyArray<string>) => (path: string): string => {
   if (R.isEmpty(queryKeys)) {
     return path
   }
@@ -42,8 +42,8 @@ const addQuery = <T> (data: T, queryKeys: string[]) => (path: string): string =>
 const makeEndpoint = <T> (
   template: string,
   data: T,
-  pathKeys: string[],
-  queryKeys: string[]
+  pathKeys: ReadonlyArray<string>,
+  queryKeys: ReadonlyArray<string>
 ): string => {
   const make = R.compose(
     addQuery(data, queryKeys),
@@ -58,7 +58,7 @@ export const make = <R, T = null> (
   method: HttpMethod = 'get', {
     path: pathKeys = [],
     query: queryKeys = []
-  }: { path?: string[], query?: string[] } = {}
+  }: { path?: Array<string>, query?: Array<string> } = {}
 ) => async (...data: [T] extends [null] ? [] : [T]): Promise<R> => {
   const getBody = R.pipe(
     R.ifElse(

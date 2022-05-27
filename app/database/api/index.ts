@@ -8,13 +8,13 @@ import DatabaseCountBody from '@app/database/data/api/request/DatabaseCountBody'
 import DatabaseSearchBody from '@app/database/data/api/request/DatabaseSearchBody'
 
 const Api = {
-  get: make<DatabaseItem[], DatabaseGetBody>('/database', 'get', {
+  get: make<ReadonlyArray<DatabaseItem>, DatabaseGetBody>('/database', 'get', {
     query: ['uri']
   }),
   count: make<DatabaseCount, DatabaseCountBody>('/database/count', 'get', {
     query: ['uri']
   }),
-  search: make<DatabaseItem[], DatabaseSearchBody>('/database/search', 'get', {
+  search: make<ReadonlyArray<DatabaseItem>, DatabaseSearchBody>('/database/search', 'get', {
     query: ['term']
   }),
   update: make<void>('/database/update', 'post')

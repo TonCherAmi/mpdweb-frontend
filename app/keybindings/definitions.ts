@@ -1,12 +1,12 @@
 import { KeybindingTrigger } from '@app/keybindings/managers/KeybindingsManager'
 
 export interface Keybinding {
-  triggers: KeybindingTrigger[]
+  triggers: ReadonlyArray<KeybindingTrigger>
   isRepeatable: boolean
 }
 
 const make = (
-  triggers: KeybindingTrigger[],
+  triggers: ReadonlyArray<KeybindingTrigger>,
   { isRepeatable = false }: { isRepeatable?: boolean } = {}
 ): Keybinding => ({ triggers, isRepeatable })
 

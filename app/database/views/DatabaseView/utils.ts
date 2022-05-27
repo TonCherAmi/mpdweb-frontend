@@ -22,8 +22,8 @@ export const DATABASE_ROOT_URI = '/'
  * ['a', 'a/sample', 'a/sample/path']
  * ```
  */
-export const subpaths = (path: string): string[] => {
-  return R.reduce((acc: string[], value: string): string[] => {
+export const subpaths = (path: string): ReadonlyArray<string> => {
+  return R.reduce((acc: ReadonlyArray<string>, value: string): ReadonlyArray<string> => {
     const lastPath = R.last(acc)
 
     if (R.isNil(lastPath)) {
@@ -35,4 +35,3 @@ export const subpaths = (path: string): string[] => {
     return [...acc, subpath]
   }, [], R.reject(R.isEmpty, splitPath(path)))
 }
-

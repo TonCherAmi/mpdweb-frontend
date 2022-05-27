@@ -13,7 +13,7 @@ import { items, SidebarItem } from './items'
 import styles from './styles.scss'
 
 interface Props {
-  items: SidebarItem[]
+  items: ReadonlyArray<SidebarItem>
 }
 
 const Sidebar = memo((props: Props) => {

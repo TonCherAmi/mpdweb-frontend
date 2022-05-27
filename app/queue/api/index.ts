@@ -6,7 +6,7 @@ import QueueDeleteBody from '@app/queue/data/api/request/QueueDeleteBody'
 import QueueReplaceBody from '@app/queue/data/api/request/QueueReplaceBody'
 
 const Api = {
-  get: make<QueueItem[]>('/queue'),
+  get: make<ReadonlyArray<QueueItem>>('/queue'),
   add: make<null, QueueAddBody>('/queue', 'post'),
   delete: make<null, QueueDeleteBody>('/queue', 'delete'),
   replace: make<null, QueueReplaceBody>('/queue', 'put')

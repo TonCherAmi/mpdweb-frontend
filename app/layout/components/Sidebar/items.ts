@@ -10,7 +10,7 @@ export interface SidebarItem {
   icon: React.ElementType
 }
 
-export const items: SidebarItem[] = [
+export const items: ReadonlyArray<SidebarItem> = [
   {
     text: 'Files',
     path: DatabaseViewRoute.path,

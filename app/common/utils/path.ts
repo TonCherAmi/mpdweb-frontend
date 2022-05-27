@@ -8,7 +8,7 @@ export const splitPath = R.split(PATH_SEPARATOR)
 
 export const dirname = R.pipe(
   splitPath,
-  R.dropLast(1) as (xs: string[]) => string[],
+  R.dropLast(1) as (xs: ReadonlyArray<string>) => ReadonlyArray<string>,
   joinPath,
   R.when(R.isEmpty, R.always(PATH_SEPARATOR))
 ) as (path: string) => string
