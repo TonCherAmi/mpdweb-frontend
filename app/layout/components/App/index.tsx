@@ -22,6 +22,8 @@ import useManualScrollRestoration from '@app/navigator/use/useManualScrollRestor
 import styles from './styles.scss'
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => (
+  // TODO: get rid of react router
+  // @ts-expect-error: Outdated ReactRouter types
   <Router>
     <Providers>
       {children}
