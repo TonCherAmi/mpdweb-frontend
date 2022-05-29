@@ -11,6 +11,9 @@ body {
 html, body, button, input {
   font-size: 14px;
   font-family: 'Roboto Condensed', sans-serif;
+
+  color: #eeeeee;
+  background: #161616;
 }
 
 :global(#app) {
@@ -19,9 +22,6 @@ html, body, button, input {
   flex-direction: column;
 
   max-width: 100%;
-
-  color: #eeeeee;
-  background: #161616;
 }
 
 * {
