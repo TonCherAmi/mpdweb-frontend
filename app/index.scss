@@ -2,18 +2,24 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+
+  font-size: 14px;
+  font-family: 'Roboto Condensed', sans-serif;
+
+  color: #eeeeee;
+  background: #161616;
 }
 
 body {
   display: flex;
 }
 
-html, body, button, input {
-  font-size: 14px;
-  font-family: 'Roboto Condensed', sans-serif;
+button, input {
+  font-size: inherit;
+  font-family: inherit;
 
-  color: #eeeeee;
-  background: #161616;
+  color: inherit;
+  background: inherit;
 }
 
 :global(#app) {
