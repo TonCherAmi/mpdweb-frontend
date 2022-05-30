@@ -1,5 +1,17 @@
 .container {
   display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  height: 100%;
+
+  padding: 2.5rem 1rem;
+  padding-bottom: 0;
+}
+
+.directories {
+  display: flex;
 
   overflow: hidden;
   overflow-x: scroll;
@@ -8,5 +20,5 @@
 
   height: 100%;
 
-  margin: 0 .75rem;
+  //margin: 0 .75rem;
 }
