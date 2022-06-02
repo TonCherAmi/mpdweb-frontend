@@ -10,6 +10,8 @@
   &.prev, &.next {
     width: 1.5rem;
     height: 1.5rem;
+  &.prev {
+    transform: rotateY(180deg);
   }
 }
 

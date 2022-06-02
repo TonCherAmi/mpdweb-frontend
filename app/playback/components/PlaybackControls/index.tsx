@@ -19,7 +19,7 @@ const PlaybackControls = memo(() => {
   return (
     <div className={styles.group}>
       <PlaybackPrevButton className={styles.button}>
-        <Icons.SkipBackwardFill className={cx(styles.icon, styles.prev)} />
+        <Icons.SkipForwardFill className={cx(styles.icon, styles.prev)} />
       </PlaybackPrevButton>
       <PlaybackToggleButton className={cx(styles.button, styles.toggle)}>
         <Choose>
