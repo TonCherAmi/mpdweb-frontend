@@ -1,12 +1,8 @@
 import React from 'react'
 
-/**
- * Altered Bootstrap SVG icon
- * License: https://github.com/twbs/icons/blob/main/LICENSE.md
- */
 const PlayFill = ({ className }: { className: string }) => (
-  <svg className={className} viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+  <svg className={className} version="1.1" viewBox="0 0 416 512" xmlns="http://www.w3.org/2000/svg">
+    <path d="M381.628 308.79L82.9814 498.779C37.152 527.934 0 507.259 0 452.6L0 59.3999C0 4.74097 37.152-15.934 82.9814 13.2211L381.628 203.21C427.457 232.365 427.457 279.635 381.628 308.79Z" fill="currentColor" />
   </svg>
 )
 
