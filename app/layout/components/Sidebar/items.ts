@@ -20,7 +20,7 @@ export const items: ReadonlyArray<SidebarItem> = [
   {
     text: 'Playlists',
     path: PlaylistsViewRoute.path,
-    icon: Icons.MusicNoteList
+    icon: Icons.Playlist
   },
   {
     text: 'Favorites',

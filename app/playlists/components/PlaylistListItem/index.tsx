@@ -52,7 +52,7 @@ const PlaylistListItem = memo(({
       onClick={handleClick}
       onContextMenu={handleContextMenu}
     >
-      <Icons.MusicNoteList className={cx(styles.icon, styles.playlist)} />
+      <Icons.Playlist className={cx(styles.icon, styles.playlist)} />
       <span className={styles.name} title={playlist.name}>
         {playlist.name}
       </span>
