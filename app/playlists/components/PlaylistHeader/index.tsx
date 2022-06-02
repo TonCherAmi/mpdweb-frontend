@@ -1,7 +1,5 @@
 import React, { memo } from 'react'
 
-import cx from 'classnames'
-
 import Playlist from '@app/playlists/data/Playlist'
 import DatabaseFile from '@app/database/data/DatabaseFile'
 
@@ -67,11 +65,11 @@ const PlaylistHeader = memo(({ playlist, files }: Props) => {
       </div>
       <div className={styles.buttons}>
         <Button className={styles.button} onClick={handleAddClick}>
-          <Icons.Plus className={cx(styles.icon, styles.plus)} />
+          <Icons.Plus className={styles.icon} />
           Add
         </Button>
         <Button className={styles.button} onClick={handlePlayClick}>
-          <Icons.PlayFill className={cx(styles.icon, styles.play)} />
+          <Icons.PlayFill className={styles.icon} />
           Play
         </Button>
       </div>

@@ -1,23 +1,19 @@
 .group {
   display: flex;
   align-items: center;
+
+  column-gap: 1rem;
 }
 
 .icon {
-  width: 2.5rem;
-  height: 2.5rem;
+  height: 1.4rem;
 
-  &.prev, &.next {
-    width: 1.5rem;
-    height: 1.5rem;
   &.prev {
     transform: rotateY(180deg);
   }
 }
 
 .button {
-  margin: 0 0.25rem;
-
   color: #dedede;
 
   transition: color .3s ease;
@@ -26,7 +22,7 @@
     color: #aaa;
   }
 
-  &.toggle {
-    margin-right: -0.6rem;
+  &.stop {
+    margin-left: -.25rem;
   }
 }

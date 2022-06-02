@@ -19,10 +19,17 @@
     &.controls {
       flex-direction: column;
 
+      padding: .5rem 0;
+      padding-top: 1rem;
+
+      row-gap: .5rem;
+
       justify-content: center;
 
       .buttons {
         display: flex;
+
+        column-gap: .15rem;
       }
     }
 

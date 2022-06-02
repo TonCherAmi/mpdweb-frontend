@@ -31,7 +31,7 @@ const PlaybackControls = memo(() => {
           </Otherwise>
         </Choose>
       </PlaybackToggleButton>
-      <PlaybackStopButton className={styles.button}>
+      <PlaybackStopButton className={cx(styles.button, styles.stop)}>
         <Icons.StopFill className={styles.icon} />
       </PlaybackStopButton>
       <PlaybackNextButton className={styles.button}>

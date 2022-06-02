@@ -2,8 +2,7 @@
   display: flex;
   align-items: center;
 
-  padding: 0.65rem;
-  padding-left: 1.25rem;
+  padding: 1.1rem 1.25rem;
 
   border-radius: .5rem;
 
@@ -89,10 +88,12 @@
     align-items: center;
     justify-content: center;
 
-    column-gap: .25rem;
+    column-gap: .5rem;
   }
 
   .icon {
+    height: 1.25rem;
+
     color: #bbb;
 
     transition: color .2s;
@@ -101,21 +102,8 @@
       color: #555;
     }
 
-    &.add {
-      width: 1.2rem;
-      height: 1.2rem;
-    }
-
-    &.replace {
-      width: 2.2rem;
-      height: 2.2rem;
-    }
-
     &.type {
       margin-right: .75rem;
-
-      width: 1.2rem;
-      height: 1.2rem;
     }
   }
 }
