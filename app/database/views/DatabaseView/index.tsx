@@ -29,11 +29,11 @@ const DatabaseView = memo(() => {
 
   const { goTo, goBack } = useDatabaseViewNavigation()
 
-  const crumbs = useDatabaseViewCrumbs(directories)
+  const [crumbs, handleDatabaseDirectoryRef] = useDatabaseViewCrumbs(directories)
 
   const handleHomeClick = useCallback(() => {
-    goTo(DATABASE_ROOT_URI)
-  }, [goTo])
+    directoriesContainerScrollable.scrollLeft('smooth')
+  }, [directoriesContainerScrollable])
 
   const handleAscent = useCallback((databaseItem: DatabaseItem) => {
     onSelectedItemChange(databaseItem)
@@ -56,9 +56,11 @@ const DatabaseView = memo(() => {
         <For of={directories} body={(directory, index) => (
           <DatabaseDirectory
             key={directory.uri}
+            uri={directory.uri}
             isActive={isActive(index)}
             items={directory.items}
             selectedItem={directory.selectedItem}
+            onRef={handleDatabaseDirectoryRef}
             onAscent={handleAscent}
             onDescent={handleDescent}
           />

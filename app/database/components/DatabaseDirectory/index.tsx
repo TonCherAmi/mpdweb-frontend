@@ -24,8 +24,10 @@ import styles from './styles.scss'
 
 interface Props {
   isActive: boolean
+  uri: string,
   items: ReadonlyArray<DatabaseItemData>
   selectedItem: DatabaseItemData
+  onRef: (instance: HTMLDivElement, uri: string) => void
   onAscent: Handler<DatabaseItemData>
   onDescent: Handler<DatabaseItemData>
 }
@@ -34,8 +36,10 @@ const databaseItemUriAccessor = R.prop('uri')
 
 const DatabaseDirectory = memo(({
   isActive,
+  uri,
   items,
   selectedItem,
+  onRef,
   onAscent,
   onDescent
 }: Props) => {
@@ -148,6 +152,14 @@ const DatabaseDirectory = memo(({
 
   const handleSearchFocus = useCallback(() => setIsItemListFocusable(false), [])
 
+  const handleRef: React.Ref<HTMLDivElement> = (instance) => {
+    if (R.isNil(instance)) {
+      return
+    }
+
+    onRef(instance, uri)
+  }
+
   const { add, replace } = useQueueActions()
 
   useKeybindings({
@@ -182,7 +194,7 @@ const DatabaseDirectory = memo(({
   const currentItems = isSearchHidden ? items : itemSearch.results
 
   return (
-    <div className={styles.container}>
+    <div ref={handleRef} className={styles.container}>
       <If condition={!isSearchHidden}>
         <DatabaseDirectorySearchInput
           autofocus
