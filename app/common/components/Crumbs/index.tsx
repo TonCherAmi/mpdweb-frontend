@@ -25,7 +25,7 @@ const Crumbs = ({ classNames, items }: Props) => {
   return (
     <div className={cx(styles.container, classNames?.container)}>
       <For of={items} body={(item, index) => (
-        <div className={styles.crumb}>
+        <div key={index + item.label} className={styles.crumb}>
           <Button
             key={index + item.label}
             className={cx(styles.button, classNames?.item)}
