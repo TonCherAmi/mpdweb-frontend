@@ -51,6 +51,7 @@ const ContextMenuItem = ({ item, onMouseEnter }: Props) => {
       ref={containerRef}
       className={cx(styles.container)}
       onClick={handleClick}
+      onMouseUp={handleClick}
       onMouseEnter={handleMouseEnter}
     >
       <span className={styles.text}>
