@@ -1,8 +1,8 @@
-import React, { useState, useLayoutEffect } from 'react'
-
-import cx from 'classnames'
+import React, { useState, useRef, useLayoutEffect } from 'react'
 
 import * as R from 'ramda'
+
+import cx from 'classnames'
 
 import DatabaseFile from '@app/database/data/DatabaseFile'
 
@@ -12,12 +12,18 @@ import { dirname } from '@app/common/utils/path'
 
 import styles from './styles.scss'
 
-const getSrc = (databaseFile: DatabaseFile) => {
+const getDirectorySrc = (databaseFile: DatabaseFile) => {
   const uri = encodeURIComponent(
     dirname(databaseFile.uri) + '/'
   )
 
-  return `/api/database/cover?uri=${uri}`
+  return `/api/database/cover/directory?uri=${uri}`
+}
+
+const getEmbeddedSrc = (databaseFile: DatabaseFile) => {
+  const uri = encodeURIComponent(databaseFile.uri)
+
+  return `/api/database/cover/embedded?uri=${uri}`
 }
 
 interface Props {
@@ -29,7 +35,17 @@ interface Props {
 const DatabaseCoverArt = ({ className, fallbackIconClassName, file }: Props) => {
   const [state, setState] = useState<'initial' | 'done' | 'error'>('initial')
 
-  const src = getSrc(file)
+  const hasTriedFallbackRef = useRef(false)
+
+  const [src, setSrc] = useState(
+    getDirectorySrc(file)
+  )
+
+  useLayoutEffect(() => {
+    setSrc(
+      getDirectorySrc(file)
+    )
+  }, [file])
 
   useLayoutEffect(() => {
     setState('initial')
@@ -44,7 +60,17 @@ const DatabaseCoverArt = ({ className, fallbackIconClassName, file }: Props) => 
   }
 
   const handleError = () => {
-    setState('error')
+    if (hasTriedFallbackRef.current) {
+      setState('error')
+
+      return
+    }
+
+    setSrc(
+      getEmbeddedSrc(file)
+    )
+
+    hasTriedFallbackRef.current = true
   }
 
   const imgClassName = cx(styles.cover, className, {
