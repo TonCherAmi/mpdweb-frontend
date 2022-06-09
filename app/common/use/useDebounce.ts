@@ -3,8 +3,7 @@ import { useRef, useEffect } from 'react'
 import * as R from 'ramda'
 
 import Thunk from '@app/common/types/Thunk'
-
-type TimeoutId = ReturnType<typeof setTimeout>
+import TimeoutId from '@app/common/types/TimeoutId'
 
 const useDebounce = <A extends Array<unknown>, R> (
   fn: (...args: A) => R,

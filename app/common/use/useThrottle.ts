@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react'
 
 import * as R from 'ramda'
 
-type TimeoutId = ReturnType<typeof setTimeout>
+import TimeoutId from '@app/common/types/TimeoutId'
 
 const useThrottle = <A extends Array<unknown>, R> (
   fn: (...args: A) => R,
