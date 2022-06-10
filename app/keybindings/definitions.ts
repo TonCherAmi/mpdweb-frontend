@@ -1,4 +1,4 @@
-import { KeybindingTrigger } from '@app/keybindings/managers/KeybindingsManager'
+import { KeybindingTrigger } from '@app/keybindings/contexts/KeybindingsContext'
 
 export interface Keybinding {
   triggers: ReadonlyArray<KeybindingTrigger>
@@ -13,7 +13,10 @@ const make = (
 export default {
   NEXT_ITEM: make(['j', 'ArrowDown'], { isRepeatable: true }),
   PREV_ITEM: make(['k', 'ArrowUp'], { isRepeatable: true }),
-  FIRST_ITEM: make(['g', 'Home']),
+  FIRST_ITEM: make([
+    'Home',
+    { sequence: ['g', 'g'] }
+  ]),
   LAST_ITEM: make(['End', { key: 'g', mods: ['shift'] }]),
   NAVIGATE_LEFT: make(['h', 'ArrowLeft']),
   NAVIGATE_RIGHT: make(['l', 'ArrowRight', 'Enter']),
