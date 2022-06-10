@@ -9,7 +9,6 @@ import Queue from '@app/queue/components/Queue'
 import Modals from '@app/layout/components/Modals'
 import Sidebar from '@app/layout/components/Sidebar'
 import BottomPanel from '@app/layout/components/BottomPanel'
-import KeybindingScope from '@app/keybindings/components/KeybindingScope'
 
 import Providers from '@app/layout/components/Providers'
 import DatabaseViewProvider from '@app/database/views/DatabaseView/providers/DatabaseViewProvider'
@@ -41,7 +40,6 @@ const Wrapped = () => {
   return (
     <div className={styles.main} onContextMenu={handleContextMenu}>
       <Modals />
-      <KeybindingScope scope="view" />
       <div className={styles.stack}>
         <Sidebar />
         <div className={styles.wrapper}>

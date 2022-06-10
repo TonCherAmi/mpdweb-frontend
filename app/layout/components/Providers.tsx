@@ -3,6 +3,7 @@ import React from 'react'
 import StatusProvider from '@app/status/components/StatusProvider'
 import QueueProvider from '@app/queue/providers/QueueProvider'
 import ModalStateProvider from '@app/ui/providers/ModalStateProvider'
+import KeybindingsProvider from '@app/keybindings/providers/KeybindingsProvider'
 import ContextMenuProvider from '@app/common/providers/ContextMenuProvider'
 import UiInteractionModeProvider from '@app/ui/providers/UiInteractionModeProvider'
 
@@ -11,6 +12,7 @@ const providers = [
   QueueProvider,
   ModalStateProvider,
   ContextMenuProvider,
+  KeybindingsProvider,
   UiInteractionModeProvider
 ] as const
 

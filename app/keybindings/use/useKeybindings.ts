@@ -3,10 +3,9 @@ import { useEffect } from 'react'
 import * as R from 'ramda'
 
 import Handler from '@app/common/types/Handler'
+import { KeybindingHandler } from '@app/keybindings/contexts/KeybindingsContext'
 
-import useKeybindingScopeContext from '@app/keybindings/use/useKeybindingScopeContext'
-
-import KeybindingsManager, { KeybindingHandler } from '@app/keybindings/managers/KeybindingsManager'
+import useKeybindingsContext from '@app/keybindings/use/useKeybindingsContext'
 
 import definitions from '@app/keybindings/definitions'
 
@@ -14,7 +13,11 @@ export type KeybindingHandlers = {
   [name in keyof typeof definitions]?: KeybindingHandler
 }
 
-export const conformHandler = (handler: KeybindingHandler): Handler<KeyboardEvent> => {
+interface Options {
+  disable?: boolean
+}
+
+const conformHandler = (handler: KeybindingHandler): Handler<KeyboardEvent> => {
   return (event) => {
     event.preventDefault()
     event.stopPropagation()
@@ -23,46 +26,32 @@ export const conformHandler = (handler: KeybindingHandler): Handler<KeyboardEven
   }
 }
 
-interface Options {
-  disable?: boolean
-}
-
 const useKeybindings = (handlers: KeybindingHandlers, {
   disable = false
 }: Options = {}) => {
-  const scope = useKeybindingScopeContext()
+  const { add, remove } = useKeybindingsContext()
 
   useEffect(() => {
     if (disable) {
       return
     }
 
-    const addKeybinding = (handler: KeybindingHandler, keybindingId: keyof KeybindingHandlers) => {
-      const keybinding = definitions[keybindingId]
+    const pairs = R.toPairs(handlers)
 
-      if (R.isNil(keybinding)) {
-        return null
+    pairs.forEach(([keybindingId, handler]) => {
+      if (R.isNil(handler)) {
+        return
       }
 
-      return KeybindingsManager.add({
-        scope,
-        ...keybinding
-      }, conformHandler(handler))
-    }
-
-    const scopedKeybindings = R.reject(
-      R.isNil,
-      R.values(
-        R.mapObjIndexed(addKeybinding, handlers)
-      )
-    )
+      add(definitions[keybindingId], conformHandler(handler))
+    })
 
     return () => {
-      R.forEach((scopedKeybinding) => {
-        KeybindingsManager.remove(scopedKeybinding)
-      }, scopedKeybindings)
+      pairs.forEach(([keybindingId]) => {
+        remove(definitions[keybindingId])
+      })
     }
-  }, [disable, handlers, scope])
+  }, [disable, handlers, add, remove])
 }
 
 export default useKeybindings

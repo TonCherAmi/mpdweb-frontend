@@ -43,12 +43,4 @@ const Modal = ({ className, isOpen, onClose, children }: Props) => {
   )
 }
 
-const ScopedModal = memo(({ children, ...rest }: Props) => (
-  <KeybindingScopeContext.Provider value="modal">
-    <Modal {...rest}>
-      {children}
-    </Modal>
-  </KeybindingScopeContext.Provider>
-))
-
-export default ScopedModal
+export default Modal

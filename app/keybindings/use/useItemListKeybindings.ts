@@ -1,8 +1,8 @@
 import { ItemNavigation } from '@app/common/use/useItemNavigation'
 
 import useThrottle from '@app/common/use/useThrottle'
-import useKeybindings from '@app/keybindings/use/useKeybindings'
 import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
+import useFocusScopeGroupedKeybindings from '@app/keybindings/use/useFocusScopeGroupedKeybindings'
 
 const ITEM_NAVIGATION_KEYPRESS_REPEAT_WAIT_MS = 25
 
@@ -58,7 +58,7 @@ const useItemListKeybindings = <T> (itemNavigation: ItemNavigation<T>, {
     LAST_ITEM: handleLastItemKeyPress
   }
 
-  useKeybindings(handlers, { disable })
+  useFocusScopeGroupedKeybindings(handlers, { disable })
 }
 
 export default useItemListKeybindings

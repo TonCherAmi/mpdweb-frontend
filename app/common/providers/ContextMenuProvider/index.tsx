@@ -40,14 +40,11 @@ const ContextMenuProvider = ({ children }: Props) => {
     }
 
     return ReactDOM.createPortal((
-      <KeybindingScopeContext.Provider value="contextmenu">
-        <KeybindingScope scope="contextmenu" />
         <ContextMenuContainer
           key={key}
           contextMenu={contextMenu}
           onClose={handleClose}
         />
-      </KeybindingScopeContext.Provider>
     ), contextMenuContainerElement)
   }
 
