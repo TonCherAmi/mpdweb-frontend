@@ -43,12 +43,8 @@ export const formatDurationColon = (duration: SimpleDuration): string => {
   return format([formatHours, formatMinutes, formatSeconds])
 }
 
-export const formatDurationDescriptive = (duration: SimpleDuration): Nullable<string> => {
+export const formatDurationDescriptive = (duration: SimpleDuration): string => {
   if (duration.hours === 0 && duration.minutes === 0) {
-    if (duration.seconds === 0) {
-      return null
-    }
-
     return `${duration.seconds} second${getPluralSuffix(duration.seconds)}`
   }
 
