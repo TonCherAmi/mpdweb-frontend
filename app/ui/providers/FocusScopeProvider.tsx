@@ -2,31 +2,42 @@ import React, { useRef, useReducer, useMemo, Dispatch } from 'react'
 
 import * as R from 'ramda'
 
-import FocusScopeContext, { FocusScope } from '@app/ui/contexts/FocusScopeContext'
+import FocusScopeContext, {
+  FocusScope,
+  FocusScopeAction
+} from '@app/ui/contexts/FocusScopeContext'
 
 const FocusScopeProvider = ({ children }: { children: React.ReactNode }) => {
   const scopeHistoryRef = useRef<Array<FocusScope>>([])
 
-  const [currentScope, toggleCurrentScope] = useReducer((currentScope: FocusScope, newScope: FocusScope) => {
-    if (newScope !== currentScope) {
-      scopeHistoryRef.current.push(currentScope)
+  const [currentScope, dispatch] = useReducer((currentScope: FocusScope, action: FocusScopeAction) => {
+    switch (action.type) {
+      case 'toggle': {
+        if (action.scope !== currentScope) {
+          scopeHistoryRef.current.push(currentScope)
 
-      return newScope
+          return action.scope
+        }
+
+        const previousScope = scopeHistoryRef.current.pop()
+
+        if (R.isNil(previousScope)) {
+          return action.scope
+        }
+
+        return previousScope
+      }
+
+      default: {
+        throw Error('unknown FocusScopeProvider action')
+      }
     }
-
-    const previousScope = scopeHistoryRef.current.pop()
-
-    if (R.isNil(previousScope)) {
-      return newScope
-    }
-
-    return previousScope
   }, 'view')
 
-  const value: [FocusScope, Dispatch<FocusScope>] = useMemo(() => [
+  const value: [FocusScope, Dispatch<FocusScopeAction>] = useMemo(() => [
     currentScope,
-    toggleCurrentScope
-  ], [currentScope, toggleCurrentScope])
+    dispatch
+  ], [currentScope, dispatch])
 
   return (
     <FocusScopeContext.Provider value={value}>

@@ -6,9 +6,11 @@ const noop = () => {
 
 export type FocusScope = 'view' | 'queue' | 'modal' | 'contextmenu'
 
+export type FocusScopeAction = { type: 'toggle', scope: FocusScope }
+
 const FocusScopeContext = createContext<[
   FocusScope,
-  Dispatch<FocusScope>
+  Dispatch<FocusScopeAction>
 ]>(['view', noop])
 
 export default FocusScopeContext
