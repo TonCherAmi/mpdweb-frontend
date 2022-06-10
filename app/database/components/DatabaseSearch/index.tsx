@@ -11,13 +11,13 @@ import DatabaseItem, { HighlightStyle } from '@app/database/components/DatabaseI
 import useInput from '@app/common/use/useInput'
 import useDebounce from '@app/common/use/useDebounce'
 import useRemoteList from '@app/common/use/useRemoteList'
-import useKeybindings from '@app/keybindings/use/useKeybindings'
 import useItemNavigation from '@app/common/use/useItemNavigation'
-import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
-import useItemListKeybindings from '@app/keybindings/use/useItemListKeybindings'
 import useQueueActions from '@app/queue/use/useQueueActions'
 import useRouteNavigation from '@app/common/use/useRouteNavigation'
+import useItemListKeybindings from '@app/keybindings/use/useItemListKeybindings'
+import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
 import useDatabaseItemHighlightStyle from '@app/database/use/useDatabaseItemHighlightStyle'
+import useFocusScopeGroupedKeybindings from '@app/keybindings/use/useFocusScopeGroupedKeybindings'
 import useUiInteractionModeAwareWheelEventHandler from '@app/ui/use/useUiInteractionModeAwareWheelEventHandler'
 import useUiInteractionModeAwareMouseEventHandler from '@app/ui/use/useUiInteractionModeAwareMouseEventHandler'
 
@@ -190,7 +190,7 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
 
   const { add, replace } = useQueueActions()
 
-  useKeybindings({
+  useFocusScopeGroupedKeybindings({
     ADD: () => {
       if (R.isNil(itemNavigation.currentItem)) {
         return

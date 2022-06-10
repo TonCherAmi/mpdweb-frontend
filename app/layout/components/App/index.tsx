@@ -19,6 +19,7 @@ import useDefaultContextMenu from '@app/layout/use/useDefaultContextMenu'
 import useManualScrollRestoration from '@app/navigator/use/useManualScrollRestoration'
 
 import styles from './styles.scss'
+import FocusScopeGroupContext from '@app/ui/contexts/FocusScopeGroupContext'
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => (
   // TODO: get rid of react router
@@ -42,22 +43,26 @@ const Wrapped = () => {
       <Modals />
       <div className={styles.stack}>
         <Sidebar />
-        <div className={styles.wrapper}>
-          <Route exact path="/">
-            <Redirect to={DatabaseViewRoute.path} />
-          </Route>
-          <DatabaseViewProvider>
-            <Route path={DatabaseViewRoute.match.pattern}>
-              <DatabaseView />
+        <FocusScopeGroupContext.Provider value="view">
+          <div className={styles.wrapper}>
+            <Route exact path="/">
+              <Redirect to={DatabaseViewRoute.path} />
             </Route>
-          </DatabaseViewProvider>
-          <PlaylistsViewProvider>
-            <Route path={PlaylistsViewRoute.match.pattern}>
-              <PlaylistsView />
-            </Route>
-          </PlaylistsViewProvider>
-        </div>
-        <Queue />
+            <DatabaseViewProvider>
+              <Route path={DatabaseViewRoute.match.pattern}>
+                <DatabaseView />
+              </Route>
+            </DatabaseViewProvider>
+            <PlaylistsViewProvider>
+              <Route path={PlaylistsViewRoute.match.pattern}>
+                <PlaylistsView />
+              </Route>
+            </PlaylistsViewProvider>
+          </div>
+        </FocusScopeGroupContext.Provider>
+        <FocusScopeGroupContext.Provider value="queue">
+          <Queue />
+        </FocusScopeGroupContext.Provider>
       </div>
       <BottomPanel />
     </div>

@@ -10,13 +10,12 @@ import DatabaseItem, { HighlightStyle } from '@app/database/components/DatabaseI
 import DatabaseDirectorySearchInput from '@app/database/components/DatabaseDirectorySearchInput'
 
 import useItemSearch from '@app/common/use/useItemSearch'
-import useKeybindings from '@app/keybindings/use/useKeybindings'
 import useQueueActions from '@app/queue/use/useQueueActions'
 import useItemNavigation from '@app/common/use/useItemNavigation'
-import useModalStateContext from '@app/ui/use/useModalStateContext'
 import useItemListKeybindings from '@app/keybindings/use/useItemListKeybindings'
 import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
 import useDatabaseItemHighlightStyle from '@app/database/use/useDatabaseItemHighlightStyle'
+import useFocusScopeGroupedKeybindings from '@app/keybindings/use/useFocusScopeGroupedKeybindings'
 
 import usePositionedDatabaseItemRef from './use/usePositionedDatabaseItemRef'
 
@@ -98,10 +97,8 @@ const DatabaseDirectory = memo(({
     isFocusable: isItemListFocusable
   })
 
-  const [modalState] = useModalStateContext()
-
   const getDatabaseItemHighlightStyle = (item: DatabaseItemData): Nullable<HighlightStyle> => {
-    if (!R.isNil(modalState) || item !== currentItemNavigation.currentItem) {
+    if (item !== currentItemNavigation.currentItem) {
       return null
     }
 
@@ -162,7 +159,7 @@ const DatabaseDirectory = memo(({
 
   const { add, replace } = useQueueActions()
 
-  useKeybindings({
+  useFocusScopeGroupedKeybindings({
     ADD: () => add(currentItem),
     PLAY: () => replace(currentItem),
     SEARCH_FOCUS: handleSearchFocusKeyPress,

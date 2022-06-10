@@ -6,11 +6,10 @@ import cx from 'classnames'
 
 import Thunk from '@app/common/types/Thunk'
 
-import useKeybindings from '@app/keybindings/use/useKeybindings'
 
-import KeybindingScope from '@app/keybindings/components/KeybindingScope'
 
-import KeybindingScopeContext from '@app/keybindings/contexts/KeybindingScopeContext'
+import useFocusScopeContext from '@app/ui/use/useFocusScopeContext'
+import useFocusScopeGroupedKeybindings from '@app/keybindings/use/useFocusScopeGroupedKeybindings'
 
 import styles from './styles.scss'
 
@@ -22,15 +21,12 @@ interface Props {
 }
 
 const Modal = ({ className, isOpen, onClose, children }: Props) => {
-  useKeybindings({
+  useFocusScopeGroupedKeybindings({
     MODAL_CLOSE: onClose
   }, { disable: !isOpen })
 
   return (
     <React.Fragment>
-      <If condition={isOpen}>
-        <KeybindingScope scope="modal" />
-      </If>
       <ReactModal
         className={cx(styles.container, className)}
         overlayClassName={styles.overlay}

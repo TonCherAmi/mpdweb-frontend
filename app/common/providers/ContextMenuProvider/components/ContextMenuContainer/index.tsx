@@ -1,13 +1,10 @@
 import React, { useRef, useMemo } from 'react'
 
-import * as R from 'ramda'
-
 import Thunk from '@app/common/types/Thunk'
 
 import { ContextMenu } from '@app/common/contexts/ContextMenuContext'
 
 import useOnOutsideEvent from '@app/common/use/useOnOutsideEvent'
-import useKeybindings, { KeybindingHandlers } from '@app/keybindings/use/useKeybindings'
 import useContextMenuContainerStyle from '@app/common/providers/ContextMenuProvider/use/useContextMenuContainerStyle'
 
 import styles from './styles.scss'
@@ -37,14 +34,6 @@ const ContextMenuContainer = ({ contextMenu, onClose }: Props) => {
   useOnOutsideEvent(containerRef, mappings)
 
   const containerStyle = useContextMenuContainerStyle({ containerRef, contextMenu })
-
-  const keybindingHandlers: KeybindingHandlers = useMemo(() => ({
-    CONTEXT_MENU_CLOSE: onClose
-  }), [onClose])
-
-  useKeybindings(keybindingHandlers, {
-    disable: R.isNil(contextMenu)
-  })
 
   return (
     <div

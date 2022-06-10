@@ -1,12 +1,13 @@
 import ReactDOM from 'react-dom'
-import React, { useState, useReducer, useEffect, useCallback } from 'react'
+import React, { useState, useReducer, useEffect, useCallback, useMemo } from 'react'
 
 import * as R from 'ramda'
 
+import FocusScopeGroupContext from '@app/ui/contexts/FocusScopeGroupContext'
 import ContextMenuContext, { ContextMenu } from '@app/common/contexts/ContextMenuContext'
 
-import KeybindingScope from '@app/keybindings/components/KeybindingScope'
-import KeybindingScopeContext from '@app/keybindings/contexts/KeybindingScopeContext'
+import useFocusScopeContext from '@app/ui/use/useFocusScopeContext'
+import useKeybindings, { KeybindingHandlers } from '@app/keybindings/use/useKeybindings'
 
 import ContextMenuContainer from './components/ContextMenuContainer'
 
@@ -30,6 +31,28 @@ const ContextMenuProvider = ({ children }: Props) => {
     incrementKey()
   }, [contextMenu])
 
+  const [, dispatchFocusScope] = useFocusScopeContext()
+
+  useEffect(() => {
+    if (R.isNil(contextMenu)) {
+      return
+    }
+
+    dispatchFocusScope({ type: 'toggle', scope: 'contextmenu' })
+
+    return () => {
+      dispatchFocusScope({ type: 'toggle', scope: 'contextmenu' })
+    }
+  }, [contextMenu, dispatchFocusScope])
+
+  const keybindingHandlers: KeybindingHandlers = useMemo(() => ({
+    CONTEXT_MENU_CLOSE: () => setContextMenu(null)
+  }), [])
+
+  useKeybindings(keybindingHandlers, {
+    disable: R.isNil(contextMenu)
+  })
+
   const handleClose = useCallback(() => {
     setContextMenu(null)
   }, [])
@@ -40,11 +63,13 @@ const ContextMenuProvider = ({ children }: Props) => {
     }
 
     return ReactDOM.createPortal((
+      <FocusScopeGroupContext.Provider value="contextmenu">
         <ContextMenuContainer
           key={key}
           contextMenu={contextMenu}
           onClose={handleClose}
         />
+      </FocusScopeGroupContext.Provider>
     ), contextMenuContainerElement)
   }
 

@@ -12,8 +12,6 @@ import useDatabaseViewCrumbs from '@app/database/views/DatabaseView/use/useDatab
 import useDatabaseViewContext from '@app/database/views/DatabaseView/use/useDatabaseViewContext'
 import useDatabaseViewNavigation from '@app/database/views/DatabaseView/use/useDatabaseViewNavigation'
 
-import { DATABASE_ROOT_URI } from './utils'
-
 import route from './route'
 
 import styles from './styles.scss'
