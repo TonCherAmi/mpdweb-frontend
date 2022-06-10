@@ -15,6 +15,7 @@ import DatabaseViewProvider from '@app/database/views/DatabaseView/providers/Dat
 import PlaylistsViewProvider from '@app/playlists/views/PlaylistsView/providers/PlaylistsViewProvider'
 
 import useHoverable from '@app/ui/use/useHoverable'
+import useGlobalKeybindings from '@app/layout/use/useGlobalKeybindings'
 import useDefaultContextMenu from '@app/layout/use/useDefaultContextMenu'
 import useManualScrollRestoration from '@app/navigator/use/useManualScrollRestoration'
 
@@ -33,7 +34,7 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => (
 
 const Wrapped = () => {
   useHoverable()
-
+  useGlobalKeybindings()
   useManualScrollRestoration()
 
   const { handleContextMenu } = useDefaultContextMenu()

@@ -26,7 +26,6 @@ export default {
   SEARCH_CANCEL: make(['Escape']),
   MODAL_CLOSE: make(['Escape']),
   CONTEXT_MENU_CLOSE: make(['Escape']),
-  DATABASE_SEARCH_MODAL: make([{ key: 's', mods: ['shift'] }])
   NEXT_VIEW: make([
     { key: 'j', mods: ['shift'] },
     { key: 'ArrowDown', mods: ['alt'] }
@@ -35,4 +34,16 @@ export default {
     { key: 'k', mods: ['shift'] },
     { key: 'ArrowUp', mods: ['alt'] }
   ], { isRepeatable: true }),
+  PLAYBACK_STOP: make([{ key: 's', mods: ['shift'] }]),
+  PLAYBACK_TOGGLE: make([' ']),
+  PLAYBACK_NEXT: make([{ key: 'n', mods: ['shift'] }]),
+  PLAYBACK_PREV: make([{ key: 'p', mods: ['shift'] }]),
+  VOLUME_UP: make([{ key: '+', mods: ['shift'] }], { isRepeatable: true }),
+  VOLUME_DOWN: make(['-'], { isRepeatable: true }),
+  DATABASE_UPDATE: make([{ key: 'u', mods: ['shift'] }]),
+  DATABASE_SEARCH_MODAL: make(['s']),
+  QUEUE_CLEAR: make([
+    { sequence: [{ key: 'q', mods: ['shift'] }, 'c'] }
+  ]),
+  QUEUE_TOGGLE: make(['q'])
 }
