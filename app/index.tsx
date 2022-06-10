@@ -4,8 +4,6 @@ import 'regenerator-runtime'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 
-import ReactModal from 'react-modal'
-
 import * as R from 'ramda'
 
 import App from '@app/layout/components/App'
@@ -19,8 +17,6 @@ const appElement = document.getElementById('app')
 if (R.isNil(appElement)) {
   throw Error('app element not found')
 }
-
-ReactModal.setAppElement(appElement)
 
 const root = createRoot(appElement)
 

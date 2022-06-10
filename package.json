@@ -24,7 +24,6 @@
     "@types/ramda": "^0.27.60",
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
-    "@types/react-modal": "^3.13.1",
     "@types/react-router-dom": "^5.1.7",
     "@types/regenerator-runtime": "^0.13.0",
     "@types/sprintf-js": "^1.1.2",
@@ -60,7 +59,6 @@
     "ramda": "^0.27.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-modal": "^3.14.4",
     "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.7",
     "sprintf-js": "^1.1.2"
