@@ -40,16 +40,17 @@ const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     const findMatchingTrigger = (keybinding: Keybinding): Nullable<KeybindingTrigger> => {
-      return R.find(
-        (trigger): boolean => {
-          const simpleTrigger = isCompoundKeybindingTrigger(trigger)
-            ? trigger.sequence[currentCompoundTriggerStateRef.current?.index ?? 0]
-            : trigger
+      return R.find((trigger): boolean => {
+        if (!R.isNil(currentCompoundTriggerStateRef.current) && !isCompoundKeybindingTrigger(trigger)) {
+          return false
+        }
 
-          return doesSimpleTriggerMatch(simpleTrigger, event)
-        },
-        keybinding.triggers
-      )
+        const simpleTrigger = isCompoundKeybindingTrigger(trigger)
+          ? trigger.sequence[currentCompoundTriggerStateRef.current?.index ?? 0]
+          : trigger
+
+        return doesSimpleTriggerMatch(simpleTrigger, event)
+      }, keybinding.triggers)
     }
 
     const matchingKeybindingToTrigger: Nullable<[Keybinding, KeybindingTrigger]> = Array.from(keybindingToHandlerRef.current.keys())
