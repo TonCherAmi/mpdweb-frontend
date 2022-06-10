@@ -179,6 +179,10 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
   const handleSearchCancel = () => {
     searchInputRef.current?.blur()
 
+    if (R.isEmpty(items)) {
+      onSuccess()
+    }
+
     if (!uiInteractionMode.isKeyboard) {
       uiInteractionMode.setKeyboard()
     }
