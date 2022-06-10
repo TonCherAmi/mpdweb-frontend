@@ -4,14 +4,13 @@ import * as R from 'ramda'
 
 import Handler from '@app/common/types/Handler'
 
-interface EventToHandler {
-  click: (this: Document, event: DocumentEventMap['click']) => unknown
-  scroll: (this: Document, event: DocumentEventMap['scroll']) => unknown
+type EventToHandler = {
+  [k in keyof DocumentEventMap]?: Handler<Event>
 }
 
 const useOnOutsideEvent = <E extends Element> (ref: React.RefObject<E>, mappings: EventToHandler) => {
   useEffect(() => {
-    const makeHandler = <T extends Event> (handler: Handler<T>) => (event: T) => {
+    const makeHandler = (handler: Handler<Event>) => (event: Event) => {
       if (R.isNil(ref.current)) {
         return
       }
@@ -21,15 +20,18 @@ const useOnOutsideEvent = <E extends Element> (ref: React.RefObject<E>, mappings
       }
     }
 
-    const handleClick = makeHandler(mappings.click)
-    const handleScroll = makeHandler(mappings.scroll)
+    const mapped = Object.entries(mappings).map(([key, value]) => (
+      [key, makeHandler(value)] as const
+    ))
 
-    document.addEventListener('click', handleClick, true)
-    document.addEventListener('scroll', handleScroll, true)
+    mapped.forEach(([key, value]) => {
+      document.addEventListener(key, value, true)
+    })
 
     return () => {
-      document.removeEventListener('click', handleClick, true)
-      document.removeEventListener('scroll', handleScroll, true)
+      mapped.forEach(([key, value]) => {
+        document.removeEventListener(key, value, true)
+      })
     }
   }, [ref, mappings])
 }
