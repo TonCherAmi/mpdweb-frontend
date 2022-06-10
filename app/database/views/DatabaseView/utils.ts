@@ -2,7 +2,7 @@ import * as R from 'ramda'
 
 import { joinPath, splitPath } from '@app/common/utils/path'
 
-export const DATABASE_ROOT_URI = '/'
+export const DATABASE_ROOT_URI = ''
 
 /**
  * Returns subpaths of a path.

@@ -51,7 +51,11 @@ const DatabaseView = memo(() => {
 
   return (
     <div className={styles.container}>
-      <DatabaseViewHeader crumbs={crumbs} onHomeClick={handleHomeClick} />
+      <DatabaseViewHeader
+        crumbs={crumbs}
+        count={R.last(directories)?.count}
+        onHomeClick={handleHomeClick}
+      />
       <div ref={directoriesContainerRef} className={styles.directories}>
         <For of={directories} body={(directory, index) => (
           <DatabaseDirectory

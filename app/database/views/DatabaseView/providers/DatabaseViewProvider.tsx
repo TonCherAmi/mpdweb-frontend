@@ -54,6 +54,7 @@ const DatabaseViewProvider = ({ children }: { children: React.ReactNode }) => {
           }
 
           const items = await DatabaseApi.get({ uri })
+          const count = await DatabaseApi.count({ uri })
 
           const selectedItem = getSelectedItem(items)
             ?? R.head(items)
@@ -62,7 +63,7 @@ const DatabaseViewProvider = ({ children }: { children: React.ReactNode }) => {
             throw Error('selected item cannot be null')
           }
 
-          const databaseDirectory = { items, selectedItem }
+          const databaseDirectory = { items, count, selectedItem }
 
           cache.set(uri, databaseDirectory)
 
