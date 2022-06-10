@@ -1,8 +1,16 @@
 import VolumeApi from '@app/volume/api'
 
 class VolumeService {
-  async set(volume: number) {
-    await VolumeApi.set({ volume })
+  set(volume: number) {
+    VolumeApi.set({ volume, mode: 'ABSOLUTE' })
+  }
+
+  inc(volume: number) {
+    VolumeApi.set({ volume, mode: 'INC' })
+  }
+
+  dec(volume: number) {
+    VolumeApi.set({ volume, mode: 'DEC' })
   }
 }
 
