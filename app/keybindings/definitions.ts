@@ -26,19 +26,13 @@ export default {
   SEARCH_CANCEL: make(['Escape']),
   MODAL_CLOSE: make(['Escape']),
   CONTEXT_MENU_CLOSE: make(['Escape']),
-  NEXT_VIEW: make(
-    [
-      { key: 'j', mods: ['shift'] },
-      { key: 'ArrowDown', mods: ['alt'] }
-    ],
-    { isRepeatable: true }
-  ),
-  PREV_VIEW: make(
-    [
-      { key: 'k', mods: ['shift'] },
-      { key: 'ArrowUp', mods: ['alt'] }
-    ],
-    { isRepeatable: true }
-  ),
   DATABASE_SEARCH_MODAL: make([{ key: 's', mods: ['shift'] }])
+  NEXT_VIEW: make([
+    { key: 'j', mods: ['shift'] },
+    { key: 'ArrowDown', mods: ['alt'] }
+  ], { isRepeatable: true }),
+  PREV_VIEW: make([
+    { key: 'k', mods: ['shift'] },
+    { key: 'ArrowUp', mods: ['alt'] }
+  ], { isRepeatable: true }),
 }
