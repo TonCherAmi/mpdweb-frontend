@@ -12,18 +12,18 @@ import { dirname } from '@app/common/utils/path'
 
 import styles from './styles.scss'
 
-const getDirectorySrc = (databaseFile: DatabaseFile) => {
-  const uri = encodeURIComponent(
-    dirname(databaseFile.uri) + '/'
+const getDirectorySrc = (uri: string) => {
+  const encodedUri = encodeURIComponent(
+    dirname(uri) + '/'
   )
 
-  return `/api/database/cover/directory?uri=${uri}`
+  return `/api/database/cover/directory?uri=${encodedUri}`
 }
 
-const getEmbeddedSrc = (databaseFile: DatabaseFile) => {
-  const uri = encodeURIComponent(databaseFile.uri)
+const getEmbeddedSrc = (uri: string) => {
+  const encodedUri = encodeURIComponent(uri)
 
-  return `/api/database/cover/embedded?uri=${uri}`
+  return `/api/database/cover/embedded?uri=${encodedUri}`
 }
 
 interface Props {
@@ -38,14 +38,14 @@ const DatabaseCoverArt = ({ className, fallbackIconClassName, file }: Props) => 
   const hasTriedFallbackRef = useRef(false)
 
   const [src, setSrc] = useState(
-    getDirectorySrc(file)
+    getDirectorySrc(file.uri)
   )
 
   useLayoutEffect(() => {
     setSrc(
-      getDirectorySrc(file)
+      getDirectorySrc(file.uri)
     )
-  }, [file])
+  }, [file.uri])
 
   useLayoutEffect(() => {
     setState('initial')
@@ -67,7 +67,7 @@ const DatabaseCoverArt = ({ className, fallbackIconClassName, file }: Props) => 
     }
 
     setSrc(
-      getEmbeddedSrc(file)
+      getEmbeddedSrc(file.uri)
     )
 
     hasTriedFallbackRef.current = true
