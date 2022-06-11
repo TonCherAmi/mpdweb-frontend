@@ -42,7 +42,7 @@ const ContextMenuItem = ({ item, onMouseEnter }: Props) => {
 
     onMouseEnter({
       items: item.items,
-      rect: containerRef.current.getBoundingClientRect()
+      rect: containerRef.current.getBoundingClientRect(),
     })
   }
 

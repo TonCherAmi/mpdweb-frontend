@@ -8,7 +8,7 @@ export const useFullMatchParam = <T extends string> (route: Route<T>): Nullable<
   const location = useLocation()
 
   const routeMatch = useRouteMatch<Record<T, string>>({
-    path: route.match.pattern
+    path: route.match.pattern,
   })?.params?.[route.match.param]
 
   if (R.isNil(routeMatch)) {

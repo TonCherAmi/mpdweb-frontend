@@ -102,7 +102,7 @@ const DatabaseViewProvider = ({ children }: { children: React.ReactNode }) => {
 
   const value = useMemo(() => ({
     directories: items,
-    onSelectedItemChange
+    onSelectedItemChange,
   }), [items, onSelectedItemChange])
 
   return (

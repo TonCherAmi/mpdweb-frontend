@@ -17,7 +17,7 @@ const useGlobalKeybindings = () => {
     VOLUME_UP: () => VolumeService.inc(VOLUME_STEP),
     VOLUME_DOWN: () => VolumeService.dec(VOLUME_STEP),
     DATABASE_UPDATE: DatabaseService.update,
-    QUEUE_CLEAR: QueueService.clear
+    QUEUE_CLEAR: QueueService.clear,
   })
 }
 

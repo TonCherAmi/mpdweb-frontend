@@ -9,7 +9,7 @@ const Api = {
   get: make<ReadonlyArray<QueueItem>>('/queue'),
   add: make<null, QueueAddBody>('/queue', 'post'),
   delete: make<null, QueueDeleteBody>('/queue', 'delete'),
-  replace: make<null, QueueReplaceBody>('/queue', 'put')
+  replace: make<null, QueueReplaceBody>('/queue', 'put'),
 }
 
 export default Api

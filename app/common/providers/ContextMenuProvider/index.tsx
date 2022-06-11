@@ -46,11 +46,11 @@ const ContextMenuProvider = ({ children }: Props) => {
   }, [contextMenu, dispatchFocusScope])
 
   const keybindingHandlers: KeybindingHandlers = useMemo(() => ({
-    CONTEXT_MENU_CLOSE: () => setContextMenu(null)
+    CONTEXT_MENU_CLOSE: () => setContextMenu(null),
   }), [])
 
   useKeybindings(keybindingHandlers, {
-    disable: R.isNil(contextMenu)
+    disable: R.isNil(contextMenu),
   })
 
   const handleClose = useCallback(() => {

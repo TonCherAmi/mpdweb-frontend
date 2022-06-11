@@ -24,12 +24,12 @@ const useContextMenu = <E extends Element>(
     setContextMenu({
       x: mouseEvent.clientX,
       y: mouseEvent.clientY,
-      component: render(handleClose)
+      component: render(handleClose),
     })
   }
 
   return {
-    handleContextMenu
+    handleContextMenu,
   }
 }
 

@@ -5,7 +5,7 @@ const useModalState = (): [Nullable<string>, Dispatch<SetStateAction<Nullable<st
 
   return useMemo(() => [
     modalState,
-    setModalState
+    setModalState,
   ], [modalState])
 }
 

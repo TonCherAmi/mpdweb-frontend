@@ -27,7 +27,7 @@ const PlaylistFile = memo(({ file, position, onClick, onRemoveClick }: Props) =>
   const { handleContextMenu } = usePlaylistFileContextMenu({
     file,
     position,
-    onRemoveClick
+    onRemoveClick,
   })
 
   return (

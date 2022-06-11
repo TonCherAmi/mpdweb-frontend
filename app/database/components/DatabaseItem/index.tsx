@@ -37,7 +37,7 @@ const DatabaseItem = memo(
     highlightStyle,
     onClick,
     onAddClick,
-    onPlayClick
+    onPlayClick,
   }, ref) => {
     const withItem = (fn: Nullable<Handler<DatabaseItemData>>): Thunk => {
       return () => {
@@ -60,14 +60,14 @@ const DatabaseItem = memo(
     )
 
     const containerClassName = cx(styles.container, {
-      [styles.clickable]: isClickable
+      [styles.clickable]: isClickable,
     })
 
     const highlightStyleClassName = cx({
       [styles.highlighted]: !R.isNil(highlightStyle),
       [styles.muted]: highlightStyle === 'muted',
       [styles.primary]: highlightStyle === 'primary',
-      [styles.secondary]: highlightStyle === 'secondary'
+      [styles.secondary]: highlightStyle === 'secondary',
     })
 
     const name = basename(item.uri)

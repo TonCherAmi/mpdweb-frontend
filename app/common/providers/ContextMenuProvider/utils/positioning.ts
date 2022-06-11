@@ -4,7 +4,7 @@ export const getInsetStyle = ({
   contextMenuX,
   contextMenuY,
   documentRect,
-  containerRect
+  containerRect,
 }: { documentRect: DOMRect, containerRect: DOMRect, contextMenuX: number, contextMenuY: number }): CSSProperties => {
   const style: CSSProperties = {}
 

@@ -21,7 +21,7 @@ const PlaylistsViewProvider = ({ children }: { children: React.ReactNode }) => {
   const {
     items: playlists,
     load: loadPlaylists,
-    state: playlistRemoteState
+    state: playlistRemoteState,
   } = useRemoteList(PlaylistsApi.get)
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const PlaylistsViewProvider = ({ children }: { children: React.ReactNode }) => {
   const {
     items: selectedPlaylistFiles,
     load: loadSelectedPlaylistFiles,
-    reset: resetSelectedPlaylistFiles
+    reset: resetSelectedPlaylistFiles,
   } = useRemoteList(retrieveFiles)
 
   const handleChanges: Handler<ReadonlyArray<Change>> = useCallback((changes) => {
@@ -66,7 +66,7 @@ const PlaylistsViewProvider = ({ children }: { children: React.ReactNode }) => {
   useChanges(handleChanges)
 
   const selectedPlaylistName = useRouteMatch<{ [route.match.param]: string }>({
-    path: route.match.pattern
+    path: route.match.pattern,
   })?.params?.[route.match.param]
 
   const selectedPlaylist = R.find(
@@ -94,8 +94,8 @@ const PlaylistsViewProvider = ({ children }: { children: React.ReactNode }) => {
     playlists,
     selection: R.isNil(selectedPlaylist) ? null : {
       playlist: selectedPlaylist,
-      files: selectedPlaylistFiles
-    }
+      files: selectedPlaylistFiles,
+    },
   }), [playlists, selectedPlaylist, selectedPlaylistFiles])
 
   return (

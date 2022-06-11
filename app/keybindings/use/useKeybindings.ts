@@ -27,7 +27,7 @@ const conformHandler = (handler: KeybindingHandler): Handler<KeyboardEvent> => {
 }
 
 const useKeybindings = (handlers: KeybindingHandlers, {
-  disable = false
+  disable = false,
 }: Options = {}) => {
   const { add, remove } = useKeybindingsContext()
 

@@ -29,7 +29,7 @@ if (R.isNil(modalContainerElement)) {
 // TODO: implement focus trapping
 const Modal = ({ className, isOpen, onClose, children }: Props) => {
   useFocusScopeGroupedKeybindings({
-    MODAL_CLOSE: onClose
+    MODAL_CLOSE: onClose,
   }, { disable: !isOpen })
 
   const [, dispatchFocusScope] = useFocusScopeContext()
@@ -47,7 +47,7 @@ const Modal = ({ className, isOpen, onClose, children }: Props) => {
   }, [isOpen, dispatchFocusScope])
 
   useOnOutsideEvent(containerRef, {
-    click: onClose
+    click: onClose,
   })
 
   if (!isOpen) {

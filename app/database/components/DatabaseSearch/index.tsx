@@ -117,7 +117,7 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
 
   const currentDatabaseItemHighlightStyle = useDatabaseItemHighlightStyle({
     isActive: true,
-    isFocusable: isItemListFocusable
+    isFocusable: isItemListFocusable,
   })
 
   const getDatabaseItemHighlightStyle = (item: DatabaseItemData): Nullable<HighlightStyle> => {
@@ -212,7 +212,7 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
       }
 
       handleDescent(itemNavigation.currentItem)
-    }
+    },
   })
 
   useItemListKeybindings(itemNavigation)

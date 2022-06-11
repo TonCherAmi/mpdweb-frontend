@@ -23,7 +23,7 @@ const useQueueItemContextMenu = (queueItem: QueueItem) => {
       {
         id: 'remove',
         text: 'Remove',
-        handler: () => QueueService.delete(queueItem.id)
+        handler: () => QueueService.delete(queueItem.id),
       },
       {
         id: 'open-in-files',
@@ -32,8 +32,8 @@ const useQueueItemContextMenu = (queueItem: QueueItem) => {
           goTo(
             dirname(queueItem.uri)
           )
-        }
-      }
+        },
+      },
     ])
 
     return (

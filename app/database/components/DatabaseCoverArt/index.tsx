@@ -74,7 +74,7 @@ const DatabaseCoverArt = ({ className, fallbackIconClassName, file }: Props) => 
   }
 
   const imgClassName = cx(styles.cover, className, {
-    [styles.hidden]: state === 'error'
+    [styles.hidden]: state === 'error',
   })
 
   return (

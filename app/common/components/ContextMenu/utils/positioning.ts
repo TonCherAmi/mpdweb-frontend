@@ -6,7 +6,7 @@ export const getInsetStyle = ({
   documentRect,
   parentRect,
   containerRect,
-  sourceItemRect
+  sourceItemRect,
 }: { documentRect: DOMRect, parentRect: DOMRect, containerRect: DOMRect, sourceItemRect: DOMRect }): CSSProperties => {
   const style: CSSProperties = {}
 

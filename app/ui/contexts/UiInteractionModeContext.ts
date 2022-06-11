@@ -10,7 +10,7 @@ const defaultValue: UiInteractionMode = {
   isMouse: true,
   isKeyboard: false,
   setMouse: noop,
-  setKeyboard: noop
+  setKeyboard: noop,
 }
 
 const UiInteractionModeContext = createContext<UiInteractionMode>(defaultValue)

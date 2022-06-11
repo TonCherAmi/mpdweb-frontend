@@ -7,7 +7,7 @@ import { getInsetStyle } from '@app/common/components/ContextMenu/utils/position
 const useContextMenuStyle = ({
   containerRef,
   parentRect,
-  sourceItemRect
+  sourceItemRect,
 }: { containerRef: RefObject<HTMLDivElement>, parentRect: Nullable<DOMRect>, sourceItemRect: Nullable<DOMRect> }) => {
   const [style, setStyle] = useState<HTMLAttributes<HTMLDivElement>['style']>()
 
@@ -23,7 +23,7 @@ const useContextMenuStyle = ({
       documentRect,
       parentRect,
       containerRect,
-      sourceItemRect
+      sourceItemRect,
     })
 
     setStyle({ position: 'absolute', ...insetStyle })

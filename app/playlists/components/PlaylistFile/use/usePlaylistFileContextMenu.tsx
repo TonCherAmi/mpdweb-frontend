@@ -16,7 +16,7 @@ import { getDatabaseItemContextMenuItems } from '@app/database/utils/contextmenu
 const usePlaylistFileContextMenu = ({
   file,
   position,
-  onRemoveClick
+  onRemoveClick,
 }: { file: DatabaseFile, position: number, onRemoveClick: Handler<number> }) => {
   const { goTo } = useDatabaseViewNavigation()
 
@@ -26,7 +26,7 @@ const usePlaylistFileContextMenu = ({
       {
         id: 'remove',
         text: 'Remove',
-        handler: () => onRemoveClick(position)
+        handler: () => onRemoveClick(position),
       },
       {
         id: 'open-in-files',
@@ -35,8 +35,8 @@ const usePlaylistFileContextMenu = ({
           goTo(
             dirname(file.uri)
           )
-        }
-      }
+        },
+      },
     ])
 
     return (

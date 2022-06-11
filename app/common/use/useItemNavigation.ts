@@ -97,7 +97,7 @@ const useItemNavigation = <T> (
     goToPrevItem,
     goToFirstItem,
     goToLastItem,
-    setCurrentItem
+    setCurrentItem,
   }
 }
 

@@ -27,7 +27,7 @@ const ContextMenuContainer = ({ contextMenu, onClose }: Props) => {
 
     return {
       click: handleOutsideClick,
-      scroll: onClose
+      scroll: onClose,
     }
   }, [onClose])
 

@@ -45,7 +45,7 @@ const useDatabaseViewNavigation = (): DatabaseViewNavigation => {
 
   return {
     goTo,
-    goBack
+    goBack,
   }
 }
 

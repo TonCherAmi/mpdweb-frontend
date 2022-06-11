@@ -8,8 +8,16 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "react-hooks"],
   "rules": {
+    "semi": ["error", "never"],
+    "curly": ["error", "all"],
+    "object-curly-spacing": ["error", "always"],
+    "no-trailing-spaces": "error",
+    "prefer-const": "error",
+    "no-else-return": "warn",
+    "quotes": ["error", "single"],
+    "jsx-quotes": ["error", "prefer-double"],
     "no-console": "warn",
-    "comma-dangle": ["error", "never"],
+    "comma-dangle": ["error", "always-multiline"],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off"
   }

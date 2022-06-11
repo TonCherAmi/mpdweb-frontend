@@ -15,7 +15,7 @@ export default {
   PREV_ITEM: make(['k', 'ArrowUp'], { isRepeatable: true }),
   FIRST_ITEM: make([
     'Home',
-    { sequence: ['g', 'g'] }
+    { sequence: ['g', 'g'] },
   ]),
   LAST_ITEM: make(['End', { key: 'g', mods: ['shift'] }]),
   NAVIGATE_LEFT: make(['h', 'ArrowLeft']),
@@ -28,11 +28,11 @@ export default {
   CONTEXT_MENU_CLOSE: make(['Escape']),
   NEXT_VIEW: make([
     { key: 'j', mods: ['shift'] },
-    { key: 'ArrowDown', mods: ['alt'] }
+    { key: 'ArrowDown', mods: ['alt'] },
   ], { isRepeatable: true }),
   PREV_VIEW: make([
     { key: 'k', mods: ['shift'] },
-    { key: 'ArrowUp', mods: ['alt'] }
+    { key: 'ArrowUp', mods: ['alt'] },
   ], { isRepeatable: true }),
   PLAYBACK_STOP: make([{ key: 's', mods: ['shift'] }]),
   PLAYBACK_TOGGLE: make([' ']),
@@ -43,7 +43,7 @@ export default {
   DATABASE_UPDATE: make([{ key: 'u', mods: ['shift'] }]),
   DATABASE_SEARCH_MODAL: make(['s']),
   QUEUE_CLEAR: make([
-    { sequence: [{ key: 'q', mods: ['shift'] }, 'c'] }
+    { sequence: [{ key: 'q', mods: ['shift'] }, 'c'] },
   ]),
-  QUEUE_TOGGLE: make(['q'])
+  QUEUE_TOGGLE: make(['q']),
 }

@@ -8,7 +8,7 @@ import { getInsetStyle } from '@app/common/providers/ContextMenuProvider/utils/p
 
 const useContextMenuContainerStyle = ({
   containerRef,
-  contextMenu
+  contextMenu,
 }: { containerRef: RefObject<HTMLDivElement>, contextMenu: Nullable<ContextMenu> }) => {
   const [style, setStyle] = useState<HTMLAttributes<HTMLDivElement>['style']>()
 
@@ -24,7 +24,7 @@ const useContextMenuContainerStyle = ({
       documentRect,
       containerRect,
       contextMenuX: contextMenu.x,
-      contextMenuY: contextMenu.y
+      contextMenuY: contextMenu.y,
     })
 
     setStyle(insetStyle)

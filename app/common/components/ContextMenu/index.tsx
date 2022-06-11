@@ -53,7 +53,7 @@ const ContextMenu = ({ items, parentRect, sourceItemRect, onClose }: Props) => {
   const style = useContextMenuStyle({
     containerRef,
     parentRect,
-    sourceItemRect
+    sourceItemRect,
   })
 
   useLayoutEffect(() => {

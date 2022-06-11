@@ -7,7 +7,7 @@ import useFocusScopeGroupContext from '@app/ui/use/useFocusScopeGroupContext'
 
 const useDatabaseItemHighlightStyle = ({
   isActive,
-  isFocusable
+  isFocusable,
 }: { isActive: boolean, isFocusable: boolean }): Nullable<HighlightStyle> => {
   const uiInteractionMode = useUiInteractionModeContext()
 

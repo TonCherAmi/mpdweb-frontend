@@ -25,7 +25,7 @@ const SearchInput = React.forwardRef<HTMLInputElement, Props>(({
   onAccept,
   onBlur,
   onFocus,
-  onChange
+  onChange,
 }, ref) => {
   const handleFocus: React.FocusEventHandler<HTMLInputElement> = (event) => {
     if (R.isNil(onFocus)) {
@@ -42,7 +42,7 @@ const SearchInput = React.forwardRef<HTMLInputElement, Props>(({
       'Tab': onExit,
       'ArrowDown': onExit,
       'Enter': onAccept,
-      'Escape': onCancel
+      'Escape': onCancel,
     }[event.key]
 
     if (R.isNil(handler)) {

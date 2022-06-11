@@ -9,15 +9,15 @@ import DatabaseSearchBody from '@app/database/data/api/request/DatabaseSearchBod
 
 const Api = {
   get: make<ReadonlyArray<DatabaseItem>, DatabaseGetBody>('/database', 'get', {
-    query: ['uri']
+    query: ['uri'],
   }),
   count: make<DatabaseCount, DatabaseCountBody>('/database/count', 'get', {
-    query: ['uri']
+    query: ['uri'],
   }),
   search: make<ReadonlyArray<DatabaseItem>, DatabaseSearchBody>('/database/search', 'get', {
-    query: ['term']
+    query: ['term'],
   }),
-  update: make<void>('/database/update', 'post')
+  update: make<void>('/database/update', 'post'),
 }
 
 export default Api

@@ -10,19 +10,19 @@ import PlaylistFilesDeletionRequest from '@app/playlists/data/api/request/Playli
 const Api = {
   get: make<ReadonlyArray<Playlist>>('/playlists', 'get'),
   delete: make<void, PlaylistDeletionRequest>('/playlists/%(name)s', 'delete', {
-    path: ['name']
+    path: ['name'],
   }),
   rename: make<void, PlaylistRenamingRequest>('/playlists/%(name)s', 'post', {
-    path: ['from']
+    path: ['from'],
   }),
   files: {
     get: make<ReadonlyArray<DatabaseFile>, PlaylistFilesRequest>('/playlists/%(name)s/files', 'get', {
-      path: ['name']
+      path: ['name'],
     }),
     delete: make<void, PlaylistFilesDeletionRequest>('/playlists/%(name)s/files', 'delete', {
-      path: ['name']
-    })
-  }
+      path: ['name'],
+    }),
+  },
 }
 
 export default Api

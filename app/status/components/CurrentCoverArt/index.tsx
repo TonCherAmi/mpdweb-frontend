@@ -8,7 +8,7 @@ import useCurrentSong from '@app/status/use/useCurrentSong'
 
 const CurrentCoverArt = ({
   className,
-  fallbackIconClassName
+  fallbackIconClassName,
 }: { className?: string, fallbackIconClassName?: string }) => {
   const currentSong = useCurrentSong()
 

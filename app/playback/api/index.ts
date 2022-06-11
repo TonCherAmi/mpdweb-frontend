@@ -11,17 +11,17 @@ const Api = {
   prev: make<void>('/playback/prev', 'post'),
   seek: make<void, PlaybackSeekBody>('/playback/seek', 'post'),
   single: {
-    cycle: make<void>('/playback/single/cycle', 'post')
+    cycle: make<void>('/playback/single/cycle', 'post'),
   },
   random: {
-    toggle: make<void>('/playback/random/toggle', 'post')
+    toggle: make<void>('/playback/random/toggle', 'post'),
   },
   repeat: {
-    toggle: make<void>('/playback/repeat/toggle', 'post')
+    toggle: make<void>('/playback/repeat/toggle', 'post'),
   },
   consume: {
-    toggle: make<void>('/playback/consume/toggle', 'post')
-  }
+    toggle: make<void>('/playback/consume/toggle', 'post'),
+  },
 }
 
 export default Api

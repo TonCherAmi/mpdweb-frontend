@@ -17,7 +17,7 @@ const useUiInteractionMode = (): UiInteractionMode => {
     isMouse: mode === 'mouse',
     isKeyboard: mode === 'keyboard',
     setMouse: setMouse,
-    setKeyboard: setKeyboard
+    setKeyboard: setKeyboard,
   }), [mode, setKeyboard, setMouse])
 }
 

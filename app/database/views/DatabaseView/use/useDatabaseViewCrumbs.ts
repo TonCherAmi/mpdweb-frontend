@@ -22,7 +22,7 @@ const useDatabaseViewCrumbs = (
       onClick: () => {
         directoryContainerInstancesRef.current[directory.uri]
           ?.scrollIntoView({ inline: 'start', behavior: 'smooth' })
-      }
+      },
     }))
   ), [directories])
 

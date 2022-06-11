@@ -3,7 +3,7 @@ import * as R from 'ramda'
 import {
   Mod,
   KeybindingTrigger,
-  CompoundKeybindingTrigger
+  CompoundKeybindingTrigger,
 } from '@app/keybindings/contexts/KeybindingsContext'
 
 const getKeyboardEventMods = (event: KeyboardEvent): ReadonlyArray<Mod> => {
@@ -11,7 +11,7 @@ const getKeyboardEventMods = (event: KeyboardEvent): ReadonlyArray<Mod> => {
     ['shift', event.shiftKey],
     ['ctrl', event.ctrlKey],
     ['meta', event.metaKey],
-    ['alt', event.altKey]
+    ['alt', event.altKey],
   ] as const
 
   return pairs

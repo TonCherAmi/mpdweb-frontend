@@ -17,7 +17,7 @@ const toQueueSource = (source: Playlist | DatabaseItem): QueueSource => {
 
   return {
     id,
-    type
+    type,
   }
 }
 

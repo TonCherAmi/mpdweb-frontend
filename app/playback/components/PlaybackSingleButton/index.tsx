@@ -23,7 +23,7 @@ const PlaybackSingleButton = () => {
 
   const className = cx({
     [styles.on]: status.single === 'ON',
-    [styles.oneshot]: status.single === 'ONESHOT'
+    [styles.oneshot]: status.single === 'ONESHOT',
   })
 
   return (

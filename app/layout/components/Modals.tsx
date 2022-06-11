@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 
 import DatabaseSearchModal, {
-  DATABASE_SEARCH_MODAL_ID
+  DATABASE_SEARCH_MODAL_ID,
 } from '@app/database/components/DatabaseSearchModal'
 
 import useKeybindings from '@app/keybindings/use/useKeybindings'
@@ -16,11 +16,11 @@ const Modals = () => {
   const [, setActiveModalId] = useModalStateContext()
 
   const handlers = useMemo(() => ({
-    DATABASE_SEARCH_MODAL: () => setActiveModalId(DATABASE_SEARCH_MODAL_ID)
+    DATABASE_SEARCH_MODAL: () => setActiveModalId(DATABASE_SEARCH_MODAL_ID),
   }), [setActiveModalId])
 
   useKeybindings(handlers, {
-    disable: !['view', 'queue'].includes(focusScope)
+    disable: !['view', 'queue'].includes(focusScope),
   })
 
   return (

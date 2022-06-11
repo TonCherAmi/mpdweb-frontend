@@ -13,7 +13,7 @@ const DatabaseSearchModal = memo(() => {
   const preservedStateRef = useRef({
     term: '',
     results: [],
-    currentItem: null
+    currentItem: null,
   })
 
   const { isOpen, close } = useModal(DATABASE_SEARCH_MODAL_ID)

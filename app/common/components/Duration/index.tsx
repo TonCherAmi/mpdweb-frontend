@@ -12,7 +12,7 @@ interface Props {
 
 const formatters = {
   'colon': formatDurationColon,
-  'descriptive': formatDurationDescriptive
+  'descriptive': formatDurationDescriptive,
 } as const
 
 const Duration = ({ className, value, format = 'colon' }: Props) => {

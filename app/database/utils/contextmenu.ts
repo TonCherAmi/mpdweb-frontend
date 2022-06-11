@@ -16,13 +16,13 @@ const getDatabaseFileContextMenuCopyItems = (
   const copyArtist = R.isNil(artist) ? null : {
     id: 'copy-artist',
     text: 'Copy Artist',
-    handler: () => copy(artist)
+    handler: () => copy(artist),
   }
 
   const copyTitle = R.isNil(title) ? null : {
     id: 'copy-title',
     text: 'Copy Title',
-    handler: () => copy(title)
+    handler: () => copy(title),
   }
 
   return R.reject(R.isNil, [copyArtist, copyTitle])
@@ -51,15 +51,15 @@ export const getDatabaseItemContextMenuItems = (
             copy(
               basename(databaseItem.uri)
             )
-          }
+          },
         },
         {
           id: 'copy-path',
           text: 'Copy Path',
-          handler: () => copy(databaseItem.uri)
+          handler: () => copy(databaseItem.uri),
         },
-        ...databaseFileSpecificCopyItems
-      ]
-    }
+        ...databaseFileSpecificCopyItems,
+      ],
+    },
   ]
 }

@@ -4,7 +4,7 @@ import * as R from 'ramda'
 
 import FocusScopeContext, {
   FocusScope,
-  FocusScopeAction
+  FocusScopeAction,
 } from '@app/ui/contexts/FocusScopeContext'
 
 const FocusScopeProvider = ({ children }: { children: React.ReactNode }) => {
@@ -36,7 +36,7 @@ const FocusScopeProvider = ({ children }: { children: React.ReactNode }) => {
 
   const value: [FocusScope, Dispatch<FocusScopeAction>] = useMemo(() => [
     currentScope,
-    dispatch
+    dispatch,
   ], [currentScope, dispatch])
 
   return (

@@ -7,13 +7,13 @@ import TimeoutId from '@app/common/types/TimeoutId'
 
 import KeybindingsContext, {
   KeybindingTrigger,
-  CompoundKeybindingTrigger
+  CompoundKeybindingTrigger,
 } from '@app/keybindings/contexts/KeybindingsContext'
 
 import {
   doesSimpleTriggerMatch,
   isCompoundKeybindingTrigger,
-  isKeyboardEventTargetTextInputElement
+  isKeyboardEventTargetTextInputElement,
 } from './utils'
 
 export type KeybindingHandler = Handler<KeyboardEvent>

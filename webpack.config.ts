@@ -11,23 +11,23 @@ const devServer: WebpackDevServer.Configuration = {
   hot: 'only',
   host: '0.0.0.0',
   historyApiFallback: {
-    disableDotRule: true
+    disableDotRule: true,
   },
   proxy: {
     '/api': {
       target: 'http://localhost:8123',
       pathRewrite: {
-        '^/api': ''
-      }
+        '^/api': '',
+      },
     },
     '/api/ws': {
       ws: true,
       target: 'http://localhost:8123',
       pathRewrite: {
-        '^/api/ws': ''
-      }
-    }
-  }
+        '^/api/ws': '',
+      },
+    },
+  },
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -36,12 +36,12 @@ export default (env: unknown, argv: { mode: string | undefined }): Webpack.Confi
 
   const htmlWebpackPlugin = new HtmlWebpackPlugin({
     template: 'index.html',
-    favicon: 'assets/images/favicon.svg'
+    favicon: 'assets/images/favicon.svg',
   })
 
   const plugins = !isDevelopment ? [htmlWebpackPlugin] : [
     htmlWebpackPlugin,
-    new  ReactRefreshWebpackPlugin()
+    new  ReactRefreshWebpackPlugin(),
   ]
 
   return {
@@ -51,7 +51,7 @@ export default (env: unknown, argv: { mode: string | undefined }): Webpack.Confi
     entry: './index.tsx',
     devtool: 'source-map',
     output: {
-      publicPath: '/'
+      publicPath: '/',
     },
     module: {
       rules: [
@@ -61,8 +61,8 @@ export default (env: unknown, argv: { mode: string | undefined }): Webpack.Confi
           include: [src],
           exclude: /node_modules/,
           options: {
-            plugins: !isDevelopment ? [] : ['react-refresh/babel']
-          }
+            plugins: !isDevelopment ? [] : ['react-refresh/babel'],
+          },
         },
         {
           test: /\.s[ac]ss$/,
@@ -73,18 +73,18 @@ export default (env: unknown, argv: { mode: string | undefined }): Webpack.Confi
               options: {
                 modules: {
                   localIdentName: '[local]--[contenthash:base64:5]',
-                  exportLocalsConvention: 'camelCaseOnly'
-                }
-              }
+                  exportLocalsConvention: 'camelCaseOnly',
+                },
+              },
             },
-            'sass-loader'
-          ]
-        }
-      ]
+            'sass-loader',
+          ],
+        },
+      ],
     },
     resolve: {
       alias: { '@app': src },
-      extensions: ['.js', '.ts', '.tsx']
-    }
+      extensions: ['.js', '.ts', '.tsx'],
+    },
   }
 }

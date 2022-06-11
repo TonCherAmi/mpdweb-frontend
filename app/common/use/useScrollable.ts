@@ -17,7 +17,7 @@ const useScrollable = <T extends HTMLElement>(): [React.RefObject<T>, Scrollable
       ref.current?.scrollTo({
         top: 0,
         left: 0,
-        ...scrollToOptions
+        ...scrollToOptions,
       })
     }
 
@@ -28,14 +28,14 @@ const useScrollable = <T extends HTMLElement>(): [React.RefObject<T>, Scrollable
     const scrollDown = (behavior: ScrollBehavior = DEFAULT_SCROLL_BEHAVIOR) => {
       scrollTo({
         behavior,
-        top: ref.current?.scrollHeight
+        top: ref.current?.scrollHeight,
       })
     }
 
     const scrollRight = (behavior: ScrollBehavior = DEFAULT_SCROLL_BEHAVIOR) => {
       scrollTo({
         behavior,
-        left: ref.current?.scrollWidth
+        left: ref.current?.scrollWidth,
       })
     }
 
@@ -43,7 +43,7 @@ const useScrollable = <T extends HTMLElement>(): [React.RefObject<T>, Scrollable
       scrollDown,
       scrollRight,
       scrollUp: scrollBase,
-      scrollLeft: scrollBase
+      scrollLeft: scrollBase,
     }]
   }, [])
 }

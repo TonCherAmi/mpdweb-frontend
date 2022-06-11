@@ -15,7 +15,7 @@ const providers = [
   ContextMenuProvider,
   FocusScopeProvider,
   KeybindingsProvider,
-  UiInteractionModeProvider
+  UiInteractionModeProvider,
 ] as const
 
 const Providers = ({ children }: { children: React.ReactNode }) => {

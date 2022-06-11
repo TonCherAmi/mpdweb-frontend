@@ -13,7 +13,7 @@ import { wrapWithGlobalContextMenuItems } from '@app/common/utils/contextmenu'
 
 const usePlaylistListItemContextMenu = ({
   playlist,
-  onRemoveClick
+  onRemoveClick,
 }: { playlist: Playlist, onRemoveClick: Handler<Playlist> }) => {
   const render = useCallback((onClose: Thunk) => {
     const items = wrapWithGlobalContextMenuItems([
@@ -24,15 +24,15 @@ const usePlaylistListItemContextMenu = ({
           {
             id: 'copy-name',
             text: 'Copy Name',
-            handler: () => copy(playlist.name)
-          }
-        ]
+            handler: () => copy(playlist.name),
+          },
+        ],
       },
       {
         id: 'remove',
         text: 'Remove',
-        handler: () => onRemoveClick(playlist)
-      }
+        handler: () => onRemoveClick(playlist),
+      },
     ])
 
     return (

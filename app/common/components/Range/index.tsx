@@ -36,11 +36,11 @@ const Range = ({
   const percentage = exactPercentage > 99 ? 100 : exactPercentage
 
   const leftBackgroundStyle = {
-    flexBasis: `${percentage}%`
+    flexBasis: `${percentage}%`,
   }
 
   const rightBackgroundStyle = {
-    flexBasis: `${100 - percentage}%`
+    flexBasis: `${100 - percentage}%`,
   }
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {

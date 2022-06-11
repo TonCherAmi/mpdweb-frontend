@@ -11,7 +11,7 @@ const useRemoteList = <E, T extends ReadonlyArray<unknown>> (
 
   return {
     items: data ?? [],
-    ...remote
+    ...remote,
   }
 }
 

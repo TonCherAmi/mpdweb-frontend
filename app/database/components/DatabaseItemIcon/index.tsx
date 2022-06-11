@@ -7,7 +7,7 @@ import * as Icons from '@app/common/icons'
 const DatabaseItemTypeToIcon = {
   FILE: Icons.FileFill,
   DIRECTORY: Icons.FolderFill,
-  PLAYLIST: Icons.Playlist
+  PLAYLIST: Icons.Playlist,
 } as const
 
 interface Props {

@@ -57,7 +57,7 @@ export const make = <R, T = null> (
   template: string,
   method: HttpMethod = 'get', {
     path: pathKeys = [],
-    query: queryKeys = []
+    query: queryKeys = [],
   }: { path?: Array<string>, query?: Array<string> } = {}
 ) => async (...data: [T] extends [null] ? [] : [T]): Promise<R> => {
   const getBody = R.pipe(
@@ -76,7 +76,7 @@ export const make = <R, T = null> (
   const result = await fetch(endpoint, {
     body,
     method,
-    headers: new Headers([['Content-Type', 'application/json']])
+    headers: new Headers([['Content-Type', 'application/json']]),
   })
 
   return result

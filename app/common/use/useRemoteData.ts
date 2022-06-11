@@ -53,7 +53,7 @@ const useRemoteData = <R, T extends ReadonlyArray<unknown>> (retrieve: Retrieve<
     state,
     load,
     reset,
-    cancel
+    cancel,
   }
 }
 

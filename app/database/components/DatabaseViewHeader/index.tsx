@@ -22,7 +22,7 @@ interface Props {
 
 const crumbsClassNames: React.ComponentProps<typeof Crumbs>['classNames'] = {
   container: styles.crumbs,
-  item: styles.crumb
+  item: styles.crumb,
 }
 
 const DatabaseViewHeader = ({ crumbs, count, onHomeClick }: Props) => {

@@ -9,7 +9,7 @@ const getCopySelectionItem = (selection: string) => ({
   text: 'Copy Selection',
   handler: () => {
     copy(selection)
-  }
+  },
 })
 
 export const wrapWithGlobalContextMenuItems = (
@@ -31,7 +31,7 @@ export const wrapWithGlobalContextMenuItems = (
   if (R.isNil(copyItem)) {
     return [
       { id: 'copy', text: 'Copy', items: [copySelectionItem] },
-      ...items
+      ...items,
     ]
   }
 
@@ -43,9 +43,9 @@ export const wrapWithGlobalContextMenuItems = (
     {
       ...copyItem, items: [
         copySelectionItem,
-        ...copyItem.items
-      ]
+        ...copyItem.items,
+      ],
     },
-    ...rest
+    ...rest,
   ]
 }

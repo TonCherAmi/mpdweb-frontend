@@ -11,7 +11,7 @@ interface Options {
 }
 
 const useItemListKeybindings = <T> (itemNavigation: ItemNavigation<T>, {
-  disable = false
+  disable = false,
 }: Options = {}) => {
   const uiInteractionMode = useUiInteractionModeContext()
 
@@ -55,7 +55,7 @@ const useItemListKeybindings = <T> (itemNavigation: ItemNavigation<T>, {
     NEXT_ITEM: handleNextItemKeyPress,
     PREV_ITEM: handlePrevItemKeyPress,
     FIRST_ITEM: handleFirstItemKeyPress,
-    LAST_ITEM: handleLastItemKeyPress
+    LAST_ITEM: handleLastItemKeyPress,
   }
 
   useFocusScopeGroupedKeybindings(handlers, { disable })

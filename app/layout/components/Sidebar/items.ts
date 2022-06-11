@@ -15,16 +15,16 @@ export const items: ReadonlyArray<SidebarItem> = [
   {
     text: 'Files',
     path: DatabaseViewRoute.path,
-    icon: Icons.FolderFill
+    icon: Icons.FolderFill,
   },
   {
     text: 'Playlists',
     path: PlaylistsViewRoute.path,
-    icon: Icons.Playlist
+    icon: Icons.Playlist,
   },
   {
     text: 'Favorites',
     path: '/favorites',
-    icon: Icons.HeartFill
-  }
+    icon: Icons.HeartFill,
+  },
 ]

@@ -40,7 +40,7 @@ const DatabaseDirectory = memo(({
   selectedItem,
   onRef,
   onAscent,
-  onDescent
+  onDescent,
 }: Props) => {
   const [isSearchHidden, setIsSearchHidden] = useState(true)
   const [isItemListFocusable, setIsItemListFocusable] = useState(true)
@@ -81,7 +81,7 @@ const DatabaseDirectory = memo(({
 
   const databaseItemRef = usePositionedDatabaseItemRef(currentItem, {
     isActive,
-    isSearchHidden
+    isSearchHidden,
   })
 
   const getDatabaseItemRef = (item: DatabaseItemData): Nullable<typeof databaseItemRef> => {
@@ -94,7 +94,7 @@ const DatabaseDirectory = memo(({
 
   const currentDatabaseItemHighlightStyle = useDatabaseItemHighlightStyle({
     isActive,
-    isFocusable: isItemListFocusable
+    isFocusable: isItemListFocusable,
   })
 
   const getDatabaseItemHighlightStyle = (item: DatabaseItemData): Nullable<HighlightStyle> => {
@@ -181,11 +181,11 @@ const DatabaseDirectory = memo(({
       }
 
       onDescent(currentItemNavigation.currentItem)
-    }
+    },
   }, { disable: !isActive })
 
   useItemListKeybindings(currentItemNavigation, {
-    disable: !isActive
+    disable: !isActive,
   })
 
   const currentItems = isSearchHidden ? items : itemSearch.results

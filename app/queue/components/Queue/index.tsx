@@ -13,7 +13,7 @@ import styles from './styles.scss'
 const getScrollButtonText = R.prop(R.__, {
   aligned: 'History',
   lower: 'History',
-  higher: 'To top'
+  higher: 'To top',
 })
 
 const Queue = () => {
@@ -63,7 +63,7 @@ const Queue = () => {
 
   const [
     nextContainerTopAlignment,
-    setNextContainerTopAlignment
+    setNextContainerTopAlignment,
   ] = useState<'aligned' | 'lower' | 'higher'>('aligned')
 
   const handleScroll = () => {

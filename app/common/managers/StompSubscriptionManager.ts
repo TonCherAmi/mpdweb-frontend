@@ -9,7 +9,7 @@ class StompSubscriptionManager {
 
   constructor() {
     this.stompClient = new Stomp.Client({
-      brokerURL: StompSubscriptionManager.makeBrokerUrl(CONNECT_PATH)
+      brokerURL: StompSubscriptionManager.makeBrokerUrl(CONNECT_PATH),
     })
 
     this.stompClient.activate()

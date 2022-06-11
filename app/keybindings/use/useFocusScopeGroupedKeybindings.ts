@@ -8,7 +8,7 @@ const useFocusScopeGroupedKeybindings: typeof useKeybindings = (handlers, option
   const focusScopeGroup = useFocusScopeGroupContext()
 
   useKeybindings(handlers, {
-    disable: options?.disable || focusScope !== focusScopeGroup
+    disable: options?.disable || focusScope !== focusScopeGroup,
   })
 }
 

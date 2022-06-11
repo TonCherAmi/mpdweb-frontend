@@ -30,7 +30,7 @@ const PlaylistListItem = memo(({
   onClick,
   onAddClick,
   onPlayClick,
-  onRemoveClick
+  onRemoveClick,
 }: Props) => {
   const handleClick = () => {
     onClick(playlist)
