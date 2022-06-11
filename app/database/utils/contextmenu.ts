@@ -13,19 +13,19 @@ const getDatabaseFileContextMenuCopyItems = (
   const title = databaseFile.title
   const artist = databaseFile.artist
 
-  const copyArtist = R.isNil(artist) ? null : {
-    id: 'copy-artist',
-    text: 'Copy Artist',
-    handler: () => copy(artist),
-  }
-
   const copyTitle = R.isNil(title) ? null : {
     id: 'copy-title',
     text: 'Copy Title',
     handler: () => copy(title),
   }
 
-  return R.reject(R.isNil, [copyArtist, copyTitle])
+  const copyArtist = R.isNil(artist) ? null : {
+    id: 'copy-artist',
+    text: 'Copy Artist',
+    handler: () => copy(artist),
+  }
+
+  return R.reject(R.isNil, [copyTitle, copyArtist])
 }
 
 const isDatabaseFile = (databaseItem: DatabaseItem): databaseItem is DatabaseFile => (
@@ -44,6 +44,12 @@ export const getDatabaseItemContextMenuItems = (
       id: 'copy',
       text: 'Copy',
       items: [
+        ...databaseFileSpecificCopyItems,
+        {
+          id: 'copy-path',
+          text: 'Copy Path',
+          handler: () => copy(databaseItem.uri),
+        },
         {
           id: 'copy-filename',
           text: 'Copy Filename',
@@ -53,12 +59,6 @@ export const getDatabaseItemContextMenuItems = (
             )
           },
         },
-        {
-          id: 'copy-path',
-          text: 'Copy Path',
-          handler: () => copy(databaseItem.uri),
-        },
-        ...databaseFileSpecificCopyItems,
       ],
     },
   ]
