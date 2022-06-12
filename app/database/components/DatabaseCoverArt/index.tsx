@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from 'react'
+import React, { useState, useRef, useLayoutEffect, memo } from 'react'
 
 import * as R from 'ramda'
 
@@ -32,7 +32,7 @@ interface Props {
   file: DatabaseFile
 }
 
-const DatabaseCoverArt = ({ className, fallbackIconClassName, file }: Props) => {
+const DatabaseCoverArt = memo(({ className, fallbackIconClassName, file }: Props) => {
   const [state, setState] = useState<'initial' | 'done' | 'error'>('initial')
 
   const hasTriedFallbackRef = useRef(false)
@@ -93,6 +93,6 @@ const DatabaseCoverArt = ({ className, fallbackIconClassName, file }: Props) => 
       />
     </React.Fragment>
   )
-}
+})
 
 export default DatabaseCoverArt
