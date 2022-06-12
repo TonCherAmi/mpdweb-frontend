@@ -2,6 +2,7 @@ import React from 'react'
 
 import * as Icons from '@app/common/icons'
 
+import { route as SettingsViewRoute } from '@app/settings/views/SettingsView'
 import { route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
 import { route as PlaylistsViewRoute } from '@app/playlists/views/PlaylistsView'
 
@@ -23,8 +24,8 @@ export const items: ReadonlyArray<SidebarItem> = [
     icon: Icons.Playlist,
   },
   {
-    text: 'Favorites',
-    path: '/favorites',
-    icon: Icons.HeartFill,
+    text: 'Settings',
+    path: SettingsViewRoute.path,
+    icon: Icons.Gear,
   },
 ]

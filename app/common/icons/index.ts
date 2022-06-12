@@ -1,4 +1,5 @@
 export { default as Plus } from './Plus'
+export { default as Gear } from './Gear'
 export { default as Heart } from './Heart'
 export { default as House } from './House'
 export { default as Pause } from './PauseFill'

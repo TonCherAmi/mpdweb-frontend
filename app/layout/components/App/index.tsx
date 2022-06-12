@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Route, BrowserRouter as Router, Redirect } from 'react-router-dom'
 
+import SettingsView, { route as SettingsViewRoute } from '@app/settings/views/SettingsView'
 import DatabaseView, { route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
 import PlaylistsView, { route as PlaylistsViewRoute } from '@app/playlists/views/PlaylistsView'
 
@@ -60,6 +61,9 @@ const Wrapped = () => {
                 <PlaylistsView />
               </Route>
             </PlaylistsViewProvider>
+            <Route path={SettingsViewRoute.match.pattern}>
+              <SettingsView />
+            </Route>
           </div>
         </FocusScopeGroupContext.Provider>
         <FocusScopeGroupContext.Provider value="queue">
