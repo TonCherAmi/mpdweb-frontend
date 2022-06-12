@@ -2,10 +2,10 @@ import React, { useRef, useMemo } from 'react'
 
 import Thunk from '@app/common/types/Thunk'
 
-import { ContextMenu } from '@app/common/contexts/ContextMenuContext'
+import { ContextMenu } from '@app/ui/contexts/ContextMenuContext'
 
 import useOnOutsideEvent from '@app/common/use/useOnOutsideEvent'
-import useContextMenuContainerStyle from '@app/common/providers/ContextMenuProvider/use/useContextMenuContainerStyle'
+import useContextMenuContainerStyle from '@app/ui/providers/ContextMenuProvider/use/useContextMenuContainerStyle'
 
 import styles from './styles.scss'
 

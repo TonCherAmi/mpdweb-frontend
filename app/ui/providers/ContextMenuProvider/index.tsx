@@ -4,7 +4,7 @@ import React, { useState, useReducer, useEffect, useCallback, useMemo } from 're
 import * as R from 'ramda'
 
 import FocusScopeGroupContext from '@app/ui/contexts/FocusScopeGroupContext'
-import ContextMenuContext, { ContextMenu } from '@app/common/contexts/ContextMenuContext'
+import ContextMenuContext, { ContextMenu } from '@app/ui/contexts/ContextMenuContext'
 
 import useFocusScopeContext from '@app/ui/use/useFocusScopeContext'
 import useKeybindings, { KeybindingHandlers } from '@app/keybindings/use/useKeybindings'

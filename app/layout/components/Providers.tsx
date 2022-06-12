@@ -4,8 +4,8 @@ import StatusProvider from '@app/status/components/StatusProvider'
 import QueueProvider from '@app/queue/providers/QueueProvider'
 import FocusScopeProvider from '@app/ui/providers/FocusScopeProvider'
 import ModalStateProvider from '@app/ui/providers/ModalStateProvider'
+import ContextMenuProvider from '@app/ui/providers/ContextMenuProvider'
 import KeybindingsProvider from '@app/keybindings/providers/KeybindingsProvider'
-import ContextMenuProvider from '@app/common/providers/ContextMenuProvider'
 import UiInteractionModeProvider from '@app/ui/providers/UiInteractionModeProvider'
 
 const providers = [

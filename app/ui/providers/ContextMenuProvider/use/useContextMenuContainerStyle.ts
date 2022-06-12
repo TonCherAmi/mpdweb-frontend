@@ -2,9 +2,9 @@ import { useLayoutEffect, useState, HTMLAttributes, RefObject } from 'react'
 
 import * as R from 'ramda'
 
-import { ContextMenu } from '@app/common/contexts/ContextMenuContext'
+import { ContextMenu } from '@app/ui/contexts/ContextMenuContext'
 
-import { getInsetStyle } from '@app/common/providers/ContextMenuProvider/utils/positioning'
+import { getInsetStyle } from '@app/ui/providers/ContextMenuProvider/utils/positioning'
 
 const useContextMenuContainerStyle = ({
   containerRef,

@@ -1,6 +1,6 @@
 import { useContext, ContextType } from 'react'
 
-import ContextMenuContext from '@app/common/contexts/ContextMenuContext'
+import ContextMenuContext from '@app/ui/contexts/ContextMenuContext'
 
 const useContextMenuContext = (): ContextType<typeof ContextMenuContext> => {
   return useContext(ContextMenuContext)
