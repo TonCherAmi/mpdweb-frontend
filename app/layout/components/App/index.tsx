@@ -19,8 +19,9 @@ import useGlobalKeybindings from '@app/layout/use/useGlobalKeybindings'
 import useDefaultContextMenu from '@app/layout/use/useDefaultContextMenu'
 import useManualScrollRestoration from '@app/navigator/use/useManualScrollRestoration'
 
-import styles from './styles.scss'
 import FocusScopeGroupContext from '@app/ui/contexts/FocusScopeGroupContext'
+
+import styles from './styles.scss'
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => (
   // TODO: get rid of react router
