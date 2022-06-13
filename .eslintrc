@@ -18,6 +18,44 @@
     "jsx-quotes": ["error", "prefer-double"],
     "no-console": "warn",
     "comma-dangle": ["error", "always-multiline"],
+    "padding-line-between-statements": [
+      "error",
+      {
+        "blankLine": "always",
+        "prev": ["let", "const"],
+        "next": "*"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": ["let", "const"]
+      },
+      {
+        "blankLine": "any",
+        "prev": ["singleline-let", "singleline-const"],
+        "next": ["singleline-let", "singleline-const"]
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": [
+          "if",
+          "block",
+          "return",
+          "multiline-block-like",
+          "multiline-expression"
+        ]
+      },
+      {
+        "blankLine": "always",
+        "prev": [
+          "block-like",
+          "multiline-block-like",
+          "multiline-expression"
+        ],
+        "next": "*"
+      }
+    ],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off"
   }
