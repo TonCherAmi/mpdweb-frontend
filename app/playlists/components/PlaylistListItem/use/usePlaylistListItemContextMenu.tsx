@@ -6,7 +6,7 @@ import Playlist from '@app/playlists/data/Playlist'
 
 import ContextMenu from '@app/common/components/ContextMenu'
 
-import useContextMenu from '@app/common/use/useContextMenu'
+import useContextMenu from '@app/ui/use/useContextMenu'
 
 import { copy } from '@app/navigator/utils/clipboard'
 import { wrapWithGlobalContextMenuItems } from '@app/common/utils/contextmenu'

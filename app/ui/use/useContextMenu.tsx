@@ -2,7 +2,7 @@ import React, { MouseEventHandler, useCallback } from 'react'
 
 import Thunk from '@app/common/types/Thunk'
 
-import useContextMenuContext from '@app/common/use/useContextMenuContext'
+import useContextMenuContext from '@app/ui/use/useContextMenuContext'
 
 interface ContextMenu<E extends Element> {
   handleContextMenu: MouseEventHandler<E>

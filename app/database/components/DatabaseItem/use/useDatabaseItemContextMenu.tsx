@@ -5,7 +5,7 @@ import DatabaseItem from '@app/database/data/DatabaseItem'
 
 import ContextMenu from '@app/common/components/ContextMenu'
 
-import useContextMenu from '@app/common/use/useContextMenu'
+import useContextMenu from '@app/ui/use/useContextMenu'
 
 import { wrapWithGlobalContextMenuItems } from '@app/common/utils/contextmenu'
 import { getDatabaseItemContextMenuItems } from '@app/database/utils/contextmenu'

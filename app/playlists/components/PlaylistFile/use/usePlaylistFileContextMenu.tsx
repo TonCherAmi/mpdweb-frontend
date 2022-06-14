@@ -6,7 +6,7 @@ import DatabaseFile from '@app/database/data/DatabaseFile'
 
 import ContextMenu from '@app/common/components/ContextMenu'
 
-import useContextMenu from '@app/common/use/useContextMenu'
+import useContextMenu from '@app/ui/use/useContextMenu'
 import useDatabaseViewNavigation from '@app/database/views/DatabaseView/use/useDatabaseViewNavigation'
 
 import { dirname } from '@app/common/utils/path'

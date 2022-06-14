@@ -4,7 +4,7 @@ import Thunk from '@app/common/types/Thunk'
 
 import ContextMenu from '@app/common/components/ContextMenu'
 
-import useContextMenu from '@app/common/use/useContextMenu'
+import useContextMenu from '@app/ui/use/useContextMenu'
 
 import { wrapWithGlobalContextMenuItems } from '@app/common/utils/contextmenu'
 
