@@ -41,7 +41,7 @@ const ContextMenuContainer = ({ contextMenu, onClose }: Props) => {
       style={containerStyle}
       className={styles.container}
     >
-      {contextMenu?.component}
+      {contextMenu.component}
     </div>
   )
 }
