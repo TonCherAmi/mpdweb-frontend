@@ -1,6 +1,4 @@
-import React, { useCallback } from 'react'
-
-import Thunk from '@app/common/types/Thunk'
+import React from 'react'
 
 import ContextMenu from '@app/common/components/ContextMenu'
 
@@ -9,7 +7,7 @@ import useContextMenu from '@app/ui/use/useContextMenu'
 import { wrapWithGlobalContextMenuItems } from '@app/common/utils/contextmenu'
 
 const useDefaultContextMenu = () => {
-  const render = useCallback((onClose: Thunk) => {
+  return useContextMenu((onClose) => {
     const items = wrapWithGlobalContextMenuItems([])
 
     return (
@@ -18,9 +16,7 @@ const useDefaultContextMenu = () => {
         onClose={onClose}
       />
     )
-  }, [])
-
-  return useContextMenu(render)
+  })
 }
 
 export default useDefaultContextMenu

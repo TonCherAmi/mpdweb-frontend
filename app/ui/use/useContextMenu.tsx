@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useCallback } from 'react'
+import React, { MouseEventHandler } from 'react'
 
 import Thunk from '@app/common/types/Thunk'
 
@@ -13,9 +13,9 @@ const useContextMenu = <E extends Element>(
 ): ContextMenu<E> => {
   const setContextMenu = useContextMenuContext()
 
-  const handleClose = useCallback(() => {
+  const handleClose = () => {
     setContextMenu(null)
-  }, [setContextMenu])
+  }
 
   const handleContextMenu: MouseEventHandler<E> = (mouseEvent) => {
     mouseEvent.stopPropagation()

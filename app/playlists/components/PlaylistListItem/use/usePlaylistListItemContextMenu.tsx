@@ -1,6 +1,5 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 
-import Thunk from '@app/common/types/Thunk'
 import Handler from '@app/common/types/Handler'
 import Playlist from '@app/playlists/data/Playlist'
 
@@ -15,7 +14,7 @@ const usePlaylistListItemContextMenu = ({
   playlist,
   onRemoveClick,
 }: { playlist: Playlist, onRemoveClick: Handler<Playlist> }) => {
-  const render = useCallback((onClose: Thunk) => {
+  return useContextMenu((onClose) => {
     const items = wrapWithGlobalContextMenuItems([
       {
         id: 'copy',
@@ -41,9 +40,7 @@ const usePlaylistListItemContextMenu = ({
         onClose={onClose}
       />
     )
-  }, [playlist, onRemoveClick])
-
-  return useContextMenu(render)
+  })
 }
 
 export default usePlaylistListItemContextMenu

@@ -1,6 +1,5 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 
-import Thunk from '@app/common/types/Thunk'
 import DatabaseItem from '@app/database/data/DatabaseItem'
 
 import ContextMenu from '@app/common/components/ContextMenu'
@@ -11,7 +10,7 @@ import { wrapWithGlobalContextMenuItems } from '@app/common/utils/contextmenu'
 import { getDatabaseItemContextMenuItems } from '@app/database/utils/contextmenu'
 
 const useDatabaseItemContextMenu = (databaseItem: DatabaseItem) => {
-  const render = useCallback((onClose: Thunk) => {
+  return useContextMenu((onClose) => {
     const items = wrapWithGlobalContextMenuItems(
       getDatabaseItemContextMenuItems(databaseItem)
     )
@@ -22,9 +21,7 @@ const useDatabaseItemContextMenu = (databaseItem: DatabaseItem) => {
         onClose={onClose}
       />
     )
-  }, [databaseItem])
-
-  return useContextMenu(render)
+  })
 }
 
 export default useDatabaseItemContextMenu

@@ -1,6 +1,5 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 
-import Thunk from '@app/common/types/Thunk'
 import QueueItem from '@app/queue/data/QueueItem'
 
 import ContextMenu from '@app/common/components/ContextMenu'
@@ -17,7 +16,7 @@ import { getDatabaseItemContextMenuItems } from '@app/database/utils/contextmenu
 const useQueueItemContextMenu = (queueItem: QueueItem) => {
   const { goTo } = useDatabaseViewNavigation()
 
-  const render = useCallback((onClose: Thunk) => {
+  return useContextMenu((onClose) => {
     const items = wrapWithGlobalContextMenuItems([
       ...getDatabaseItemContextMenuItems(queueItem),
       {
@@ -42,9 +41,7 @@ const useQueueItemContextMenu = (queueItem: QueueItem) => {
         onClose={onClose}
       />
     )
-  }, [queueItem, goTo])
-
-  return useContextMenu(render)
+  })
 }
 
 export default useQueueItemContextMenu
