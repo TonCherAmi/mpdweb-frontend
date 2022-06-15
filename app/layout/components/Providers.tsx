@@ -1,6 +1,7 @@
 import React from 'react'
 
 import StatusProvider from '@app/status/components/StatusProvider'
+import CacheProvider from '@app/common/providers/CacheProvider'
 import QueueProvider from '@app/queue/providers/QueueProvider'
 import FocusScopeProvider from '@app/ui/providers/FocusScopeProvider'
 import ModalStateProvider from '@app/ui/providers/ModalStateProvider'
@@ -16,6 +17,7 @@ const providers = [
   FocusScopeProvider,
   KeybindingsProvider,
   UiInteractionModeProvider,
+  CacheProvider,
 ] as const
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
