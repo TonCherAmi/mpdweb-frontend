@@ -1,31 +1,18 @@
-import React, { useRef, memo } from 'react'
+import React from 'react'
 
-import useModal from '@app/ui/use/useModal'
+import Thunk from '@app/common/types/Thunk'
 
 import Modal from '@app/common/components/Modal'
 import DatabaseSearch from '@app/database/components/DatabaseSearch'
 
 import styles from './styles.scss'
 
-export const DATABASE_SEARCH_MODAL_ID = 'DatabaseSearchModal'
-
-const DatabaseSearchModal = memo(() => {
-  const preservedStateRef = useRef({
-    term: '',
-    results: [],
-    currentItem: null,
-  })
-
-  const { isOpen, close } = useModal(DATABASE_SEARCH_MODAL_ID)
-
+const DatabaseSearchModal = ({ onClose }: { onClose: Thunk }) => {
   return (
-    <Modal className={styles.container} isOpen={isOpen} onClose={close}>
-      <DatabaseSearch
-        preservedStateRef={preservedStateRef}
-        onSuccess={close}
-      />
+    <Modal className={styles.container} onClose={onClose}>
+      <DatabaseSearch onSuccess={onClose} />
     </Modal>
   )
-})
+}
 
 export default DatabaseSearchModal

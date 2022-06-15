@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useState, useEffect, MutableRefObject, memo } from 'react'
+import React, { useRef, useCallback, useState, useEffect, memo } from 'react'
 
 import * as R from 'ramda'
 
@@ -8,6 +8,7 @@ import DatabaseItemData from '@app/database/data/DatabaseItem'
 import DatabaseSearchInput from '@app/database/components/DatabaseSearchInput'
 import DatabaseItem, { HighlightStyle } from '@app/database/components/DatabaseItem'
 
+import useCache from '@app/common/use/useCache'
 import useInput from '@app/common/use/useInput'
 import useDebounce from '@app/common/use/useDebounce'
 import useRemoteList from '@app/common/use/useRemoteList'
@@ -29,22 +30,29 @@ import usePositionedDatabaseItemRef from './use/usePositionedDatabaseItemRef'
 
 import styles from './styles.scss'
 
+const CACHE_ID = 'DatabaseSearch'
+
 const MIN_SEARCH_TERM_LENGTH = 3
 
 const SEARCH_DEBOUNCE_WAIT_MS = 350
 
-interface PreservedState {
+const INITIAL_STATE: CachedState = {
+  term: '',
+  results: [],
+  currentItem: null,
+}
+
+interface CachedState {
   term: string
   results: ReadonlyArray<DatabaseItemData>
   currentItem: Nullable<DatabaseItemData>
 }
 
 interface Props {
-  preservedStateRef: MutableRefObject<PreservedState>
   onSuccess: Thunk
 }
 
-const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
+const DatabaseSearch = memo(({ onSuccess }: Props) => {
   const { reset, ...remote } = useRemoteList(DatabaseApi.search)
 
   const [load, cancel] = useDebounce((term: string) => {
@@ -69,24 +77,26 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
     load(term)
   }, [cancel, load, reset, remote.state])
 
-  const input = useInput(preservedStateRef.current.term, handleChange)
+  const cache = useCache(CACHE_ID, INITIAL_STATE)
+
+  const input = useInput(cache.term, handleChange)
 
   useEffect(() => {
     if (!R.isEmpty(input.value)) {
-      preservedStateRef.current.term = input.value
+      cache.term = input.value
     }
-  }, [preservedStateRef, input.value])
+  }, [cache, input.value])
 
   useEffect(() => {
     if (remote.state === 'success') {
-      preservedStateRef.current.results = remote.items
+      cache.results = remote.items
     }
-  }, [preservedStateRef, remote.items, remote.state])
+  }, [cache, remote.items, remote.state])
 
   const [isItemListFocusable, setIsItemListFocusable] = useState(false)
 
-  const items = remote.state === 'initial' && input.value === preservedStateRef.current.term
-    ? preservedStateRef.current.results
+  const items = remote.state === 'initial' && input.value === cache.term
+    ? cache.results
     : remote.items
 
   const itemNavigation = useItemNavigation(items)
@@ -94,16 +104,16 @@ const DatabaseSearch = memo(({ preservedStateRef, onSuccess }: Props) => {
   const { setCurrentItem, goToFirstItem } = itemNavigation
 
   useEffect(() => {
-    if (!R.isNil(preservedStateRef.current.currentItem)) {
-      setCurrentItem(preservedStateRef.current.currentItem)
+    if (!R.isNil(cache.currentItem)) {
+      setCurrentItem(cache.currentItem)
     } else {
       goToFirstItem()
     }
-  }, [preservedStateRef, setCurrentItem, goToFirstItem])
+  }, [cache, setCurrentItem, goToFirstItem])
 
   useEffect(() => {
-    preservedStateRef.current.currentItem = itemNavigation.currentItem
-  }, [preservedStateRef, itemNavigation.currentItem])
+    cache.currentItem = itemNavigation.currentItem
+  }, [cache, itemNavigation.currentItem])
 
   const databaseItemRef = usePositionedDatabaseItemRef(itemNavigation.currentItem)
 

@@ -7,7 +7,6 @@ import DatabaseView, { route as DatabaseViewRoute } from '@app/database/views/Da
 import PlaylistsView, { route as PlaylistsViewRoute } from '@app/playlists/views/PlaylistsView'
 
 import Queue from '@app/queue/components/Queue'
-import Modals from '@app/layout/components/Modals'
 import Sidebar from '@app/layout/components/Sidebar'
 import BottomPanel from '@app/layout/components/BottomPanel'
 
@@ -43,7 +42,6 @@ const Wrapped = () => {
 
   return (
     <div className={styles.main} onContextMenu={handleContextMenu}>
-      <Modals />
       <div className={styles.stack}>
         <Sidebar />
         <FocusScopeGroupContext.Provider value="view">
