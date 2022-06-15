@@ -8,6 +8,16 @@
 
 .cover {
   color: transparent;
+
+  &.clickable {
+    cursor: pointer;
+
+    transition: .3s filter;
+
+    &:hover {
+      filter: brightness(80%);
+    }
+  }
 }
 
 .hidden {

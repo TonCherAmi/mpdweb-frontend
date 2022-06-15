@@ -4,6 +4,7 @@ import * as R from 'ramda'
 
 import cx from 'classnames'
 
+import Thunk from '@app/common/types/Thunk'
 import DatabaseFile from '@app/database/data/DatabaseFile'
 
 import * as  Icons from '@app/common/icons'
@@ -30,9 +31,15 @@ interface Props {
   className?: string
   fallbackIconClassName?: string
   file: DatabaseFile
+  onClick?: Thunk
 }
 
-const DatabaseCoverArt = memo(({ className, fallbackIconClassName, file }: Props) => {
+const DatabaseCoverArt = memo(({
+  className,
+  fallbackIconClassName,
+  file,
+  onClick,
+}: Props) => {
   const [state, setState] = useState<'initial' | 'done' | 'error'>('initial')
 
   const hasTriedFallbackRef = useRef(false)
@@ -75,6 +82,7 @@ const DatabaseCoverArt = memo(({ className, fallbackIconClassName, file }: Props
 
   const imgClassName = cx(styles.cover, className, {
     [styles.hidden]: state === 'error',
+    [styles.clickable]: !R.isNil(onClick),
   })
 
   return (
@@ -89,6 +97,7 @@ const DatabaseCoverArt = memo(({ className, fallbackIconClassName, file }: Props
         src={src}
         alt="Current song cover art"
         onLoad={handleLoad}
+        onClick={onClick}
         onError={handleError}
       />
     </React.Fragment>

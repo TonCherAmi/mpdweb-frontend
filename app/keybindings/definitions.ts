@@ -42,6 +42,7 @@ export default {
   VOLUME_DOWN: make(['-'], { isRepeatable: true }),
   DATABASE_UPDATE: make([{ key: 'u', mods: ['shift'] }]),
   DATABASE_SEARCH_MODAL: make(['s']),
+  DATABASE_CURRENT_COVER_ART_MODAL: make(['c']),
   QUEUE_CLEAR: make([
     { sequence: [{ key: 'q', mods: ['shift'] }, 'c'] },
   ]),
