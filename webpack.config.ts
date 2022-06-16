@@ -80,6 +80,10 @@ export default (env: unknown, argv: { mode: string | undefined }): Webpack.Confi
             'sass-loader',
           ],
         },
+        {
+          test: /\.ttf$/,
+          type: 'asset/resource',
+        },
       ],
     },
     resolve: {

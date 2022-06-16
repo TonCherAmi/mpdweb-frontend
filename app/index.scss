@@ -53,3 +53,59 @@ button, input {
 
   outline: none;
 }
+
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: 400;
+
+  src: local("Roboto Condensed"),
+       url('./assets/fonts/RobotoCondensed-Regular.ttf');
+}
+
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: 500;
+
+  src: local("Roboto Condensed Medium"),
+  url('./assets/fonts/RobotoCondensed-Medium.ttf');
+}
+
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: 700;
+
+  src: local("Roboto Condensed Bold"),
+       url('./assets/fonts/RobotoCondensed-Bold.ttf');
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 400;
+
+  src: local("Roboto"),
+       url('./assets/fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 500;
+
+  src: local("Roboto Medium"),
+       url('./assets/fonts/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-weight: 400;
+
+  src: local("Open Sans"),
+       url('./assets/fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-weight: 700;
+
+  src: local("Open Sans Bold"),
+       url('./assets/fonts/OpenSans-Bold.ttf');
+}
