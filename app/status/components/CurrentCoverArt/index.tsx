@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 import * as R from 'ramda'
 
@@ -20,11 +20,17 @@ interface Props {
 const CurrentCoverArt = ({ className, fallbackIconClassName, currentSong }: Props) => {
   const { open: openModal } = useDatabaseCoverArtModal(currentSong)
 
+  const isLoadedSuccessfullyRef = useRef(false)
+
   const canOpenModal = useCanOpenModal()
 
   useKeybindings({
     DATABASE_CURRENT_COVER_ART_MODAL: openModal,
-  }, { disable: !canOpenModal })
+  }, { disable: !canOpenModal || !isLoadedSuccessfullyRef.current })
+
+  const handleSuccess = () => {
+    isLoadedSuccessfullyRef.current = true
+  }
 
   return (
     <DatabaseCoverArt
@@ -32,6 +38,7 @@ const CurrentCoverArt = ({ className, fallbackIconClassName, currentSong }: Prop
       fallbackIconClassName={fallbackIconClassName}
       file={currentSong}
       onClick={openModal}
+      onSuccess={handleSuccess}
     />
   )
 }

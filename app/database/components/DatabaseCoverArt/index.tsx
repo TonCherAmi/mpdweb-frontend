@@ -32,6 +32,7 @@ interface Props {
   fallbackIconClassName?: string
   file: DatabaseFile
   onClick?: Thunk
+  onSuccess?: Thunk
 }
 
 const DatabaseCoverArt = memo(({
@@ -39,6 +40,7 @@ const DatabaseCoverArt = memo(({
   fallbackIconClassName,
   file,
   onClick,
+  onSuccess,
 }: Props) => {
   const [state, setState] = useState<'initial' | 'done' | 'error'>('initial')
 
@@ -64,6 +66,8 @@ const DatabaseCoverArt = memo(({
 
   const handleLoad = () => {
     setState('done')
+
+    onSuccess?.()
   }
 
   const handleError = () => {
