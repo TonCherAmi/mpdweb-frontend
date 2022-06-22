@@ -46,8 +46,12 @@ const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
         }
 
         const simpleTrigger = isCompoundKeybindingTrigger(trigger)
-          ? trigger.sequence[currentCompoundTriggerStateRef.current?.index ?? 0]
+          ? R.nth(currentCompoundTriggerStateRef.current?.index ?? 0, trigger.sequence)
           : trigger
+
+        if (R.isNil(simpleTrigger)) {
+          return false
+        }
 
         return doesSimpleTriggerMatch(simpleTrigger, event)
       }, keybinding.triggers)
