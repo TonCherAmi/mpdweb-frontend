@@ -28,7 +28,7 @@ const EVENT_TYPE = 'keydown'
 const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
   const currentCompoundTriggerStateRef = useRef<Nullable<{
     index: number
-    trigger: CompoundKeybindingTrigger
+    triggers: ReadonlyArray<CompoundKeybindingTrigger>
     timeoutId: TimeoutId
   }>>(null)
 
@@ -57,29 +57,55 @@ const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
       }, keybinding.triggers)
     }
 
-    const matchingKeybindingToTrigger: Nullable<[Keybinding, KeybindingTrigger]> = Array.from(keybindingToHandlerRef.current.keys())
+    const matchingKeybindingToTrigger: ReadonlyArray<[Keybinding, KeybindingTrigger]> = Array.from(keybindingToHandlerRef.current.keys())
       .filter(({ isRepeatable }) => !event.repeat || (event.repeat && isRepeatable))
       .map((keybinding): [Keybinding, Nullable<KeybindingTrigger>] => [keybinding, findMatchingTrigger(keybinding)])
-      .find((keybindingToTrigger): keybindingToTrigger is [Keybinding, KeybindingTrigger] => !R.isNil(keybindingToTrigger[1]))
+      .filter((keybindingToTrigger): keybindingToTrigger is [Keybinding, KeybindingTrigger] => !R.isNil(keybindingToTrigger[1]))
 
-    if (R.isNil(matchingKeybindingToTrigger)) {
-      if (!R.isNil(currentCompoundTriggerStateRef.current)) {
-        currentCompoundTriggerStateRef.current = null
-      }
-
-      return
-    }
-
-    const [keybinding, trigger] = matchingKeybindingToTrigger
-
-    if (!R.isNil(currentCompoundTriggerStateRef.current) && trigger !== currentCompoundTriggerStateRef.current.trigger) {
+    if (R.isEmpty(matchingKeybindingToTrigger)) {
       currentCompoundTriggerStateRef.current = null
 
       return
     }
 
-    if (!isCompoundKeybindingTrigger(trigger)) {
+    const anySimpleTriggersMatched = R.any(
+      ([, trigger]) => !isCompoundKeybindingTrigger(trigger),
+      matchingKeybindingToTrigger,
+    )
+
+    const anyCompoundTriggersMatched = R.any(
+      ([, trigger]) => isCompoundKeybindingTrigger(trigger),
+      matchingKeybindingToTrigger,
+    )
+
+    if (anySimpleTriggersMatched && anyCompoundTriggersMatched) {
+      throw Error('conflicting triggers found: simple + compound')
+    }
+
+    if (anySimpleTriggersMatched) {
+      if (matchingKeybindingToTrigger.length > 1) {
+        throw Error('conflicting triggers found: simple + simple')
+      }
+
+      const [keybinding] = matchingKeybindingToTrigger[0]
+
       keybindingToHandlerRef.current.get(keybinding)?.(event)
+
+      return
+    }
+
+    const matchingTriggers = R.map(
+      ([, trigger]) => trigger as CompoundKeybindingTrigger,
+      matchingKeybindingToTrigger
+    )
+
+    const compoundTriggersIntersection = R.intersection(
+      matchingTriggers,
+      currentCompoundTriggerStateRef.current?.triggers ?? []
+    )
+
+    if (!R.isNil(currentCompoundTriggerStateRef.current) && R.isEmpty(compoundTriggersIntersection)) {
+      currentCompoundTriggerStateRef.current = null
 
       return
     }
@@ -89,13 +115,24 @@ const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
         currentCompoundTriggerStateRef.current = null
       }, 1000)
 
-      currentCompoundTriggerStateRef.current = { trigger, timeoutId, index: 0 }
+      currentCompoundTriggerStateRef.current = { triggers: matchingTriggers, timeoutId, index: 0 }
     }
 
-    if (currentCompoundTriggerStateRef.current.index === trigger.sequence.length - 1) {
+    const anyFinalTriggerHit = R.any(
+      trigger => trigger.sequence.length - 1 === currentCompoundTriggerStateRef.current?.index,
+      compoundTriggersIntersection,
+    )
+
+    if (anyFinalTriggerHit && compoundTriggersIntersection.length > 1) {
+      throw Error('conflicting triggers found: compound + compound')
+    }
+
+    if (anyFinalTriggerHit) {
       clearTimeout(currentCompoundTriggerStateRef.current.timeoutId)
 
       currentCompoundTriggerStateRef.current = null
+
+      const [keybinding] = matchingKeybindingToTrigger[0]
 
       keybindingToHandlerRef.current.get(keybinding)?.(event)
     } else {
