@@ -25,6 +25,8 @@ export interface Keybinding {
 
 const EVENT_TYPE = 'keydown'
 
+const COMPOUND_TRIGGER_TIMEOUT_MS = 1000
+
 const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
   const currentCompoundTriggerStateRef = useRef<Nullable<{
     index: number
@@ -113,7 +115,7 @@ const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
     if (R.isNil(currentCompoundTriggerStateRef.current)) {
       const timeoutId = setTimeout(() => {
         currentCompoundTriggerStateRef.current = null
-      }, 1000)
+      }, COMPOUND_TRIGGER_TIMEOUT_MS)
 
       currentCompoundTriggerStateRef.current = { triggers: matchingTriggers, timeoutId, index: 0 }
     }
@@ -140,7 +142,7 @@ const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
 
       currentCompoundTriggerStateRef.current.timeoutId = setTimeout(() => {
         currentCompoundTriggerStateRef.current = null
-      }, 1000)
+      }, COMPOUND_TRIGGER_TIMEOUT_MS)
 
       currentCompoundTriggerStateRef.current.index++
     }
