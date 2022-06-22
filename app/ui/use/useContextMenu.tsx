@@ -8,6 +8,12 @@ interface ContextMenu<E extends Element> {
   handleContextMenu: MouseEventHandler<E>
 }
 
+const isEventTargetIgnored = (target: unknown): boolean => (
+  target instanceof HTMLInputElement
+    || target instanceof HTMLTextAreaElement
+    || target instanceof HTMLImageElement
+)
+
 const useContextMenu = <E extends Element>(
   render: (onClose: Thunk) => React.ReactNode
 ): ContextMenu<E> => {
@@ -18,6 +24,10 @@ const useContextMenu = <E extends Element>(
   }
 
   const handleContextMenu: MouseEventHandler<E> = (mouseEvent) => {
+    if (isEventTargetIgnored(mouseEvent.target)) {
+      return
+    }
+
     mouseEvent.stopPropagation()
     mouseEvent.preventDefault()
 
