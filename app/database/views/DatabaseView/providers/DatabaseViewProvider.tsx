@@ -89,14 +89,14 @@ const DatabaseViewProvider = ({ children }: { children: React.ReactNode }) => {
     load(uris)
   }, [uris, load])
 
-  const onSelectedItemChange = useCallback((databaseItem: DatabaseItem) => {
-    const directoryUri = dirname(databaseItem.uri)
+  const onSelectedItemChange = useCallback((item: DatabaseItem) => {
+    const directoryUri = dirname(item.uri)
       ?? DATABASE_ROOT_URI
 
     const cached = cache.get(directoryUri)
 
     if (!R.isNil(cached)) {
-      cached.selectedItem = databaseItem
+      cached.selectedItem = item
     }
   }, [cache])
 

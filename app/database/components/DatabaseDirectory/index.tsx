@@ -79,17 +79,17 @@ const DatabaseDirectory = memo(({
     goToFirstSearchItem()
   }, [goToFirstSearchItem, itemSearch.results])
 
-  const databaseItemRef = usePositionedDatabaseItemRef(currentItem, {
+  const itemRef = usePositionedDatabaseItemRef(currentItem, {
     isActive,
     isSearchHidden,
   })
 
-  const getDatabaseItemRef = (item: DatabaseItemData): Nullable<typeof databaseItemRef> => {
+  const getDatabaseItemRef = (item: DatabaseItemData): Nullable<typeof itemRef> => {
     if (item !== currentItem) {
       return null
     }
 
-    return databaseItemRef
+    return itemRef
   }
 
   const currentDatabaseItemHighlightStyle = useDatabaseItemHighlightStyle({

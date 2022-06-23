@@ -28,16 +28,16 @@ const getDatabaseFileContextMenuCopyItems = (
   return R.reject(R.isNil, [copyTitle, copyArtist])
 }
 
-const isDatabaseFile = (databaseItem: DatabaseItem): databaseItem is DatabaseFile => (
-  databaseItem.type === 'FILE'
+const isDatabaseFile = (item: DatabaseItem): item is DatabaseFile => (
+  item.type === 'FILE'
 )
 
 export const getDatabaseItemContextMenuItems = (
-  databaseItem: DatabaseItem
+  item: DatabaseItem
 ): ReadonlyArray<ContextMenuItem> => {
-  const databaseFileSpecificCopyItems = !isDatabaseFile(databaseItem)
+  const databaseFileSpecificCopyItems = !isDatabaseFile(item)
     ? []
-    : getDatabaseFileContextMenuCopyItems(databaseItem)
+    : getDatabaseFileContextMenuCopyItems(item)
 
   return [
     {
@@ -48,14 +48,14 @@ export const getDatabaseItemContextMenuItems = (
         {
           id: 'copy-path',
           text: 'Copy Path',
-          handler: () => copy(databaseItem.uri),
+          handler: () => copy(item.uri),
         },
         {
           id: 'copy-filename',
           text: 'Copy Filename',
           handler: () => {
             copy(
-              basename(databaseItem.uri)
+              basename(item.uri)
             )
           },
         },

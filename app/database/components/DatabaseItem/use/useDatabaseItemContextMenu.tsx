@@ -9,10 +9,10 @@ import useContextMenu from '@app/ui/use/useContextMenu'
 import { wrapWithGlobalContextMenuItems } from '@app/common/utils/contextmenu'
 import { getDatabaseItemContextMenuItems } from '@app/database/utils/contextmenu'
 
-const useDatabaseItemContextMenu = (databaseItem: DatabaseItem) => {
+const useDatabaseItemContextMenu = (item: DatabaseItem) => {
   return useContextMenu((onClose) => {
     const items = wrapWithGlobalContextMenuItems(
-      getDatabaseItemContextMenuItems(databaseItem)
+      getDatabaseItemContextMenuItems(item)
     )
 
     return (

@@ -115,14 +115,14 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
     cache.currentItem = itemNavigation.currentItem
   }, [cache, itemNavigation.currentItem])
 
-  const databaseItemRef = usePositionedDatabaseItemRef(itemNavigation.currentItem)
+  const itemRef = usePositionedDatabaseItemRef(itemNavigation.currentItem)
 
-  const getDatabaseItemRef = (item: DatabaseItemData): Nullable<typeof databaseItemRef> => {
+  const getDatabaseItemRef = (item: DatabaseItemData): Nullable<typeof itemRef> => {
     if (item !== itemNavigation.currentItem) {
       return null
     }
 
-    return databaseItemRef
+    return itemRef
   }
 
   const currentDatabaseItemHighlightStyle = useDatabaseItemHighlightStyle({
@@ -140,10 +140,10 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
 
   const navigateToDatabaseView = useRouteNavigation(DatabaseViewRoute)
 
-  const handleDescent = useCallback((databaseItem: DatabaseItemData) => {
+  const handleDescent = useCallback((item: DatabaseItemData) => {
     onSuccess()
 
-    navigateToDatabaseView(databaseItem.uri)
+    navigateToDatabaseView(item.uri)
   }, [navigateToDatabaseView, onSuccess])
 
   const uiInteractionMode = useUiInteractionModeContext()

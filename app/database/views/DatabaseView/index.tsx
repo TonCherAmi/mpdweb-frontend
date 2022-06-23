@@ -33,16 +33,16 @@ const DatabaseView = memo(() => {
     directoriesContainerScrollable.scrollLeft('smooth')
   }, [directoriesContainerScrollable])
 
-  const handleAscent = useCallback((databaseItem: DatabaseItem) => {
-    onSelectedItemChange(databaseItem)
+  const handleAscent = useCallback((item: DatabaseItem) => {
+    onSelectedItemChange(item)
 
     goBack()
   }, [goBack, onSelectedItemChange])
 
-  const handleDescent = useCallback((databaseItem: DatabaseItem) => {
-    onSelectedItemChange(databaseItem)
+  const handleDescent = useCallback((item: DatabaseItem) => {
+    onSelectedItemChange(item)
 
-    goTo(databaseItem.uri)
+    goTo(item.uri)
   }, [goTo, onSelectedItemChange])
 
   const isActive = R.equals<Nullable<number>>(directories.length - 1)
