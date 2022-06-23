@@ -38,6 +38,18 @@ export default {
   PLAYBACK_TOGGLE: make([' ']),
   PLAYBACK_NEXT: make([{ key: 'n', mods: ['shift'] }]),
   PLAYBACK_PREV: make([{ key: 'p', mods: ['shift'] }]),
+  PLAYBACK_OPTIONS_SINGLE_TOGGLE: make([
+    { sequence: [{ key: 'o', mods: ['shift'] }, 's'] },
+  ]),
+  PLAYBACK_OPTIONS_RANDOM_TOGGLE: make([
+    { sequence: [{ key: 'o', mods: ['shift'] }, 'r'] },
+  ]),
+  PLAYBACK_OPTIONS_REPEAT_TOGGLE: make([
+    { sequence: [{ key: 'o', mods: ['shift'] }, 'p'] },
+  ]),
+  PLAYBACK_OPTIONS_CONSUME_TOGGLE: make([
+    { sequence: [{ key: 'o', mods: ['shift'] }, 'c'] },
+  ]),
   VOLUME_UP: make([{ key: '+', mods: ['shift'] }], { isRepeatable: true }),
   VOLUME_DOWN: make(['-'], { isRepeatable: true }),
   DATABASE_UPDATE: make([{ key: 'u', mods: ['shift'] }]),
