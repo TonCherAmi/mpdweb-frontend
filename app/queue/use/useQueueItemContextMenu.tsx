@@ -13,23 +13,23 @@ import { dirname } from '@app/common/utils/path'
 import { wrapWithGlobalContextMenuItems } from '@app/common/utils/contextmenu'
 import { getDatabaseItemContextMenuItems } from '@app/database/utils/contextmenu'
 
-const useQueueItemContextMenu = (queueItem: QueueItem) => {
+const useQueueItemContextMenu = (item: QueueItem) => {
   const { goTo } = useDatabaseViewNavigation()
 
   return useContextMenu((onClose) => {
     const items = wrapWithGlobalContextMenuItems([
-      ...getDatabaseItemContextMenuItems(queueItem),
+      ...getDatabaseItemContextMenuItems(item),
       {
         id: 'remove',
         text: 'Remove',
-        handler: () => QueueService.delete(queueItem.id),
+        handler: () => QueueService.delete(item.id),
       },
       {
         id: 'open-in-files',
         text: 'Open in Files',
         handler: () => {
           goTo(
-            dirname(queueItem.uri)
+            dirname(item.uri)
           )
         },
       },
