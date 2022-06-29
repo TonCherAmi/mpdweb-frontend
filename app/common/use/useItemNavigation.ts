@@ -12,7 +12,7 @@ export interface ItemNavigation<T> {
   goToPrevItem: Thunk
   goToFirstItem: Thunk
   goToLastItem: Thunk
-  setCurrentItem: (item: T) => void
+  setCurrentItem: (item: Nullable<T>) => void
 }
 
 const INITIAL_INDEX = -1
@@ -78,15 +78,13 @@ const useItemNavigation = <T> (
     setCurrentItemIndex(items.length - 1)
   }, [isEmpty, items.length])
 
-  const setCurrentItem = useCallback((item: T) => {
+  const setCurrentItem = useCallback((item: Nullable<T>) => {
     const itemIndex = R.findIndex(
       R.equals(item),
       items
     )
 
-    if (itemIndex !== -1) {
-      setCurrentItemIndex(itemIndex)
-    }
+    setCurrentItemIndex(itemIndex)
   }, [items])
 
   return {
