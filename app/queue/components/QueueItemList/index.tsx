@@ -13,9 +13,6 @@ interface Props {
 }
 
 const QueueItemList = memo(({ items }: Props) => {
-  const handleItemClick = useCallback((item: QueueItemData) => {
-    PlaybackService.play(item.id)
-  }, [])
 
   return (
     <div className={styles.container}>
@@ -23,7 +20,7 @@ const QueueItemList = memo(({ items }: Props) => {
         <QueueItem
           key={item.id}
           item={item}
-          onClick={handleItemClick}
+          onClick={PlaybackService.play}
         />
       )} />
     </div>

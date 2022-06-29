@@ -1,8 +1,10 @@
+import QueueItem from '@app/queue/data/QueueItem'
+
 import PlaybackApi from '@app/playback/api'
 
 class PlaybackService {
-  play(id: Nullable<number> = null) {
-    PlaybackApi.play({ id })
+  play(item: Nullable<QueueItem> = null) {
+    PlaybackApi.play({ id: item?.id })
   }
 
   toggle() {
