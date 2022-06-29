@@ -5,6 +5,7 @@ import QueueSource from '@app/queue/data/QueueSource'
 import DatabaseItem from '@app/database/data/DatabaseItem'
 
 import QueueApi from '@app/queue/api'
+import QueueItem from '@app/queue/data/QueueItem'
 
 const isFile = (source: Playlist | DatabaseItem): source is DatabaseItem => {
   return R.has('type', source) && source.type !== 'PLAYLIST'
@@ -30,7 +31,7 @@ class QueueService {
     QueueApi.delete({ id: null })
   }
 
-  delete(id: number) {
+  delete({ id }: QueueItem) {
     QueueApi.delete({ id })
   }
 
