@@ -17,6 +17,7 @@ import PlaylistsViewProvider from '@app/playlists/views/PlaylistsView/providers/
 import useHoverable from '@app/ui/use/useHoverable'
 import useGlobalKeybindings from '@app/layout/use/useGlobalKeybindings'
 import useDefaultContextMenu from '@app/layout/use/useDefaultContextMenu'
+import useQueueToggleKeybinding from '@app/layout/use/useQueueToggleKeybinding'
 import useManualScrollRestoration from '@app/navigator/use/useManualScrollRestoration'
 
 import FocusScopeGroupContext from '@app/ui/contexts/FocusScopeGroupContext'
@@ -36,6 +37,7 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => (
 const Wrapped = () => {
   useHoverable()
   useGlobalKeybindings()
+  useQueueToggleKeybinding()
   useManualScrollRestoration()
 
   const { handleContextMenu } = useDefaultContextMenu()

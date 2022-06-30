@@ -21,7 +21,12 @@ export default {
   NAVIGATE_LEFT: make(['h', 'ArrowLeft']),
   NAVIGATE_RIGHT: make(['l', 'ArrowRight', 'Enter']),
   ADD: make(['a']),
-  PLAY: make(['p']),
+  PLAY: make(['p', 'Enter']),
+  OPEN: make(['o']),
+  REMOVE: make([
+    'x',
+    { sequence: ['d', 'd'] },
+  ], { isRepeatable: true }),
   SEARCH_FOCUS: make(['/']),
   SEARCH_CANCEL: make(['Escape']),
   MODAL_CLOSE: make(['Escape']),
@@ -59,4 +64,5 @@ export default {
     { sequence: [{ key: 'q', mods: ['shift'] }, 'c'] },
   ]),
   QUEUE_TOGGLE: make(['q']),
+  QUEUE_TOGGLE_FOCUSED_PARTITION: make(['h']),
 }

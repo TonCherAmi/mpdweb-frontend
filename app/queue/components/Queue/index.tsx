@@ -6,7 +6,11 @@ import Button from '@app/common/components/Button'
 import QueueInfo from '@app/queue/components/QueueInfo'
 import QueueItemList from '@app/queue/components/QueueItemList'
 
+import useAnyFocusScopeActive from '@app/ui/use/useAnyFocusScopeActive'
+import useFocusScopeGroupedKeybindings from '@app/keybindings/use/useFocusScopeGroupedKeybindings'
+
 import usePartitionedQueue from './use/usePartitionedQueue'
+import useFocusedQueuePartition from './use/useFocusedQueuePartition'
 
 import styles from './styles.scss'
 
@@ -92,6 +96,14 @@ const Queue = () => {
 
   const shouldShowHistory = !R.isEmpty(prev)
 
+  const [focusedPartition, toggleFocusedPartition] = useFocusedQueuePartition(prev, next)
+
+  const isActive = useAnyFocusScopeActive(['queue'])
+
+  useFocusScopeGroupedKeybindings({
+    QUEUE_TOGGLE_FOCUSED_PARTITION: toggleFocusedPartition,
+  }, { disable: R.isEmpty(prev) || R.isEmpty(next) })
+
   return (
     <div className={styles.container}>
       <div ref={scrollableContainerRef} className={styles.scrollable} onScroll={handleScroll}>
@@ -106,7 +118,11 @@ const Queue = () => {
                 Hide
               </Button>
             </div>
-            <QueueItemList items={prev} />
+            <QueueItemList
+              isActive={isActive && focusedPartition === 'prev'}
+              items={prev}
+              onIsActiveChangeScrollTo="end"
+            />
           </div>
         </If>
         <div ref={nextContainerRef} className={styles.next}>
@@ -121,12 +137,12 @@ const Queue = () => {
               </Button>
             </If>
           </div>
-          <QueueItemList items={next} />
+          <QueueItemList
+            isActive={isActive && focusedPartition === 'next'}
+            items={next}
+            onIsActiveChangeScrollTo="start"
+          />
         </div>
-        {/* this snap point is needed because Firefox is overzealous
-          * about proximity based scroll-snapping and sometimes doesn't
-          * let you scroll all the way down */}
-        <div className={styles.end} />
       </div>
       <QueueInfo className={styles.info} />
     </div>

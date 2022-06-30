@@ -1,4 +1,6 @@
-import React, { memo } from 'react'
+import React, { memo, forwardRef } from 'react'
+
+import cx from 'classnames'
 
 import Handler from '@app/common/types/Handler'
 import QueueItemData from '@app/queue/data/QueueItem'
@@ -13,44 +15,48 @@ import { formatDatabaseAudioFormat, formatDatabaseAudioFormatMultiline } from '@
 import styles from './styles.scss'
 
 interface Props {
+  isFocused: boolean
   item: QueueItemData
   onClick?: Handler<QueueItemData>
 }
 
-const QueueItem = memo(({ item, onClick }: Props) => {
-  const handleClick = () => {
-    onClick?.(item)
-  }
+const QueueItem = memo(
+  forwardRef<HTMLDivElement, Props>(({ isFocused, item, onClick }, ref) => {
+    const handleClick = () => {
+      onClick?.(item)
+    }
 
-  const { handleContextMenu } = useQueueItemContextMenu(item)
+    const { handleContextMenu } = useQueueItemContextMenu(item)
 
-  return (
-    <div
-      className={styles.container}
-      onClick={handleClick}
-      onContextMenu={handleContextMenu}
-    >
-      <DatabaseCoverArt
-        className={styles.cover}
-        fallbackIconClassName={styles.icon}
-        file={item}
-      />
-      <div className={styles.name}>
+    return (
+      <div
+        ref={ref}
+        className={cx(styles.container, { [styles.focused]: isFocused })}
+        onClick={handleClick}
+        onContextMenu={handleContextMenu}
+      >
+        <DatabaseCoverArt
+          className={styles.cover}
+          fallbackIconClassName={styles.icon}
+          file={item}
+        />
+        <div className={styles.name}>
         <span className={styles.title} title={item.title ?? ''}>
           {item.title}
         </span>
-        <span className={styles.artist} title={item.artist ?? ''}>
+          <span className={styles.artist} title={item.artist ?? ''}>
           {item.artist}
         </span>
-      </div>
-      <div className={styles.info}>
-        <Duration className={styles.duration} value={item.duration} />
-        <span title={formatDatabaseAudioFormatMultiline(item.format)}>
+        </div>
+        <div className={styles.info}>
+          <Duration className={styles.duration} value={item.duration} />
+          <span title={formatDatabaseAudioFormatMultiline(item.format)}>
           {formatDatabaseAudioFormat(item.format)}
         </span>
+        </div>
       </div>
-    </div>
-  )
-})
+    )
+  })
+)
 
 export default QueueItem

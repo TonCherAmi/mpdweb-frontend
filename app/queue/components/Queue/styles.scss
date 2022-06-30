@@ -43,14 +43,13 @@
 
 .prev, .next {
   scroll-snap-align: start;
+
+  scroll-margin-bottom: .5rem;
 }
 
 .next {
   min-height: 100%;
-}
 
-.end {
-  scroll-snap-align: end;
 }
 
 .header {
