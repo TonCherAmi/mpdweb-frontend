@@ -63,6 +63,6 @@ export default {
   QUEUE_CLEAR: make([
     { sequence: [{ key: 'q', mods: ['shift'] }, 'c'] },
   ]),
-  QUEUE_TOGGLE: make(['q']),
-  QUEUE_TOGGLE_FOCUSED_PARTITION: make(['h']),
+  QUEUE_FOCUS_TOGGLE: make(['q']),
+  QUEUE_FOCUSED_PARTITION_TOGGLE: make(['h']),
 }

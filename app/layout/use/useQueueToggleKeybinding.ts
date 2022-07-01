@@ -27,7 +27,7 @@ const useQueueToggleKeybinding = () => {
   }, [isQueueUnfocusable, focusScope, dispatchFocusScope])
 
   useKeybindings({
-    QUEUE_TOGGLE: () => dispatchFocusScope({ type: 'toggle', scope: 'queue' }),
+    QUEUE_FOCUS_TOGGLE: () => dispatchFocusScope({ type: 'toggle', scope: 'queue' }),
   }, { disable: isQueueUnfocusable || !isApplicableFocusScopeActive })
 }
 

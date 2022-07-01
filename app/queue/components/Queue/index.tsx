@@ -101,7 +101,7 @@ const Queue = () => {
   const isActive = useAnyFocusScopeActive(['queue'])
 
   useFocusScopeGroupedKeybindings({
-    QUEUE_TOGGLE_FOCUSED_PARTITION: toggleFocusedPartition,
+    QUEUE_FOCUSED_PARTITION_TOGGLE: toggleFocusedPartition,
   }, { disable: R.isEmpty(prev) || R.isEmpty(next) })
 
   return (
