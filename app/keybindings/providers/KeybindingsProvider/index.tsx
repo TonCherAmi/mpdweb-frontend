@@ -36,6 +36,7 @@ const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
 
   const keybindingToHandlerRef = useRef(new Map<Keybinding, KeybindingHandler>())
 
+  // I'm so sorry
   const handleEvent: KeybindingHandler = useCallback((event) => {
     if (isKeyboardEventTargetTextInputElement(event)) {
       return
@@ -60,7 +61,7 @@ const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     const matchingKeybindingToTrigger: ReadonlyArray<[Keybinding, KeybindingTrigger]> = Array.from(keybindingToHandlerRef.current.keys())
-      .filter(({ isRepeatable }) => !event.repeat || (event.repeat && isRepeatable))
+      .filter(({ isRepeatable }) => !event.repeat || isRepeatable)
       .map((keybinding): [Keybinding, Nullable<KeybindingTrigger>] => [keybinding, findMatchingTrigger(keybinding)])
       .filter((keybindingToTrigger): keybindingToTrigger is [Keybinding, KeybindingTrigger] => !R.isNil(keybindingToTrigger[1]))
 
