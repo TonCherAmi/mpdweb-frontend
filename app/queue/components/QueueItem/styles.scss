@@ -7,13 +7,18 @@
 
   border-radius: .75rem;
 
-  transition: .3s box-shadow, .3s background-color;
   // TODO: improve hoverable handling
   body:not(:global(.hoverable)) &.focused {
     background: #242424;
   }
 
-  cursor: pointer;
+  :global(.hoverable) & {
+    transition: .3s box-shadow, .3s background-color;
+  }
+
+  :global(.hoverable) & {
+    cursor: pointer;
+  }
 
   &:hover {
     background: #222222;
