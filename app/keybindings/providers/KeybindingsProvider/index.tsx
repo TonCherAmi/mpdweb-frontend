@@ -44,12 +44,25 @@ const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
 
     const findMatchingTrigger = (keybinding: Keybinding): Nullable<KeybindingTrigger> => {
       return R.find((trigger): boolean => {
-        if (!R.isNil(currentCompoundTriggerStateRef.current) && !isCompoundKeybindingTrigger(trigger)) {
-          return false
+        if (!R.isNil(currentCompoundTriggerStateRef.current)) {
+          if (!isCompoundKeybindingTrigger(trigger)) {
+            return false
+          }
+
+          const simpleTrigger = R.nth(
+            currentCompoundTriggerStateRef.current?.index ?? 0,
+            trigger.sequence,
+          )
+
+          if (R.isNil(simpleTrigger)) {
+            return false
+          }
+
+          return doesSimpleTriggerMatch(simpleTrigger, event) && currentCompoundTriggerStateRef.current.triggers.includes(trigger)
         }
 
         const simpleTrigger = isCompoundKeybindingTrigger(trigger)
-          ? R.nth(currentCompoundTriggerStateRef.current?.index ?? 0, trigger.sequence)
+          ? R.nth(0, trigger.sequence)
           : trigger
 
         if (R.isNil(simpleTrigger)) {
@@ -118,7 +131,9 @@ const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
         currentCompoundTriggerStateRef.current = null
       }, COMPOUND_TRIGGER_TIMEOUT_MS)
 
-      currentCompoundTriggerStateRef.current = { triggers: matchingTriggers, timeoutId, index: 0 }
+      currentCompoundTriggerStateRef.current = { triggers: matchingTriggers, timeoutId, index: 1 }
+
+      return
     }
 
     const anyFinalTriggerHit = R.any(
@@ -146,6 +161,7 @@ const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
       }, COMPOUND_TRIGGER_TIMEOUT_MS)
 
       currentCompoundTriggerStateRef.current.index++
+      currentCompoundTriggerStateRef.current.triggers = compoundTriggersIntersection
     }
   }, [])
 
