@@ -21,7 +21,7 @@ export default {
   NAVIGATE_LEFT: make(['h', 'ArrowLeft']),
   NAVIGATE_RIGHT: make(['l', 'ArrowRight', 'Enter']),
   ADD: make(['a']),
-  PLAY: make(['p', 'Enter']),
+  PLAY: make(['p']),
   OPEN: make(['o']),
   REMOVE: make([
     'x',

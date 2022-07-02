@@ -30,6 +30,7 @@ const useQueueItemListKeybindings = (item: Nullable<QueueItem>) => {
       dirname(item.uri)
     )),
     REMOVE: withItem(QueueService.delete),
+    NAVIGATE_RIGHT: withItem(PlaybackService.play),
   }, { disable: R.isNil(item) })
 }
 
