@@ -1,11 +1,17 @@
+@use '@app/common/styles/breakpoints';
+
 .container {
   display: flex;
   flex-direction: column;
 
-  width: 30rem;
+  min-height: 0;
 
   padding: 0.5rem 2.25rem;
   padding-bottom: 0;
+
+  @include breakpoints.laptop {
+    padding: 0.25rem 1.75rem;
+  }
 
   background: #1b1b1b;
 
@@ -64,6 +70,10 @@
   padding-top: 2rem;
   padding-right: .5rem;
   padding-bottom: 1rem;
+
+  @include breakpoints.laptop {
+    padding-top: 1.75rem;
+  }
 
   background: #1b1b1b;
 

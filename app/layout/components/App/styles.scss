@@ -1,3 +1,5 @@
+@use '@app/common/styles/breakpoints';
+
 .main {
   display: flex;
   flex: 1;
@@ -8,9 +10,14 @@
 }
 
 .stack {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 0.265fr) minmax(0, 1.25fr) minmax(0, 0.35fr);
+
+  @include breakpoints.laptop {
+    grid-template-columns: minmax(0, 0.365fr) minmax(0, 1.25fr) minmax(0, 0.465fr);
+  }
+
   flex: 1;
-  flex-direction: row;
 
   overflow: hidden;
 }

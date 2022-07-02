@@ -1,15 +1,18 @@
-$container-width: 21.5rem;
+@use '@app/common/styles/breakpoints';
 
 .container {
   display: flex;
   flex-direction: column;
 
-  min-width: $container-width;
-
   row-gap: .15rem;
 
   padding: 2rem 2.25rem;
   padding-top: 2.5rem;
+
+  @include breakpoints.laptop {
+    padding: 1.5rem 1.75rem;
+    padding-top: 2rem;
+  }
 
   background: #111;
 }
@@ -17,8 +20,7 @@ $container-width: 21.5rem;
 .cover {
   margin-top: auto;
 
-  width: $container-width;
-  height: $container-width;
+  max-width: 100%;
 
   background: #171717;
 

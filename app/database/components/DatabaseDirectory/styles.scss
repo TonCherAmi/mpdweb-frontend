@@ -1,3 +1,5 @@
+@use '@app/common/styles/breakpoints';
+
 .container {
   display: flex;
 
@@ -8,20 +10,16 @@
   flex-basis: 27.5%;
   flex-direction: column;
 
+  @include breakpoints.laptop {
+    flex-basis: 37.5%;
+  }
+
   overflow: hidden;
 
   padding: 0 1rem;
   padding-bottom: 1.25rem;
 
   row-gap: .75rem;
-
-  &:first-child {
-    padding-left: .25rem;
-  }
-
-  &:last-child {
-    padding-right: .25rem;
-  }
 }
 
 .scrollable {
