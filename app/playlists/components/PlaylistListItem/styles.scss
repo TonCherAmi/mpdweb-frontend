@@ -1,8 +1,14 @@
+@use '@app/common/styles/breakpoints';
+
 .container {
   display: flex;
   align-items: center;
 
   padding: 1.1rem 1.25rem;
+
+  @include breakpoints.laptop {
+    padding: .9rem 1rem;
+  }
 
   border-radius: .5rem;
 
@@ -43,6 +49,8 @@
 
 .icon {
   height: 1.25rem;
+
+  flex-shrink: 0;
 
   transition: .2s color;
 
@@ -91,4 +99,8 @@
   justify-content: center;
 
   column-gap: .5rem;
+
+  @include breakpoints.laptop {
+    column-gap: .25rem;
+  }
 }

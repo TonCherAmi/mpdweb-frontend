@@ -1,7 +1,13 @@
-.container {
-  display: flex;
+@use '@app/common/styles/breakpoints';
 
-  box-sizing: border-box;
+.container {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+
+  @include breakpoints.laptop {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  }
 
   max-height: 100%;
 
@@ -9,14 +15,4 @@
   padding-bottom: 1.25rem;
 
   column-gap: 2.5rem;
-
-  > :first-child {
-    width: 30rem;
-  }
-
-  > :nth-child(2) {
-    flex-grow: 1;
-
-    min-width: 0;
-  }
 }

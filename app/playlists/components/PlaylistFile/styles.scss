@@ -1,3 +1,5 @@
+@use '@app/common/styles/breakpoints';
+
 .container {
   display: flex;
 
@@ -71,7 +73,12 @@
 
 .cover {
   width: 4rem;
-  height: 4rem;
+
+  aspect-ratio: 1 / 1;
+
+  @include breakpoints.laptop {
+    width: 3.75rem;
+  }
 
   margin-right: 1rem;
 
