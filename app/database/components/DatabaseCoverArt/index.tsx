@@ -44,7 +44,7 @@ const DatabaseCoverArt = memo(({
 }: Props) => {
   const [state, setState] = useState<'initial' | 'done' | 'error'>('initial')
 
-  const hasTriedFallbackRef = useRef(false)
+  const hasTriedAltSrcRef = useRef(false)
 
   const [src, setSrc] = useState(
     getDirectorySrc(file.uri)
@@ -71,7 +71,7 @@ const DatabaseCoverArt = memo(({
   }
 
   const handleError = () => {
-    if (hasTriedFallbackRef.current) {
+    if (hasTriedAltSrcRef.current) {
       setState('error')
 
       return
@@ -81,7 +81,7 @@ const DatabaseCoverArt = memo(({
       getEmbeddedSrc(file.uri)
     )
 
-    hasTriedFallbackRef.current = true
+    hasTriedAltSrcRef.current = true
   }
 
   const imgClassName = cx(styles.cover, className, {
