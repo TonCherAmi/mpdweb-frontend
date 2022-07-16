@@ -1,3 +1,5 @@
+@use '@app/common/styles/breakpoints';
+
 .container {
   position: absolute;
 
@@ -10,7 +12,10 @@
   bottom: auto;
 
   width: 30vw;
-  max-width: 30vw;
+
+  @include breakpoints.laptop {
+    width: 40vw;
+  }
 
   max-height: 55vh;
 
