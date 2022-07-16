@@ -1,3 +1,5 @@
+@use '@app/common/styles/breakpoints';
+
 .container {
   display: flex;
 
@@ -9,6 +11,10 @@
     position: absolute;
 
     left: .75rem;
+
+    @include breakpoints.laptop {
+      left: .25rem;
+    }
 
     width: 1.5rem;
     height: 1.5rem;
@@ -23,6 +29,11 @@
 
     padding: 1rem;
     padding-left: 3.25rem;
+
+    @include breakpoints.laptop {
+      padding: 0;
+      padding-left: 2.75rem;
+    }
 
     font-size: 22px;
     font-weight: 500;
