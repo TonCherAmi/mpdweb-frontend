@@ -85,13 +85,13 @@ const DatabaseCoverArt = memo(({
   }
 
   const imgClassName = cx(styles.cover, className, {
-    [styles.hidden]: state === 'error',
+    [styles.hidden]: state !== 'done',
     [styles.clickable]: !R.isNil(onClick),
   })
 
   return (
     <React.Fragment>
-      <If condition={state === 'error'}>
+      <If condition={state !== 'done'}>
         <div className={cx(styles.fallback, className)}>
           <Icons.CompactDisc className={cx(styles.icon, fallbackIconClassName)} />
         </div>
