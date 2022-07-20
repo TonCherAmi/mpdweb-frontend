@@ -50,6 +50,12 @@
   .artist, .album {
     color: #aaa;
   }
+
+  @include breakpoints.laptop {
+    .album {
+      display: none;
+    }
+  }
 }
 
 .duration, .cover {

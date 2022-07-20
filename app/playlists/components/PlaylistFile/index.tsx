@@ -1,5 +1,7 @@
 import React, { memo } from 'react'
 
+import cx from 'classnames'
+
 import Handler from '@app/common/types/Handler'
 import DatabaseFile from '@app/database/data/DatabaseFile'
 
@@ -42,18 +44,18 @@ const PlaylistFile = memo(({ file, position, onClick, onRemoveClick }: Props) =>
         file={file}
       />
       <div className={styles.tags}>
-        <div className={styles.tag}>
-          <span className={styles.title} title={getOrPlaceholder(file.title)}>
+        <div className={cx(styles.tag, styles.title)}>
+          <span title={getOrPlaceholder(file.title)}>
             {getOrPlaceholder(file.title)}
           </span>
         </div>
-        <div className={styles.tag}>
-          <span className={styles.artist} title={getOrPlaceholder(file.artist)}>
+        <div className={cx(styles.tag, styles.artist)}>
+          <span title={getOrPlaceholder(file.artist)}>
             {getOrPlaceholder(file.artist)}
           </span>
         </div>
-        <div className={styles.tag}>
-          <span className={styles.album} title={getOrPlaceholder(file.album)}>
+        <div className={cx(styles.tag, styles.album)}>
+          <span title={getOrPlaceholder(file.album)}>
             {getOrPlaceholder(file.album)}
           </span>
         </div>
