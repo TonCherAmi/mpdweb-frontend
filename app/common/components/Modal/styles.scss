@@ -36,5 +36,7 @@
   inset: 0;
 
   backdrop-filter: blur(0.5rem);
+  -webkit-backdrop-filter: blur(0.5rem);
+
   background-color: rgba(#121212, 0.8);
 }
