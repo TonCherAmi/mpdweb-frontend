@@ -80,11 +80,11 @@
 .cover {
   width: 4rem;
 
-  aspect-ratio: 1 / 1;
-
   @include breakpoints.laptop {
-    width: 3.75rem;
+    width: 3.5rem;
   }
+
+  aspect-ratio: 1 / 1;
 
   margin-right: 1rem;
 
