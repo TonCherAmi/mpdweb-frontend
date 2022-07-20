@@ -1,3 +1,5 @@
+@use '@app/common/styles/breakpoints';
+
 .container {
   display: flex;
 
@@ -50,6 +52,10 @@
   .title {
     font-size: 12.5px;
 
+    @include breakpoints.laptop {
+      font-size: 12px;
+    }
+
     margin-bottom: .25rem;
 
     color: #dedede;
@@ -64,7 +70,12 @@
 
 .cover {
   width: 4rem;
-  height: 4rem;
+
+  @include breakpoints.laptop {
+    width: 3.75rem
+  }
+
+  aspect-ratio: 1 / 1;
 
   margin-right: 1rem;
 
