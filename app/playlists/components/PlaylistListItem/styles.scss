@@ -7,7 +7,7 @@
   padding: 1.1rem 1.25rem;
 
   @include breakpoints.laptop {
-    padding: .9rem 1rem;
+    padding: .8rem 1rem;
   }
 
   border-radius: .5rem;
@@ -15,6 +15,10 @@
   transition: .2s background-color;
 
   column-gap: .75rem;
+
+  @include breakpoints.laptop {
+    column-gap: .5rem;
+  }
 
   :global(.hoverable) & {
     cursor: pointer;
@@ -49,6 +53,10 @@
 
 .icon {
   height: 1.25rem;
+
+  @include breakpoints.laptop {
+    height: 1.1rem;
+  }
 
   flex-shrink: 0;
 
@@ -101,6 +109,6 @@
   column-gap: .5rem;
 
   @include breakpoints.laptop {
-    column-gap: .25rem;
+    column-gap: .3rem;
   }
 }
