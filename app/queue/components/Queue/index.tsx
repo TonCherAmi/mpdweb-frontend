@@ -31,40 +31,6 @@ const Queue = () => {
 
   const { prev, next } = usePartitionedQueue()
 
-  const prevHistoryHeightRef = useRef(0)
-
-  useLayoutEffect(() => {
-    if (R.isNil(scrollableContainerRef.current) || R.isNil(historyContainerRef.current)) {
-      return
-    }
-
-    const prevHeight = prevHistoryHeightRef.current
-
-    prevHistoryHeightRef.current = historyContainerRef.current.offsetHeight
-
-    // according to the CSS Scroll Snap spec if content
-    // is added, moved, deleted or resized the scroll offset
-    // will be adjusted to maintain the resting on that snap point
-    // --
-    // this behavior is not yet implemented in Firefox (https://bugzilla.mozilla.org/show_bug.cgi?id=1530253)
-    // therefore we're checking whether the scroll offset has been adjusted and if it hasn't
-    // we're manually re-snapping to the 'up next' container
-    const currentScrollDifference = Math.abs(
-      scrollableContainerRef.current.scrollTop - historyContainerRef.current.offsetHeight
-    )
-
-    if (currentScrollDifference <= 5) {
-      return
-    }
-
-    // snap to the 'up next' point if we were snapped to it before the history length changed
-    const prevScrollDifference = Math.abs(scrollableContainerRef.current.scrollTop - prevHeight)
-
-    if (prevScrollDifference <= 5) {
-      nextContainerRef.current?.scrollIntoView()
-    }
-  }, [prev.length])
-
   const [
     nextContainerTopAlignment,
     setNextContainerTopAlignment,
