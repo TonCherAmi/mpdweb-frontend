@@ -1,6 +1,6 @@
 {
   "name": "mpdweb",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "MPD Web frontend.",
   "repository": "https://github.com/TonCherAmi/mpdweb.frontend",
   "author": "TonCherAmi",
