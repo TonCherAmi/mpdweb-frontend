@@ -16,7 +16,9 @@
     "no-else-return": "warn",
     "quotes": ["error", "single"],
     "jsx-quotes": ["error", "prefer-double"],
-    "no-console": "warn",
+    "no-console": ["warn", {
+      "allow": ["warn", "error"]
+    }],
     "comma-dangle": ["error", "always-multiline"],
     "padding-line-between-statements": [
       "error",

@@ -13,7 +13,7 @@ This repository houses the frontend part of [MPDWeb](https://github.com/tonchera
 
 ## Development
 
-Make sure you have the [backend](https://github.com/toncherami/mpdweb.backend) listening on port `8123`.
+Make sure you have the [backend](https://github.com/toncherami/mpdweb.backend) listening on port `8989`.
 
 To get the local development server up and running first install the dependencies:
 

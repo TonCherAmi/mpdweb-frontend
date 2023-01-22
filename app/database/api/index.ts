@@ -14,10 +14,9 @@ const Api = {
   count: make<DatabaseCount, DatabaseCountBody>('/database/count', 'get', {
     query: ['uri'],
   }),
-  search: make<ReadonlyArray<DatabaseItem>, DatabaseSearchBody>('/database/search', 'get', {
-    query: ['term'],
+  search: make<ReadonlyArray<DatabaseItem>, DatabaseSearchBody>('/database', 'get', {
+    query: ['query'],
   }),
-  update: make<void>('/database/update', 'post'),
 }
 
 export default Api

@@ -8,6 +8,7 @@ import PlaylistsView, { route as PlaylistsViewRoute } from '@app/playlists/views
 
 import Queue from '@app/queue/components/Queue'
 import Sidebar from '@app/layout/components/Sidebar'
+import UiBlocker from '@app/layout/components/UiBlocker'
 import BottomPanel from '@app/layout/components/BottomPanel'
 
 import Providers from '@app/layout/components/Providers'
@@ -43,35 +44,38 @@ const Wrapped = () => {
   const { handleContextMenu } = useDefaultContextMenu()
 
   return (
-    <div className={styles.main} onContextMenu={handleContextMenu}>
-      <div className={styles.stack}>
-        <Sidebar />
-        <FocusScopeGroupContext.Provider value="view">
-          <div className={styles.wrapper}>
-            <Route exact path="/">
-              <Redirect to={DatabaseViewRoute.path} />
-            </Route>
-            <DatabaseViewProvider>
-              <Route path={DatabaseViewRoute.match.pattern}>
-                <DatabaseView />
+    <React.Fragment>
+      <UiBlocker />
+      <div className={styles.main} onContextMenu={handleContextMenu}>
+        <div className={styles.stack}>
+          <Sidebar />
+          <FocusScopeGroupContext.Provider value="view">
+            <div className={styles.wrapper}>
+              <Route exact path="/">
+                <Redirect to={DatabaseViewRoute.path} />
               </Route>
-            </DatabaseViewProvider>
-            <PlaylistsViewProvider>
-              <Route path={PlaylistsViewRoute.match.pattern}>
-                <PlaylistsView />
+              <DatabaseViewProvider>
+                <Route path={DatabaseViewRoute.match.pattern}>
+                  <DatabaseView />
+                </Route>
+              </DatabaseViewProvider>
+              <PlaylistsViewProvider>
+                <Route path={PlaylistsViewRoute.match.pattern}>
+                  <PlaylistsView />
+                </Route>
+              </PlaylistsViewProvider>
+              <Route path={SettingsViewRoute.match.pattern}>
+                <SettingsView />
               </Route>
-            </PlaylistsViewProvider>
-            <Route path={SettingsViewRoute.match.pattern}>
-              <SettingsView />
-            </Route>
-          </div>
-        </FocusScopeGroupContext.Provider>
-        <FocusScopeGroupContext.Provider value="queue">
-          <Queue />
-        </FocusScopeGroupContext.Provider>
+            </div>
+          </FocusScopeGroupContext.Provider>
+          <FocusScopeGroupContext.Provider value="queue">
+            <Queue />
+          </FocusScopeGroupContext.Provider>
+        </div>
+        <BottomPanel />
       </div>
-      <BottomPanel />
-    </div>
+    </React.Fragment>
   )
 }
 

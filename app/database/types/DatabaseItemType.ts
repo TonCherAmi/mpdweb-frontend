@@ -1,3 +1,3 @@
-type DatabaseItemType = 'FILE' | 'DIRECTORY' | 'PLAYLIST'
+type DatabaseItemType = 'file' | 'directory' | 'playlist'
 
 export default DatabaseItemType

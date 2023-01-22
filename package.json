@@ -51,7 +51,6 @@
     "webpack-dev-server": "^4.9.0"
   },
   "dependencies": {
-    "@stomp/stompjs": "^5.4.4",
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "fuse.js": "^6.4.6",

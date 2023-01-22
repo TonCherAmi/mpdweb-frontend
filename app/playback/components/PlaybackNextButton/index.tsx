@@ -2,15 +2,15 @@ import React from 'react'
 
 import Button from '@app/common/components/Button'
 
-import PlaybackService from '@app/playback/services/PlaybackService'
+import useQueueActions from '@app/queue/use/useQueueActions'
 
 type Props = Omit<React.ComponentProps<typeof Button>, 'onClick'>
 
 const PlaybackNextButton = ({ children, ...props }: Props) => {
-  const handleClick = () => PlaybackService.next()
+  const { next } = useQueueActions()
 
   return (
-    <Button {...props} onClick={handleClick}>
+    <Button {...props} onClick={next}>
       {children}
     </Button>
   )

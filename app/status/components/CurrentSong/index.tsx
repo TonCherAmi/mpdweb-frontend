@@ -7,6 +7,8 @@ import QueueItem from '@app/queue/data/QueueItem'
 import useCurrentSong from '@app/status/use/useCurrentSong'
 import useQueueItemContextMenu from '@app/queue/use/useQueueItemContextMenu'
 
+import { formatDatabaseTags } from '@app/database/utils/format'
+
 import styles from './styles.scss'
 
 const CurrentSongPlaceholder = () => (
@@ -23,8 +25,7 @@ const CurrentSongPlaceholder = () => (
 const CurrentSong = ({ currentSong }: { currentSong: QueueItem }) => {
   const { handleContextMenu } = useQueueItemContextMenu(currentSong)
 
-  const title = currentSong.title
-  const artist = currentSong.artist
+  const { title, artist } = formatDatabaseTags(currentSong.tags)
 
   return (
     <div className={styles.container} onContextMenu={handleContextMenu}>

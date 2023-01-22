@@ -3,15 +3,15 @@ import { useRouteMatch } from 'react-router-dom'
 
 import * as R from 'ramda'
 
-import Change from '@app/changes/types/Change'
-import Handler from '@app/common/types/Handler'
 import DatabaseFile from '@app/database/data/DatabaseFile'
 
 import PlaylistsViewContext from '@app/playlists/views/PlaylistsView/contexts/PlaylistsViewContext'
 
-import useChanges from '@app/changes/use/useChanges'
 import useRemoteList from '@app/common/use/useRemoteList'
 import usePlaylistsViewNavigation from '@app/playlists/views/PlaylistsView/use/usePlaylistsViewNavigation'
+import usePlaylistsVersionContext from '@app/playlists/use/usePlaylistsVersionContext'
+
+import { INITIAL_PLAYLISTS_VERSION } from '@app/playlists/contexts/PlaylistsVersionContext'
 
 import PlaylistsApi from '@app/playlists/api'
 
@@ -24,28 +24,21 @@ const PlaylistsViewProvider = ({ children }: { children: React.ReactNode }) => {
     state: playlistRemoteState,
   } = useRemoteList(PlaylistsApi.get)
 
-  useEffect(() => {
-    loadPlaylists()
-  }, [loadPlaylists])
-
   const filesCacheRef = useRef(new Map<string, ReadonlyArray<DatabaseFile>>())
 
-  const retrieveFiles = useCallback(
-    async (name: string): Promise<ReadonlyArray<DatabaseFile>> => {
-      const cached = filesCacheRef.current.get(name)
+  const retrieveFiles = useCallback(async (name: string): Promise<ReadonlyArray<DatabaseFile>> => {
+    const cached = filesCacheRef.current.get(name)
 
-      if (!R.isNil(cached)) {
-        return cached
-      }
+    if (!R.isNil(cached)) {
+      return cached
+    }
 
-      const items = await PlaylistsApi.files.get({ name })
+    const items = await PlaylistsApi.songs.get({ name })
 
-      filesCacheRef.current.set(name, items)
+    filesCacheRef.current.set(name, items)
 
-      return items
-    },
-    []
-  )
+    return items
+  }, [])
 
   const {
     items: selectedPlaylistFiles,
@@ -53,17 +46,23 @@ const PlaylistsViewProvider = ({ children }: { children: React.ReactNode }) => {
     reset: resetSelectedPlaylistFiles,
   } = useRemoteList(retrieveFiles)
 
-  const handleChanges: Handler<ReadonlyArray<Change>> = useCallback((changes) => {
-    if (!changes.includes('stored_playlist')) {
+  const playlistsVersion = usePlaylistsVersionContext()
+
+  useEffect(() => {
+    if (playlistsVersion === INITIAL_PLAYLISTS_VERSION) {
+      return
+    }
+
+    loadPlaylists()
+  }, [playlistsVersion, loadPlaylists])
+
+  useEffect(() => {
+    if (playlistsVersion === INITIAL_PLAYLISTS_VERSION) {
       return
     }
 
     filesCacheRef.current.clear()
-
-    loadPlaylists()
-  }, [loadPlaylists])
-
-  useChanges(handleChanges)
+  }, [playlistsVersion])
 
   const selectedPlaylistName = useRouteMatch<{ [route.match.param]: string }>({
     path: route.match.pattern,
@@ -87,14 +86,26 @@ const PlaylistsViewProvider = ({ children }: { children: React.ReactNode }) => {
       return
     }
 
+    if (playlistsVersion === INITIAL_PLAYLISTS_VERSION) {
+      return
+    }
+
     loadSelectedPlaylistFiles(selectedPlaylist.name)
-  }, [selectedPlaylist, selectedPlaylistName, playlistRemoteState, goHome, loadSelectedPlaylistFiles, resetSelectedPlaylistFiles])
+  }, [
+    selectedPlaylist,
+    selectedPlaylistName,
+    playlistRemoteState,
+    playlistsVersion,
+    goHome,
+    loadSelectedPlaylistFiles,
+    resetSelectedPlaylistFiles,
+  ])
 
   const value = useMemo(() => ({
     playlists,
     selection: R.isNil(selectedPlaylist) ? null : {
       playlist: selectedPlaylist,
-      files: selectedPlaylistFiles,
+      songs: selectedPlaylistFiles,
     },
   }), [playlists, selectedPlaylist, selectedPlaylistFiles])
 

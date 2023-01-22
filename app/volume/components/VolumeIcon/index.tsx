@@ -4,9 +4,7 @@ import * as Icons from '@app/common/icons'
 
 import Button from '@app/common/components/Button'
 
-import useStatusContext from '@app/status/use/useStatusContext'
-
-import VolumeService from '@app/volume/services/VolumeService'
+import useVolumeContext from '@app/volume/use/useVolumeContext'
 
 import styles from './styles.scss'
 
@@ -23,27 +21,27 @@ const getIcon = (volume: number): React.ElementType => {
 }
 
 const VolumeIcon = () => {
-  const status = useStatusContext()
+  const { value, set } = useVolumeContext()
 
-  const previousVolumeRef = useRef(status.volume)
+  const previousVolumeRef = useRef(value)
 
   useEffect(() => {
-    if (status.volume === 0) {
+    if (value === 0) {
       return
     }
 
-    previousVolumeRef.current = status.volume
-  }, [status.volume])
+    previousVolumeRef.current = value
+  }, [value])
 
   const handleClick = () => {
-    const volume = status.volume !== 0
+    const volume = value !== 0
       ? 0
       : previousVolumeRef.current
 
-    VolumeService.set(volume)
+    set(volume)
   }
 
-  const Icon = getIcon(status.volume)
+  const Icon = getIcon(value)
 
   return (
     <Button className={styles.button} onClick={handleClick}>

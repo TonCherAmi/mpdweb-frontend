@@ -37,13 +37,13 @@ const MIN_SEARCH_TERM_LENGTH = 3
 const SEARCH_DEBOUNCE_WAIT_MS = 350
 
 const INITIAL_STATE: CachedState = {
-  term: '',
+  query: '',
   results: [],
   currentItem: null,
 }
 
 interface CachedState {
-  term: string
+  query: string
   results: ReadonlyArray<DatabaseItemData>
   currentItem: Nullable<DatabaseItemData>
 }
@@ -55,12 +55,12 @@ interface Props {
 const DatabaseSearch = memo(({ onSuccess }: Props) => {
   const { reset, ...remote } = useRemoteList(DatabaseApi.search)
 
-  const [load, cancel] = useDebounce((term: string) => {
+  const [load, cancel] = useDebounce((query: string) => {
     if (remote.state === 'fetching') {
       remote.cancel()
     }
 
-    remote.load({ term })
+    remote.load({ query })
   }, SEARCH_DEBOUNCE_WAIT_MS)
 
   const handleChange = useCallback((term: string) => {
@@ -79,11 +79,11 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
 
   const cache = useCache(CACHE_ID, INITIAL_STATE)
 
-  const input = useInput(cache.term, handleChange)
+  const input = useInput(cache.query, handleChange)
 
   useEffect(() => {
     if (!R.isEmpty(input.value)) {
-      cache.term = input.value
+      cache.query = input.value
     }
   }, [cache, input.value])
 
@@ -95,7 +95,7 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
 
   const [isItemListFocusable, setIsItemListFocusable] = useState(false)
 
-  const items = remote.state === 'initial' && input.value === cache.term
+  const items = remote.state === 'initial' && input.value === cache.query
     ? cache.results
     : remote.items
 

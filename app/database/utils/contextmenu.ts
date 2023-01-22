@@ -1,17 +1,16 @@
 import * as R from 'ramda'
 
-import DatabaseItem from '@app/database/data/DatabaseItem'
-import DatabaseFile from '@app/database/data/DatabaseFile'
+import DatabaseTags from '@app/database/data/DatabaseTags'
 import ContextMenuItem from '@app/common/components/ContextMenu/types/ContextMenuItem'
 
 import { copy } from '@app/navigator/utils/clipboard'
 import { basename } from '@app/common/utils/path'
+import { formatDatabaseTags } from '@app/database/utils/format'
 
-const getDatabaseFileContextMenuCopyItems = (
-  databaseFile: DatabaseFile
+const getDatabaseTagsContextMenuCopyItems = (
+  tags: DatabaseTags
 ): ReadonlyArray<ContextMenuItem> => {
-  const title = databaseFile.title
-  const artist = databaseFile.artist
+  const { title, artist } = formatDatabaseTags(tags)
 
   const copyTitle = R.isNil(title) ? null : {
     id: 'copy-title',
@@ -28,35 +27,29 @@ const getDatabaseFileContextMenuCopyItems = (
   return R.reject(R.isNil, [copyTitle, copyArtist])
 }
 
-const isDatabaseFile = (item: DatabaseItem): item is DatabaseFile => (
-  item.type === 'FILE'
-)
-
 export const getDatabaseItemContextMenuItems = (
-  item: DatabaseItem
+  { uri, tags }: { uri: string, tags?: DatabaseTags }
 ): ReadonlyArray<ContextMenuItem> => {
-  const databaseFileSpecificCopyItems = !isDatabaseFile(item)
+  const tagsCopyItems = R.isNil(tags)
     ? []
-    : getDatabaseFileContextMenuCopyItems(item)
+    : getDatabaseTagsContextMenuCopyItems(tags)
 
   return [
     {
       id: 'copy',
       text: 'Copy',
       items: [
-        ...databaseFileSpecificCopyItems,
+        ...tagsCopyItems,
         {
           id: 'copy-path',
           text: 'Copy Path',
-          handler: () => copy(item.uri),
+          handler: () => copy(uri),
         },
         {
           id: 'copy-filename',
           text: 'Copy Filename',
           handler: () => {
-            copy(
-              basename(item.uri)
-            )
+            copy(basename(uri))
           },
         },
       ],

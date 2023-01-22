@@ -2,15 +2,15 @@ import React from 'react'
 
 import Button from '@app/common/components/Button'
 
-import QueueService from '@app/queue/services/QueueService'
+import useQueueActions from '@app/queue/use/useQueueActions'
 
 type Props = Omit<React.ComponentProps<typeof Button>, 'onClick'>
 
 const QueueClearButton = ({ children, ...props }: Props) => {
-  const handleClick = () => QueueService.clear()
+  const { clear } = useQueueActions()
 
   return (
-    <Button {...props} onClick={handleClick}>
+    <Button {...props} onClick={clear}>
       {children}
     </Button>
   )

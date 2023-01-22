@@ -176,7 +176,7 @@ const DatabaseDirectory = memo(({
         return
       }
 
-      if (currentItemNavigation.currentItem.type !== 'DIRECTORY') {
+      if (currentItemNavigation.currentItem.type !== 'directory') {
         return
       }
 

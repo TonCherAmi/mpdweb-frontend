@@ -7,9 +7,8 @@ import Playlist from '@app/playlists/data/Playlist'
 import PlaylistListItem from '@app/playlists/components/PlaylistListItem'
 
 import useQueueActions from '@app/queue/use/useQueueActions'
+import usePlaylistActions from '@app/playlists/use/usePlaylistActions'
 import usePlaylistsViewNavigation from '@app/playlists/views/PlaylistsView/use/usePlaylistsViewNavigation'
-
-import PlaylistService from '@app/playlists/sevices/PlaylistService'
 
 import styles from './styles.scss'
 
@@ -27,10 +26,7 @@ const PlaylistList = ({ playlists, selectedPlaylist }: Props) => {
     goTo(playlist.name)
   }, [goTo])
 
-  const handleItemRemoveClick = useCallback((playlist: Playlist) => {
-    PlaylistService.delete(playlist.name)
-  }, [])
-
+  const { remove } = usePlaylistActions()
   const { add, replace } = useQueueActions()
 
   return (
@@ -43,7 +39,7 @@ const PlaylistList = ({ playlists, selectedPlaylist }: Props) => {
           onClick={handleItemClick}
           onAddClick={add}
           onPlayClick={replace}
-          onRemoveClick={handleItemRemoveClick}
+          onRemoveClick={remove}
         />
       )} />
     </div>

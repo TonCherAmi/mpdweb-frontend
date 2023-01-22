@@ -8,6 +8,10 @@ import DatabaseFile from '@app/database/data/DatabaseFile'
 import Duration from '@app/common/components/Duration'
 import DatabaseCoverArt from '@app/database/components/DatabaseCoverArt'
 
+import { DURATION_ZERO } from '@app/common/utils/duration'
+import { getOrPlaceholder } from '@app/common/utils/format'
+import { formatDatabaseTags } from '@app/database/utils/format'
+
 import usePlaylistFileContextMenu from './use/usePlaylistFileContextMenu'
 
 import styles from './styles.scss'
@@ -18,8 +22,6 @@ interface Props {
   onClick: Handler<DatabaseFile>
   onRemoveClick: Handler<number>
 }
-
-const getOrPlaceholder = (string: Nullable<string>) => string ?? '-'
 
 const PlaylistFile = memo(({ file, position, onClick, onRemoveClick }: Props) => {
   const handleClick = () => {
@@ -32,6 +34,8 @@ const PlaylistFile = memo(({ file, position, onClick, onRemoveClick }: Props) =>
     onRemoveClick,
   })
 
+  const tags = formatDatabaseTags(file.tags)
+
   return (
     <div
       className={styles.container}
@@ -41,26 +45,26 @@ const PlaylistFile = memo(({ file, position, onClick, onRemoveClick }: Props) =>
       <DatabaseCoverArt
         className={styles.cover}
         fallbackIconClassName={styles.icon}
-        file={file}
+        uri={file.uri}
       />
       <div className={styles.tags}>
         <div className={cx(styles.tag, styles.title)}>
-          <span title={getOrPlaceholder(file.title)}>
-            {getOrPlaceholder(file.title)}
+          <span title={getOrPlaceholder(tags.title)}>
+            {getOrPlaceholder(tags.title)}
           </span>
         </div>
         <div className={cx(styles.tag, styles.artist)}>
-          <span title={getOrPlaceholder(file.artist)}>
-            {getOrPlaceholder(file.artist)}
+          <span title={getOrPlaceholder(tags.artist)}>
+            {getOrPlaceholder(tags.artist)}
           </span>
         </div>
         <div className={cx(styles.tag, styles.album)}>
-          <span title={getOrPlaceholder(file.album)}>
-            {getOrPlaceholder(file.album)}
+          <span title={getOrPlaceholder(tags.album)}>
+            {getOrPlaceholder(tags.album)}
           </span>
         </div>
       </div>
-      <Duration className={styles.duration} value={file.duration} />
+      <Duration className={styles.duration} value={file.duration ?? DURATION_ZERO} />
     </div>
   )
 })

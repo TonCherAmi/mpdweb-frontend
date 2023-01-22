@@ -5,7 +5,6 @@ import * as R from 'ramda'
 import cx from 'classnames'
 
 import Thunk from '@app/common/types/Thunk'
-import DatabaseFile from '@app/database/data/DatabaseFile'
 
 import * as  Icons from '@app/common/icons'
 
@@ -13,24 +12,24 @@ import { dirname } from '@app/common/utils/path'
 
 import styles from './styles.scss'
 
-const getDirectorySrc = (uri: string) => {
+const getFileSrc = (uri: string) => {
   const encodedUri = encodeURIComponent(
     dirname(uri) + '/'
   )
 
-  return `/api/database/cover/directory?uri=${encodedUri}`
+  return `/api/database/cover?uri=${encodedUri}&kind=file`
 }
 
 const getEmbeddedSrc = (uri: string) => {
   const encodedUri = encodeURIComponent(uri)
 
-  return `/api/database/cover/embedded?uri=${encodedUri}`
+  return `/api/database/cover?uri=${encodedUri}&kind=embedded`
 }
 
 interface Props {
   className?: string
   fallbackIconClassName?: string
-  file: DatabaseFile
+  uri: string
   onClick?: Thunk
   onSuccess?: Thunk
 }
@@ -38,7 +37,7 @@ interface Props {
 const DatabaseCoverArt = memo(({
   className,
   fallbackIconClassName,
-  file,
+  uri,
   onClick,
   onSuccess,
 }: Props) => {
@@ -47,14 +46,14 @@ const DatabaseCoverArt = memo(({
   const hasTriedAltSrcRef = useRef(false)
 
   const [src, setSrc] = useState(
-    getDirectorySrc(file.uri)
+    getFileSrc(uri)
   )
 
   useLayoutEffect(() => {
     setSrc(
-      getDirectorySrc(file.uri)
+      getFileSrc(uri)
     )
-  }, [file.uri])
+  }, [uri])
 
   useLayoutEffect(() => {
     setState('initial')
@@ -77,9 +76,7 @@ const DatabaseCoverArt = memo(({
       return
     }
 
-    setSrc(
-      getEmbeddedSrc(file.uri)
-    )
+    setSrc(getEmbeddedSrc(uri))
 
     hasTriedAltSrcRef.current = true
   }

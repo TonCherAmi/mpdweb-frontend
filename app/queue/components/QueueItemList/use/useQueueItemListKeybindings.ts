@@ -3,16 +3,15 @@ import * as R from 'ramda'
 import QueueItem from '@app/queue/data/QueueItem'
 
 import useQueueActions from '@app/queue/use/useQueueActions'
+import usePlaybackActions from '@app/playback/use/usePlaybackActions'
 import useDatabaseViewNavigation from '@app/database/views/DatabaseView/use/useDatabaseViewNavigation'
 import useFocusScopeGroupedKeybindings from '@app/keybindings/use/useFocusScopeGroupedKeybindings'
-
-import QueueService from '@app/queue/services/QueueService'
-import PlaybackService from '@app/playback/services/PlaybackService'
 
 import { dirname } from '@app/common/utils/path'
 
 const useQueueItemListKeybindings = (item: Nullable<QueueItem>) => {
-  const { add } = useQueueActions()
+  const { add, remove } = useQueueActions()
+  const { play } = usePlaybackActions()
   const { goTo } = useDatabaseViewNavigation()
 
   const withItem = (fn: (item: QueueItem) => unknown) => {
@@ -25,12 +24,12 @@ const useQueueItemListKeybindings = (item: Nullable<QueueItem>) => {
 
   useFocusScopeGroupedKeybindings({
     ADD: withItem(add),
-    PLAY: withItem(PlaybackService.play),
+    PLAY: withItem(play),
     OPEN: withItem((item) => goTo(
       dirname(item.uri)
     )),
-    REMOVE: withItem(QueueService.delete),
-    NAVIGATE_RIGHT: withItem(PlaybackService.play),
+    REMOVE: withItem(remove),
+    NAVIGATE_RIGHT: withItem(play),
   }, { disable: R.isNil(item) })
 }
 

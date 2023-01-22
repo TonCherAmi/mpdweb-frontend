@@ -2,15 +2,15 @@ import React from 'react'
 
 import Button from '@app/common/components/Button'
 
-import PlaybackService from '@app/playback/services/PlaybackService'
+import useStatefulPlaybackActions from '@app/playback/use/useStatefulPlaybackActions'
 
 type Props = Omit<React.ComponentProps<typeof Button>, 'onClick'>
 
 const PlaybackToggleButton = ({ children, ...props }: Props) => {
-  const handleClick = () => PlaybackService.toggle()
+  const { toggle } = useStatefulPlaybackActions()
 
   return (
-    <Button {...props} onClick={handleClick}>
+    <Button {...props} onClick={toggle}>
       {children}
     </Button>
   )

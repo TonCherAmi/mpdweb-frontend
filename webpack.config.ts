@@ -15,17 +15,11 @@ const devServer: WebpackDevServer.Configuration = {
   },
   proxy: {
     '/api': {
-      target: 'http://localhost:8123',
-      pathRewrite: {
-        '^/api': '',
-      },
+      target: 'http://127.0.0.1:8989',
     },
     '/api/ws': {
       ws: true,
-      target: 'http://localhost:8123',
-      pathRewrite: {
-        '^/api/ws': '',
-      },
+      target: 'http://127.0.0.1:8989',
     },
   },
 }

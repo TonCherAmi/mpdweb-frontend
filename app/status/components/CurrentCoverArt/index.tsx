@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 
 import * as R from 'ramda'
 
-import DatabaseFile from '@app/database/data/DatabaseFile'
+import QueueItem from '@app/queue/data/QueueItem'
 
 import DatabaseCoverArt from '@app/database/components/DatabaseCoverArt'
 
@@ -14,11 +14,11 @@ import useDatabaseCoverArtModal from '@app/database/use/useDatabaseCoverArtModal
 interface Props {
   className?: string
   fallbackIconClassName?: string
-  currentSong: DatabaseFile
+  currentSong: QueueItem
 }
 
 const CurrentCoverArt = ({ className, fallbackIconClassName, currentSong }: Props) => {
-  const { open: openModal } = useDatabaseCoverArtModal(currentSong)
+  const { open: openModal } = useDatabaseCoverArtModal(currentSong.uri)
 
   const isLoadedSuccessfullyRef = useRef(false)
 
@@ -36,7 +36,7 @@ const CurrentCoverArt = ({ className, fallbackIconClassName, currentSong }: Prop
     <DatabaseCoverArt
       className={className}
       fallbackIconClassName={fallbackIconClassName}
-      file={currentSong}
+      uri={currentSong.uri}
       onClick={openModal}
       onSuccess={handleSuccess}
     />

@@ -1,3 +1,3 @@
-type State = 'PLAYING' | 'PAUSED' | 'STOPPED'
+type State = 'playing' | 'paused' | 'stopped'
 
 export default State

@@ -10,7 +10,12 @@ import DatabaseCoverArt from '@app/database/components/DatabaseCoverArt'
 
 import useQueueItemContextMenu from '@app/queue/use/useQueueItemContextMenu'
 
-import { formatDatabaseAudioFormat, formatDatabaseAudioFormatMultiline } from '@app/database/utils/format'
+import { getOrPlaceholder } from '@app/common/utils/format'
+import {
+  formatDatabaseTags,
+  formatDatabaseAudioFormat,
+  formatDatabaseAudioFormatMultiline,
+} from '@app/database/utils/format'
 
 import styles from './styles.scss'
 
@@ -28,6 +33,8 @@ const QueueItem = memo(
 
     const { handleContextMenu } = useQueueItemContextMenu(item)
 
+    const tags = formatDatabaseTags(item.tags)
+
     return (
       <div
         ref={ref}
@@ -38,14 +45,14 @@ const QueueItem = memo(
         <DatabaseCoverArt
           className={styles.cover}
           fallbackIconClassName={styles.icon}
-          file={item}
+          uri={item.uri}
         />
         <div className={styles.name}>
-        <span className={styles.title} title={item.title ?? ''}>
-          {item.title}
+        <span className={styles.title} title={getOrPlaceholder(tags.title)}>
+          {getOrPlaceholder(tags.title)}
         </span>
-          <span className={styles.artist} title={item.artist ?? ''}>
-          {item.artist}
+          <span className={styles.artist} title={getOrPlaceholder(tags.artist)}>
+          {getOrPlaceholder(tags.artist)}
         </span>
         </div>
         <div className={styles.info}>

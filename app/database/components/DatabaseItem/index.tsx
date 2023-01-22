@@ -45,7 +45,7 @@ const DatabaseItem = memo(
       }
     }
 
-    const isClickable = item.type === 'DIRECTORY'
+    const isClickable = item.type === 'directory'
 
     const handleClick = withItem(
       !isClickable ? null : onClick

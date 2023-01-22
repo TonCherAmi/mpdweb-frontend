@@ -1,8 +1,14 @@
-import DatabaseFile from '@app/database/data/DatabaseFile'
+import Duration from '@app/common/data/Duration'
+import DatabaseTags from '@app/database/data/DatabaseTags'
+import DatabaseAudioFormat from '@app/database/data/DatabaseAudioFormat'
 
-interface QueueItem extends DatabaseFile {
+interface QueueItem {
   id: number
   position: number
+  uri: string
+  tags: DatabaseTags
+  duration: Duration
+  format: DatabaseAudioFormat
 }
 
 export default QueueItem

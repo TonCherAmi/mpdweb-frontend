@@ -1,4 +1,4 @@
-@use '@app/common/styles/breakpoints';
+@use '@app/common/styles/breakpoints.scss';
 
 .container {
   display: flex;
@@ -39,22 +39,25 @@
 
 .prev {
   /**
-   * without this the lowermost history item ends up being
+   * Without this the lowermost history item ends up being
    * slightly visible (very jarring with bright album art)
    * even when the history section is fully scrolled out of view
-   * (this only happens in Chrome)
+   * (this only happens in Chrome).
    */
   margin-top: -1px;
 }
 
 .prev, .next {
-  scroll-snap-align: start;
-
   scroll-margin-bottom: .5rem;
 }
 
 .next {
   min-height: 100%;
+
+  // Needed for the scroll to snap to .next on load.
+  margin-top: 1px;
+
+  scroll-snap-align: start;
 }
 
 .header {

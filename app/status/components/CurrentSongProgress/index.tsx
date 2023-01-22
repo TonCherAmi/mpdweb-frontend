@@ -1,58 +1,53 @@
-import React, { memo, useRef, useState, useEffect, useCallback } from 'react'
-
-import Change from '@app/changes/types/Change'
+import React, { memo, useRef, useState, useEffect } from 'react'
 
 import Duration from '@app/common/components/Duration'
 import SongProgressRange from '@app/status/components/CurrentSongProgressRange'
 
-import useChanges from '@app/changes/use/useChanges'
 import useDebounce from '@app/common/use/useDebounce'
 import useStatusContext from '@app/status/use/useStatusContext'
-
-import PlaybackService from '@app/playback/services/PlaybackService'
+import usePlaybackActions from '@app/playback/use/usePlaybackActions'
+import useCurrentSongElapsedContext from '@app/status/use/useCurrentSongElapsedContext'
 
 import { totalSecondsToDuration, DURATION_ZERO } from '@app/common/utils/duration'
 
 import styles from './styles.scss'
 
-const SEEK_DEBOUNCE_WAIT_MS = 250
+const SEEK_DEBOUNCE_WAIT_MS = 350
 
 const CurrentSongProgress = memo(() => {
   const status = useStatusContext()
 
-  const shouldIgnoreStatusUpdatesRef = useRef(false)
+  const shouldIgnoreExternalUpdatesRef = useRef(false)
 
-  const totalElapsedSeconds = status.song?.elapsed?.total?.seconds ?? 0
+  const totalElapsedSeconds = useCurrentSongElapsedContext()
 
   const [value, setValue] = useState(totalElapsedSeconds)
 
   useEffect(() => {
-    if (!shouldIgnoreStatusUpdatesRef.current) {
+    if (!shouldIgnoreExternalUpdatesRef.current) {
       setValue(totalElapsedSeconds)
     }
   }, [totalElapsedSeconds])
 
-  const [seek] = useDebounce((time: number) => {
-    PlaybackService.seek(time)
+  useEffect(() => {
+    shouldIgnoreExternalUpdatesRef.current = false
+  }, [status.song?.elapsed?.total?.seconds])
+
+  const { seek } = usePlaybackActions()
+
+  const [seekDebounced] = useDebounce((time: number) => {
+    seek(time)
   }, SEEK_DEBOUNCE_WAIT_MS)
 
-  const handleChanges = useCallback((changes: ReadonlyArray<Change>) => {
-    if (changes.includes('player')) {
-      shouldIgnoreStatusUpdatesRef.current = false
-    }
-  }, [])
-
-  useChanges(handleChanges)
-
   const handleChange = (value: number) => {
-    shouldIgnoreStatusUpdatesRef.current = true
+    shouldIgnoreExternalUpdatesRef.current = true
 
     setValue(value)
 
-    seek(value)
+    seekDebounced(value)
   }
 
-  const isDisabled = status.state === 'STOPPED'
+  const isDisabled = status.state === 'stopped'
 
   return (
     <div className={styles.container}>

@@ -6,8 +6,7 @@ import DatabaseFile from '@app/database/data/DatabaseFile'
 import PlaylistFile from '@app/playlists/components/PlaylistFile'
 
 import useQueueActions from '@app/queue/use/useQueueActions'
-
-import PlaylistService from '@app/playlists/sevices/PlaylistService'
+import usePlaylistActions from '@app/playlists/use/usePlaylistActions'
 
 import styles from './styles.scss'
 
@@ -19,9 +18,11 @@ interface Props {
 const PlaylistFileList = memo(({ playlist, files }: Props) => {
   const { replace } = useQueueActions()
 
+  const { removeSongs } = usePlaylistActions()
+
   const handlePlaylistItemRemoveClick = useCallback((position: number) => {
-    PlaylistService.deleteFiles(playlist.name, [position])
-  }, [playlist.name])
+    removeSongs(playlist, [position])
+  }, [playlist, removeSongs])
 
   return (
     <div className={styles.container}>

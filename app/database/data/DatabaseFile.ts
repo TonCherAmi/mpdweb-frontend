@@ -1,12 +1,11 @@
 import Duration from '@app/common/data/Duration'
 import DatabaseItem from '@app/database/data/DatabaseItem'
+import DatabaseTags from '@app/database/data/DatabaseTags'
 import DatabaseAudioFormat from '@app/database/data/DatabaseAudioFormat'
 
 interface DatabaseFile extends DatabaseItem {
-  title: Nullable<string>
-  artist: Nullable<string>
-  album: Nullable<string>
-  duration: Duration
+  duration: Nullable<Duration>
+  tags: DatabaseTags
   format: DatabaseAudioFormat
 }
 

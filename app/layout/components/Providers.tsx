@@ -1,17 +1,19 @@
 import React from 'react'
 
-import CacheProvider from '@app/common/providers/CacheProvider'
-import QueueProvider from '@app/queue/providers/QueueProvider'
 import ModalProvider from '@app/ui/providers/ModalProvider'
-import StatusProvider from '@app/status/components/StatusProvider'
+import CacheProvider from '@app/common/providers/CacheProvider'
+import VolumeProvider from '@app/volume/providers/VolumeProvider'
+import ChannelProvider from '@app/channel/providers/ChannelProvider'
 import FocusScopeProvider from '@app/ui/providers/FocusScopeProvider'
 import ContextMenuProvider from '@app/ui/providers/ContextMenuProvider'
 import KeybindingsProvider from '@app/keybindings/providers/KeybindingsProvider'
 import UiInteractionModeProvider from '@app/ui/providers/UiInteractionModeProvider'
+import CurrentSongElapsedProvider from '@app/status/providers/CurrentSongElapsedProvider'
 
 const providers = [
-  StatusProvider,
-  QueueProvider,
+  VolumeProvider,
+  CurrentSongElapsedProvider,
+  ChannelProvider,
   ModalProvider,
   ContextMenuProvider,
   FocusScopeProvider,

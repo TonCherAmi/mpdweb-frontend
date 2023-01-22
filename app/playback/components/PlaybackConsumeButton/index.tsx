@@ -5,28 +5,30 @@ import cx from 'classnames'
 import PlaybackOptionButton from '@app/playback/components/PlaybackOptionButton'
 
 import useStatusContext from '@app/status/use/useStatusContext'
-
-import PlaybackService from '@app/playback/services/PlaybackService'
+import useStatefulQueueActions from '@app/queue/use/useStatefulQueueActions'
 
 import styles from './styles.scss'
 
-const getTitleText = (state: boolean) => (
-  `Consume: ${state ? 'ON' : 'OFF'}`
+const getTitleText = (state: string) => (
+  `Consume: ${state}`
 )
 
 const PlaybackConsumeButton = () => {
   const status = useStatusContext()
 
-  const handleClick = () => {
-    PlaybackService.consume()
-  }
+  const { cycleConsume } = useStatefulQueueActions()
+
+  const className = cx({
+    [styles.on]: status.consume === 'on',
+    [styles.oneshot]: status.consume === 'oneshot',
+  })
 
   return (
     <PlaybackOptionButton
-      className={cx({ [styles.on]: status.consume })}
+      className={className}
       icon="CookieBite"
       title={getTitleText(status.consume)}
-      onClick={handleClick}
+      onClick={cycleConsume}
     />
   )
 }

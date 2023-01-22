@@ -20,7 +20,7 @@ const PlaylistsView = () => {
       />
       <Playlist
         playlist={selection?.playlist}
-        files={selection?.files}
+        files={selection?.songs}
       />
     </div>
   )

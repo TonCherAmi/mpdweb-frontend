@@ -1,5 +1,5 @@
 interface DatabaseSearchBody {
-  term: string
+  query: string
 }
 
 export default DatabaseSearchBody

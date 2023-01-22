@@ -7,7 +7,7 @@ const PlaylistsViewContext = createContext<{
   playlists: ReadonlyArray<Playlist>
   selection: Nullable<{
     playlist: Playlist
-    files: ReadonlyArray<DatabaseFile>
+    songs: ReadonlyArray<DatabaseFile>
   }>
 }>({ playlists: [], selection: null })
 

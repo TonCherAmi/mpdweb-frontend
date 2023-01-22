@@ -15,11 +15,11 @@ const Api = {
   rename: make<void, PlaylistRenamingRequest>('/playlists/%(name)s', 'post', {
     path: ['from'],
   }),
-  files: {
-    get: make<ReadonlyArray<DatabaseFile>, PlaylistFilesRequest>('/playlists/%(name)s/files', 'get', {
+  songs: {
+    get: make<ReadonlyArray<DatabaseFile>, PlaylistFilesRequest>('/playlists/%(name)s', 'get', {
       path: ['name'],
     }),
-    delete: make<void, PlaylistFilesDeletionRequest>('/playlists/%(name)s/files', 'delete', {
+    delete: make<void, PlaylistFilesDeletionRequest>('/playlists/%(name)s/songs', 'delete', {
       path: ['name'],
     }),
   },

@@ -10,19 +10,19 @@ interface CurrentSong {
 
 interface Queue {
   length: number
-  elapsed: Duration
-  duration: Duration
 }
+
+export type OneshotState = 'on' | 'off' | 'oneshot'
 
 interface Status {
   state: State
   volume: number
   song: Nullable<CurrentSong>
   queue: Queue
-  single: 'ON' | 'OFF' | 'ONESHOT'
   random: boolean
   repeat: boolean
-  consume: boolean
+  single: OneshotState
+  consume: OneshotState
 }
 
 export default Status

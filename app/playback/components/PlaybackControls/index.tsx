@@ -23,7 +23,7 @@ const PlaybackControls = memo(() => {
       </PlaybackPrevButton>
       <PlaybackToggleButton className={cx(styles.button, styles.toggle)}>
         <Choose>
-          <When condition={status.state === 'PLAYING'}>
+          <When condition={status.state === 'playing'}>
             <Icons.Pause className={styles.icon} />
           </When>
           <Otherwise>

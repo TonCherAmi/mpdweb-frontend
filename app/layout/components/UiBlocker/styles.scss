@@ -1,0 +1,32 @@
+.blocker {
+  position: absolute;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 9000;
+
+  backdrop-filter: blur(1rem);
+
+  .error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    row-gap: 2rem;
+
+    .icon {
+      width: 9rem;
+    }
+
+    .message {
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
+}
