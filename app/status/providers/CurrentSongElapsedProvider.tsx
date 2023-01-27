@@ -29,7 +29,7 @@ const CurrentSongElapsedProvider = ({ children }: { children: React.ReactNode })
     return () => {
       clearInterval(intervalId)
     }
-  }, [status.state, status.song?.id, status.song?.elapsed?.total?.seconds])
+  }, [status])
 
   return (
     <CurrentSongElapsedContext.Provider value={currentSongElapsed}>
