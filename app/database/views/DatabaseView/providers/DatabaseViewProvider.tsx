@@ -1,11 +1,10 @@
-import React, { useEffect, useCallback, useMemo } from 'react'
+import React, { useEffect, useCallback, useMemo, useRef } from 'react'
 
 import * as R from 'ramda'
 
 import DatabaseItem from '@app/database/data/DatabaseItem'
 import DatabaseDirectory from '@app/database/views/DatabaseView/types/DatabaseDirectory'
 
-import useStatic from '@app/common/use/useStatic'
 import useRemoteList from '@app/common/use/useRemoteList'
 import useFullMatchParam from '@app/common/use/useFullMatchParam'
 import useDatabaseVersionContext from '@app/database/use/useDatabaseVersionContext'
@@ -27,7 +26,7 @@ const DatabaseViewProvider = ({ children }: { children: React.ReactNode }) => {
     [DATABASE_ROOT_URI, ...subpaths(matchUri ?? DATABASE_ROOT_URI)]
   ), [matchUri])
 
-  const cache = useStatic(() => new Map<string, Omit<DatabaseDirectory, 'uri'>>())
+  const cacheRef = useRef(new Map<string, Omit<DatabaseDirectory, 'uri'>>())
 
   const retrieve = useCallback((uris: ReadonlyArray<string>) => {
     return Promise.all(
@@ -42,7 +41,7 @@ const DatabaseViewProvider = ({ children }: { children: React.ReactNode }) => {
             )
           }
 
-          const cached = cache.get(uri)
+          const cached = cacheRef.current.get(uri)
 
           if (!R.isNil(cached)) {
             cached.selectedItem = getSelectedItem(cached.items)
@@ -63,13 +62,13 @@ const DatabaseViewProvider = ({ children }: { children: React.ReactNode }) => {
 
           const databaseDirectory = { items, count, selectedItem }
 
-          cache.set(uri, databaseDirectory)
+          cacheRef.current.set(uri, databaseDirectory)
 
           return { ...databaseDirectory, uri }
         }
       )
     )
-  }, [cache])
+  }, [])
 
   const { load, items } = useRemoteList(retrieve)
 
@@ -80,8 +79,8 @@ const DatabaseViewProvider = ({ children }: { children: React.ReactNode }) => {
       return
     }
 
-    cache.clear()
-  }, [databaseVersion, cache])
+    cacheRef.current.clear()
+  }, [databaseVersion])
 
   useEffect(() => {
     if (databaseVersion === INITIAL_DATABASE_VERSION) {
@@ -95,12 +94,12 @@ const DatabaseViewProvider = ({ children }: { children: React.ReactNode }) => {
     const directoryUri = dirname(item.uri)
       ?? DATABASE_ROOT_URI
 
-    const cached = cache.get(directoryUri)
+    const cached = cacheRef.current.get(directoryUri)
 
     if (!R.isNil(cached)) {
       cached.selectedItem = item
     }
-  }, [cache])
+  }, [])
 
   const value = useMemo(() => ({
     directories: items,
