@@ -5,9 +5,9 @@ import * as R from 'ramda'
 import Thunk from '@app/common/types/Thunk'
 
 import Playlist from '@app/playlists/data/Playlist'
-import { QueueSource } from '@app/channel/use/useChannel'
 import { OneshotState } from '@app/status/data/Status'
 import QueueItem from '@app/queue/data/QueueItem'
+import QueueSource from '@app/channel/data/QueueSource'
 import DatabaseItem from '@app/database/data/DatabaseItem'
 
 import useChannelActionContext from '@app/channel/use/useChannelActionContext'
