@@ -13,8 +13,8 @@ import CurrentSongElapsedProvider from '@app/status/providers/CurrentSongElapsed
 const providers = [
   VolumeProvider,
   CurrentSongElapsedProvider,
-  ChannelProvider,
   ModalProvider,
+  ChannelProvider,
   ContextMenuProvider,
   FocusScopeProvider,
   KeybindingsProvider,
