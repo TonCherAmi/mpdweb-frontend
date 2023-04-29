@@ -109,3 +109,7 @@
 .duration {
   font-weight: 500;
 }
+
+.format, .duration {
+  white-space: nowrap;
+}

@@ -57,9 +57,9 @@ const QueueItem = memo(
         </div>
         <div className={styles.info}>
           <Duration className={styles.duration} value={item.duration} />
-          <span title={formatDatabaseAudioFormatMultiline(item.format)}>
-          {formatDatabaseAudioFormat(item.format)}
-        </span>
+          <span className={styles.format} title={formatDatabaseAudioFormatMultiline(item.format)}>
+            {formatDatabaseAudioFormat(item.format)}
+          </span>
         </div>
       </div>
     )
