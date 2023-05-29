@@ -53,6 +53,8 @@ const DatabaseCoverArt = memo(({
     setSrc(
       getFileSrc(uri)
     )
+
+    hasTriedAltSrcRef.current = false
   }, [uri])
 
   useLayoutEffect(() => {
