@@ -11,11 +11,7 @@
 
 .stack {
   display: grid;
-  grid-template-columns: minmax(0, 0.265fr) minmax(0, 1.25fr) minmax(0, 0.35fr);
-
-  @include breakpoints.laptop {
-    grid-template-columns: minmax(0, 0.365fr) minmax(0, 1.25fr) minmax(0, 0.465fr);
-  }
+  grid-template-columns: 21rem 1fr 25.5rem;
 
   flex: 1;
 
