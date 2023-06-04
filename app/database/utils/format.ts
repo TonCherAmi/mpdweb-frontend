@@ -20,7 +20,7 @@ interface FormattedDatabaseTags {
 }
 
 const joinOrNullIfEmpty = (xs: ReadonlyArray<string>): Nullable<string> => (
-  R.isEmpty(xs) ? null : R.join(',', xs)
+  R.isEmpty(xs) ? null : R.join(', ', xs)
 )
 
 export const formatDatabaseTags = (tags: DatabaseTags): FormattedDatabaseTags => {
