@@ -16,6 +16,8 @@ html, body {
 
 body {
   display: flex;
+
+  overscroll-behavior: none;
 }
 
 button {
