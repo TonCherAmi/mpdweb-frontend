@@ -50,11 +50,7 @@
   }
 
   .title {
-    font-size: 12.5px;
-
-    @include breakpoints.laptop {
-      font-size: 12px;
-    }
+    font-size: 12px;
 
     margin-bottom: .25rem;
 
@@ -69,11 +65,7 @@
 }
 
 .cover {
-  width: 4rem;
-
-  @include breakpoints.laptop {
-    width: 3.75rem
-  }
+  width: 3.75rem;
 
   aspect-ratio: 1 / 1;
 
