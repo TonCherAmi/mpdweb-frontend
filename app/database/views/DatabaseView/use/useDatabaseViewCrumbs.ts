@@ -1,4 +1,4 @@
-import { useMemo, useRef, useCallback, useEffect } from 'react'
+import { useMemo, useRef, useCallback } from 'react'
 
 import * as R from 'ramda'
 
@@ -11,10 +11,6 @@ const useDatabaseViewCrumbs = (
   directories: ReadonlyArray<DatabaseDirectory>
 ): [ReadonlyArray<Crumb>, (instance: HTMLDivElement, uri: string) => void] => {
   const directoryContainerInstancesRef = useRef<Record<string, HTMLDivElement>>({})
-
-  useEffect(() => {
-    directoryContainerInstancesRef.current = {}
-  }, [directories])
 
   const crumbs = useMemo(() => (
     R.tail(directories).map((directory) => ({
