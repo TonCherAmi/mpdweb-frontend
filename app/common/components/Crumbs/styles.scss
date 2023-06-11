@@ -8,6 +8,8 @@
 }
 
 .crumb {
+  display: flex;
+
   &:not(:last-child)::after {
     content: '/';
 

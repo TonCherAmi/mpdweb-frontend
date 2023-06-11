@@ -1,3 +1,5 @@
+@use '@app/common/styles/scrollbar.scss';
+
 html, body {
   margin: 0;
   padding: 0;
@@ -41,13 +43,9 @@ button, input {
 }
 
 * {
-  scrollbar-color: #292929 #161616;
-  scrollbar-width: thin;
+  @include scrollbar.configuration($type: thin);
 
-  ::-webkit-scrollbar {
-    height: 2px;
-    width: 2px;
-  }
+  scrollbar-color: #292929 #161616;
 
   ::-webkit-scrollbar-track {
     background: #161616;

@@ -1,3 +1,4 @@
+@use '@app/common/styles/scrollbar.scss';
 @use '@app/common/styles/breakpoints.scss';
 
 .container {
@@ -14,11 +15,7 @@
 .scrollable {
   overflow-y: scroll;
 
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  @include scrollbar.configuration($type: none);
 }
 
 .header {

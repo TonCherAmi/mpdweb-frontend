@@ -1,0 +1,20 @@
+@mixin configuration($type) {
+  @if $type == none {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @if $type == thin {
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      ::-webkit-scrollbar {
+        height: 2px;
+        width: 2px;
+      }
+    }
+  }
+}
