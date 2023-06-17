@@ -30,7 +30,7 @@ interface Props {
   className?: string
   fallbackIconClassName?: string
   uri: string
-  onClick?: Thunk
+  onClick?: React.MouseEventHandler
   onSuccess?: Thunk
 }
 

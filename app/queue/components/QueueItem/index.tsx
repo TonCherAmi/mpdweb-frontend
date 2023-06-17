@@ -9,6 +9,7 @@ import Duration from '@app/common/components/Duration'
 import DatabaseCoverArt from '@app/database/components/DatabaseCoverArt'
 
 import useQueueItemContextMenu from '@app/queue/use/useQueueItemContextMenu'
+import useDatabaseCoverArtModal from '@app/database/use/useDatabaseCoverArtModal'
 
 import { getOrPlaceholder } from '@app/common/utils/format'
 import {
@@ -27,8 +28,16 @@ interface Props {
 
 const QueueItem = memo(
   forwardRef<HTMLDivElement, Props>(({ isFocused, item, onClick }, ref) => {
+    const { open: openCoverArtModal } = useDatabaseCoverArtModal(item.uri)
+
     const handleClick = () => {
       onClick?.(item)
+    }
+
+    const handleCoverArtClick: React.MouseEventHandler = (e) => {
+      e.stopPropagation()
+
+      openCoverArtModal()
     }
 
     const { handleContextMenu } = useQueueItemContextMenu(item)
@@ -46,6 +55,7 @@ const QueueItem = memo(
           className={styles.cover}
           fallbackIconClassName={styles.icon}
           uri={item.uri}
+          onClick={handleCoverArtClick}
         />
         <div className={styles.name}>
         <span className={styles.title} title={getOrPlaceholder(tags.title)}>
