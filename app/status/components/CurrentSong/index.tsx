@@ -29,10 +29,10 @@ const CurrentSong = ({ currentSong }: { currentSong: QueueItem }) => {
 
   return (
     <div className={styles.container} onContextMenu={handleContextMenu}>
-      <span className={styles.title}>
+      <span className={styles.title} title={title ?? ''}>
       {title}
       </span>
-      <span className={styles.artist}>
+      <span className={styles.artist} title={artist ?? ''}>
       {artist}
       </span>
     </div>
