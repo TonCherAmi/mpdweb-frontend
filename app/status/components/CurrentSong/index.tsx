@@ -10,6 +10,9 @@ import useQueueItemContextMenu from '@app/queue/use/useQueueItemContextMenu'
 import { formatDatabaseTags } from '@app/database/utils/format'
 
 import styles from './styles.scss'
+import useKeybindings from '@app/keybindings/use/useKeybindings'
+import useDatabaseViewNavigation from '@app/database/views/DatabaseView/use/useDatabaseViewNavigation'
+import { basename, dirname } from '@app/common/utils/path'
 
 const CurrentSongPlaceholder = () => (
   <div className={styles.container}>
@@ -26,6 +29,12 @@ const CurrentSong = ({ currentSong }: { currentSong: QueueItem }) => {
   const { handleContextMenu } = useQueueItemContextMenu(currentSong)
 
   const { title, artist } = formatDatabaseTags(currentSong.tags)
+
+  const { goTo } = useDatabaseViewNavigation()
+
+  useKeybindings({
+    DATABASE_CURRENT_GO_TO_DEFINITION: () => goTo(dirname(currentSong.uri)),
+  })
 
   return (
     <div className={styles.container} onContextMenu={handleContextMenu}>

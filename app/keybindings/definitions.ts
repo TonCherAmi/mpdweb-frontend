@@ -60,6 +60,7 @@ export default {
   DATABASE_UPDATE: make([{ key: 'u', mods: ['shift'] }]),
   DATABASE_SEARCH_MODAL: make(['s']),
   DATABASE_CURRENT_COVER_ART_MODAL: make(['c']),
+  DATABASE_CURRENT_GO_TO_DEFINITION: make([{ sequence: ['g', { key: 'i', mods: ['shift'] }] }]),
   QUEUE_CLEAR: make([
     { sequence: [{ key: 'q', mods: ['shift'] }, 'c'] },
   ]),
