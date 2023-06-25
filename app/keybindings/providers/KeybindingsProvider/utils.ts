@@ -42,13 +42,24 @@ export const doesSimpleTriggerMatch = (
   )
 }
 
-export const isCompoundKeybindingTrigger = (
+export const isCompoundTrigger = (
   trigger: KeybindingTrigger
 ): trigger is CompoundKeybindingTrigger => {
   return R.has('sequence', trigger)
 }
 
-export const isKeyboardEventTargetTextInputElement = (event: KeyboardEvent): boolean => {
+const isEventTargetTextInputElement = (event: KeyboardEvent): boolean => {
   return event.target instanceof HTMLInputElement
     || event.target instanceof HTMLTextAreaElement
+}
+
+const mods = ['ctrl', 'shift', 'meta', 'alt'];
+
+const isModEvent = (event: KeyboardEvent): boolean => {
+  return mods.includes(event.key.toLowerCase())
+}
+
+export const shouldIgnoreEvent = (event: KeyboardEvent): boolean => {
+  return isEventTargetTextInputElement(event)
+    || isModEvent(event)
 }

@@ -12,8 +12,8 @@ import KeybindingsContext, {
 
 import {
   doesSimpleTriggerMatch,
-  isCompoundKeybindingTrigger,
-  isKeyboardEventTargetTextInputElement,
+  isCompoundTrigger,
+  shouldIgnoreEvent,
 } from './utils'
 
 export type KeybindingHandler = Handler<KeyboardEvent>
@@ -38,14 +38,14 @@ const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
 
   // I'm so sorry
   const handleEvent: KeybindingHandler = useCallback((event) => {
-    if (isKeyboardEventTargetTextInputElement(event)) {
+    if (shouldIgnoreEvent(event)) {
       return
     }
 
     const findMatchingTrigger = (keybinding: Keybinding): Nullable<KeybindingTrigger> => {
       return R.find((trigger): boolean => {
         if (!R.isNil(currentCompoundTriggerStateRef.current)) {
-          if (!isCompoundKeybindingTrigger(trigger)) {
+          if (!isCompoundTrigger(trigger)) {
             return false
           }
 
@@ -61,8 +61,8 @@ const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
           return doesSimpleTriggerMatch(simpleTrigger, event) && currentCompoundTriggerStateRef.current.triggers.includes(trigger)
         }
 
-        const simpleTrigger = isCompoundKeybindingTrigger(trigger)
-          ? R.nth(0, trigger.sequence)
+        const simpleTrigger = isCompoundTrigger(trigger)
+          ? R.head(trigger.sequence)
           : trigger
 
         if (R.isNil(simpleTrigger)) {
@@ -85,12 +85,12 @@ const KeybindingsProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     const anySimpleTriggersMatched = R.any(
-      ([, trigger]) => !isCompoundKeybindingTrigger(trigger),
+      ([, trigger]) => !isCompoundTrigger(trigger),
       matchingKeybindingToTrigger,
     )
 
     const anyCompoundTriggersMatched = R.any(
-      ([, trigger]) => isCompoundKeybindingTrigger(trigger),
+      ([, trigger]) => isCompoundTrigger(trigger),
       matchingKeybindingToTrigger,
     )
 
