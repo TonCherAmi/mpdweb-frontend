@@ -25,9 +25,7 @@ const useQueueItemListKeybindings = (item: Nullable<QueueItem>) => {
   useFocusScopeGroupedKeybindings({
     ADD: withItem(add),
     PLAY: withItem(play),
-    OPEN: withItem((item) => goTo(
-      dirname(item.uri)
-    )),
+    GO_TO_DEFINITION: withItem((item) => goTo(dirname(item.uri))),
     REMOVE: withItem(remove),
     NAVIGATE_RIGHT: withItem(play),
   }, { disable: R.isNil(item) })

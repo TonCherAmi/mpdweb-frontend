@@ -22,7 +22,7 @@ export default {
   NAVIGATE_RIGHT: make(['l', 'ArrowRight', 'Enter']),
   ADD: make(['a']),
   PLAY: make(['p']),
-  OPEN: make(['o']),
+  GO_TO_DEFINITION: make([{ sequence: ['g', 'i'] }]),
   REMOVE: make([
     'x',
     { sequence: ['d', 'd'] },
