@@ -12,6 +12,7 @@ import DatabaseDirectorySearchInput from '@app/database/components/DatabaseDirec
 import useItemSearch from '@app/common/use/useItemSearch'
 import useQueueActions from '@app/queue/use/useQueueActions'
 import useItemNavigation from '@app/common/use/useItemNavigation'
+import useDatabaseActions from '@app/database/use/useDatabaseActions'
 import useItemListKeybindings from '@app/keybindings/use/useItemListKeybindings'
 import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
 import useDatabaseItemHighlightStyle from '@app/database/use/useDatabaseItemHighlightStyle'
@@ -157,6 +158,7 @@ const DatabaseDirectory = memo(({
     onRef(instance, uri)
   }
 
+  const { update } = useDatabaseActions()
   const { add, replace } = useQueueActions()
 
   useFocusScopeGroupedKeybindings({
@@ -181,6 +183,13 @@ const DatabaseDirectory = memo(({
       }
 
       onDescent(currentItemNavigation.currentItem)
+    },
+    DATABASE_UPDATE_AT_POINT: () => {
+      if (R.isNil(currentItemNavigation.currentItem)) {
+        return
+      }
+
+      update(currentItemNavigation.currentItem.uri)
     },
   }, { disable: !isActive })
 

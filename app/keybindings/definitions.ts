@@ -58,6 +58,7 @@ export default {
   VOLUME_UP: make([{ key: '+', mods: ['shift'] }], { isRepeatable: true }),
   VOLUME_DOWN: make(['-'], { isRepeatable: true }),
   DATABASE_UPDATE: make([{ key: 'u', mods: ['shift'] }]),
+  DATABASE_UPDATE_AT_POINT: make(['u']),
   DATABASE_SEARCH_MODAL: make(['s']),
   DATABASE_CURRENT_COVER_ART_MODAL: make(['c']),
   DATABASE_CURRENT_GO_TO_DEFINITION: make([{ sequence: ['g', { key: 'i', mods: ['shift'] }] }]),
