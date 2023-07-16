@@ -15,6 +15,7 @@ import useRemoteList from '@app/common/use/useRemoteList'
 import useItemNavigation from '@app/common/use/useItemNavigation'
 import useQueueActions from '@app/queue/use/useQueueActions'
 import useRouteNavigation from '@app/common/use/useRouteNavigation'
+import useDatabaseActions from '@app/database/use/useDatabaseActions'
 import useItemListKeybindings from '@app/keybindings/use/useItemListKeybindings'
 import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
 import useDatabaseItemHighlightStyle from '@app/database/use/useDatabaseItemHighlightStyle'
@@ -198,6 +199,7 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
     }
   }
 
+  const { update } = useDatabaseActions()
   const { add, replace } = useQueueActions()
 
   useFocusScopeGroupedKeybindings({
@@ -222,6 +224,13 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
       }
 
       handleDescent(itemNavigation.currentItem)
+    },
+    DATABASE_UPDATE_AT_POINT: () => {
+      if (R.isNil(itemNavigation.currentItem)) {
+        return
+      }
+
+      update(itemNavigation.currentItem.uri)
     },
   })
 
