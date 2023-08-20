@@ -1,11 +1,13 @@
 import * as Path from 'path'
 import * as Webpack from 'webpack'
-import * as WebpackDevServer from 'webpack-dev-server'
+import WebpackDevServer from 'webpack-dev-server'
 
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 
 const src = Path.resolve(__dirname, 'app')
+
+const DEV_BACKEND_TARGET = 'http://127.0.0.1:9898'
 
 const devServer: WebpackDevServer.Configuration = {
   hot: 'only',
@@ -15,17 +17,16 @@ const devServer: WebpackDevServer.Configuration = {
   },
   proxy: {
     '/api': {
-      target: 'http://127.0.0.1:8989',
+      target: DEV_BACKEND_TARGET,
     },
     '/api/ws': {
       ws: true,
-      target: 'http://127.0.0.1:8989',
+      target: DEV_BACKEND_TARGET,
     },
   },
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default (env: unknown, argv: { mode: string | undefined }): Webpack.Configuration  => {
+export default (_env: unknown, argv: { mode: string | undefined }): Webpack.Configuration  => {
   const isDevelopment = argv.mode === 'development'
 
   const htmlWebpackPlugin = new HtmlWebpackPlugin({
