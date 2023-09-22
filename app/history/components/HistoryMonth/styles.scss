@@ -1,0 +1,119 @@
+.table {
+  table-layout: fixed;
+
+  flex-shrink: 0;
+
+  font-family: "Open Sans", sans-serif;
+
+  th, td, tr {
+    width: 11px;
+    height: 11px;
+
+    shape-rendering: geometricPrecision;
+  }
+
+  th, td, th {
+    margin: .5rem;
+  }
+
+  .month, .week {
+    color: #fefefe;
+  }
+
+  .week {
+    font-size: 9px;
+
+    :first-child {
+      color: #888;
+    }
+  }
+
+  .day {
+    position: relative;
+
+    border: 1px solid #222;
+    border-radius: .25rem;
+
+    &:not(.empty) {
+      background: #222;
+    }
+
+    &.empty {
+      border-color: transparent;
+    }
+
+    &.future {
+      background: transparent;
+    }
+
+    &.selected::after {
+      content: "";
+
+      position: absolute;
+
+      top: 50%;
+      left: 50%;
+
+      width: 30%;
+      height: 30%;
+
+      background: #eee;
+
+      border-radius: .1rem;
+
+      transform: translate(-50%, -50%);
+    }
+
+    &.intensity {
+      &-1 {
+        background: #0F5180 !important;
+        border-color: #0F5180 !important;
+      }
+
+      &-2 {
+        background: #115C92 !important;
+        border-color: #115C92 !important;
+      }
+
+      &-3 {
+        background: #1368A4 !important;
+        border-color: #1368A4 !important;
+      }
+
+      &-4 {
+        background: #1573B7 !important;
+        border-color: #1573B7 !important;
+      }
+
+      &-5 {
+        background: #187FC9 !important;
+        border-color: #187FC9 !important;
+      }
+
+      &-6 {
+        background: #1A8BDB !important;
+        border-color: #1A8BDB !important;
+      }
+
+      &-7 {
+        background: #2495E5 !important;
+        border-color: #2495E5 !important;
+      }
+
+      &-8 {
+        background: #369EE7 !important;
+        border-color: #369EE7 !important;
+      }
+
+      &-9 {
+        background: #48A6EA !important;
+        border-color: #48A6EA !important;
+      }
+
+      &-10 {
+        background: #6DB8EE !important;
+        border-color: #6DB8EE !important;
+      }
+    }
+  }
+}

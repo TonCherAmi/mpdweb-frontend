@@ -2,9 +2,9 @@ import { useLocation, useRouteMatch } from 'react-router-dom'
 
 import * as R from 'ramda'
 
-import Route from '@app/common/types/Route'
+import ParametrizedRoute from '@app/common/types/ParametrizedRoute'
 
-export const useFullMatchParam = <T extends string> (route: Route<T>): Nullable<string> => {
+export const useFullMatchParam = <T extends string> (route: ParametrizedRoute<T>): Nullable<string> => {
   const location = useLocation()
 
   const routeMatch = useRouteMatch<Record<T, string>>({

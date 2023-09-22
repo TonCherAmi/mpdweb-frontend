@@ -1,9 +1,9 @@
 import Route from '@app/common/types/Route'
 
 const route: Route = {
-  path: '/settings',
+  path: '/history',
   match: {
-    pattern: '/settings',
+    pattern: '/history',
   },
 }
 

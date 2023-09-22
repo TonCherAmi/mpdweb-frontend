@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Route, BrowserRouter as Router, Redirect } from 'react-router-dom'
 
+import HistoryView, { route as HistoryViewRoute } from '@app/history/views/HistoryView'
 import SettingsView, { route as SettingsViewRoute } from '@app/settings/views/SettingsView'
 import DatabaseView, { route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
 import PlaylistsView, { route as PlaylistsViewRoute } from '@app/playlists/views/PlaylistsView'
@@ -64,6 +65,9 @@ const Wrapped = () => {
                   <PlaylistsView />
                 </Route>
               </PlaylistsViewProvider>
+              <Route path={HistoryViewRoute.match.pattern}>
+                <HistoryView />
+              </Route>
               <Route path={SettingsViewRoute.match.pattern}>
                 <SettingsView />
               </Route>

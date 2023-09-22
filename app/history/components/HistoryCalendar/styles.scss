@@ -1,0 +1,16 @@
+@use '@app/common/styles/scrollbar.scss';
+
+.container {
+  display: flex;
+  flex-shrink: 0;
+
+  padding: .5rem;
+
+  background: #121212;
+
+  border-radius: .75rem;
+
+  overflow-x: auto;
+
+  @include scrollbar.configuration($type: none);
+}

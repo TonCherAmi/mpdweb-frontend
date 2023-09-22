@@ -1,6 +1,6 @@
-import Route from '@app/common/types/Route'
+import ParametrizedRoute from '@app/common/types/ParametrizedRoute'
 
-const route: Route<'uri'> = {
+const route: ParametrizedRoute<'uri'> = {
   path: '/database',
   match: {
     param: 'uri',

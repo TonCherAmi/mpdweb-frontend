@@ -1,6 +1,6 @@
-import Route from '@app/common/types/Route'
+import ParametrizedRoute from '@app/common/types/ParametrizedRoute'
 
-const route: Route<'name'> = {
+const route: ParametrizedRoute<'name'> = {
   path: '/playlists',
   match: {
     param: 'name',

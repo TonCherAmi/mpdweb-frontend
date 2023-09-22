@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.25rem;
+
+  max-height: 100%;
+
+  padding: 2.5rem 2rem;
+}
+
+.heading {
+  margin: 0;
+
+  font-size: 24px;
+  font-weight: 600;
+  font-family: "Open Sans", sans-serif;
+}
