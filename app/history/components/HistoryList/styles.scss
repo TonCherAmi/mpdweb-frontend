@@ -21,48 +21,6 @@
   gap: .75rem;
 }
 
-.entry {
-  display: flex;
-  align-items: center;
-
-  gap: 1rem;
-
-  padding-right: 1rem;
-
-  border-radius: .5rem;
-
-  transition: .3s background-color;
-
-  :global(.hoverable) & {
-    cursor: pointer;
-
-    &:hover {
-      background: #141414;
-
-      .tags {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .date {
-    margin-left: auto;
-
-    color: #666;
-  }
-
-  .tags {
-    display: flex;
-    gap: .5rem;
-    flex-direction: column;
-
-    .title {
-      font-size: 13px;
-      font-weight: 600;
-    }
-  }
-}
-
 .heading {
   position: sticky;
 
@@ -101,30 +59,4 @@
   border-radius: .5rem;
 
   color: #777;
-
-  .count {
-    margin-bottom: .25rem;
-
-    color: #fefefe;
-
-    font-size: 20px;
-    font-weight: 700;
-    font-family: "Open Sans", sans-serif;
-  }
-}
-
-.cover {
-  flex-grow: 0;
-
-  width: 4.25rem;
-
-  aspect-ratio: 1 / 1;
-
-  background: #202020;
-
-  border-radius: .35rem;
-}
-
-.icon {
-  width: 2rem;
 }
