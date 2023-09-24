@@ -8,14 +8,13 @@ import ContextMenu from '@app/common/components/ContextMenu'
 import useContextMenu from '@app/ui/use/useContextMenu'
 
 import { copy } from '@app/navigator/utils/clipboard'
-import { wrapWithGlobalContextMenuItems } from '@app/common/utils/contextmenu'
 
 const usePlaylistListItemContextMenu = ({
   playlist,
   onRemoveClick,
 }: { playlist: Playlist, onRemoveClick: Handler<Playlist> }) => {
   return useContextMenu((onClose) => {
-    const items = wrapWithGlobalContextMenuItems([
+    const items = [
       {
         id: 'copy',
         text: 'Copy',
@@ -32,7 +31,7 @@ const usePlaylistListItemContextMenu = ({
         text: 'Remove',
         handler: () => onRemoveClick(playlist),
       },
-    ])
+    ]
 
     return (
       <ContextMenu

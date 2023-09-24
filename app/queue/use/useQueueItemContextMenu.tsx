@@ -9,7 +9,6 @@ import useQueueActions from '@app/queue/use/useQueueActions'
 import useDatabaseViewNavigation from '@app/database/views/DatabaseView/use/useDatabaseViewNavigation'
 
 import { dirname } from '@app/common/utils/path'
-import { wrapWithGlobalContextMenuItems } from '@app/common/utils/contextmenu'
 import { getDatabaseItemContextMenuItems } from '@app/database/utils/contextmenu'
 
 const useQueueItemContextMenu = (item: QueueItem) => {
@@ -18,7 +17,7 @@ const useQueueItemContextMenu = (item: QueueItem) => {
   const { remove } = useQueueActions()
 
   return useContextMenu((onClose) => {
-    const items = wrapWithGlobalContextMenuItems([
+    const items = [
       ...getDatabaseItemContextMenuItems(item),
       {
         id: 'remove',
@@ -32,7 +31,7 @@ const useQueueItemContextMenu = (item: QueueItem) => {
           goTo(dirname(item.uri))
         },
       },
-    ])
+    ]
 
     return (
       <ContextMenu

@@ -9,7 +9,6 @@ import useContextMenu from '@app/ui/use/useContextMenu'
 import useDatabaseViewNavigation from '@app/database/views/DatabaseView/use/useDatabaseViewNavigation'
 
 import { dirname } from '@app/common/utils/path'
-import { wrapWithGlobalContextMenuItems } from '@app/common/utils/contextmenu'
 import { getDatabaseItemContextMenuItems } from '@app/database/utils/contextmenu'
 
 const usePlaylistFileContextMenu = ({
@@ -20,7 +19,7 @@ const usePlaylistFileContextMenu = ({
   const { goTo } = useDatabaseViewNavigation()
 
   return useContextMenu((onClose) => {
-    const items = wrapWithGlobalContextMenuItems([
+    const items = [
       ...getDatabaseItemContextMenuItems(file),
       {
         id: 'remove',
@@ -36,7 +35,7 @@ const usePlaylistFileContextMenu = ({
           )
         },
       },
-    ])
+    ]
 
     return (
       <ContextMenu

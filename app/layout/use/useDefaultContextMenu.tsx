@@ -4,11 +4,9 @@ import ContextMenu from '@app/common/components/ContextMenu'
 
 import useContextMenu from '@app/ui/use/useContextMenu'
 
-import { wrapWithGlobalContextMenuItems } from '@app/common/utils/contextmenu'
-
 const useDefaultContextMenu = () => {
   return useContextMenu((onClose) => {
-    const items = wrapWithGlobalContextMenuItems([])
+    const items = []
 
     return (
       <ContextMenu

@@ -4,6 +4,8 @@ import Thunk from '@app/common/types/Thunk'
 
 import useContextMenuContext from '@app/ui/use/useContextMenuContext'
 
+import { isSelectionActive } from '@app/navigator/utils/selection'
+
 interface ContextMenu<E extends Element> {
   handleContextMenu: MouseEventHandler<E>
 }
@@ -24,7 +26,7 @@ const useContextMenu = <E extends Element>(
   }
 
   const handleContextMenu: MouseEventHandler<E> = (mouseEvent) => {
-    if (isEventTargetIgnored(mouseEvent.target)) {
+    if (isEventTargetIgnored(mouseEvent.target) || isSelectionActive()) {
       return
     }
 
