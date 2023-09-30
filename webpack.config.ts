@@ -3,6 +3,7 @@ import * as Webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 
 const src = Path.resolve(__dirname, 'app')
@@ -26,17 +27,24 @@ const devServer: WebpackDevServer.Configuration = {
   },
 }
 
-export default (_env: unknown, argv: { mode: string | undefined }): Webpack.Configuration  => {
+export default (_env: unknown, argv: { mode: string | undefined }): Webpack.Configuration => {
   const isDevelopment = argv.mode === 'development'
+
+  const copyWebpackPlugin = new CopyWebpackPlugin({
+    patterns: [
+      'assets/images',
+      'assets/mpdweb.webmanifest',
+    ],
+  })
 
   const htmlWebpackPlugin = new HtmlWebpackPlugin({
     template: 'index.html',
-    favicon: 'assets/images/favicon.svg',
   })
 
-  const plugins = !isDevelopment ? [htmlWebpackPlugin] : [
+  const plugins = !isDevelopment ? [htmlWebpackPlugin, copyWebpackPlugin] : [
     htmlWebpackPlugin,
-    new  ReactRefreshWebpackPlugin(),
+    copyWebpackPlugin,
+    new ReactRefreshWebpackPlugin(),
   ]
 
   return {
