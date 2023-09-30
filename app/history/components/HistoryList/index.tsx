@@ -22,7 +22,7 @@ const HistoryList = ({ selectedDay, items }: Props) => {
       <div className={styles.scrollwrap}>
         <div className={styles.entries}>
           <For of={items} body={(item) => (
-            <HistoryListItem item={item} />
+            <HistoryListItem key={item.id} item={item} />
           )} />
         </div>
       </div>

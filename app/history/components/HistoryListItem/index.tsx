@@ -37,7 +37,6 @@ const HistoryListItem = ({ item }: Props) => {
 
   return (
     <div
-      key={item.id}
       className={styles.container}
       onClick={handleClick}
     >
