@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  row-gap: 1.25rem;
+
+  max-height: 100%;
+
+  padding: 2.5rem 2rem 0;
+}
+
+.heading {
+  margin: 0;
+
+  font-size: 24px;
+  font-weight: 600;
+  font-family: "Open Sans", sans-serif;
+}
+
+.groups {
+  display: flex;
+  flex-direction: column;
+
+  padding-bottom: 2rem;
+  padding-right: 1.25rem;
+
+  gap: 2.75rem;
+
+  overflow-y: auto;
+}

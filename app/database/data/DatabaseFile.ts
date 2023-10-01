@@ -4,9 +4,11 @@ import DatabaseTags from '@app/database/data/DatabaseTags'
 import DatabaseAudioFormat from '@app/database/data/DatabaseAudioFormat'
 
 interface DatabaseFile extends DatabaseItem {
-  duration: Nullable<Duration>
+  type: 'file'
+  duration: Duration
   tags: DatabaseTags
-  format: DatabaseAudioFormat
+  format: Nullable<DatabaseAudioFormat>
+  updatedAt: string
 }
 
 export default DatabaseFile

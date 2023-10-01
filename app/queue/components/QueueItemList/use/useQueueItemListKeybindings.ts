@@ -23,7 +23,7 @@ const useQueueItemListKeybindings = (item: Nullable<QueueItem>) => {
   }
 
   useFocusScopeGroupedKeybindings({
-    ADD: withItem(add),
+    ADD: withItem((item) => add([item])),
     PLAY: withItem(play),
     GO_TO_DEFINITION: withItem((item) => goTo(dirname(item.uri))),
     REMOVE: withItem(remove),

@@ -25,17 +25,17 @@ const useContextMenu = <E extends Element>(
     setContextMenu(null)
   }
 
-  const handleContextMenu: MouseEventHandler<E> = (mouseEvent) => {
-    if (isEventTargetIgnored(mouseEvent.target) || isSelectionActive()) {
+  const handleContextMenu: MouseEventHandler<E> = (event) => {
+    if (isEventTargetIgnored(event.target) || isSelectionActive()) {
       return
     }
 
-    mouseEvent.stopPropagation()
-    mouseEvent.preventDefault()
+    event.stopPropagation()
+    event.preventDefault()
 
     setContextMenu({
-      x: mouseEvent.clientX,
-      y: mouseEvent.clientY,
+      x: event.clientX,
+      y: event.clientY,
       component: render(handleClose),
     })
   }

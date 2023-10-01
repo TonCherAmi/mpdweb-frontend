@@ -6,6 +6,7 @@ import HistoryView, { route as HistoryViewRoute } from '@app/history/views/Histo
 import SettingsView, { route as SettingsViewRoute } from '@app/settings/views/SettingsView'
 import DatabaseView, { route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
 import PlaylistsView, { route as PlaylistsViewRoute } from '@app/playlists/views/PlaylistsView'
+import DatabaseRecentsView, { route as DatabaseRecentsViewRoute } from '@app/database/views/DatabaseRecentsView'
 
 import Queue from '@app/queue/components/Queue'
 import Sidebar from '@app/layout/components/Sidebar'
@@ -65,6 +66,9 @@ const Wrapped = () => {
                   <PlaylistsView />
                 </Route>
               </PlaylistsViewProvider>
+              <Route path={DatabaseRecentsViewRoute.match.pattern}>
+                <DatabaseRecentsView />
+              </Route>
               <Route path={HistoryViewRoute.match.pattern}>
                 <HistoryView />
               </Route>

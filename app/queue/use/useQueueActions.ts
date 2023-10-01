@@ -13,7 +13,7 @@ import DatabaseItem from '@app/database/data/DatabaseItem'
 import useChannelActionContext from '@app/channel/use/useChannelActionContext'
 
 const isFile = (source: Playlist | DatabaseItem | QueueItem): source is DatabaseItem | QueueItem => {
-  return R.has('type', source) && source.type !== 'playlist'
+  return !R.has('type', source) || source.type !== 'playlist'
 }
 
 const toQueueSource = (source: Playlist | DatabaseItem | QueueItem): QueueSource => {
@@ -23,8 +23,8 @@ const toQueueSource = (source: Playlist | DatabaseItem | QueueItem): QueueSource
 }
 
 interface Actions {
-  add: (source: Playlist | DatabaseItem | QueueItem) => void
-  replace: (source: Playlist | DatabaseItem) => void
+  add: (sources: ReadonlyArray<Playlist | DatabaseItem | QueueItem>) => void
+  replace: (sources: ReadonlyArray<Playlist | DatabaseItem | QueueItem>) => void
   next: Thunk
   prev: Thunk
   clear: Thunk
@@ -39,8 +39,12 @@ const useQueueActions = (): Actions => {
   const perform = useChannelActionContext()
 
   return useMemo(() => ({
-    add: (source) => perform({ queueAdd: { source: toQueueSource(source) } }),
-    replace: (source) => perform({ queueReplace: { source: toQueueSource(source) } }),
+    add: (sources) => perform({
+      queueAdd: { sources: sources.map(toQueueSource) },
+    }),
+    replace: (sources) => perform({
+      queueReplace: { sources: sources.map(toQueueSource) },
+    }),
     remove: ({ id }) => perform({ queueRemove: { id } }),
     clear: () => perform('queueClear'),
     next: () => perform('queueNext'),

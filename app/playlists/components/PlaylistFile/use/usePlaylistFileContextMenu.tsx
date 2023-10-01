@@ -7,9 +7,9 @@ import ContextMenu from '@app/common/components/ContextMenu'
 
 import useContextMenu from '@app/ui/use/useContextMenu'
 import useDatabaseViewNavigation from '@app/database/views/DatabaseView/use/useDatabaseViewNavigation'
+import useDatabaseItemContextMenuItems from '@app/database/components/DatabaseItem/use/useDatabaseItemContextMenuItems'
 
 import { dirname } from '@app/common/utils/path'
-import { getDatabaseItemContextMenuItems } from '@app/database/utils/contextmenu'
 
 const usePlaylistFileContextMenu = ({
   file,
@@ -18,9 +18,11 @@ const usePlaylistFileContextMenu = ({
 }: { file: DatabaseFile, position: number, onRemoveClick: Handler<number> }) => {
   const { goTo } = useDatabaseViewNavigation()
 
+  const databaseItemContextMenuItems = useDatabaseItemContextMenuItems(file)
+
   return useContextMenu((onClose) => {
     const items = [
-      ...getDatabaseItemContextMenuItems(file),
+      ...databaseItemContextMenuItems,
       {
         id: 'remove',
         text: 'Remove',

@@ -1,10 +1,16 @@
 import * as R from 'ramda'
 
+import QueueItem from '@app/queue/data/QueueItem'
 import DatabaseTags from '@app/database/data/DatabaseTags'
+import DatabaseItem from '@app/database/data/DatabaseItem'
 import ContextMenuItem from '@app/common/components/ContextMenu/types/ContextMenuItem'
 
-import { copy } from '@app/navigator/utils/clipboard'
+import useDatabaseActions from '@app/database/use/useDatabaseActions'
+import useQueueActions from '@app/queue/use/useQueueActions'
+
 import { basename } from '@app/common/utils/path'
+import { copy } from '@app/navigator/utils/clipboard'
+import { isDatabaseFile } from '@app/database/utils/types'
 import { formatDatabaseTags } from '@app/database/utils/format'
 
 const getDatabaseTagsContextMenuCopyItems = (
@@ -27,12 +33,14 @@ const getDatabaseTagsContextMenuCopyItems = (
   return R.reject(R.isNil, [copyTitle, copyArtist])
 }
 
-export const getDatabaseItemContextMenuItems = (
-  { uri, tags }: { uri: string, tags?: DatabaseTags }
-): ReadonlyArray<ContextMenuItem> => {
-  const tagsCopyItems = R.isNil(tags)
-    ? []
-    : getDatabaseTagsContextMenuCopyItems(tags)
+const useDatabaseItemContextMenuItems = (item: DatabaseItem | QueueItem) => {
+  const { update } = useDatabaseActions()
+
+  const { add, replace } = useQueueActions()
+
+  const tagsCopyItems = 'position' in item || isDatabaseFile(item)
+    ? getDatabaseTagsContextMenuCopyItems(item.tags)
+    : []
 
   return [
     {
@@ -43,16 +51,33 @@ export const getDatabaseItemContextMenuItems = (
         {
           id: 'copy-path',
           text: 'Copy Path',
-          handler: () => copy(uri),
+          handler: () => copy(item.uri),
         },
         {
           id: 'copy-filename',
           text: 'Copy Filename',
           handler: () => {
-            copy(basename(uri))
+            copy(basename(item.uri))
           },
         },
       ],
     },
+    {
+      id: 'add',
+      text: 'Add',
+      handler: () => add([item]),
+    },
+    {
+      id: 'replace',
+      text: 'Play',
+      handler: () => replace([item]),
+    },
+    {
+      id: 'update-at',
+      text: 'Update At',
+      handler: () => update(item.uri),
+    },
   ]
 }
+
+export default useDatabaseItemContextMenuItems

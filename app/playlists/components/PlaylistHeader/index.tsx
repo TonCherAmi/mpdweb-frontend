@@ -37,11 +37,11 @@ const PlaylistHeader = memo(({ playlist, files }: Props) => {
   const { add, replace } = useQueueActions()
 
   const handleAddClick = () => {
-    add(playlist)
+    add([playlist])
   }
 
   const handlePlayClick = () => {
-    replace(playlist)
+    replace([playlist])
   }
 
   return (

@@ -20,6 +20,10 @@ const PlaylistFileList = memo(({ playlist, files }: Props) => {
 
   const { removeSongs } = usePlaylistActions()
 
+  const handleReplace = useCallback((item: DatabaseFile) => {
+    replace([item])
+  }, [replace])
+
   const handlePlaylistItemRemoveClick = useCallback((position: number) => {
     removeSongs(playlist, [position])
   }, [playlist, removeSongs])
@@ -31,7 +35,7 @@ const PlaylistFileList = memo(({ playlist, files }: Props) => {
           key={index + file.uri}
           file={file}
           position={index ?? -1}
-          onClick={replace}
+          onClick={handleReplace}
           onRemoveClick={handlePlaylistItemRemoveClick}
         />
       )} />

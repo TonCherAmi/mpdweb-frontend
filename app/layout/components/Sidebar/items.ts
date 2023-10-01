@@ -6,6 +6,7 @@ import { route as HistoryViewRoute } from '@app/history/views/HistoryView'
 import { route as SettingsViewRoute } from '@app/settings/views/SettingsView'
 import { route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
 import { route as PlaylistsViewRoute } from '@app/playlists/views/PlaylistsView'
+import { route as DatabaseRecentsViewRoute } from '@app/database/views/DatabaseRecentsView'
 
 export interface SidebarItem {
   text: string
@@ -25,9 +26,14 @@ export const items: ReadonlyArray<SidebarItem> = [
     icon: Icons.Playlist,
   },
   {
-    text: 'History',
-    path: HistoryViewRoute.path,
+    text: 'Recently Added',
+    path: DatabaseRecentsViewRoute.path,
     icon: Icons.ClockFill,
+  },
+  {
+    text: 'Listening History',
+    path: HistoryViewRoute.path,
+    icon: Icons.ClockRotateLeft,
   },
   {
     text: 'Settings',

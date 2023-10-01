@@ -29,6 +29,14 @@ const PlaylistList = ({ playlists, selectedPlaylist }: Props) => {
   const { remove } = usePlaylistActions()
   const { add, replace } = useQueueActions()
 
+  const handleAdd = useCallback((playlist: Playlist) => {
+    add([playlist])
+  }, [add])
+
+  const handleReplace = useCallback((playlist: Playlist) => {
+    replace([playlist])
+  }, [replace])
+
   return (
     <div className={styles.container}>
       <For of={playlists} body={(playlist) => (
@@ -37,8 +45,8 @@ const PlaylistList = ({ playlists, selectedPlaylist }: Props) => {
           isActive={isActive(playlist)}
           playlist={playlist}
           onClick={handleItemClick}
-          onAddClick={add}
-          onPlayClick={replace}
+          onAddClick={handleAdd}
+          onPlayClick={handleReplace}
           onRemoveClick={remove}
         />
       )} />

@@ -2,8 +2,8 @@ import QueueSource from '@app/channel/data/QueueSource'
 import { OneshotState } from '@app/status/data/Status'
 
 type Action = { dbUpdate: { uri: Nullable<string> } }
-  | { queueAdd: { source: QueueSource } }
-  | { queueReplace: { source: QueueSource } }
+  | { queueAdd: { sources: ReadonlyArray<QueueSource> } }
+  | { queueReplace: { sources: ReadonlyArray<QueueSource> } }
   | 'queueClear'
   | { queueRemove: { id: number } }
   | 'queueNext'

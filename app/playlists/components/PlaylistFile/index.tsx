@@ -8,7 +8,6 @@ import DatabaseFile from '@app/database/data/DatabaseFile'
 import Duration from '@app/common/components/Duration'
 import DatabaseCoverArt from '@app/database/components/DatabaseCoverArt'
 
-import { DURATION_ZERO } from '@app/common/utils/duration'
 import { getOrPlaceholder } from '@app/common/utils/format'
 import { formatDatabaseTags } from '@app/database/utils/format'
 
@@ -64,7 +63,7 @@ const PlaylistFile = memo(({ file, position, onClick, onRemoveClick }: Props) =>
           </span>
         </div>
       </div>
-      <Duration className={styles.duration} value={file.duration ?? DURATION_ZERO} />
+      <Duration className={styles.duration} value={file.duration} />
     </div>
   )
 })

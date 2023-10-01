@@ -161,9 +161,17 @@ const DatabaseDirectory = memo(({
   const { update } = useDatabaseActions()
   const { add, replace } = useQueueActions()
 
+  const handleAdd = useCallback((item: DatabaseItemData) => {
+    add([item])
+  }, [add])
+
+  const handleReplace = useCallback((item: DatabaseItemData) => {
+    replace([item])
+  }, [replace])
+
   useFocusScopeGroupedKeybindings({
-    ADD: () => add(currentItem),
-    PLAY: () => replace(currentItem),
+    ADD: () => add([currentItem]),
+    PLAY: () => replace([currentItem]),
     SEARCH_FOCUS: handleSearchFocusKeyPress,
     SEARCH_CANCEL: handleSearchCancel,
     NAVIGATE_LEFT: () => {
@@ -222,8 +230,8 @@ const DatabaseDirectory = memo(({
             item={item}
             highlightStyle={getDatabaseItemHighlightStyle(item)}
             onClick={onDescent}
-            onAddClick={add}
-            onPlayClick={replace}
+            onAddClick={handleAdd}
+            onPlayClick={handleReplace}
           />
         )} />
       </div>

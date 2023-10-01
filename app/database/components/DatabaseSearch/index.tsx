@@ -202,20 +202,28 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
   const { update } = useDatabaseActions()
   const { add, replace } = useQueueActions()
 
+  const handleAdd = useCallback((item: DatabaseItemData) => {
+    add([item])
+  }, [add])
+
+  const handleReplace = useCallback((item: DatabaseItemData) => {
+    replace([item])
+  }, [replace])
+
   useFocusScopeGroupedKeybindings({
     ADD: () => {
       if (R.isNil(itemNavigation.currentItem)) {
         return
       }
 
-      add(itemNavigation.currentItem)
+      add([itemNavigation.currentItem])
     },
     PLAY: () => {
       if (R.isNil(itemNavigation.currentItem)) {
         return
       }
 
-      replace(itemNavigation.currentItem)
+      replace([itemNavigation.currentItem])
     },
     SEARCH_FOCUS: handleSearchFocusKeyPress,
     NAVIGATE_RIGHT: () => {
@@ -265,8 +273,8 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
               item={item}
               highlightStyle={getDatabaseItemHighlightStyle(item)}
               onClick={handleDescent}
-              onAddClick={add}
-              onPlayClick={replace}
+              onAddClick={handleAdd}
+              onPlayClick={handleReplace}
             />
           )} />
         </div>

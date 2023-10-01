@@ -1,6 +1,7 @@
 import { make } from '@app/common/api'
 
 import DatabaseItem from '@app/database/data/DatabaseItem'
+import DatabaseFile from '@app/database/data/DatabaseFile'
 import DatabaseCount from '@app/database/data/DatabaseCount'
 
 import DatabaseGetBody from '@app/database/data/api/request/DatabaseGetBody'
@@ -17,6 +18,7 @@ const Api = {
   search: make<ReadonlyArray<DatabaseItem>, DatabaseSearchBody>('/database', 'get', {
     query: ['query'],
   }),
+  recents: make<ReadonlyArray<DatabaseFile>>('/database/recents'),
 }
 
 export default Api

@@ -1,0 +1,72 @@
+.container {
+  display: flex;
+
+  gap: 1rem;
+
+  padding-right: 1rem;
+
+  border-radius: .5rem;
+
+  transition: .3s background-color;
+
+  :global(.hoverable) & {
+    cursor: pointer;
+
+    &:hover {
+      background: #1d1d1d;
+
+      .tags:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .text {
+    align-items: center;
+
+    flex-grow: 1;
+  }
+
+  .date {
+    margin-left: auto;
+
+    color: #666;
+  }
+
+  .tags {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+
+    flex-grow: 1;
+
+    column-gap: 1.75rem;
+
+    align-items: center;
+
+    color: #aaa;
+
+    .title {
+      color: #bebebe;
+
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+}
+
+.cover {
+  flex-grow: 0;
+
+  width: 3.75rem;
+
+  aspect-ratio: 1 / 1;
+
+  background: #202020;
+
+  border-radius: .35rem;
+}
+
+.icon {
+  width: 2rem;
+}
