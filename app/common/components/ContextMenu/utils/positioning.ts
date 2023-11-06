@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react'
 
-const SUBMENU_POSITIONING_OFFSET = 6
+const SUBMENU_POSITIONING_OFFSET = 3
 
 export const getInsetStyle = ({
   documentRect,
