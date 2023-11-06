@@ -14,7 +14,13 @@ import styles from './styles.scss'
 
 interface Props {
   item: ContextMenuItemData
-  onMouseEnter: Handler<Nullable<{ rect: DOMRect, items: ReadonlyArray<ContextMenuItemData> }>>
+  onMouseEnter: Handler<
+    Nullable<{
+      id: ContextMenuItemData['id']
+      rect: DOMRect
+      items: ReadonlyArray<ContextMenuItemData>
+    }>
+  >
 }
 
 const ContextMenuItem = ({ item, onMouseEnter }: Props) => {
@@ -41,6 +47,7 @@ const ContextMenuItem = ({ item, onMouseEnter }: Props) => {
     }
 
     onMouseEnter({
+      id: item.id,
       items: item.items,
       rect: containerRef.current.getBoundingClientRect(),
     })

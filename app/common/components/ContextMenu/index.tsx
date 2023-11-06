@@ -3,6 +3,7 @@ import React, { useRef, useState, useLayoutEffect } from 'react'
 import * as R from 'ramda'
 
 import Thunk from '@app/common/types/Thunk'
+import TimeoutId from '@app/common/types/TimeoutId'
 
 import ContextMenuItemData from './types/ContextMenuItem'
 
@@ -21,6 +22,8 @@ interface Props extends WrapperProps {
   parentRect?: DOMRect
   sourceItemRect?: DOMRect
 }
+
+const SUBMENU_MOUSE_ENTER_APPEARANCE_DELAY_MS = 325
 
 const ContextMenuWrapper = (props: WrapperProps) => (
   <ContextMenu {...props} />
@@ -44,9 +47,12 @@ const makeClickHandlerWrapper = (onClose: Props['onClose']) => {
 
 const ContextMenu = ({ items, parentRect, sourceItemRect, onClose }: Props) => {
   const [submenuSource, setSubmenuSource] = useState<Nullable<{
+    id: string
     rect: DOMRect
     items: ReadonlyArray<ContextMenuItemData>
   }>>(null)
+
+  const timeoutIdRef = useRef<Nullable<TimeoutId>>(null)
 
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -61,6 +67,24 @@ const ContextMenu = ({ items, parentRect, sourceItemRect, onClose }: Props) => {
       onClose()
     }
   }, [items, onClose])
+
+  const handleMouseEnter = (source: typeof submenuSource) => {
+    if (submenuSource?.id === source?.id) {
+      return
+    }
+
+    setSubmenuSource(null)
+
+    if (timeoutIdRef.current) {
+      clearTimeout(timeoutIdRef.current)
+    }
+
+    if (!R.isNil(source)) {
+      timeoutIdRef.current = setTimeout(() => {
+        setSubmenuSource(source)
+      }, SUBMENU_MOUSE_ENTER_APPEARANCE_DELAY_MS)
+    }
+  }
 
   const renderSubmenu = () => {
     if (R.isNil(submenuSource)) {
@@ -85,7 +109,7 @@ const ContextMenu = ({ items, parentRect, sourceItemRect, onClose }: Props) => {
         <ContextMenuItem
           key={item.id}
           item={wrapClickHandler(item)}
-          onMouseEnter={setSubmenuSource} />
+          onMouseEnter={handleMouseEnter} />
       )} />
       {renderSubmenu()}
     </div>
