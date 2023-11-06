@@ -2,15 +2,15 @@
   display: flex;
   align-items: center;
 
-  width: 12.5rem;
+  column-gap: 3.5rem;
+
+  white-space: nowrap;
 
   padding: .6rem .75rem;
 
   border-radius: .25rem;
 
   cursor: pointer;
-
-  transition: .2s background-color;
 
   &:hover {
     background: #181818;
