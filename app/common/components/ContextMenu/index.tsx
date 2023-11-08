@@ -69,15 +69,17 @@ const ContextMenu = ({ items, parentRect, sourceItemRect, onClose }: Props) => {
   }, [items, onClose])
 
   const handleMouseEnter = (source: typeof submenuSource) => {
+    if (!R.isNil(timeoutIdRef.current)) {
+      clearTimeout(timeoutIdRef.current)
+
+      timeoutIdRef.current = null
+    }
+
     if (submenuSource?.id === source?.id) {
       return
     }
 
     setSubmenuSource(null)
-
-    if (timeoutIdRef.current) {
-      clearTimeout(timeoutIdRef.current)
-    }
 
     if (!R.isNil(source)) {
       timeoutIdRef.current = setTimeout(() => {
