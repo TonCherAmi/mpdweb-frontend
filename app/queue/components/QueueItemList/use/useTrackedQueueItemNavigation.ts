@@ -4,13 +4,13 @@ import * as R from 'ramda'
 
 import QueueItem from '@app/queue/data/QueueItem'
 
-import { ItemNavigation } from '@app/common/use/useItemNavigation'
+import { ItemListNavigation } from '@app/common/use/useItemListNavigation'
 
 import { binarySearch } from '@app/common/utils/array'
 
 const useTrackedQueueItemNavigation = (
   items: ReadonlyArray<QueueItem>,
-  itemNavigation: ItemNavigation<QueueItem>,
+  itemNavigation: ItemListNavigation<QueueItem>,
 ) => {
   const currentItemCacheRef = useRef<Nullable<QueueItem>>(null)
 

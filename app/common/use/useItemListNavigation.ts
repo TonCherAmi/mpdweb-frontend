@@ -4,7 +4,7 @@ import Thunk from '@app/common/types/Thunk'
 
 import * as R from 'ramda'
 
-export interface ItemNavigation<T> {
+export interface ItemListNavigation<T> {
   isEmpty: boolean
   isInitial: boolean
   currentItem: Nullable<T>
@@ -19,9 +19,9 @@ const INITIAL_INDEX = -1
 
 const isInitial = R.equals(INITIAL_INDEX)
 
-const useItemNavigation = <T> (
+const useItemListNavigation = <T> (
   items: ReadonlyArray<T>
-): ItemNavigation<T> => {
+): ItemListNavigation<T> => {
   const [currentItemIndex, setCurrentItemIndex] = useState(INITIAL_INDEX)
 
   useLayoutEffect(() => {
@@ -99,4 +99,4 @@ const useItemNavigation = <T> (
   }
 }
 
-export default useItemNavigation
+export default useItemListNavigation

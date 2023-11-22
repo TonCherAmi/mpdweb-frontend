@@ -12,7 +12,7 @@ import useCache from '@app/common/use/useCache'
 import useInput from '@app/common/use/useInput'
 import useDebounce from '@app/common/use/useDebounce'
 import useRemoteList from '@app/common/use/useRemoteList'
-import useItemNavigation from '@app/common/use/useItemNavigation'
+import useItemListNavigation from '@app/common/use/useItemListNavigation'
 import useQueueActions from '@app/queue/use/useQueueActions'
 import useRouteNavigation from '@app/common/use/useRouteNavigation'
 import useDatabaseActions from '@app/database/use/useDatabaseActions'
@@ -100,9 +100,9 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
     ? cache.results
     : remote.items
 
-  const itemNavigation = useItemNavigation(items)
+  const itemListNavigation = useItemListNavigation(items)
 
-  const { setCurrentItem, goToFirstItem } = itemNavigation
+  const { setCurrentItem, goToFirstItem } = itemListNavigation
 
   useEffect(() => {
     if (!R.isNil(cache.currentItem)) {
@@ -113,13 +113,13 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
   }, [cache, setCurrentItem, goToFirstItem])
 
   useEffect(() => {
-    cache.currentItem = itemNavigation.currentItem
-  }, [cache, itemNavigation.currentItem])
+    cache.currentItem = itemListNavigation.currentItem
+  }, [cache, itemListNavigation.currentItem])
 
-  const itemRef = usePositionedDatabaseItemRef(itemNavigation.currentItem)
+  const itemRef = usePositionedDatabaseItemRef(itemListNavigation.currentItem)
 
   const getDatabaseItemRef = (item: DatabaseItemData): Nullable<typeof itemRef> => {
-    if (item !== itemNavigation.currentItem) {
+    if (item !== itemListNavigation.currentItem) {
       return null
     }
 
@@ -132,7 +132,7 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
   })
 
   const getDatabaseItemHighlightStyle = (item: DatabaseItemData): Nullable<HighlightStyle> => {
-    if (item !== itemNavigation.currentItem) {
+    if (item !== itemListNavigation.currentItem) {
       return null
     }
 
@@ -172,7 +172,7 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
   }
 
   const handleSearchExit = () => {
-    if (itemNavigation.isEmpty) {
+    if (itemListNavigation.isEmpty) {
       return
     }
 
@@ -180,11 +180,11 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
   }
 
   const handleSearchAccept = () => {
-    if (R.isNil(itemNavigation.currentItem)) {
+    if (R.isNil(itemListNavigation.currentItem)) {
       return
     }
 
-    handleDescent(itemNavigation.currentItem)
+    handleDescent(itemListNavigation.currentItem)
   }
 
   const handleSearchCancel = () => {
@@ -212,37 +212,37 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
 
   useFocusScopeGroupedKeybindings({
     ADD: () => {
-      if (R.isNil(itemNavigation.currentItem)) {
+      if (R.isNil(itemListNavigation.currentItem)) {
         return
       }
 
-      add([itemNavigation.currentItem])
+      add([itemListNavigation.currentItem])
     },
     PLAY: () => {
-      if (R.isNil(itemNavigation.currentItem)) {
+      if (R.isNil(itemListNavigation.currentItem)) {
         return
       }
 
-      replace([itemNavigation.currentItem])
+      replace([itemListNavigation.currentItem])
     },
     SEARCH_FOCUS: handleSearchFocusKeyPress,
     NAVIGATE_RIGHT: () => {
-      if (R.isNil(itemNavigation.currentItem)) {
+      if (R.isNil(itemListNavigation.currentItem)) {
         return
       }
 
-      handleDescent(itemNavigation.currentItem)
+      handleDescent(itemListNavigation.currentItem)
     },
     DATABASE_UPDATE_AT_POINT: () => {
-      if (R.isNil(itemNavigation.currentItem)) {
+      if (R.isNil(itemListNavigation.currentItem)) {
         return
       }
 
-      update(itemNavigation.currentItem.uri)
+      update(itemListNavigation.currentItem.uri)
     },
   })
 
-  useItemListKeybindings(itemNavigation)
+  useItemListKeybindings(itemListNavigation)
 
   const containerWheelHandler = useUiInteractionModeAwareWheelEventHandler()
   const containerMouseMoveHandler = useUiInteractionModeAwareMouseEventHandler()

@@ -11,7 +11,7 @@ import DatabaseDirectorySearchInput from '@app/database/components/DatabaseDirec
 
 import useItemSearch from '@app/common/use/useItemSearch'
 import useQueueActions from '@app/queue/use/useQueueActions'
-import useItemNavigation from '@app/common/use/useItemNavigation'
+import useItemListNavigation from '@app/common/use/useItemListNavigation'
 import useDatabaseActions from '@app/database/use/useDatabaseActions'
 import useItemListKeybindings from '@app/keybindings/use/useItemListKeybindings'
 import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
@@ -60,21 +60,21 @@ const DatabaseDirectory = memo(({
 
   const itemSearch = useItemSearch(items, databaseItemUriAccessor)
 
-  const itemNavigation = useItemNavigation(items)
+  const itemListNavigation = useItemListNavigation(items)
 
-  const searchItemNavigation = useItemNavigation(itemSearch.results)
+  const searchItemListNavigation = useItemListNavigation(itemSearch.results)
 
-  const currentItemNavigation = isSearchHidden ? itemNavigation : searchItemNavigation
+  const currentItemListNavigation = isSearchHidden ? itemListNavigation : searchItemListNavigation
 
-  const currentItem = R.defaultTo(selectedItem, currentItemNavigation.currentItem)
+  const currentItem = R.defaultTo(selectedItem, currentItemListNavigation.currentItem)
 
-  const { setCurrentItem } = itemNavigation
+  const { setCurrentItem } = itemListNavigation
 
   useLayoutEffect(() => {
     setCurrentItem(selectedItem)
   }, [selectedItem, setCurrentItem])
 
-  const { goToFirstItem: goToFirstSearchItem } = searchItemNavigation
+  const { goToFirstItem: goToFirstSearchItem } = searchItemListNavigation
 
   useLayoutEffect(() => {
     goToFirstSearchItem()
@@ -99,7 +99,7 @@ const DatabaseDirectory = memo(({
   })
 
   const getDatabaseItemHighlightStyle = (item: DatabaseItemData): Nullable<HighlightStyle> => {
-    if (item !== currentItemNavigation.currentItem) {
+    if (item !== currentItemListNavigation.currentItem) {
       return null
     }
 
@@ -129,7 +129,7 @@ const DatabaseDirectory = memo(({
   }
 
   const handleSearchExit = () => {
-    if (currentItemNavigation.isEmpty) {
+    if (currentItemListNavigation.isEmpty) {
       return
     }
 
@@ -137,8 +137,8 @@ const DatabaseDirectory = memo(({
   }
 
   const handleSearchCancel = () => {
-    if (!R.isEmpty(itemSearch.input.value && !searchItemNavigation.isEmpty)) {
-      itemNavigation.setCurrentItem(currentItem)
+    if (!R.isEmpty(itemSearch.input.value && !searchItemListNavigation.isEmpty)) {
+      itemListNavigation.setCurrentItem(currentItem)
     }
 
     setIsSearchHidden(true)
@@ -175,33 +175,33 @@ const DatabaseDirectory = memo(({
     SEARCH_FOCUS: handleSearchFocusKeyPress,
     SEARCH_CANCEL: handleSearchCancel,
     NAVIGATE_LEFT: () => {
-      if (R.isNil(currentItemNavigation.currentItem)) {
+      if (R.isNil(currentItemListNavigation.currentItem)) {
         return
       }
 
-      onAscent(currentItemNavigation.currentItem)
+      onAscent(currentItemListNavigation.currentItem)
     },
     NAVIGATE_RIGHT: () => {
-      if (R.isNil(currentItemNavigation.currentItem)) {
+      if (R.isNil(currentItemListNavigation.currentItem)) {
         return
       }
 
-      if (currentItemNavigation.currentItem.type !== 'directory') {
+      if (currentItemListNavigation.currentItem.type !== 'directory') {
         return
       }
 
-      onDescent(currentItemNavigation.currentItem)
+      onDescent(currentItemListNavigation.currentItem)
     },
     DATABASE_UPDATE_AT_POINT: () => {
-      if (R.isNil(currentItemNavigation.currentItem)) {
+      if (R.isNil(currentItemListNavigation.currentItem)) {
         return
       }
 
-      update(currentItemNavigation.currentItem.uri)
+      update(currentItemListNavigation.currentItem.uri)
     },
   }, { disable: !isActive })
 
-  useItemListKeybindings(currentItemNavigation, {
+  useItemListKeybindings(currentItemListNavigation, {
     disable: !isActive,
   })
 

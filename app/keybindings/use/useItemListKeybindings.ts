@@ -1,16 +1,16 @@
-import { ItemNavigation } from '@app/common/use/useItemNavigation'
+import { ItemListNavigation } from '@app/common/use/useItemListNavigation'
 
 import useThrottle from '@app/common/use/useThrottle'
 import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
 import useFocusScopeGroupedKeybindings from '@app/keybindings/use/useFocusScopeGroupedKeybindings'
 
-const ITEM_NAVIGATION_KEYPRESS_REPEAT_WAIT_MS = 25
+const ITEM_LIST_NAVIGATION_KEYPRESS_REPEAT_WAIT_MS = 25
 
 interface Options {
   disable?: boolean
 }
 
-const useItemListKeybindings = <T> (itemNavigation: ItemNavigation<T>, {
+const useItemListKeybindings = <T> (itemListNavigation: ItemListNavigation<T>, {
   disable = false,
 }: Options = {}) => {
   const uiInteractionMode = useUiInteractionModeContext()
@@ -22,8 +22,8 @@ const useItemListKeybindings = <T> (itemNavigation: ItemNavigation<T>, {
       return
     }
 
-    itemNavigation.goToNextItem()
-  }, ITEM_NAVIGATION_KEYPRESS_REPEAT_WAIT_MS)
+    itemListNavigation.goToNextItem()
+  }, ITEM_LIST_NAVIGATION_KEYPRESS_REPEAT_WAIT_MS)
 
   const handlePrevItemKeyPress = useThrottle(() => {
     if (!uiInteractionMode.isKeyboard) {
@@ -32,15 +32,15 @@ const useItemListKeybindings = <T> (itemNavigation: ItemNavigation<T>, {
       return
     }
 
-    itemNavigation.goToPrevItem()
-  }, ITEM_NAVIGATION_KEYPRESS_REPEAT_WAIT_MS)
+    itemListNavigation.goToPrevItem()
+  }, ITEM_LIST_NAVIGATION_KEYPRESS_REPEAT_WAIT_MS)
 
   const handleFirstItemKeyPress = () => {
     if (!uiInteractionMode.isKeyboard) {
       uiInteractionMode.setKeyboard()
     }
 
-    itemNavigation.goToFirstItem()
+    itemListNavigation.goToFirstItem()
   }
 
   const handleLastItemKeyPress = () => {
@@ -48,7 +48,7 @@ const useItemListKeybindings = <T> (itemNavigation: ItemNavigation<T>, {
       uiInteractionMode.setKeyboard()
     }
 
-    itemNavigation.goToLastItem()
+    itemListNavigation.goToLastItem()
   }
 
   const handlers = {

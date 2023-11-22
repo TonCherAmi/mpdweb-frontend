@@ -4,7 +4,7 @@ import QueueItemData from '@app/queue/data/QueueItem'
 
 import QueueItem from '@app/queue/components/QueueItem'
 
-import useItemNavigation from '@app/common/use/useItemNavigation'
+import useItemListNavigation from '@app/common/use/useItemListNavigation'
 import usePlaybackActions from '@app/playback/use/usePlaybackActions'
 import useItemListKeybindings from '@app/keybindings/use/useItemListKeybindings'
 
@@ -21,24 +21,24 @@ interface Props {
 }
 
 const QueueItemList = memo(({ isActive, items, onIsActiveChangeScrollTo }: Props) => {
-  const itemNavigation = useItemNavigation(items)
+  const itemListNavigation = useItemListNavigation(items)
 
-  useTrackedQueueItemNavigation(items, itemNavigation)
+  useTrackedQueueItemNavigation(items, itemListNavigation)
 
   const currentItemRef = useRef<HTMLDivElement>(null)
 
   usePositionedQueueItemRef({
     isActive,
-    currentItem: itemNavigation.currentItem,
+    currentItem: itemListNavigation.currentItem,
     currentItemRef,
     onIsActiveChangeScrollTo,
   })
 
-  useItemListKeybindings(itemNavigation, {
+  useItemListKeybindings(itemListNavigation, {
     disable: !isActive,
   })
 
-  useQueueItemListKeybindings(itemNavigation.currentItem)
+  useQueueItemListKeybindings(itemListNavigation.currentItem)
 
   const { play } = usePlaybackActions()
 
@@ -46,9 +46,9 @@ const QueueItemList = memo(({ isActive, items, onIsActiveChangeScrollTo }: Props
     <div className={styles.container}>
       <For of={items} body={(item) => (
         <QueueItem
-          ref={isActive && item === itemNavigation.currentItem ? currentItemRef : null}
+          ref={isActive && item === itemListNavigation.currentItem ? currentItemRef : null}
           key={item.id}
-          isFocused={isActive && item === itemNavigation.currentItem}
+          isFocused={isActive && item === itemListNavigation.currentItem}
           item={item}
           onClick={play}
         />
