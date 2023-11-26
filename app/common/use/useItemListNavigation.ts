@@ -1,4 +1,4 @@
-import { useState, useCallback, useLayoutEffect } from 'react'
+import React, { useState, useCallback, useLayoutEffect } from 'react'
 
 import Thunk from '@app/common/types/Thunk'
 
@@ -13,6 +13,7 @@ export interface ItemListNavigation<T> {
   goToFirstItem: Thunk
   goToLastItem: Thunk
   setCurrentItem: (item: Nullable<T>) => void
+  setCurrentItemIndex: React.Dispatch<React.SetStateAction<number>>
 }
 
 const INITIAL_INDEX = -1
@@ -96,6 +97,7 @@ const useItemListNavigation = <T> (
     goToFirstItem,
     goToLastItem,
     setCurrentItem,
+    setCurrentItemIndex,
   }
 }
 
