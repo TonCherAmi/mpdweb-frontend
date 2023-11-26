@@ -1,0 +1,61 @@
+@use '@app/common/styles/ui.scss';
+
+.link {
+  display: flex;
+  flex-direction: column;
+
+  row-gap: .25rem;
+
+  @include ui.interaction-mode('keyboard') {
+    &.selected {
+      .cover {
+        background: #4B2F34;
+
+        .icon {
+          color: #aaa;
+        }
+      }
+
+      .name {
+        color: #fff;
+      }
+    }
+  }
+
+  .cover {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 10rem;
+    height: 10rem;
+
+    border-radius: .5rem;
+
+    background: #202020;
+
+    @include ui.interaction-mode('mouse') {
+      transition: .2s background-color;
+    }
+
+    .icon {
+      width: 3rem;
+      height: 3rem;
+
+      color: #666;
+    }
+  }
+
+  .name {
+    color: #ddd;
+
+    padding-left: .25rem;
+  }
+
+  @include ui.interaction-mode('mouse') {
+    &:hover .name {
+      text-decoration: underline;
+    }
+  }
+}

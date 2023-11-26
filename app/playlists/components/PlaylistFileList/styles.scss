@@ -1,3 +1,5 @@
+@use '@app/common/styles/scrollbar.scss';
+
 .container {
   display: flex;
   flex-direction: column;
@@ -6,9 +8,7 @@
 
   row-gap: .65rem;
 
-  scrollbar-width: none;
+  padding-bottom: 1.25rem;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  @include scrollbar.configuration('none');
 }

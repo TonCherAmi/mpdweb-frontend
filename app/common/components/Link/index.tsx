@@ -10,6 +10,7 @@ interface Props {
   className?: string
   to: string
   children: React.ReactNode
+  onContextMenu?: React.MouseEventHandler
 }
 
 const Link = ({ className, to, children, ...props }: Props) => {

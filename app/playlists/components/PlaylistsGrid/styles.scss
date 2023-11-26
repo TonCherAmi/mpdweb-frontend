@@ -1,0 +1,31 @@
+@use '@app/common/styles/scrollbar.scss';
+
+.container {
+  display: grid;
+  grid-template-rows: max-content;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+
+  gap: 1.25rem;
+
+  padding-bottom: 1.25rem;
+
+  overflow-y: scroll;
+
+  @include scrollbar.configuration('none');
+}
+
+.item {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 10rem;
+  height: 10rem;
+
+  background: blue;
+
+  &.active {
+    background: red;
+  }
+}

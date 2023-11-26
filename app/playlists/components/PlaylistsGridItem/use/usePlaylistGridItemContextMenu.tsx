@@ -9,7 +9,7 @@ import useContextMenu from '@app/ui/use/useContextMenu'
 
 import { copy } from '@app/navigator/utils/clipboard'
 
-const usePlaylistListItemContextMenu = ({
+const usePlaylistGridItemContextMenu = ({
   playlist,
   onRemoveClick,
 }: { playlist: Playlist, onRemoveClick: Handler<Playlist> }) => {
@@ -42,4 +42,4 @@ const usePlaylistListItemContextMenu = ({
   })
 }
 
-export default usePlaylistListItemContextMenu
+export default usePlaylistGridItemContextMenu
