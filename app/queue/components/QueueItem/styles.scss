@@ -1,3 +1,4 @@
+@use '@app/common/styles/ui.scss';
 @use '@app/common/styles/breakpoints.scss';
 
 .container {
@@ -9,23 +10,22 @@
 
   border-radius: .75rem;
 
-  // TODO: improve hoverable handling
-  body:not(:global(.hoverable)) &.focused {
-    background: #242424;
+  @include ui.interaction-mode('keyboard') {
+    &.focused {
+      background: #242424;
+    }
   }
 
-  :global(.hoverable) & {
-    transition: .3s box-shadow, .3s background-color;
-  }
-
-  :global(.hoverable) & {
+  @include ui.interaction-mode('mouse') {
     cursor: pointer;
-  }
 
-  &:hover {
-    background: #222222;
+    transition: .3s box-shadow, .3s background-color;
 
-    box-shadow: .25rem .1rem .5rem .65rem rgba(0, 0, 0, 0.07);
+    &:hover {
+      background: #222222;
+
+      box-shadow: .25rem .1rem .5rem .65rem rgba(0, 0, 0, 0.07);
+    }
   }
 
   &:active {

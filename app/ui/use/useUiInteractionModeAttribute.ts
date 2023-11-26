@@ -6,10 +6,10 @@ import Handler from '@app/common/types/Handler'
 
 import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
 
-const HOVERABLE_CLASS_NAME = 'hoverable'
+const UI_INTERACTION_MODE_ATTRIBUTE = 'data-ui-interaction-mode'
 
-const useHoverable = () => {
-  const { isMouse, setMouse } = useUiInteractionModeContext()
+const useUiInteractionModeAttribute = () => {
+  const { isMouse, value, setMouse } = useUiInteractionModeContext()
 
   useEffect(() => {
     const getMouseMoveHandler = (): Handler<MouseEvent> | undefined => {
@@ -60,8 +60,8 @@ const useHoverable = () => {
   }, [isMouse, setMouse])
 
   useEffect(() => {
-    document.body.classList.toggle(HOVERABLE_CLASS_NAME)
-  }, [isMouse])
+    document.body.setAttribute(UI_INTERACTION_MODE_ATTRIBUTE, value)
+  }, [value])
 }
 
-export default useHoverable
+export default useUiInteractionModeAttribute

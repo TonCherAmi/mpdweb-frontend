@@ -1,4 +1,25 @@
+@use '@app/common/styles/ui.scss';
 @use '@app/common/styles/breakpoints.scss';
+
+%button-styles {
+  .controls .button {
+    .icon {
+      color: #999;
+    }
+
+    &:hover {
+      .icon {
+        color: #cecece;
+      }
+    }
+
+    &:active {
+      .icon {
+        color: #888;
+      }
+    }
+  }
+}
 
 .container {
   display: flex;
@@ -8,31 +29,21 @@
 
   border-radius: .5rem;
 
-  :global(.hoverable) & {
+  @include ui.interaction-mode('mouse') {
     transition: .2s background-color;
+
+    &.clickable {
+      cursor: pointer;
+    }
   }
 
-  :global(.hoverable) &.clickable {
-    cursor: pointer;
+  &.highlighted {
+    @extend %button-styles;
   }
 
-  &.highlighted, :global(.hoverable) &:hover {
-    .controls .button {
-      .icon {
-        color: #999;
-      }
-
-      &:hover {
-        .icon {
-          color: #cecece;
-        }
-      }
-
-      &:active {
-        .icon {
-          color: #888;
-        }
-      }
+  @include ui.interaction-mode('mouse') {
+    &:hover {
+      @extend %button-styles;
     }
   }
 
@@ -48,12 +59,14 @@
     background: #1C2636;
   }
 
-  :global(.hoverable) &.highlighted.secondary:hover {
-    background: #232F43;
-  }
+  @include ui.interaction-mode('mouse') {
+    &:hover {
+      background: #212121;
+    }
 
-  :global(.hoverable) &:hover {
-    background: #212121;
+    &.highlighted.secondary:hover {
+      background: #232F43;
+    }
   }
 
   $border-radius: .5rem;
@@ -108,7 +121,7 @@
       margin-right: .5rem;
     }
 
-    :global(.hoverable) & {
+    @include ui.interaction-mode('mouse') {
       transition: .2s color;
     }
   }

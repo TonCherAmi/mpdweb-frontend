@@ -1,3 +1,5 @@
+@use '@app/common/styles/ui.scss';
+
 .container {
   display: flex;
 
@@ -9,13 +11,13 @@
 
   transition: .3s background-color;
 
-  :global(.hoverable) & {
+  @include ui.interaction-mode('mouse') {
     cursor: pointer;
 
     &:hover {
       background: #1d1d1d;
 
-      .tags:hover {
+      .text:hover .tags {
         text-decoration: underline;
       }
     }

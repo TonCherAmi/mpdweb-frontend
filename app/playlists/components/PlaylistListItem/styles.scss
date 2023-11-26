@@ -1,3 +1,4 @@
+@use '@app/common/styles/ui.scss';
 @use '@app/common/styles/breakpoints.scss';
 
 .container {
@@ -20,7 +21,7 @@
     column-gap: .5rem;
   }
 
-  :global(.hoverable) & {
+  @include ui.interaction-mode('mouse') {
     cursor: pointer;
 
     &:hover {

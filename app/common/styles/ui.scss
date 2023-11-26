@@ -1,0 +1,5 @@
+@mixin interaction-mode($mode) {
+  body[data-ui-interaction-mode='#{$mode}'] & {
+    @content
+  }
+}

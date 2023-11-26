@@ -9,6 +9,7 @@ const noop = () => {
 const defaultValue: UiInteractionMode = {
   isMouse: true,
   isKeyboard: false,
+  value: 'mouse',
   setMouse: noop,
   setKeyboard: noop,
 }

@@ -17,7 +17,7 @@ import Providers from '@app/layout/components/Providers'
 import DatabaseViewProvider from '@app/database/views/DatabaseView/providers/DatabaseViewProvider'
 import PlaylistsViewProvider from '@app/playlists/views/PlaylistsView/providers/PlaylistsViewProvider'
 
-import useHoverable from '@app/ui/use/useHoverable'
+import useUiInteractionModeAttribute from '@app/ui/use/useUiInteractionModeAttribute'
 import useGlobalKeybindings from '@app/layout/use/useGlobalKeybindings'
 import useDefaultContextMenu from '@app/layout/use/useDefaultContextMenu'
 import useQueueToggleKeybinding from '@app/layout/use/useQueueToggleKeybinding'
@@ -38,7 +38,7 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => (
 )
 
 const Wrapped = () => {
-  useHoverable()
+  useUiInteractionModeAttribute()
   useGlobalKeybindings()
   useQueueToggleKeybinding()
   useManualScrollRestoration()

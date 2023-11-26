@@ -3,22 +3,23 @@ import { useState, useMemo, useCallback } from 'react'
 import UiInteractionMode from '@app/ui/types/UiInteractionMode'
 
 const useUiInteractionMode = (): UiInteractionMode => {
-  const [mode, setMode] = useState<'mouse' | 'keyboard'>('mouse')
+  const [value, setValue] = useState<'mouse' | 'keyboard'>('mouse')
 
   const setMouse = useCallback(() => {
-    setMode('mouse')
+    setValue('mouse')
   }, [])
 
   const setKeyboard = useCallback(() => {
-    setMode('keyboard')
+    setValue('keyboard')
   }, [])
 
   return useMemo(() => ({
-    isMouse: mode === 'mouse',
-    isKeyboard: mode === 'keyboard',
+    isMouse: value === 'mouse',
+    isKeyboard: value === 'keyboard',
+    value,
     setMouse: setMouse,
     setKeyboard: setKeyboard,
-  }), [mode, setKeyboard, setMouse])
+  }), [value, setKeyboard, setMouse])
 }
 
 export default useUiInteractionMode
