@@ -27,6 +27,7 @@ const useQueueItemListKeybindings = (item: Nullable<QueueItem>) => {
     PLAY: withItem(play),
     GO_TO_DEFINITION: withItem((item) => goTo(dirname(item.uri))),
     REMOVE: withItem(remove),
+    ENTER: withItem(play),
     NAVIGATE_RIGHT: withItem(play),
   }, { disable: R.isNil(item) })
 }

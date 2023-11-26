@@ -11,15 +11,16 @@ const make = (
 ): Keybinding => ({ triggers, isRepeatable })
 
 export default {
-  NEXT_ITEM: make(['j', 'ArrowDown'], { isRepeatable: true }),
-  PREV_ITEM: make(['k', 'ArrowUp'], { isRepeatable: true }),
   FIRST_ITEM: make([
     'Home',
     { sequence: ['g', 'g'] },
   ]),
   LAST_ITEM: make(['End', { key: 'g', mods: ['shift'] }]),
-  NAVIGATE_LEFT: make(['h', 'ArrowLeft']),
-  NAVIGATE_RIGHT: make(['l', 'ArrowRight', 'Enter']),
+  ENTER: make(['Enter']),
+  NAVIGATE_UP: make(['k', 'ArrowUp'], { isRepeatable: true }),
+  NAVIGATE_DOWN: make(['j', 'ArrowDown'], { isRepeatable: true }),
+  NAVIGATE_LEFT: make(['h', 'ArrowLeft'], { isRepeatable: true }),
+  NAVIGATE_RIGHT: make(['l', 'ArrowRight'], { isRepeatable: true }),
   ADD: make(['a']),
   PLAY: make(['p']),
   GO_TO_DEFINITION: make([{ sequence: ['g', 'i'] }]),

@@ -128,6 +128,18 @@ const DatabaseDirectory = memo(({
     searchInputRef.current?.focus()
   }
 
+  const handleDescentKeyPress = () => {
+    if (R.isNil(currentItemListNavigation.currentItem)) {
+      return
+    }
+
+    if (currentItemListNavigation.currentItem.type !== 'directory') {
+      return
+    }
+
+    onDescent(currentItemListNavigation.currentItem)
+  }
+
   const handleSearchExit = () => {
     if (currentItemListNavigation.isEmpty) {
       return
@@ -181,17 +193,8 @@ const DatabaseDirectory = memo(({
 
       onAscent(currentItemListNavigation.currentItem)
     },
-    NAVIGATE_RIGHT: () => {
-      if (R.isNil(currentItemListNavigation.currentItem)) {
-        return
-      }
-
-      if (currentItemListNavigation.currentItem.type !== 'directory') {
-        return
-      }
-
-      onDescent(currentItemListNavigation.currentItem)
-    },
+    ENTER: handleDescentKeyPress,
+    NAVIGATE_RIGHT: handleDescentKeyPress,
     DATABASE_UPDATE_AT_POINT: () => {
       if (R.isNil(currentItemListNavigation.currentItem)) {
         return

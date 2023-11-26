@@ -2,15 +2,9 @@ import { useCallback } from 'react'
 
 import * as R from 'ramda'
 
-import Thunk from '@app/common/types/Thunk'
+import useItemListNavigation, { ItemListNavigation } from '@app/common/use/useItemListNavigation'
 
-import useItemListNavigation from '@app/common/use/useItemListNavigation'
-
-interface ItemGridNavigation<T> {
-  isEmpty: boolean
-  currentItem: Nullable<T>
-  goToNextItem: Thunk
-  goToPrevItem: Thunk
+export interface ItemGridNavigation<T> extends ItemListNavigation<T>{
   goToItemAbove: (rowLength: number) => void
   goToItemBelow: (rowLength: number) => void
 }
@@ -22,11 +16,13 @@ const isInitial = R.equals(INITIAL_INDEX)
 const useItemGridNavigation = <T>(
   items: ReadonlyArray<T>,
 ): ItemGridNavigation<T> => {
-  const { setCurrentItemIndex, ...itemListNavigation } = useItemListNavigation(items)
+  const itemListNavigation = useItemListNavigation(items)
+
+  const { isEmpty, setCurrentItemIndex } = itemListNavigation
 
   const goToItemAbove = useCallback((rowLength: number) => {
     setCurrentItemIndex((currentItemIndex) => {
-      if (isInitial(currentItemIndex) && !itemListNavigation.isEmpty) {
+      if (isInitial(currentItemIndex) && !isEmpty) {
         return 0
       }
 
@@ -38,11 +34,11 @@ const useItemGridNavigation = <T>(
 
       return currentItemIndex - rowLength
     })
-  }, [itemListNavigation.isEmpty, setCurrentItemIndex])
+  }, [isEmpty, setCurrentItemIndex])
 
   const goToItemBelow = useCallback((rowLength: number) => {
     setCurrentItemIndex((currentItemIndex) => {
-      if (isInitial(currentItemIndex) && !itemListNavigation.isEmpty) {
+      if (isInitial(currentItemIndex) && !isEmpty) {
         return 0
       }
 
@@ -54,7 +50,7 @@ const useItemGridNavigation = <T>(
 
       return currentItemIndex + rowLength
     })
-  }, [items.length, itemListNavigation.isEmpty, setCurrentItemIndex])
+  }, [items.length, isEmpty, setCurrentItemIndex])
 
   return {
     goToItemAbove,

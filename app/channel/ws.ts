@@ -75,7 +75,7 @@ export const connect = (url: string): Connection => {
   return {
     send: (data: string) => {
       if (state !== 'open') {
-        throw Error('Attempted to send via closed connection')
+        throw Error('attempted to send via closed connection')
       }
 
       ws.send(data)

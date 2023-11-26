@@ -10,7 +10,7 @@ const useFocusScopeGroupContext = (): FocusScope => {
   const focusScopeGroup = useContext(FocusScopeGroupContext)
 
   if (R.isNil(focusScopeGroup)) {
-    throw Error('Focus scope group not set')
+    throw Error('focus scope group not set')
   }
 
   return focusScopeGroup

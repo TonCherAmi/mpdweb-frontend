@@ -171,6 +171,14 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
     searchInputRef.current?.focus()
   }
 
+  const handleDescentKeyPress = () => {
+    if (R.isNil(itemListNavigation.currentItem)) {
+      return
+    }
+
+    handleDescent(itemListNavigation.currentItem)
+  }
+
   const handleSearchExit = () => {
     if (itemListNavigation.isEmpty) {
       return
@@ -226,13 +234,8 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
       replace([itemListNavigation.currentItem])
     },
     SEARCH_FOCUS: handleSearchFocusKeyPress,
-    NAVIGATE_RIGHT: () => {
-      if (R.isNil(itemListNavigation.currentItem)) {
-        return
-      }
-
-      handleDescent(itemListNavigation.currentItem)
-    },
+    ENTER: handleDescentKeyPress,
+    NAVIGATE_RIGHT: handleDescentKeyPress,
     DATABASE_UPDATE_AT_POINT: () => {
       if (R.isNil(itemListNavigation.currentItem)) {
         return

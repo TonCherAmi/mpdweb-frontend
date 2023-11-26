@@ -8,10 +8,12 @@ const ITEM_LIST_NAVIGATION_KEYPRESS_REPEAT_WAIT_MS = 25
 
 interface Options {
   disable?: boolean
+  direction?: 'vertical' | 'horizontal'
 }
 
 const useItemListKeybindings = <T> (itemListNavigation: ItemListNavigation<T>, {
   disable = false,
+  direction = 'vertical',
 }: Options = {}) => {
   const uiInteractionMode = useUiInteractionModeContext()
 
@@ -51,11 +53,26 @@ const useItemListKeybindings = <T> (itemListNavigation: ItemListNavigation<T>, {
     itemListNavigation.goToLastItem()
   }
 
+  let nextPrevHandlers
+
+  if (direction === 'vertical') {
+    nextPrevHandlers = {
+      NAVIGATE_DOWN: handleNextItemKeyPress,
+      NAVIGATE_UP: handlePrevItemKeyPress,
+    }
+  }
+
+  if (direction === 'horizontal') {
+    nextPrevHandlers = {
+      NAVIGATE_RIGHT: handleNextItemKeyPress,
+      NAVIGATE_LEFT: handlePrevItemKeyPress,
+    }
+  }
+
   const handlers = {
-    NEXT_ITEM: handleNextItemKeyPress,
-    PREV_ITEM: handlePrevItemKeyPress,
     FIRST_ITEM: handleFirstItemKeyPress,
     LAST_ITEM: handleLastItemKeyPress,
+    ...nextPrevHandlers,
   }
 
   useFocusScopeGroupedKeybindings(handlers, { disable })
