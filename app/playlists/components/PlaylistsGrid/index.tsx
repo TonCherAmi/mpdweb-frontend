@@ -11,6 +11,8 @@ import useFocusScopeContext from '@app/ui/use/useFocusScopeContext'
 import useItemGridNavigation from '@app/common/use/useItemGridNavigation'
 import useItemGridKeybindings from '@app/keybindings/use/useItemGridKeybindings'
 import useFocusScopeGroupContext from '@app/ui/use/useFocusScopeGroupContext'
+import usePlaylistsViewNavigation from '@app/playlists/views/PlaylistsView/use/usePlaylistsViewNavigation'
+import useFocusScopeGroupedKeybindings from '@app/keybindings/use/useFocusScopeGroupedKeybindings'
 
 import styles from './styles.scss'
 
@@ -22,6 +24,8 @@ const PlaylistsGrid = (props: Props) => {
   const itemGridNavigation = useItemGridNavigation(props.items)
 
   const gridRef = useRef<HTMLDivElement>(null)
+
+  const { goTo } = usePlaylistsViewNavigation()
 
   const calculateRowLength = (): number => {
     if (!gridRef.current || R.isEmpty(props.items)) {
@@ -47,6 +51,16 @@ const PlaylistsGrid = (props: Props) => {
 
   useItemGridKeybindings(itemGridNavigation, {
     calculateRowLength,
+  })
+
+  useFocusScopeGroupedKeybindings({
+    ENTER: () => {
+      if (R.isNil(itemGridNavigation.currentItem)) {
+        return
+      }
+
+      goTo(itemGridNavigation.currentItem.name)
+    },
   })
 
   const { remove } = usePlaylistActions()
