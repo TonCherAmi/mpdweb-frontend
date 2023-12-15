@@ -68,4 +68,6 @@ export default {
   ]),
   QUEUE_FOCUS_TOGGLE: make(['q']),
   QUEUE_FOCUSED_PARTITION_TOGGLE: make(['h']),
+  HISTORY_BACK: make([{ key: 'h', mods: ['shift'] }]),
+  HISTORY_FORWARD: make([{ key: 'l', mods: ['shift'] }]),
 }

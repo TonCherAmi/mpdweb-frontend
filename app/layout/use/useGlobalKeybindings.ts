@@ -1,3 +1,5 @@
+import { useHistory } from 'react-router-dom'
+
 import useKeybindings from '@app/keybindings/use/useKeybindings'
 import useQueueActions from '@app/queue/use/useQueueActions'
 import useVolumeContext from '@app/volume/use/useVolumeContext'
@@ -13,7 +15,15 @@ const useGlobalKeybindings = () => {
   const { toggle } = useStatefulPlaybackActions()
   const { next, prev, clear } = useQueueActions()
   const { inc: incVolume, dec: decVolume } = useVolumeContext()
-  const { toggleRepeat, cycleSingle, cycleConsume, toggleRandom } = useStatefulQueueActions()
+
+  const {
+    toggleRepeat,
+    cycleSingle,
+    cycleConsume,
+    toggleRandom,
+  } = useStatefulQueueActions()
+
+  const router = useHistory()
 
   useKeybindings({
     PLAYBACK_STOP: stop,
@@ -28,6 +38,8 @@ const useGlobalKeybindings = () => {
     VOLUME_DOWN: decVolume,
     DATABASE_UPDATE: () => update(),
     QUEUE_CLEAR: clear,
+    HISTORY_BACK: () => router.goBack(),
+    HISTORY_FORWARD: () => router.goForward(),
   })
 }
 
