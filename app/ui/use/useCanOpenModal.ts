@@ -1,9 +1,7 @@
-import useFocusScopeContext from '@app/ui/use/useFocusScopeContext'
+import useAnyFocusScopeActive from '@app/ui/use/useAnyFocusScopeActive'
 
 const useCanOpenModal = (): boolean => {
-  const [focusScope] = useFocusScopeContext()
-
-  return ['view', 'queue'].includes(focusScope)
+  return useAnyFocusScopeActive(['view', 'queue'])
 }
 
 export default useCanOpenModal

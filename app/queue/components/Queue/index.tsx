@@ -6,7 +6,8 @@ import Button from '@app/common/components/Button'
 import QueueInfo from '@app/queue/components/QueueInfo'
 import QueueItemList from '@app/queue/components/QueueItemList'
 
-import useAnyFocusScopeActive from '@app/ui/use/useAnyFocusScopeActive'
+import useFocusGroupActive from '@app/ui/use/useFocusGroupActive'
+import useQueueToggleKeybinding from '@app/layout/use/useQueueToggleKeybinding'
 import useFocusScopeGroupedKeybindings from '@app/keybindings/use/useFocusScopeGroupedKeybindings'
 
 import usePartitionedQueue from './use/usePartitionedQueue'
@@ -64,7 +65,9 @@ const Queue = () => {
 
   const [focusedPartition, toggleFocusedPartition] = useFocusedQueuePartition(prev, next)
 
-  const isActive = useAnyFocusScopeActive(['queue'])
+  const isFocusGroupActive = useFocusGroupActive()
+
+  useQueueToggleKeybinding()
 
   useFocusScopeGroupedKeybindings({
     QUEUE_FOCUSED_PARTITION_TOGGLE: toggleFocusedPartition,
@@ -85,7 +88,7 @@ const Queue = () => {
               </Button>
             </div>
             <QueueItemList
-              isActive={isActive && focusedPartition === 'prev'}
+              isActive={isFocusGroupActive && focusedPartition === 'prev'}
               items={prev}
               onIsActiveChangeScrollTo="end"
             />
@@ -104,7 +107,7 @@ const Queue = () => {
             </If>
           </div>
           <QueueItemList
-            isActive={isActive && focusedPartition === 'next'}
+            isActive={isFocusGroupActive && focusedPartition === 'next'}
             items={next}
             onIsActiveChangeScrollTo="start"
           />

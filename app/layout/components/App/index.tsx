@@ -17,11 +17,10 @@ import Providers from '@app/layout/components/Providers'
 import DatabaseViewProvider from '@app/database/views/DatabaseView/providers/DatabaseViewProvider'
 import PlaylistsViewProvider from '@app/playlists/views/PlaylistsView/providers/PlaylistsViewProvider'
 
-import useUiInteractionModeAttribute from '@app/ui/use/useUiInteractionModeAttribute'
 import useGlobalKeybindings from '@app/layout/use/useGlobalKeybindings'
 import useDefaultContextMenu from '@app/layout/use/useDefaultContextMenu'
-import useQueueToggleKeybinding from '@app/layout/use/useQueueToggleKeybinding'
 import useManualScrollRestoration from '@app/navigator/use/useManualScrollRestoration'
+import useUiInteractionModeAttribute from '@app/ui/use/useUiInteractionModeAttribute'
 
 import FocusScopeGroupContext from '@app/ui/contexts/FocusScopeGroupContext'
 
@@ -40,7 +39,6 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => (
 const Wrapped = () => {
   useUiInteractionModeAttribute()
   useGlobalKeybindings()
-  useQueueToggleKeybinding()
   useManualScrollRestoration()
 
   const { handleContextMenu } = useDefaultContextMenu()

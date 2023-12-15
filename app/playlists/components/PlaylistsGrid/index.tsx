@@ -7,10 +7,9 @@ import Playlist from '@app/playlists/data/Playlist'
 import PlaylistsGridItem from '@app/playlists/components/PlaylistsGridItem'
 
 import usePlaylistActions from '@app/playlists/use/usePlaylistActions'
-import useFocusScopeContext from '@app/ui/use/useFocusScopeContext'
+import useFocusGroupActive from '@app/ui/use/useFocusGroupActive'
 import useItemGridNavigation from '@app/common/use/useItemGridNavigation'
 import useItemGridKeybindings from '@app/keybindings/use/useItemGridKeybindings'
-import useFocusScopeGroupContext from '@app/ui/use/useFocusScopeGroupContext'
 import usePlaylistsViewNavigation from '@app/playlists/views/PlaylistsView/use/usePlaylistsViewNavigation'
 import useFocusScopeGroupedKeybindings from '@app/keybindings/use/useFocusScopeGroupedKeybindings'
 
@@ -53,15 +52,12 @@ const PlaylistsGrid = (props: Props) => {
 
   const { remove } = usePlaylistActions()
 
-  const [focusScope] = useFocusScopeContext()
-
-  const focusScopeGroup = useFocusScopeGroupContext()
+  const isFocusGroupActive = useFocusGroupActive()
 
   return (
     <div ref={gridRef} className={styles.container}>
       <For of={props.items} body={(item) => {
-        const isSelected = item === itemGridNavigation.currentItem
-          && focusScope === focusScopeGroup
+        const isSelected = item === itemGridNavigation.currentItem && isFocusGroupActive
 
         return (
           <PlaylistsGridItem

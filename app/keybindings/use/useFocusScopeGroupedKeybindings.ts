@@ -1,14 +1,11 @@
 import useKeybindings from '@app/keybindings/use/useKeybindings'
-import useFocusScopeContext from '@app/ui/use/useFocusScopeContext'
-import useFocusScopeGroupContext from '@app/ui/use/useFocusScopeGroupContext'
+import useFocusGroupActive from '@app/ui/use/useFocusGroupActive'
 
 const useFocusScopeGroupedKeybindings: typeof useKeybindings = (handlers, options) => {
-  const [focusScope] = useFocusScopeContext()
-
-  const focusScopeGroup = useFocusScopeGroupContext()
+  const isFocusGroupActive = useFocusGroupActive()
 
   useKeybindings(handlers, {
-    disable: options?.disable || focusScope !== focusScopeGroup,
+    disable: options?.disable || !isFocusGroupActive,
   })
 }
 

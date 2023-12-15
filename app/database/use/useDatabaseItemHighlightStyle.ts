@@ -1,9 +1,7 @@
-import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
-
 import { HighlightStyle } from '@app/database/components/DatabaseItem'
 
-import useFocusScopeContext from '@app/ui/use/useFocusScopeContext'
-import useFocusScopeGroupContext from '@app/ui/use/useFocusScopeGroupContext'
+import useFocusGroupActive from '@app/ui/use/useFocusGroupActive'
+import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
 
 const useDatabaseItemHighlightStyle = ({
   isActive,
@@ -11,9 +9,7 @@ const useDatabaseItemHighlightStyle = ({
 }: { isActive: boolean, isFocusable: boolean }): Nullable<HighlightStyle> => {
   const uiInteractionMode = useUiInteractionModeContext()
 
-  const [focusScope] = useFocusScopeContext()
-
-  const focusScopeGroup = useFocusScopeGroupContext()
+  const isFocusGroupActive = useFocusGroupActive()
 
   if (!isFocusable) {
     return 'muted'
@@ -23,7 +19,7 @@ const useDatabaseItemHighlightStyle = ({
     return 'secondary'
   }
 
-  if (focusScope !== focusScopeGroup) {
+  if (!isFocusGroupActive) {
     return null
   }
 
