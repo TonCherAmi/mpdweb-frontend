@@ -14,6 +14,8 @@ import useFocusScopeGroupContext from '@app/ui/use/useFocusScopeGroupContext'
 import usePlaylistsViewNavigation from '@app/playlists/views/PlaylistsView/use/usePlaylistsViewNavigation'
 import useFocusScopeGroupedKeybindings from '@app/keybindings/use/useFocusScopeGroupedKeybindings'
 
+import { calculateRowLength } from './utils'
+
 import styles from './styles.scss'
 
 interface Props {
@@ -27,30 +29,16 @@ const PlaylistsGrid = (props: Props) => {
 
   const { goTo } = usePlaylistsViewNavigation()
 
-  const calculateRowLength = (): number => {
-    if (!gridRef.current || R.isEmpty(props.items)) {
+  const getRowLength = (): number => {
+    if (!gridRef.current) {
       return 0
     }
 
-    const gridElements = Array.from(gridRef.current.children)
-
-    const topRowElement = R.head(gridElements) as Nullable<HTMLElement>
-
-    if (R.isNil(topRowElement)) {
-      return 0
-    }
-
-    const topRowOffset = topRowElement.offsetTop
-
-    const secondRowElementIndex = gridElements.findIndex((element) => (
-      (element as HTMLElement).offsetTop > topRowOffset
-    ))
-
-    return secondRowElementIndex === -1 ? props.items.length : secondRowElementIndex
+    return calculateRowLength(gridRef.current, props.items)
   }
 
   useItemGridKeybindings(itemGridNavigation, {
-    calculateRowLength,
+    getRowLength,
   })
 
   useFocusScopeGroupedKeybindings({
@@ -71,13 +59,18 @@ const PlaylistsGrid = (props: Props) => {
 
   return (
     <div ref={gridRef} className={styles.container}>
-      <For of={props.items} body={(item) => (
-        <PlaylistsGridItem
-          isSelected={item === itemGridNavigation.currentItem && focusScope === focusScopeGroup}
-          playlist={item}
-          onRemoveClick={remove}
-        />
-      )} />
+      <For of={props.items} body={(item) => {
+        const isSelected = item === itemGridNavigation.currentItem
+          && focusScope === focusScopeGroup
+
+        return (
+          <PlaylistsGridItem
+            isSelected={isSelected}
+            playlist={item}
+            onRemoveClick={remove}
+          />
+        )
+      }} />
     </div>
   )
 }

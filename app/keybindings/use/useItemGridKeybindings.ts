@@ -9,12 +9,12 @@ const ITEM_GRID_NAVIGATION_KEYPRESS_REPEAT_WAIT_MS = 25
 
 interface Options {
   disable?: boolean
-  calculateRowLength: () => number
+  getRowLength: () => number
 }
 
 const useItemGridKeybindings = <T> (itemGridNavigation: ItemGridNavigation<T>, {
   disable = false,
-  calculateRowLength,
+  getRowLength,
 }: Options) => {
   const uiInteractionMode = useUiInteractionModeContext()
 
@@ -23,7 +23,7 @@ const useItemGridKeybindings = <T> (itemGridNavigation: ItemGridNavigation<T>, {
       uiInteractionMode.setKeyboard()
     }
 
-    itemGridNavigation.goToItemBelow(calculateRowLength())
+    itemGridNavigation.goToItemBelow(getRowLength())
   }, ITEM_GRID_NAVIGATION_KEYPRESS_REPEAT_WAIT_MS)
 
   const handleItemAboveKeyPress = useThrottle(() => {
@@ -31,7 +31,7 @@ const useItemGridKeybindings = <T> (itemGridNavigation: ItemGridNavigation<T>, {
       uiInteractionMode.setKeyboard()
     }
 
-    itemGridNavigation.goToItemAbove(calculateRowLength())
+    itemGridNavigation.goToItemAbove(getRowLength())
   }, ITEM_GRID_NAVIGATION_KEYPRESS_REPEAT_WAIT_MS)
 
   const handlers = {
