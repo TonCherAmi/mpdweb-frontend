@@ -1,13 +1,14 @@
 import React, { useState, useCallback, useLayoutEffect } from 'react'
 
-import Thunk from '@app/common/types/Thunk'
-
 import * as R from 'ramda'
+
+import Thunk from '@app/common/types/Thunk'
 
 export interface ItemListNavigation<T> {
   isEmpty: boolean
   isInitial: boolean
   currentItem: Nullable<T>
+  currentItemIndex: Nullable<number>
   goToNextItem: Thunk
   goToPrevItem: Thunk
   goToFirstItem: Thunk
@@ -16,18 +17,28 @@ export interface ItemListNavigation<T> {
   setCurrentItemIndex: React.Dispatch<React.SetStateAction<number>>
 }
 
+interface Options {
+  listChangeBehavior?: 'reset' | 'keep'
+}
+
 const INITIAL_INDEX = -1
 
 const isInitial = R.equals(INITIAL_INDEX)
 
-const useItemListNavigation = <T> (
-  items: ReadonlyArray<T>
-): ItemListNavigation<T> => {
+const useItemListNavigation = <T>(items: ReadonlyArray<T>, {
+  listChangeBehavior = 'reset',
+}: Options = {}): ItemListNavigation<T> => {
   const [currentItemIndex, setCurrentItemIndex] = useState(INITIAL_INDEX)
 
   useLayoutEffect(() => {
-    setCurrentItemIndex(INITIAL_INDEX)
-  }, [items])
+    if (listChangeBehavior === 'reset') {
+      setCurrentItemIndex(INITIAL_INDEX)
+    } else if (listChangeBehavior === 'keep') {
+      setCurrentItemIndex((currentItemIndex) => (
+        Math.min(currentItemIndex, items.length - 1)
+      ))
+    }
+  }, [items, listChangeBehavior])
 
   const isEmpty = R.isEmpty(items)
 
@@ -92,6 +103,7 @@ const useItemListNavigation = <T> (
     isEmpty,
     isInitial: isInitial(currentItemIndex),
     currentItem,
+    currentItemIndex: R.isNil(currentItemIndex) ? null : currentItemIndex,
     goToNextItem,
     goToPrevItem,
     goToFirstItem,

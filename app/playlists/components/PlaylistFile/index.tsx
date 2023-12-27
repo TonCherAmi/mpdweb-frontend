@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, forwardRef } from 'react'
 
 import cx from 'classnames'
 
@@ -16,56 +16,66 @@ import usePlaylistFileContextMenu from './use/usePlaylistFileContextMenu'
 import styles from './styles.scss'
 
 interface Props {
+  isFocused: boolean
   file: DatabaseFile
   position: number
   onClick: Handler<DatabaseFile>
   onRemoveClick: Handler<number>
 }
 
-const PlaylistFile = memo(({ file, position, onClick, onRemoveClick }: Props) => {
-  const handleClick = () => {
-    onClick(file)
-  }
-
-  const { handleContextMenu } = usePlaylistFileContextMenu({
+const PlaylistFile = memo(
+  forwardRef<HTMLDivElement, Props>(({
+    isFocused,
     file,
     position,
+    onClick,
     onRemoveClick,
-  })
+  }, ref) => {
+    const handleClick = () => {
+      onClick(file)
+    }
 
-  const tags = formatDatabaseTags(file.tags)
+    const { handleContextMenu } = usePlaylistFileContextMenu({
+      file,
+      position,
+      onRemoveClick,
+    })
 
-  return (
-    <div
-      className={styles.container}
-      onClick={handleClick}
-      onContextMenu={handleContextMenu}
-    >
-      <DatabaseCoverArt
-        className={styles.cover}
-        fallbackIconClassName={styles.icon}
-        uri={file.uri}
-      />
-      <div className={styles.tags}>
-        <div className={cx(styles.tag, styles.title)}>
+    const tags = formatDatabaseTags(file.tags)
+
+    return (
+      <div
+        ref={ref}
+        className={cx(styles.container, { [styles.focused]: isFocused })}
+        onClick={handleClick}
+        onContextMenu={handleContextMenu}
+      >
+        <DatabaseCoverArt
+          className={styles.cover}
+          fallbackIconClassName={styles.icon}
+          uri={file.uri}
+        />
+        <div className={styles.tags}>
+          <div className={cx(styles.tag, styles.title)}>
           <span title={getOrPlaceholder(tags.title)}>
             {getOrPlaceholder(tags.title)}
           </span>
-        </div>
-        <div className={cx(styles.tag, styles.artist)}>
+          </div>
+          <div className={cx(styles.tag, styles.artist)}>
           <span title={getOrPlaceholder(tags.artist)}>
             {getOrPlaceholder(tags.artist)}
           </span>
-        </div>
-        <div className={cx(styles.tag, styles.album)}>
+          </div>
+          <div className={cx(styles.tag, styles.album)}>
           <span title={getOrPlaceholder(tags.album)}>
             {getOrPlaceholder(tags.album)}
           </span>
+          </div>
         </div>
+        <Duration className={styles.duration} value={file.duration} />
       </div>
-      <Duration className={styles.duration} value={file.duration} />
-    </div>
-  )
-})
+    )
+  })
+)
 
 export default PlaylistFile

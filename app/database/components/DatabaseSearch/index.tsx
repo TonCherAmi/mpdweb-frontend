@@ -12,13 +12,14 @@ import useCache from '@app/common/use/useCache'
 import useInput from '@app/common/use/useInput'
 import useDebounce from '@app/common/use/useDebounce'
 import useRemoteList from '@app/common/use/useRemoteList'
-import useItemListNavigation from '@app/common/use/useItemListNavigation'
 import useQueueActions from '@app/queue/use/useQueueActions'
 import useRouteNavigation from '@app/common/use/useRouteNavigation'
-import useDatabaseActions from '@app/database/use/useDatabaseActions'
+import usePositionedListItem from '@app/common/use/usePositionedListItem'
+import useItemListNavigation from '@app/common/use/useItemListNavigation'
 import useItemListKeybindings from '@app/keybindings/use/useItemListKeybindings'
 import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
 import useDatabaseItemHighlightStyle from '@app/database/use/useDatabaseItemHighlightStyle'
+import useDatabaseItemListKeybindings from '@app/database/use/useDatabaseItemListKeybindings'
 import useFocusScopeGroupedKeybindings from '@app/keybindings/use/useFocusScopeGroupedKeybindings'
 import useUiInteractionModeAwareWheelEventHandler from '@app/ui/use/useUiInteractionModeAwareWheelEventHandler'
 import useUiInteractionModeAwareMouseEventHandler from '@app/ui/use/useUiInteractionModeAwareMouseEventHandler'
@@ -26,8 +27,6 @@ import useUiInteractionModeAwareMouseEventHandler from '@app/ui/use/useUiInterac
 import { route as DatabaseViewRoute } from '@app/database/views/DatabaseView'
 
 import DatabaseApi from '@app/database/api'
-
-import usePositionedDatabaseItemRef from './use/usePositionedDatabaseItemRef'
 
 import styles from './styles.scss'
 
@@ -116,9 +115,14 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
     cache.currentItem = itemListNavigation.currentItem
   }, [cache, itemListNavigation.currentItem])
 
-  const itemRef = usePositionedDatabaseItemRef(itemListNavigation.currentItem)
+  const itemRef = useRef<HTMLDivElement>(null)
 
-  const getDatabaseItemRef = (item: DatabaseItemData): Nullable<typeof itemRef> => {
+  usePositionedListItem({
+    ref: itemRef,
+    key: itemListNavigation.currentItem,
+  })
+
+  const getItemRef = (item: DatabaseItemData): Nullable<typeof itemRef> => {
     if (item !== itemListNavigation.currentItem) {
       return null
     }
@@ -207,7 +211,6 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
     }
   }
 
-  const { update } = useDatabaseActions()
   const { add, replace } = useQueueActions()
 
   const handleAdd = useCallback((item: DatabaseItemData) => {
@@ -218,34 +221,14 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
     replace([item])
   }, [replace])
 
+  useItemListKeybindings(itemListNavigation)
+  useDatabaseItemListKeybindings(itemListNavigation)
+
   useFocusScopeGroupedKeybindings({
-    ADD: () => {
-      if (R.isNil(itemListNavigation.currentItem)) {
-        return
-      }
-
-      add([itemListNavigation.currentItem])
-    },
-    PLAY: () => {
-      if (R.isNil(itemListNavigation.currentItem)) {
-        return
-      }
-
-      replace([itemListNavigation.currentItem])
-    },
     SEARCH_FOCUS: handleSearchFocusKeyPress,
     ENTER: handleDescentKeyPress,
     NAVIGATE_RIGHT: handleDescentKeyPress,
-    DATABASE_UPDATE_AT_POINT: () => {
-      if (R.isNil(itemListNavigation.currentItem)) {
-        return
-      }
-
-      update(itemListNavigation.currentItem.uri)
-    },
   })
-
-  useItemListKeybindings(itemListNavigation)
 
   const containerWheelHandler = useUiInteractionModeAwareWheelEventHandler()
   const containerMouseMoveHandler = useUiInteractionModeAwareMouseEventHandler()
@@ -272,7 +255,7 @@ const DatabaseSearch = memo(({ onSuccess }: Props) => {
           <For of={items} body={(item) => (
             <DatabaseItem
               key={item.uri}
-              ref={getDatabaseItemRef(item)}
+              ref={getItemRef(item)}
               item={item}
               highlightStyle={getDatabaseItemHighlightStyle(item)}
               onClick={handleDescent}

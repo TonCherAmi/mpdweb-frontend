@@ -9,10 +9,18 @@
 
   border-radius: .75rem;
 
-  transition: .3s background-color;
+  scroll-margin-bottom: .5rem;
+
+  @include ui.interaction-mode('keyboard') {
+    &.focused {
+      background: #242424;
+    }
+  }
 
   @include ui.interaction-mode('mouse') {
     cursor: pointer;
+
+    transition: .3s background-color;
 
     &:hover {
       background: #1d1d1d;

@@ -1,21 +1,22 @@
-import { useRef, useEffect, RefObject, useLayoutEffect } from 'react'
+import React, { useRef, useEffect, useLayoutEffect } from 'react'
 
 import * as R from 'ramda'
 
-import DatabaseItem from '@app/database/data/DatabaseItem'
-
 import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
 
-const usePositionedDatabaseItemRef = (currentItem: Nullable<DatabaseItem>): RefObject<HTMLDivElement> => {
-  const itemRef = useRef<HTMLDivElement>(null)
+interface Options {
+  key: unknown
+  ref: React.RefObject<HTMLDivElement>
+}
 
+const usePositionedListItem = ({ key, ref }: Options) => {
   const scrollLogicalPositionRef = useRef<Nullable<ScrollLogicalPosition>>(null)
 
   const uiInteractionMode = useUiInteractionModeContext()
 
   useLayoutEffect(() => {
     scrollLogicalPositionRef.current = 'nearest'
-  }, [currentItem])
+  }, [key])
 
   useLayoutEffect(() => {
     if (uiInteractionMode.isKeyboard) {
@@ -29,15 +30,13 @@ const usePositionedDatabaseItemRef = (currentItem: Nullable<DatabaseItem>): RefO
 
   useLayoutEffect(() => {
     if (!R.isNil(scrollLogicalPositionRef.current)) {
-      itemRef.current?.scrollIntoView({ block: scrollLogicalPositionRef.current })
+      ref.current?.scrollIntoView({ block: scrollLogicalPositionRef.current })
     }
   })
 
   useEffect(() => {
     scrollLogicalPositionRef.current = null
   })
-
-  return itemRef
 }
 
-export default usePositionedDatabaseItemRef
+export default usePositionedListItem
