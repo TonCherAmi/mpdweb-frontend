@@ -8,6 +8,7 @@ import Thunk from '@app/common/types/Thunk'
 import Handler from '@app/common/types/Handler'
 
 import DatabaseItemData from '@app/database/data/DatabaseItem'
+import DatabaseItemLabel from '@app/labels/data/api/DatabaseItemLabel'
 
 import * as Icons from '@app/common/icons'
 
@@ -25,19 +26,21 @@ export type HighlightStyle = 'muted' | 'primary' | 'secondary'
 
 interface Props {
   item: DatabaseItemData
+  favoriteLabel?: Nullable<DatabaseItemLabel>
   highlightStyle: Nullable<HighlightStyle>
   onClick?: Handler<DatabaseItemData>
-  onAddClick?: Handler<DatabaseItemData>
-  onPlayClick?: Handler<DatabaseItemData>
+  onFavoriteClick: Handler<string>
+  onUnfavoriteClick: Handler<string>
 }
 
 const DatabaseItem = memo(
   forwardRef<HTMLDivElement, Props>(({
     item,
+    favoriteLabel,
     highlightStyle,
     onClick,
-    onAddClick,
-    onPlayClick,
+    onFavoriteClick,
+    onUnfavoriteClick,
   }, ref) => {
     const withItem = (fn: Nullable<Handler<DatabaseItemData>>): Thunk => {
       return () => {
@@ -49,14 +52,6 @@ const DatabaseItem = memo(
 
     const handleClick = withItem(
       !isClickable ? null : onClick
-    )
-
-    const handleAddClick = withPropagationStopped(
-      withItem(onAddClick)
-    )
-
-    const handlePlayClick = withPropagationStopped(
-      withItem(onPlayClick)
     )
 
     const containerClassName = cx(styles.container, {
@@ -73,6 +68,18 @@ const DatabaseItem = memo(
     const name = basename(item.uri)
 
     const { handleContextMenu } = useDatabaseItemContextMenu(item)
+
+    const handleFavoriteClick = withPropagationStopped(() => {
+      if (!R.isNil(favoriteLabel)) {
+        onUnfavoriteClick(favoriteLabel.id)
+
+        return
+      }
+
+      onFavoriteClick(item.uri)
+    })
+
+    const FavoriteIcon = favoriteLabel ? Icons.HeartFill : Icons.Heart
 
     return (
       <div
@@ -91,11 +98,8 @@ const DatabaseItem = memo(
           {name}
         </span>
         <div className={styles.controls}>
-          <Button className={styles.button} onClick={handleAddClick}>
-            <Icons.PlusSquareFill className={cx(styles.icon, styles.add)} />
-          </Button>
-          <Button className={styles.button} onClick={handlePlayClick}>
-            <Icons.PlayFill className={cx(styles.icon, styles.replace)} />
+          <Button className={styles.button} onClick={handleFavoriteClick}>
+            <FavoriteIcon className={cx(styles.icon, styles.favorite, { [styles.is]: !R.isNil(favoriteLabel) })} />
           </Button>
         </div>
       </div>

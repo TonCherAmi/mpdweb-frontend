@@ -9,8 +9,10 @@ import ContextMenuProvider from '@app/ui/providers/ContextMenuProvider'
 import KeybindingsProvider from '@app/keybindings/providers/KeybindingsProvider'
 import UiInteractionModeProvider from '@app/ui/providers/UiInteractionModeProvider'
 import CurrentSongElapsedProvider from '@app/status/providers/CurrentSongElapsedProvider'
+import DatabaseItemLabelsProvider from '@app/labels/providers/DatabaseItemLabelsProvider'
 
 const providers = [
+  DatabaseItemLabelsProvider,
   VolumeProvider,
   CurrentSongElapsedProvider,
   ModalProvider,

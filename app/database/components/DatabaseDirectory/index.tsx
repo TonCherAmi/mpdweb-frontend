@@ -11,8 +11,10 @@ import DatabaseDirectorySearchInput from '@app/database/components/DatabaseDirec
 
 import useItemSearch from '@app/common/use/useItemSearch'
 import useQueueActions from '@app/queue/use/useQueueActions'
-import useItemListNavigation from '@app/common/use/useItemListNavigation'
+import useFavoritesByUri from '@app/labels/use/useFavoritesByUri'
 import useDatabaseActions from '@app/database/use/useDatabaseActions'
+import useFavoritesActions from '@app/labels/use/useFavoritesActions'
+import useItemListNavigation from '@app/common/use/useItemListNavigation'
 import useItemListKeybindings from '@app/keybindings/use/useItemListKeybindings'
 import useUiInteractionModeContext from '@app/ui/use/useUiInteractionModeContext'
 import useDatabaseItemHighlightStyle from '@app/database/use/useDatabaseItemHighlightStyle'
@@ -173,13 +175,9 @@ const DatabaseDirectory = memo(({
   const { update } = useDatabaseActions()
   const { add, replace } = useQueueActions()
 
-  const handleAdd = useCallback((item: DatabaseItemData) => {
-    add([item])
-  }, [add])
+  const { favorite, unfavorite } = useFavoritesActions();
 
-  const handleReplace = useCallback((item: DatabaseItemData) => {
-    replace([item])
-  }, [replace])
+  const favoritesByUri = useFavoritesByUri();
 
   useFocusScopeGroupedKeybindings({
     ADD: () => add([currentItem]),
@@ -211,34 +209,37 @@ const DatabaseDirectory = memo(({
   const currentItems = isSearchHidden ? items : itemSearch.results
 
   return (
-    <div ref={handleRef} className={styles.container}>
-      <If condition={!isSearchHidden}>
-        <DatabaseDirectorySearchInput
-          autofocus
-          ref={searchInputRef}
-          value={itemSearch.input.value}
-          onExit={handleSearchExit}
-          onCancel={handleSearchCancel}
-          onAccept={handleDescent}
-          onBlur={handleSearchBlur}
-          onFocus={handleSearchFocus}
-          onChange={itemSearch.input.handleChange}
-        />
-      </If>
-      <div className={styles.scrollable}>
-        <For of={currentItems} body={(item) => (
-          <DatabaseItem
-            key={item.uri}
-            ref={getDatabaseItemRef(item)}
-            item={item}
-            highlightStyle={getDatabaseItemHighlightStyle(item)}
-            onClick={onDescent}
-            onAddClick={handleAdd}
-            onPlayClick={handleReplace}
+    <React.Fragment>
+      <div ref={handleRef} className={styles.container}>
+        <If condition={!isSearchHidden}>
+          <DatabaseDirectorySearchInput
+            autofocus
+            ref={searchInputRef}
+            value={itemSearch.input.value}
+            onExit={handleSearchExit}
+            onCancel={handleSearchCancel}
+            onAccept={handleDescent}
+            onBlur={handleSearchBlur}
+            onFocus={handleSearchFocus}
+            onChange={itemSearch.input.handleChange}
           />
-        )} />
+        </If>
+        <div className={styles.scrollable}>
+          <For of={currentItems} body={(item) => (
+            <DatabaseItem
+              key={item.uri}
+              ref={getDatabaseItemRef(item)}
+              item={item}
+              favoriteLabel={favoritesByUri[item.uri]}
+              highlightStyle={getDatabaseItemHighlightStyle(item)}
+              onClick={onDescent}
+              onFavoriteClick={favorite}
+              onUnfavoriteClick={unfavorite}
+            />
+          )} />
+        </div>
       </div>
-    </div>
+    </React.Fragment>
   )
 })
 

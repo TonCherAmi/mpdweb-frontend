@@ -3,12 +3,12 @@
 
 %button-styles {
   .controls .button {
-    .icon {
+    .icon:not(.favorite) {
       color: #999;
     }
 
     &:hover {
-      .icon {
+      .icon:not(.favorite) {
         color: #cecece;
       }
     }
@@ -44,6 +44,14 @@
   @include ui.interaction-mode('mouse') {
     &:hover {
       @extend %button-styles;
+
+      .icon.favorite {
+        color: #FF3E41;
+
+        &:hover {
+          color: #F50004;
+        }
+      }
     }
   }
 
@@ -115,6 +123,14 @@
 
     &.add, &.replace {
       color: #555;
+    }
+
+    &.is.favorite {
+      color: #FF3E41;
+    }
+
+    &:not(.is).favorite {
+      color: transparent;
     }
 
     &.type {
